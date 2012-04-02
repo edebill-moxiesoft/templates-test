@@ -1,0 +1,16 @@
+{% if blank_page.current_user_can_contribute? %}
+  {% menu %}
+    {% submenu Add a Page, #, add_page_link %}
+      <li class="icon_menu_item">{{ site.blog_label | link_to_wizard_add_page: 'Blog', blank_page.guid }}</li>
+      <li class="icon_menu_item">{{ site.discussion_archive_label | link_to_wizard_add_page: 'DiscussionArchive', blank_page.guid }}</li>
+      <li class="icon_menu_item">{{ site.ideastorm_label | link_to_wizard_add_page: 'Ideastorm', blank_page.guid }}</li>
+      <li class="icon_menu_item">{{ site.calendar_label | link_to_wizard_add_page: 'Calendar', blank_page.guid }}</li>
+      <li class="icon_menu_item">{{ site.document_library_label | link_to_wizard_add_page: 'DocumentLibrary', blank_page.guid }}</li>
+      <li class="icon_menu_item">{{ site.wiki_label | link_to_wizard_add_page: 'Wiki', blank_page.guid }}</li>
+      <li class="icon_menu_item">{{ site.task_list_label | link_to_wizard_add_page: 'TaskList', blank_page.id }}</li>
+      <li class="icon_menu_item last">{{ site.blank_page_label | link_to_wizard_add_page: 'BlankPage', blank_page.guid }}</li>
+    {% endsubmenu %}
+  {% endmenu %}
+{% endif %}
+
+

@@ -1,0 +1,16 @@
+<div class='section unit js_filtered'>
+
+  <div class='section unit_body '>
+    <ol class="blogs item_list js_filter_body">
+      {% if blogs == empty %}
+        <p><em>No Blogs Yet</em></p>
+      {% else %}
+        {% for blog in blogs %}
+          {% include 'blogs/summary' %}
+        {% endfor %}
+      {% endif %}
+    </ol>
+  </div>
+  
+  {% more blogs %}
+</div>

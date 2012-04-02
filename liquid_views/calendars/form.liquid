@@ -1,0 +1,11 @@
+{% form for 'calendar' multipart: true class: 'formtastic calendar' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'calendars/form_inputs' form_object: calendar %}      
+    {% endform_fields %}
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: calendar %}
+    {% endform_fields %}
+  </div>
+{% endform %}

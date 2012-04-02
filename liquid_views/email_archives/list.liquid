@@ -1,0 +1,64 @@
+<table class="documents item_list ">  
+  {% if show_weird_header %}
+  <thead>
+  <tr>
+    <th>&nbsp;</th>
+    <th>{{ site.document_label }}</th>
+    <th>Added</th>
+    {% if all_docs_view %}
+      <th>{{ site.document_library_label }}</th>
+    {% else %}
+      <th>Updated</th>
+    {% endif %}
+    <th>&nbsp;</th>
+  </tr>
+  </thead>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% if documents != empty %}
+    {% for document in documents %}
+    <tr class="item document{% if forloop.last %} last{% endif %}">
+      <td>
+        <a href="{{document.show_path}}">
+          <img src="{{document.tiny_avatar_url}}" class="file_thumbnail"/>
+        </a>
+      </td>
+      <td>
+        <a href="{{document.show_path}}" title="{{document.name}}">{{ document.name | truncate: 25 }}</a>
+        <br/>
+        {{ document.friendly_file_type }} &middot; {{ document.file_size | number_to_filesize }}
+        <br/>
+        {{ document.body | truncatewords: 15 }}
+      </td>
+      <td>{{ document.created_at | date: "%B %d, %Y" }}</td>
+      
+      {% if all_docs_view %}
+        <td>{{ document.parent_or_creator_link }}</td>
+      {% else %}
+        <td>
+        {% if document.versions_count > 1%}
+          {{ document.updated_at | date: "%B %d, %Y" }}
+        {% endif %}
+        </td>
+      {% endif %}
+      
+      <td>
+        <a href="{{ document.file_path }}" class="file_details">Download</a>
+      </td>
+    </tr>
+    {% endfor %}
+
+  {% else %}
+    <tr>
+      <td><em>No {{ site.document_label | plural | downcase }} yet</em></td>
+    </tr>
+
+  {% endif %}
+  </tbody>
+
+</table>
+
+{% if all_documents and all_documents != empty %}
+  {% paginate all_documents %}
+{% endif %}

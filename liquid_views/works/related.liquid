@@ -1,0 +1,26 @@
+<div class="header">
+  <h3>Related {{ site.work_label | plural }}</h3>
+</div>
+<div class="section">
+
+  {% if works == empty %}
+    <p>
+      <em>no {{ site.work_label | plural | downcase }} available</em>
+    </p>
+  {% else %}
+
+    <ol>
+      {% for work in works %}
+      <li class="item">
+        <a href="{{ work.show_path }}">{{ work.small_avatar }}</a>
+        {{ work.link_to_show }}
+      </li>
+      {% endfor %}
+    </ol>
+    {% if more_works > 0 %}
+      <a href="/works?order=my" class="more_link">{{ more_works }} more</a>
+    {% endif %}
+
+  {% endif %}
+
+</div>

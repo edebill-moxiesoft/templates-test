@@ -1,0 +1,61 @@
+{% if item_collection %}
+<div id='item_collection_show' class="section unit_summary">
+  <div class="content_bar_hat">
+    {% if item_collection.current_user_can_contribute? %}
+    <div class='content_bar one_button'>
+      <div class='section main'></div>
+      <div class='section sidebar'>
+        <div class='menu'>
+          {% if item_collection.current_user_can_admin? %}
+            {{ item_collection.edit_link }}
+          {% endif %}
+        </div>
+      </div>
+      <div class='clear'></div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class='section main blog'>
+    <div class="header" id="blog_header">
+      <h1>  
+        {{ item_collection.title }}
+      </h1>
+    </div>
+  </div>
+
+  <div class='section sidebar'>
+    &nbsp;
+  </div>
+
+  <div class='clear'></div>
+
+
+  <div class='section main item_collection js_filtered'>
+    <table class="item_references_table">
+    {% for item in item_collection.item_references %}
+      <tr>
+        <td{% unless item.has_avatar? %} class="no_avatar"{% endunless %}><a href="{{ item.show_path }}">
+        {% if item.has_avatar? %}
+          {{ item.small_avatar }}
+        {% else %}
+          <div class="no_avatar">no image</div>
+        {% endif %}
+        </a></td>
+        <td><a href="{{ item.show_path }}">{{ item.title }}</a></td>
+        <td>{{ item.site_label }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+  </div>
+
+  <div class='section sidebar'>
+    &nbsp;
+  </div>
+</div>
+
+{% if wizard_launch %}
+  <a href="{{ item_collection.show_path_shallow }}/new_content" title="Congratulations" data-width="300" data-height="300" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+
+{% endif %}

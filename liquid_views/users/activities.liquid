@@ -1,0 +1,19 @@
+{% if user %}
+<div id='user_activities' class='section'>
+
+  <div class='section main user header'>
+      {% include 'users/user_header' parent: user hide_details: true %}
+  </div>
+
+  <div class='clear'></div>
+
+  <div class='section main'>  
+    {% user_activities limit 10 for user %}
+  </div>
+
+  <div class='section sidebar'>
+    {% pages_listing for: user %}
+  </div>
+
+</div>
+{% endif %}

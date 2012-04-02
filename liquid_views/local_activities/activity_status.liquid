@@ -1,0 +1,18 @@
+<div class='body'>
+  <div class="user_link">
+    {{ activity.creator.link_to_show }}
+  </div>
+
+  {% if activity.user_attentions != empty or activity.group_attentions != empty or activity.project_attentions != empty  or activity.task_attentions != empty or activity.work_attentions != empty or activity.client_attentions != empty %}
+  <div class="attention">
+    <span class="attn">To:</span>
+    {{ activity.attention_links }}
+  </div>
+  {% endif %}
+
+  <div class="activity_title">
+    {{ activity.title_auto_linked }}
+  </div>
+
+
+</div>

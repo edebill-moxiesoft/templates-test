@@ -1,0 +1,12 @@
+<div class="aside wiki_pages">
+    <div class='header'>
+        <h3>Navigation</h3>
+    </div>
+    <div class="section">
+        <ol>
+            {% for wiki_page in wiki_pages %}
+            <li class="item"><a href="{{wiki_page.show_path}}">{{ wiki_page.title }}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>

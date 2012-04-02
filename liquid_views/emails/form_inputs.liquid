@@ -1,0 +1,9 @@
+<div class='message_top'>
+  <em>Title and Current Location of {{ site.email_label | downcase }}s are not modifiable.</em>
+</div>
+
+{% input for 'title' label: 'Title' required: 'true' disabled: 'true' %}
+
+{% unless form_object.parent_id == null %}
+  {% input for 'parent_id' as: 'hidden' %}
+{% endunless %}

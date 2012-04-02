@@ -1,0 +1,28 @@
+<div class="header">
+  <h3>Recent Winners</h3>
+</div>
+<div class="section">
+
+  {% if ideastorms == empty %}
+    <p>
+      <em>no items available</em>
+    </p>
+  {% else %}
+
+    <ol>
+      {% for ideastorm in ideastorms %}
+
+      {% assign top_idea = ideastorm.top_idea %}
+
+      <li class="item">
+        {{ top_idea.creator.small_avatar }}
+        {{ top_idea.creator.link_to_profile }}
+        has the winning idea for
+        {{ ideastorm.link_to_show_with_container_class }}
+      </li>
+      {% endfor %}
+    </ol>
+
+  {% endif %}
+
+</div>

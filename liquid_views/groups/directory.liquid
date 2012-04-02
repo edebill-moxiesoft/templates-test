@@ -1,0 +1,75 @@
+<div id="groups_directory">
+  <div class="content_bar_hat">
+    <div class='content_bar'>
+      <div class='section main'></div>
+      <div class='section sidebar'>
+        <div class='menu popdown-menu'>
+          {% include 'menus/group_index_add' %}
+          <div class='clear'></div>
+        </div>
+      </div>
+      <div class='clear'></div>
+    </div>
+  </div>
+
+  <div class='header'>
+    <div class="view_picker">
+      <a class="directory" href="/groups/directory" title="Directory View"><img src="/images/listing_on.png"></a>
+      <a class="tree" href="/categories/directory" title="Tree View"><img src="/images/directory_off.png"></a>
+    </div>
+    <h1>{{ site.group_label | plural }} Directory</h1>
+  </div>
+  <div class='section main fullwidth'>
+    <div class="starts_with_filter">
+      <a href="/groups/directory" class="all {% if starts_with == '' %}active{% endif %}">All</a>
+      <a href="/groups/directory?starts_with=1" class="number {% if starts_with == '1' %}active{% endif %}">0-9</a>
+      {% for letter in range %}
+        <a href="/groups/directory?starts_with={{ letter }}" class="{% if starts_with == letter%}active{% endif %}">{{ letter }}</a>
+      {% endfor %}
+      <a href="/groups/directory?starts_with=@" class="{% if starts_with == '@' %}active{% endif %}">@</a>
+      
+    </div>
+
+    <ol class="groups_list">
+      {% for letter in order %}
+        <li class="letter_label">
+          <div>
+          {% if letter == '1' %}
+            0-9
+          {% elsif letter == '@' %}
+            @
+          {% else %}
+            {{ letter }}
+          {% endif %}
+          </div>
+          <ol class="groups_letter_list">
+          {% for group in alpha_nodes[letter] %}
+            <li class="group">
+              {{ group.link_to_show }}
+              {% if group.has_parent? %}
+                <span class="parent">({{ group.parent.link_to_show }})</span>
+              {% endif %}
+            </li>
+            {{ column_height[letter] | new_directory_column: forloop.index }}
+          {% endfor %}
+          </ol>
+        </li>
+      {% endfor %}
+    </ol>
+
+    <div class="top_pagination">
+      {% generate_pagination total: nodes_count limit: limit current_offset: offset next: '&raquo;' back: '&laquo;' %}
+      <a href="/groups/directory?offset={{ page_offset }}&starts_with={{starts_with}}" class="{{ current }}">{{ page }}</a>
+      {% endgenerate_pagination %}
+      <img class="inline_ind" src="/images/spaces_icons/follow_button_spinner.gif">
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+

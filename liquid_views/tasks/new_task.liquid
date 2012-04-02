@@ -1,0 +1,58 @@
+<div class="section new_task_control js_popdown">
+  <form action="{{ parent.new_task_path }}" method="post" class="popdown_form task_form" data-remote="true"
+        data-type="html" data-class="task">
+
+    <div class="control">
+      <input type="hidden" name="task[duration]" class="task_duration"/>
+      <input type="text" name="task[title]" class="hint task_title" title="Enter a {{ parent.task_word }}"/>
+      <div class="clear"></div>
+      <fieldset class="buttons">
+        <input type="submit" name="commit" class="create task_submit_button task_submit_button" value="Submit"/>
+        <img src="/images/blue_snake_spinner.gif" class="task_spinner" style="display:none"/>
+      </fieldset>
+
+      <div class="task_details">
+        <div class="duration">
+          <span>Duration</span>
+          <div class="text_date_picker" data-name="task[duration_string]"></div>
+        </div>
+
+        <fieldset class="due_date">
+          <label for="task_due_date">Due</label>
+          <input class="datepicker task_due_date" name="task[due_date]" type="text" />
+        </fieldset>
+
+        <a href="#" class="toggle_popdown who_link js_toggle_popdown">Who</a>
+        <div class="popdown_list singluar"></div>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="list_popdown">
+    <div class="header">
+      <input type="text" name="popdown_search" class="popdown_search" title="Search"/>
+
+      <h3>Project Contributors</h3>
+    </div>
+    <ol class="popdown_items">
+
+      {% if parent.contributors == empty %}
+      <li><em>Add members to the group to assign tasks</em></li>
+      {% else %}
+      <li class="category_block">
+        <ul>
+          {% for person in parent.contributors %}
+          <li class="user{% if forloop.last %} last{% endif %}">
+            {{ person.small_avatar }}
+            <a href="#" class="popdown_item user_link" data-type="assignee_id" data-id="{{ person.id }}">
+              {{ person.display_name }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %}
+    </ol>
+  </div>
+</div>

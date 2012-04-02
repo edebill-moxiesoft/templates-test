@@ -1,0 +1,76 @@
+<!-- IDEASTORM SHOW PAGE -->
+<div class='section group header'> 
+    {% include 'nodes/header' parent: ideastorm %}
+</div>
+
+<div id='ideastorm_show' class="section unit_summary">
+
+  <div class='section main ideastorm'>  
+
+    <div id="container_header">
+      {% capture primary_actions %}
+      {% if ideastorm.closed? %}
+        <ul class="primary_actions">
+          <li class="expiration expired">{{ ideastorm.open_until }}</li>
+        </ul>
+      {% else %}
+        {% if ideastorm.current_user_can_contribute? %}
+        <ul class="primary_actions">
+          <li class="add_idea_button">
+            <a href="#" class="add_link new_post_link">Add {{ site.idea_label | indefinitize }}</a>
+          </li>
+          <li class="expiration open">{{ ideastorm.open_until }}</li>
+        </ul>
+        {% endif %}
+      {% endif %}
+      {% endcapture %}
+      {% include 'nodes/page_header' parent: ideastorm %}
+      <div class="clear"></div>
+    </div>
+    <div class="node_details">
+      <h3>{{ ideastorm.subtitle }}</h3>    
+      <p class="slug">
+        <span class="author">by {{ ideastorm.link_to_owner }}</span>
+        <span class="date">on {{ ideastorm.creation_date }}</span>
+      </p>
+      <div class="user_content">{{ ideastorm.body }}</div>
+    </div>
+
+    {% unless ideastorm.closed? %}
+    {% if ideastorm.current_user_can_contribute? %}
+    {% include 'ideastorms/add_idea_form' %}
+    {% endif %}
+    {% endunless %}
+
+    {% ideas limit 10 implementation true %}
+  </div>
+
+  <div class='section sidebar'>
+  
+    {% pages_listing for: ideastorm %}
+  
+  
+    <div class='aside'>
+      {% activity for 'ideastorm' %}
+    </div>
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: ideastorm %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: ideastorm %}
+      </div>
+    </div>
+    <div class='aside ideastorm recommendations'>
+      {% recommendations for ideastorm %}
+    </div>
+
+
+  </div>
+</div>
+
+{% if wizard_launch %}
+  <a href="{{ ideastorm.show_path_shallow }}/new_content" title="Congratulations" data-width="300" data-height="300" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+
+  

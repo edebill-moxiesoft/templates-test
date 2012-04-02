@@ -1,0 +1,27 @@
+<div id="{{ collection_name }}_index" class="section full">
+  <div class="content_bar_hat"></div>
+
+  <div class="section main fullwidth js_filtered">
+    {% if subtype == 'location_groups' %}
+      {% assign label = site.location_group_label %}
+    {% elsif subtype == 'categories' %}
+      {% assign label = site.category_label %}
+    {% else %}
+      {% assign label = node_type_label %}
+    {% endif %}
+    
+    {% if subtype %}
+      {% assign tab = subtype %}
+    {% else %}  
+      {% assign tab = collection_name %}
+    {% endif %}
+    
+    {% include 'searches/controls' tab: tab label: label %}
+
+    {% search_results %}
+    {% if nodes_count > 0 %}
+      {% include 'search_results/showing_count' showing_count: nodes.size total_count: nodes_count %}
+      {% more nodes type_from_variable: collection_name search: true %}
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,136 @@
+<div class='section unit leaderboard ideastorm js_filtered'>
+  <div class='header'>
+    <div class='section filters'>
+      {% show_filters %}
+    </div>
+    <h2>{{ site.ideastorm_label | plural }}</h2>
+  </div>
+
+  <div class='section unit_body js_filter_body'>
+    {% if ideastorms == empty %}
+      <p>
+        <em>no {{ site.ideastorm_label | plural | downcase }} available</em>
+      </p>
+    {% else %}
+      <ol class='item_list'>
+        {% assign closed_label_hidden = true %}
+
+        {% for ideastorm in ideastorms %}
+          {% if sort == 'closed_date' %}
+
+            {% if forloop.index == 1 %}
+              {% if ideastorm.open? %}
+                <li><h3 class="ideastorm_separator">Open {{ site.ideastorm_label | plural }}</h3></li>
+              {% else %}
+                <li><h3 class="ideastorm_separator">Closed {{ site.ideastorm_label | plural }}</h3></li>
+                {% assign closed_label_hidden == false %}
+              {% endif %}
+            {% endif %}
+
+            {% if closed_label_hidden and ideastorm.closed? %}
+              <li><h3 class="ideastorm_separator">Closed {{ site.ideastorm_label | plural }}</h3></li>
+              {% assign closed_label_hidden == false %}
+            {% endif %}
+
+          {% endif %}
+          <li class='item'>
+            <div class='idea_count'>
+              {{ 'idea' | pluralize: ideastorm.ideas_count, 'ideas' }}
+            </div>
+            
+            {% if ideastorm.closed? %}
+              <h2>
+                {{ ideastorm.link_to_show }}
+                <p class="updated">
+                  Closed on {{ ideastorm.close_at | date: "%x" }}
+                </p>
+              </h2>
+              {% assign top_idea = ideastorm.top_idea %}
+              {% unless top_idea == blank %}
+              <div class="ideas_block">
+                <h3>Winning Idea</h3>
+                          
+                      <div class="creator">
+                        {{ top_idea.creator.small_avatar_with_link }}
+                      </div>
+                      <div class="idea {% if top_idea.implemented? %}implemented{% endif %}">
+                        {% if top_idea.implemented? %}<div class="implemented_text">Implemented</div>{% endif %}
+                        <div class="arrow">&nbsp;</div>
+                        <h3>
+                          <div class="likes_details">
+                            <a class='collab' href='{{top_idea.show_path}}'>
+                              <var class="likes_count">{{ top_idea.likes_count }}</var>
+                            </a>
+                            <span class="likes_link">{{ top_idea.likes_link }}</span>
+                          </div>
+                          <a href="{{top_idea.show_path}}">{{ top_idea.title }}</a>
+                          <div class="user_content">{{ top_idea.limited_body }}</div>
+                          <small>created in {{ top_idea.parent.link_to_show }}</small>
+                        </h3>
+                        <div class="details">
+                          <p class="slug">
+                            {{ top_idea.link_to_owner }},
+                            {{ top_idea.created_at | time_ago_in_words, 'ago'  }} ,
+                            tagged as: <span class="tags">{{ top_idea.tags_list }}</span>
+                            <a class='collab' href='{{top_idea.show_path}}'>
+                              <var class="replies_count" title="{{ top_idea.replies_count }} replies">{{ top_idea.replies_count }}</var>
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+              </div>
+              {% endunless %}
+                            
+              {% else %}
+                <h2>
+                  {{ ideastorm.link_to_show }}
+                  <p class='updated'>
+                    Accepting ideas through {{ ideastorm.close_at | date: "%x" }}
+                  </p>
+                </h2>
+                
+                <div class="ideas_block open_ideastorm">
+                <h3 class="idea_toggler {% if forloop.first %}open{% else %}closed{% endif %}">Top Ideas</h3>
+                  <ol class="item_list {% unless forloop.first %}hidden{% endunless %}">
+                    {% for idea in ideastorm.top_3_ideas %}
+
+                    <li class="item {% if forloop.last %}last{% endif %}">
+                      <div class="creator">
+                        {{ idea.creator.small_avatar_with_link }}
+                      </div>
+                      <div class="idea {% if idea.implemented? %}implemented{% endif %}">
+                        {% if idea.implemented? %}<div class="implemented_text">Implemented</div>{% endif %}
+                        <div class="arrow">&nbsp;</div>
+                        <h3>
+                          <div class="likes_details">
+                            <a class='collab' href='{{idea.show_path}}'>
+                              <var class="likes_count">{{ idea.likes_count }}</var>
+                            </a>
+                            <span class="likes_link">{{ idea.likes_link }}</span>
+                          </div>
+                          <a href="{{idea.show_path}}">{{ idea.title }}</a>
+                          <div class="user_content">{{ idea.limited_body }}</div>
+                          <small>created in {{ idea.parent.link_to_show }}</small>
+                        </h3>
+                        <div class="details">
+                          <p class="slug">
+                            {{ idea.link_to_owner }},
+                            {{ idea.created_at | time_ago_in_words, 'ago'  }} ,
+                            tagged as: <span class="tags">{{ idea.tags_list }}</span>
+                            <a class='collab' href='{{idea.show_path}}'>
+                              <var class="replies_count" title="{{ idea.replies_count }} replies">{{ idea.replies_count }}</var>
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                    {% endfor %}
+                  </ol>
+                </div>
+              {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+  </div>
+</div>

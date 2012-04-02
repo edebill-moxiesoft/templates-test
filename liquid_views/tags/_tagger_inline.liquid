@@ -1,0 +1,20 @@
+<div class='tagger'>
+  
+  {% if node.current_user_can_contribute? %}
+    <span class='list_label'>Tags:</span>
+    {% include 'tags/_editable_tag_words' node: node %}
+    <div class='clear'></div>  
+  
+    <div class='section'>
+      <div class='add js_tagger_form'>
+        <a href='#'><span class='add'>+</span> add tags</a>
+      </div>
+      {% include 'tags/_tagger_form' node: node %}
+    </div>
+  {% else %}
+    {% if node.has_tags %}
+      <span class='list_label'>Tags:</span>
+      {% include 'tags/_tag_words' node: node %}
+    {% endif %}
+  {% endif %}
+</div>

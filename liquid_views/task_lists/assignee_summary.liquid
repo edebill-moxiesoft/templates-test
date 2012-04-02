@@ -1,0 +1,23 @@
+{% if users == empty %}
+<p>
+  <em>no users assigned</em>
+</p>
+{% else %}
+<ol class="item_list">
+  {% for user in users limit: limit %}
+  <li class="item {% if forloop.last %}last{% endif %}">
+
+    <a href="{{ user.show_path }}" class="face">{{ user.small_avatar }}</a>
+
+    <p class="details">
+      <a href="{{ user.show_path }}" class="user_link">{{ user.display_name }}</a>
+    </p>
+  </li>
+  {% endfor %}
+</ol>
+{% endif %}
+{% if limit < users.size %}
+<div class="footer">
+  <a class='more_link' href='{{ task_list.assignees_url }}'>More</a>
+</div>
+{% endif %}

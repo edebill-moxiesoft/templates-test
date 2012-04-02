@@ -1,0 +1,92 @@
+<div class='section unit activities js_activity_feed js_microblogger newsfeed'>
+  <div class='header'>
+    <h2 class="newsfeed"><a href="{{node.show_path}}/newsfeed">{{ site.newsfeed_label}}</a></h2>
+  </div>
+
+
+  <div class="section microblog_control">
+    {% microblogger attn 'node' %}
+  </div>
+
+  {% activity_feed_filters for 'node' %}
+
+  <a class="js_update_check" href="/activity/poller?attn_id={{ node.id }}&" data-type='json' data-cache='false'>
+    Check for Updates</a>
+  <a class="js_get_latest_activity" href="{{ node.show_path }}/newsfeed/latest?attn_id={{ node.id }}&page=chat&"
+     data-type='html'>Get Latest</a>
+
+  <div class="more_updates">
+    <a class="js_show_all_latest_activity">
+      <var></var>
+      <span class="js_singular"> new activity item - click to view</span>
+      <span class="js_plural"> new activity items - click to view</span>
+    </a>
+  </div>
+
+  <div class="unit_body">
+    <ol class="item_list activities js_filter_body" id="activities_feed">
+      {% for activity in activities %}
+      {% cache local_activity, activity, activity.parent, activity.closest_container, current_user, filter_by %}
+      {% include 'local_activities/activity' %}
+      {% endcache %}
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div class="footer">
+    <div class="paginate js_paginate">
+            <span class="indicator">
+              <div class='spinner'></div>
+            </span>
+      <a>More</a>
+    </div>
+  </div>
+  <div class="activity_comment_stub">
+    {% include 'local_activities/comment_form' %}
+  </div>
+
+</div>
+
+{% comment %}
+<div class='section unit activities js_activity_feed js_microblogger'>
+
+  <div class='header'>
+    <h2 class="newsfeed"><a href="{{node.show_path}}/newsfeed">{{ site.newsfeed_label}}</a></h2>
+  </div>
+
+  <div class="section microblog_control">
+    {% microblogger attn 'node' %}
+  </div>
+
+  <a class="js_update_check" href="/activity/poller?attn_id={{ node.id }}&" data-type='json' data-cache='false'>Check for
+    Updates</a>
+  <a class="js_get_latest_activity" href="{{ node.show_path }}/newsfeed/latest?attn_id={{ node.id }}&page=chat&"
+     data-type='html'>Get Latest</a>
+
+  <div class="more_updates">
+    <a class="js_show_all_latest_activity">
+      <var></var>
+      <span class="js_singular"> new activity item - click to view</span>
+      <span class="js_plural"> new activity items - click to view</span>
+    </a>
+  </div>
+
+
+  <div class="unit_body">
+    <ol class="item_list activities js_filter_body" id="activities_feed">
+      {% for activity in activities %}
+      {% include 'local_activities/activity' %}
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div class="footer">
+    <a href="{{node.show_path}}/newsfeed" class="more_link">More</a>
+  </div>
+
+  <div class="activity_comment_stub">
+    {% include 'local_activities/comment_form' %}
+  </div>
+</div>
+{% endcomment %}
+

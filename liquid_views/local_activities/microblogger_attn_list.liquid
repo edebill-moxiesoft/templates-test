@@ -1,0 +1,73 @@
+<ol class="results_list js_results_list">
+
+  {% unless users == empty %}
+  <li class="category_block">
+    <div class="category"><span>People</span></div>
+    <ul>
+    {% for user in users %}
+      <li class="user result js_result">
+        {{ user.small_avatar_no_hover }}
+        <a href="#" class="user_link js_result_link" data-type="user" data-id="{{ user.id }}">{{ user.display_name }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  </li>
+  {% endunless %}
+  
+  {% unless groups == empty %}
+  <li class="category_block">
+    <div class="category"><span>{{ site.group_label | plural }}</span></div>
+    <ul>
+    {% for group in groups %}
+      <li class="group result js_result">
+        {{ group.small_avatar }}
+        <a href="#" class="node_link js_result_link" data-type="group" data-id="{{ group.id }}">{{ group.title_for_attn }}</a>
+      </li>
+    {% endfor %}
+    </ul>      
+  </li>
+  {% endunless %}
+  
+  {% unless projects == empty %}
+  <li class="category_block">
+    <div class="category"><span>{{ site.project_label | plural }}</span></div>
+    <ul>
+    {% for project in projects %}
+      <li class="project result js_result">
+        {{ project.small_avatar }}
+        <a href="#" class="node_link js_result_link" data-type="project" data-id="{{ project.id }}">{{ project.title_for_attn }}</a>
+      </li>
+    {% endfor %}
+    </ul>      
+  </li>
+  {% endunless %}
+
+  {% unless clients == empty %}
+  <li class="category_block">
+    <div class="category"><span>{{ site.client_label | plural }}</span></div>
+    <ul>
+    {% for client in clients %}
+      <li class="client result js_result">
+        {{ client.small_avatar }}
+        <a href="#" class="node_link js_result_link" data-type="client" data-id="{{ client.id }}">{{ client.title_for_attn }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  </li>
+  {% endunless %}
+
+  {% unless tasks == empty %}
+  <li class="category_block">
+    <div class="category"><span>{{ site.task_label | plural }}</span></div>
+    <ul>
+    {% for task in tasks %}
+      <li class="task result js_result">
+        {{ task.small_avatar }}
+        <a href="#" class="node_link js_result_link" data-type="task" data-id="{{ task.id }}">{{ task.title_for_attn }}</a>
+      </li>
+    {% endfor %}
+    </ul>      
+  </li>
+  {% endunless %}
+  
+</ol>

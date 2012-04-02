@@ -1,0 +1,11 @@
+<div class="lead_status">
+  <div class="label">Lead</div>
+  <div class="hat"></div>
+  <ol class="lead">
+    <li class="cold {% if work.lead_status == 'cold' %}current{% endif %}">Cold</li>
+    <li class="new {% if work.lead_status == 'new' %}current{% endif %}">New</li>
+    <li class="hot {% if work.lead_status == 'hot' %}current{% endif %}">Hot</li>
+    <li class="hyper_hot {% if work.lead_status == 'hothot' %}current{% endif %}">Hyper Hot</li>
+  </ol>
+
+</div>

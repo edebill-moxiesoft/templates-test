@@ -1,0 +1,12 @@
+<ul>
+  {% for user in node.members %}
+  <li class="membership_member">
+    <a class="member_full_name" href="{{ user.show_path }}">{{ user.display_name }}</a>
+    <a class="member_remove_button" href="/groups/{{ node.id }}/remove_member?user_id={{ user.id }}"
+       title="Remove this User">
+      <img alt="Delete Icon" src="/images/icons/delete_small.png">
+    </a>
+  </li>
+  {% endfor %}
+
+</ul>

@@ -1,0 +1,11 @@
+{{from.display_name}} would like to share this 
+{% if node.activity? %}
+  <a href="{{node.full_show_path}}">Activity</a> with you:
+  <p>{{node.recent_title}}</p>
+{% else %}
+  <a href="{{url_start}}{{node.show_path}}">{{node.friendly_type_name}}</a> titled '{{node.title}}' with you.
+{% endif %}
+<hr/>
+{{ comment }}
+<hr/>
+{% include 'emails/_sent_from_footer' %}

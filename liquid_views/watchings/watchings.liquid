@@ -1,0 +1,29 @@
+{% if  watchings == empty %}
+<ul>
+  <li><em>none watched</em></li>
+</ul>
+{% else %}
+<ul>
+  {% for watching in watchings %}
+    {% if forloop.index == 10 and forloop.last == false %}
+      {% assign close_show = true %}
+      <li class="show_all">
+        <a class="show" href="/watchings/{{type}}">Show All</a>
+        <ul>
+    {% endif %}
+    {% capture recent_update %}{% if watching.has_recent_activity? %}recent_update{% endif %}{% endcapture %}
+    <li class="watched_item {{recent_update}} {% if forloop.last %}last{% endif %}">
+      {{watching.small_avatar}}
+      <a href="{{site.community_url}}{{watching.show_path}}" title="{{watching.name}}">
+        {{watching.name | truncate: 24}}
+      </a>
+    </li>
+    {% if forloop.last == true and close_show == true %}
+      {% assign close_show = false %}
+      </ul>
+    </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+{% endif %}
+

@@ -1,0 +1,39 @@
+{% include 'search_results/showing_count' showing_count: document_libraries.size total_count: nodes_count hide: hide_total %}
+<table class="search_results document_libraries  ">
+  <thead>
+  <tr>
+    <th>Title of {{ site.document_library_label }}</th>
+    <th>Author</th>
+    <th># of {{ site.document_label | plural }}</th>
+    <th>Date Created</th>
+  </tr>
+  </thead>
+  {% if document_libraries == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.document_library_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for document_library in document_libraries limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ document_library.container_class }}">
+    <td>
+      {% if document_library.display_avatar? %}
+      {{ document_library.avatar }}
+      {% endif %}
+      <div class="title">{{ document_library.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ document_library.link_to_owner }}</td>
+    <td>{{ document_library.children_count }}</td>
+    <td>{{ document_library.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: document_libraries.size total_count: nodes_count hide: hide_total %}
+  {% more document_libraries search: true %}
+{% endunless %}

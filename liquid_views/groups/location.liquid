@@ -1,0 +1,19 @@
+{% if group.location_group? %}
+  <dl id="location_group_location_attributes">
+    {% if group.address != nil %}
+      <dd class="location_street_address">{{ group.address }}</dd>
+    {% endif %}
+    {% if group.geography != nil %}
+      <dd class="location_geography">{{ group.geography }}</dd>
+    {% endif %}
+    {% if group.zip != nil %}
+      <dd class="location_postal_code">{{ group.zip }}</dd>
+    {% endif %}
+    {% if group.phone != nil %}
+      <dd class="location_phone desk_number">Tel: {{ group.phone | number_to_phone}}</dd>
+    {% endif %}
+    {% if group.fax != nil %}
+      <dd class="location_fax desk_number">Fax: {{ group.fax | number_to_phone}}</dd>
+    {% endif %}
+  </dl>
+{% endif %}

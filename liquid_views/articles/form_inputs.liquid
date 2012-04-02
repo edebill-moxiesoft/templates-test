@@ -1,0 +1,11 @@
+{% input for 'title' label: 'Title' required: 'true' %}
+
+{% input for 'body_content' as: 'textarea' required: 'false' wrapper_class: 'wysiwyg_editor' wrapper_style: 'display:visible' label: 'Body' class: 'article_editor' %}
+
+{% tags_input %}
+
+{% input for 'kb_ref_id' as: 'hidden' %}
+{% input for 'file_type' as: 'hidden' %}
+{% unless form_object.parent_id == null %}
+  {% input for 'parent_id' as: 'hidden' %}
+{% endunless %}

@@ -1,0 +1,51 @@
+
+<div class='body'>
+  <div class="activity_title">
+    {{ activity.title }}
+  </div>
+  {% if activity.parent_type  == "BlogPost" and activity.parent.external == true %}
+  <div class="external">
+    <span class="from">From:</span>
+    <a href="{{ activity.parent.external_channel_url }}" class="external_link" target="_blank">{{ activity.parent.external_channel_title }}</a>
+  </div>
+  {% endif %}
+
+  {% if activity.parent.is_image %}
+    {{ activity.parent.activity_feed_avatar }}
+  {% elsif activity.parent.has_embedded_document_thumbnail? %}
+    <a href="{{activity.parent.show_path}}">
+      <img class="file" src="{{activity.parent.embedded_document_thumbnail_path}}">
+    </a>
+  {% elsif activity.parent.has_image? %}
+    {{ activity.parent.activity_feed_first_image }}
+  {% elsif activity.parent.is_video? %}
+    <a href="{{activity.parent.show_path}}" title="{{ activity.parent.title }}" class="{{file.container_class}}">
+      {% if activity.parent.has_transcoded_video %}
+        <img class="large_wide" src="{{ activity.parent.video_thumbnail_url }}" />
+      {% else %}
+        {{ activity.parent.activity_feed_rollup_avatar }}
+      {% endif %}
+    </a>
+  {% endif %}
+
+  {% if activity.parent.is_document or activity.parent.has_body %}
+  <div class="description">
+    {% if activity.parent.is_document %}
+      <div class="file_name">{{ activity.parent.file_name }}
+        {% if activity.parent.has_preview? %}
+          | {{activity.parent.preview_link}}
+        {% endif %}
+      </div>
+
+    {% endif %}
+    {% if activity.parent.has_body %}
+      {{ activity.parent.limited_body | html_truncate: 60,'' }}
+    {% endif %}
+  </div>
+  {% endif %}
+
+
+</div>
+
+
+

@@ -1,0 +1,15 @@
+<div id="discussion_archives_index">
+  <div class="content_bar_hat"></div>
+  <div class='header'>
+    <h1>{{ site.discussion_archive_label | plural }}</h1>
+  </div>
+
+  <div class='section main'>
+    {% discussion_archives limit 10 %}
+  </div>
+  <div class='section sidebar'>
+    <div class='aside my_discussion_archives'>
+      {% my discussion_archives %}
+    </div>
+  </div>
+</div>

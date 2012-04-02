@@ -1,0 +1,9 @@
+    {% if notification_type == "like" %}
+        {% include 'emails/_like_notification_settings' %}
+    {% elsif notification_type == "comment" %}
+        {% include 'emails/_comment_notification_settings' %}
+    {% elsif notification_type == "node_watch" %}
+        {% include 'emails/_node_watch_notification_settings' %}
+    {% elsif notification_type == "user_watch" %}
+        {% include 'emails/_user_watch_notification_settings' %}
+    {% endif %}

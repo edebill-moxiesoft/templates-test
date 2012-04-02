@@ -1,0 +1,78 @@
+{% assign display_limit = 5 %}
+<ul class="categories">
+  {% for category in categories %}
+    <li class="category_block {% cycle 'cat': 'col1', 'col2' %}">
+      <div class="menu">
+        <p class="category_title">{{ category.link_to_show }}</p>
+        <ul>
+        	{% if children_type == 'Project' %}
+
+            {% if category.projects == empty %}
+              <em>No projects in this category</em>
+            {% endif %}
+
+            {% for project in category.projects limit: display_limit %}
+              {% capture recent_update %}{% if project.has_recent_activity? %}recent_update{% endif %}{% endcapture %}
+              <li class="{{recent_update}} {% if forloop.last %}last{% endif %} project">
+                {{ project.link_to_show }}
+              </li>
+            {% endfor %}
+
+  				{% else %}
+
+            {% if category.groups == empty %}
+              <em>No groups in this category</em>
+            {% endif %}
+  	        {% for group in category.groups limit: display_limit %}          
+  	          {% capture recent_update %}{% if group.has_recent_activity? %}recent_update{% endif %}{% endcapture %}
+  	          <li class="{{recent_update}} {% if forloop.last %}last{% endif %} group">
+  	            {{ group.link_to_show }}
+  	          </li>
+  	        {% endfor %}
+
+          {% endif %}
+        </ul>
+
+        {% if children_type == 'Project' %}
+          {% if category.projects_count > display_limit %}
+          <a href="{{ category.show_path }}" class="more_link">More</a>
+          {% endif %}
+        {% elsif category.groups_count > display_limit %}
+          <a href="{{ category.show_path }}" class="more_link">More</a>
+        {% endif %}
+      </div>
+    </li>
+  {% endfor %}
+  {% if orphans != empty %}
+    <li class="category_block others {% cycle 'cat': 'col1', 'col2' %}">
+      <div class="menu">
+        <p class="category_title">Others</p>
+        <ul class="orphans_abbrev">
+          {% for orphan in orphans limit: display_limit %}        
+            {% capture recent_update %}{% if orphan.has_recent_activity? %}recent_update{% endif %}{% endcapture %}
+            <li class="{{recent_update}} {% if forloop.last %}last{% endif %}">
+              {{ orphan.link_to_show }}
+            </li>
+          {% endfor %}
+        </ul>
+        <ul class="orphans_full">
+          {% for orphan in orphans %}        
+            {% capture recent_update %}{% if orphan.has_recent_activity? %}recent_update{% endif %}{% endcapture %}
+            <li class="{{recent_update}} {% if forloop.last %}last{% endif %}">
+              {{ orphan.link_to_show }}
+            </li>
+          {% endfor %}
+        </ul>        
+      </div>
+      <a href="#" class="more_link js_others_more_expander">More</a>
+    </li>
+  {% else %}
+     {% if categories == empty %}
+       <li>
+        <p>
+          <em>No categories have been created</em>
+        </p>
+      </li>
+    {% endif %}
+  {% endif %}
+</ul>

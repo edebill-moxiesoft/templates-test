@@ -1,0 +1,24 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head></head>
+<body>
+  {% form for 'form_object' action: 'form_object.new_members_path' class: 'fancyform group' data-remote: true data-type: html  %}
+    <input type="hidden" id="back_action" value="{{form_object.new_wizard_path}}">
+    <input type="hidden" name="node[_type]" value="{{form_object._type}}">
+
+    {% error_messages %}
+
+    {% form_fields for 'inputs' name: 'Location Details' %}
+      {% input for 'city' required: 'false' wrapper_class: 'location_attribute' %}
+      {% input for 'state' required: 'false' wrapper_class: 'location_attribute' %}
+      {% input for 'street_address' label: 'Address' required: 'false' wrapper_class: 'location_attribute' %}
+      {% input for 'postal_code' label: 'Zip' required: 'false' wrapper_class: 'location_attribute' %}
+      {% input for 'phone' required: 'false' wrapper_class: 'location_attribute' %}
+      {% input for 'fax' required: 'false' wrapper_class: 'location_attribute' %}
+
+
+    {% endform_fields %}
+
+  {% endform %}
+</body>
+</html>

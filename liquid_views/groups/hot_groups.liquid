@@ -1,0 +1,29 @@
+<div class="header">
+  <h3>{% if title %}{{title}}{%else%}Hot{%endif%} {{ site.group_label | plural }}</h3>
+</div>
+<div class="section">
+  
+  {% if groups == empty %}
+    <p>
+      <em>no groups available</em>
+    </p>
+  {% else %}
+  
+    <ol>
+      {% for group in groups %}
+      <li class="item hot">
+        <a href="{{ group.show_path }}">{{ group.small_avatar }}</a>
+        {{ group.link_to_show }}
+        <p class="count">
+          <var>{{ 'member' | pluralize: group.members_count }}</var>
+        </p>
+      </li>
+      {% endfor %}
+    </ol>
+    {% if more_groups > 0 %}
+      <a href="/groups?order=hot&limit=10" class="more_link">{{ more_groups }} more</a>
+    {% endif %}
+  
+  {% endif %}
+  
+</div>

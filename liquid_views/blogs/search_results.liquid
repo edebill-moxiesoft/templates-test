@@ -1,0 +1,39 @@
+{% include 'search_results/showing_count' showing_count: blogs.size total_count: nodes_count hide: hide_total %}
+<table class="search_results blogs  ">
+  <thead>
+  <tr>
+    <th>Title of {{ site.blog_label }}</th>
+    <th>Author</th>
+    <th># of {{ site.blog_post_label | plural }}</th>
+    <th>Date Created</th>
+  </tr>
+  </thead>
+  {% if blogs == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.blog_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for blog in blogs limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ blog.container_class }}">
+    <td>
+      {% if blog.display_avatar? %}
+      {{ blog.avatar }}
+      {% endif %}
+      <div class="title">{{ blog.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ blog.link_to_owner }}</td>
+    <td>{{ blog.children_count }}</td>
+    <td>{{ blog.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: blogs.size total_count: nodes_count hide: hide_total %}
+  {% more blogs search: true %}
+{% endunless %}

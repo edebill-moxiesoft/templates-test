@@ -1,0 +1,70 @@
+<div class="section unit" id='documents_browse' ckeditor_func_num='{{ ckeditor_func_num }}' ckeditor_id='{{ ckeditor_id }}'>
+  <div class='header documents'>
+    <h2 class="doc">
+      <div class='title'>Media</div>
+      <div id="search">
+      <form action="/documents/browse" method="get" >
+        <input type="hidden" name="CKEditor" value="{{ ckeditor_id }}" />
+        <input type="hidden" name="CKEditorFuncNum" value="{{ ckeditor_func_num }}" />
+        <input id="keyword" type="text" name="search_string" value="" title='Search' />
+        <!-- <input type="submit" value="Search" /> -->
+      </form>
+      </div>
+    </h2>
+  </div>
+  <div class='unit_body'>
+    {% if documents == empty %}
+      <p class='no_docs'>No documents found.</p>
+    {% else %}
+        <table class="documents">
+          <tr>
+            <th>&nbsp;</th>
+            <th>File</th>
+            <!-- <th>Body</th> -->
+            <th>Type</th>
+            <th>Added</th>
+            <th>&nbsp;</th>
+          </tr>
+            <tbody>
+                {% for document in documents %}
+                    <tr>
+                        <td class='thumbnail'>
+                            {% if document.is_image %}
+                                <img src="{{document.tiny_square_path}}" />
+                            {% else %}
+                                <img src="{{document.non_image_thumbnail}}" />
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{document.name}}
+                        </td>
+                        <!-- <td>
+                            {% if document.body != blank %}
+                              {{ document.body | truncatewords: 15 }}
+                            {% else %}
+                              &nbsp;
+                            {% endif %}
+                        </td> -->
+                        <td>
+                            {{ document.friendly_file_type }}
+                        </td>
+                        <td>
+                            {{ document.created_at | date: "%B %d, %Y" }}
+                        </td>
+                        <td class="buttons">
+                            <button type="button" file-url='{{ document.file_path }}' class="insert_media_button" insert-type="insert_link">Insert Link</button>
+                            {% if document.is_image %}
+                                <button type="button" file-url='{{ document.preview_path }}' class="insert_media_button" path-for-content="{{ document.path_for_content }}" insert-type="embed_image">Insert as Image</button>
+                            {% elsif document.is_video %}
+                                <!-- <button type="button" file-url='{{ document.preview_path }}' class="insert_media_button" path-for-content="{{ document.path_for_content }}" thumbnail-path="{{ document.video_thumbnail_path }}" insert-type="embed_video">Insert as Video</button> -->
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      {% paginate documents %}
+    {% endif %}
+  </div>
+
+</div>

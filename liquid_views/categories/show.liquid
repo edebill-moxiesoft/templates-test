@@ -1,0 +1,35 @@
+{% if category %}
+<div id='show_category'>
+
+  <div class='section group header'>
+    {% include 'nodes/header' parent: category %}
+  </div>
+
+  <div class='clear'></div>
+
+  <div class='section main'>
+    {% if category.children? %}
+    {% include 'sections/for_category' children: category.children offset: 20 %}
+    {% endif %}
+  </div>
+  <div class='section sidebar'>
+  
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: category %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: category %}
+      </div>
+    </div>
+    <div class='aside category recommendations'>
+      {% recommendations for category %}
+    </div>
+  </div>
+</div>
+
+{% if wizard_launch %}
+  <a href="{{ category.show_path }}/new_page" title="Congratulations" data-width="300" data-height="200" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+
+{% endif %}

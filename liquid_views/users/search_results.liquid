@@ -1,0 +1,66 @@
+{% include 'search_results/showing_count' showing_count: users.size total_count: nodes_count hide: hide_total %}
+<table class="search_results users  ">
+  <thead>
+  <tr>
+    {% include 'searches/_sort_header' title: "Name" sort_by: "name" hide_sorting: hide_total %}
+    <th>Phone numbers</th>
+    {% capture location_label %}Location / {{ site.location_group_label }} {{ site.group_label | plural }}{% endcapture %}
+    {% include 'searches/_sort_header' title: location_label sort_by: "location" hide_sorting: hide_total %}
+    {% if site.expertise_or_role? == 'expertise' %}
+      <th>Expertise</th>
+    {% else %}
+      {% include 'searches/_sort_header' title: site.role_label sort_by: "role" hide_sorting: hide_total %}
+    {% endif %}
+  </tr>
+  </thead>
+  {% if users == empty %}
+  <tr>
+    <td colspan="6"><p><em>No users available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for user in users limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ post.container_class }}">
+    <td>
+      {{ user.small_avatar_with_link }}
+      {{ user.link_to_show_with_container_class }}
+    </td>
+    <td>
+      <dl>
+        {% if user.has_desk_number? %}
+        <dd class="phone work">{{ user.desk_number }}</dd>
+        {% endif %}
+        {% if user.has_mobile_number? %}
+        <dd class="phone cell">{{ user.mobile_number }}</dd>
+        {% endif %}
+      </dl>
+    </td>
+    <td>
+      {% if user.has_location? %}
+        Location: {{ user.location }}
+      {% endif %}
+      {% if user.locations.size > 0 %}
+      <div class="locations_list">
+        {{ site.location_group_label }} {{ site.group_label | plural }}: {{ user.locations_list }}
+      </div>
+      {% endif %}
+    </td>
+    <td>
+      {% if site.expertise_or_role? == 'expertise' %}
+        {{ user.expertise_list }}
+      {% else %}
+        {{ user.role }}
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: users.size total_count: nodes_count hide: hide_total %}
+  {% more users search: true %}
+{% endunless %}

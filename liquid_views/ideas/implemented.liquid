@@ -1,0 +1,23 @@
+<div class="header">
+  <h3>Recently Implemented Ideas</h3>
+</div>
+<div class="section">
+
+  {% if ideas == empty %}
+    <p>
+      <em>No items available</em>
+    </p>
+  {% else %}
+    <ol>
+      {% for idea in ideas %}
+        <li class="item">
+          {{ idea.creator.small_avatar }}
+          {{ idea.creator.link_to_profile }}
+          provided an implemented idea:
+          {{ idea.link_to_show_with_container_class }}
+        </li>
+      {% endfor %}
+    </ol>
+  {% endif %}
+
+</div>

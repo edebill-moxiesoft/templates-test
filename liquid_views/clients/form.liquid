@@ -1,0 +1,10 @@
+{% form for 'client' multipart: true class: 'fancyform client' %}
+  {% error_messages %}
+
+  {% include 'clients/form_inputs' form_object: client %}
+    
+  {% form_fields for 'buttons' %}
+    {% include 'forms/buttons' form_object: client %}
+  {% endform_fields %}
+  
+{% endform %}

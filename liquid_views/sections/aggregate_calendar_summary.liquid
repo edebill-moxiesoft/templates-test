@@ -1,0 +1,40 @@
+<div id="upcoming_events" class="section unit calendar_unit js_calendar_unit">
+  <div class="header accordion_header">
+  {% if current_user.show_aggregate_calendar? == true %}
+    <span id="show_aggregate_calendar" class="expander open" data-url="{{current_user.show_path}}">Hide</span>
+  {% else %}
+    <span id="show_aggregate_calendar" class="expander" data-url="{{current_user.show_path}}">Show</span>
+  {% endif %}
+    <h2>Upcoming {{ site.calendar_event_label | plural }}</h2>
+  </div>
+  <div class='unit_body accordion_panel' {% if current_user.show_aggregate_calendar? == false %}style="display:none";{% endif %}>
+    <div class="mini_calendar" data-dates="{% event_dates for calendar in month %}">
+      <div class="cal" data-url="/default/calendar" data-start-date="{{ month }}" data-calendar-url="false"></div>
+    </div>
+    <div class="events_summary">
+      <ol class="item_list">
+        {% if events != empty %}
+          {% for event in events %}
+            <li class="{{ event.origin }}">
+              <span class="date">{{ event.date }}</span>
+              <a href="{{ event.show_path }}" class="title">{{ event.title }}</a>
+              <br/>
+              from {{ event.link_to_origin_title }}
+              {% if event.origin == 'group' %}
+              in {{ event.link_to_origin_group }}
+              {% endif %}
+              <br/>
+              {% if event.limited_body == empty %}
+                <em>no description</em>
+              {% else %}
+                {{ event.limited_body }}
+              {% endif %}
+            </li>
+          {% endfor %}
+        {% else %}
+          <li><p><em>No {{ site.calendar_event_label | plural | downcase }} yet</em></p></li>
+        {% endif %}
+      </ol>
+    </div>
+  </div>
+</div>

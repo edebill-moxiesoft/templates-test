@@ -1,0 +1,31 @@
+<div style="font-weight:bold;font-size:11px;">
+  You are using the default node 'show' liquid template. You probably want to create a folder/file that's specific to your node type
+</div>
+<br/>
+{% if node %}
+  <h3>{{ node.friendly_type_name }} ({{ node.id }})</h3>
+  <ul>
+    <li>Title: {{ node.title }}</li>
+    <li>Body: {{ node.body }}</li>
+  </ul>
+  {% if node.parent %}
+    <hr/>
+    <h3>Parent: ({{ node.parent.id }})</h3>
+    <a href="/{{ node.parent.controller_name }}/{{ node.parent.id }}">{{ node.parent.friendly_type_name }}</a>
+    <h4>{{ node.parent.title }}</h4>
+    {{ node.parent.body }}
+  {% endif %}  
+  {% if node.children %}
+    <hr/>
+    <h3>Children!</h3>
+    {% for child in node.children %}
+      <span>{{ child.friendly_type_name }}</span>
+      <h4>{{ child.title }}</h4>
+      {{ child.body }}
+    {% endfor %}
+  {% endif %}
+  <hr/>
+  <h3>Tagging Control Example</h3>
+  {% include 'tagging_control' taggable: node %}
+
+{% endif %}

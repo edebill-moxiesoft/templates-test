@@ -1,0 +1,6 @@
+<div class='header'>
+  <h1>{{order}}  {{ site.project_label | plural }}</h1>
+</div>
+<div class='section main js_filtered'>
+  {% projects limit 10 %}
+</div>

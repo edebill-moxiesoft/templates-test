@@ -1,0 +1,109 @@
+<div id="works_index">
+  <div class="content_bar_hat">
+    <div class='content_bar'>
+      <div class='section main'></div>
+      <div class='section sidebar'>
+        <div class='menu popdown-menu'>
+          {% include 'menus/clients_overview_add' %}
+          <div class='clear'></div>
+        </div>
+      </div>
+      <div class='clear'></div>
+    </div>
+  </div>
+
+  <div class='header'>
+    <h1>{{ site.work_label | plural }}</h1>
+  </div>
+
+  <div class='section main'>
+
+    <h2>Most Recent {{ site.work_label | plural }}</h2>
+
+    <div class="gallery_container">
+      {% works order: recent limit 10 with template 'works/overview_gallery' %}
+    </div>
+    
+    <div class="section unit works js_works_unit">
+      <div class="header">
+        <div class="updated_at"></div>
+        <h2 class="work">
+          <a href="/works/lead">{{ site.client_lead_label | plural }}</a>
+          {% locations_jump_menu for 'leads' %}
+        </h2>
+      </div>
+      <div class="unit_body">
+        {% works type: lead order: updated limit 5 with template 'works/overview_lead' %}
+      </div>
+
+      {% if works_count > 0 %}
+      <div class="footer">
+        <a class="more_link" href="{{ index_url }}">More</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="section unit works js_works_unit">
+      <div class="header">
+        <div class="updated_at"></div>
+        <h2 class="work">
+          <a href="/works/active">{{ site.client_active_label }} {{ site.work_label | plural }}</a>
+          {% locations_jump_menu for 'leads' %}
+        </h2>
+      </div>
+      <div class="unit_body">
+        {% works type: active order: updated limit 5 with template 'works/overview_active' %}
+      </div>
+
+      {% if works_count > 0 %}
+      <div class="footer">
+        <a class="more_link" href="{{ index_url }}">More</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="section unit works js_works_unit">
+      <div class="header">
+        <div class="updated_at"></div>
+        <h2 class="work">
+          <a href="/works/complete">Recently {{ site.client_completed_label }} {{ site.work_label | plural }}</a>
+          {% locations_jump_menu for 'leads' %}
+        </h2>
+      </div>
+      <div class="unit_body">
+        {% works type: complete order: updated limit 5 with template 'works/overview_complete' %}
+      </div>
+
+      {% if works_count > 0 %}
+      <div class="footer">
+        <a class="more_link" href="{{ index_url }}">More</a>
+      </div>
+      {% endif %}
+    </div>
+
+    {% include 'works/browser' %}
+
+  </div>
+  <div class='section sidebar last'>
+    <div class='aside lead works'>
+      {% my works, 2, lead %}
+    </div>
+    <div class='aside active works'>
+      {% my works, 2, active %}
+    </div>
+
+    <div class='aside projects'>
+      {% hot works, 3 %}
+    </div>
+
+    <div class='aside popular clients works'>
+      {% include 'clients/popular' clients: current_user.popular_clients %}
+    </div>
+    <div class='aside'>
+      {% activity for 'Client' limit 5 %}
+    </div>
+
+  </div>
+
+</div>
+

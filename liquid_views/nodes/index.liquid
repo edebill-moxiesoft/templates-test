@@ -1,0 +1,35 @@
+<div id="groups_listing">    
+{% if nodes != empty %}
+  <table class="groups">
+    <thead>
+      <tr class="odd">
+        <th>Type</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for node in nodes %}
+        <tr>
+          <td><a href="{{ node.show_path }}">{{ node.friendly_type_name }}</a></td>
+          <td>{{ node.title }}</td>
+          <td><code>{{ node.body | h | truncate: 100 }}</code></td>
+          <td>
+            <a href="{{ node.edit_path }}">Edit</a>
+            <form method="post" action="{{node.show_path}}" style="display:inline;">
+              <input type="submit" value="Delete" style="padding:0px"/>
+              <input type="hidden" name="id" value="{{ node.id }}"/>
+              <input type="hidden" name="_method" value="delete"/>
+            </form>
+          </td>
+        </tr>
+        {% assign new_url = node.new_path %}
+        {% assign new_type = node.friendly_type_name %}
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}    
+  <em>None defined</em>
+{% endif %}
+</div>

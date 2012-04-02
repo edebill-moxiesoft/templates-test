@@ -1,0 +1,12 @@
+{% form for 'work_portfolio' multipart: true class: 'item_collection fancyform' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'work_portfolios/form_inputs' form_object: work_portfolio %}
+    {% endform_fields %}
+
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: work_portfolio %}
+    {% endform_fields %}
+  </div>
+{% endform %}

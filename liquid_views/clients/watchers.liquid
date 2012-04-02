@@ -1,0 +1,7 @@
+<div class='section group header'>
+  {% include 'nodes/header' parent: client hide_details: true %}
+</div>
+
+<div class="section main">
+  {% include 'users/directory' base_url: client.watchers_url %}
+</div>

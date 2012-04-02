@@ -1,0 +1,15 @@
+<ol class="item_list js_filter_body">
+  {% if blogs != empty %}
+    {% for blog in blogs limit: limit_size offset: offset %}
+      {% include 'blogs/summary' %}
+    {% endfor %}
+  {% else %}
+    <p>
+      <em>
+        No {{ site.blog_label | plural | downcase }} yet
+      </em>
+    </p>
+  {% endif %}
+</ol>
+
+{% more blogs %}

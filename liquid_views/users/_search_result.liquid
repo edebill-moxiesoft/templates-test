@@ -1,0 +1,14 @@
+<div class="item search_result user">
+  <div class="avatar">{{ user.small_avatar_with_link }}</div>
+  <div class="details">
+    <h3>{{ user.link_to_show_with_container_class }}</h3>
+    <h4>
+      {% if user.has_location? %}{{ site.location_group_label }}: {{ user.location }}{% endif %}
+      {% if user.has_desk_number? %}<span class="phone work">{{ user.desk_number }}</span>{% endif %}
+      {% if user.has_mobile_number? %}<span class="phone cell">{{ user.mobile_number }}</span>{% endif %}
+      <span class="email"><a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
+    </h4>
+    <p>{{ user.short_bio }}</p>
+  </div>
+  <div class='clear'></div>
+</div>

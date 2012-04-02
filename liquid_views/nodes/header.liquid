@@ -1,0 +1,7 @@
+{% if parent.is_category? %}
+  {% include 'nodes/category_header' category: category %}
+{% elsif parent.closest_container.is_user? %}
+  {% include 'users/user_header' parent: parent %}
+{% else %}
+  {% include 'nodes/node_header' parent: parent %}
+{% endif %}

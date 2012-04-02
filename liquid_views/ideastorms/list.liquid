@@ -1,0 +1,34 @@
+<div class='section unit ideastorms js_filtered'>
+  <div class='header'>
+    <div class='section filters'>
+      {% show_filters %}
+    </div>
+    <h2>{{ site.ideastorm_label | plural }}</h2>
+  </div>
+  
+  <div class='unit_body js_filter_body'>
+    {% if ideastorms == empty %}
+      <p>
+        <em>no {{ site.ideastorm_label | plural | downcase }} available</em>
+      </p>
+    {% else %}
+      <ol class='item_list'>
+        {% for ideastorm in ideastorms %}
+          <li class='item'>
+            <div class='idea_count'>
+              {{ 'idea' | pluralize: ideastorm.ideas_count, 'ideas' }}
+            </div>
+            <div class='idea'>
+              {{ ideastorm.link_to_show }}
+              <p class='updated'>
+                Created {{ ideastorm.created_at | time_ago_in_words, 'ago'  }}
+              </p>
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+  </div>
+	
+	{% more ideastorms %}
+</div>

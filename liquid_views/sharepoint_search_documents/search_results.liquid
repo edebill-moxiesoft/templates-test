@@ -1,0 +1,42 @@
+{% include 'search_results/showing_count' showing_count: sharepoint_search_documents.size total_count: nodes_count hide: hide_total %}
+<table class="search_results sharepoint_documents">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>File Size</th>
+    <th>Description</th>
+    <th>Creation Date</th>
+    <th>&nbsp;</th>
+  </tr>
+  </thead>
+  {% if sharepoint_search_documents == empty %}
+  <tr>
+    <td colspan="4"><p><em>No SharePoint documents available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for document in sharepoint_search_documents limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_sharepoint_document">
+    <td>
+      <a href='{{ document.link_url }}'>{{ document.title }}</a>
+    </td>
+    <td class="file_size">{{ document.file_size | number_to_filesize }}</td>
+    <td>{{ document.decsription }}</td>
+    <td class="creation_date">{{ document.created_at | date: "%m/%d/%y" }}</td>
+    <td>
+      {% if document.is_download? %}
+        <a href="{{ document.link_url }}">Download</a>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: sharepoint_search_documents.size total_count: nodes_count hide: hide_total %}
+  {% more sharepoint_search_documents search: true %}
+{% endunless %}
+

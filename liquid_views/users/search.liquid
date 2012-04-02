@@ -1,0 +1,15 @@
+<div id="user_index" class="section full">
+  <div class="content_bar_hat"></div>
+  <div class='section unit main fullwidth js_filtered'>
+    {% include 'searches/controls' tab: 'users' label: 'Person' %}
+
+    {% search_results of users %}
+    {% if users_count > 0 %}
+      {% include 'search_results/showing_count' showing_count: users.size total_count: users_count %}
+      {% more users search: true %}
+    {% endif %}
+  </div>
+
+
+</div>
+

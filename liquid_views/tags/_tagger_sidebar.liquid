@@ -1,0 +1,20 @@
+<div class='tagger aside'>
+  <div class='header'>
+    <h3>Tags</h3>
+  </div>
+  
+  {% if node.current_user_can_contribute? %}
+    <div class='section'>
+      {% include 'tags/_editable_tag_words' node: node %}
+    </div>
+    <div class="clear"></div>
+    {% include 'tags/_tagger_form' node: node %}
+  {% else %}
+    {% if node.has_tags %}
+      <div class='section'>
+        {% include 'tags/_tag_words' node: node %}
+      </div>
+    {% endif %}
+  {% endif %}
+  
+</div>

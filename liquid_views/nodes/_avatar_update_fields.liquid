@@ -1,0 +1,39 @@
+{% if form_object.has_avatar? == true %}
+  <li class='current_avatar'>
+    <label>Thumbnail image</label>
+    {% if temp_avatar_id %}
+    <div class="node_wizard_avatar">
+      <img src="/temp_images/{{ temp_avatar_id }}" alt="">
+    </div>
+    {% else %}
+    {{ form_object.wide_avatar }}
+    {% endif %}
+    <a href="#" class="brightbutton update_avatar_toggle js_update_node_avatar">Update Thumbnail</a>
+    <br/>
+    <a href="#" class="remove_avatar js_insert_avatar_clear">Remove</a>
+    <div id="js_avatar_upload_field" class="avatar_upload_field">
+      <input type="file" name="{{ form_object.class_name_underscore }}[avatar[image]]" id="{{ form_object.class_name_underscore }}_avatar_image" />
+    </div>
+  </li>
+{% else %}
+  <li class="file " id="{{ form_object.class_name_underscore }}_avatar_image_input">
+    {% if temp_avatar_id %}
+    <div class="node_wizard_avatar">
+      <img src="/temp_images/{{ temp_avatar_id }}" alt="">
+    </div>
+    {% endif %}
+    <label for="{{ form_object.class_name_underscore }}_avatar_image">
+      Choose an image to represent your 
+      {% if form_object.site_label %}{{ form_object.site_label | downcase }}
+  		{% else %}{{ form_object.friendly_type_name | downcase }}
+  		{% endif %}
+    </label>
+    <input id="{{ form_object.class_name_underscore }}_avatar_image" name="{{ form_object.class_name_underscore }}[avatar[image]]" type="file"/>
+    <p class="inline-hints">
+      upload a picture that will represent this content (jpg, png, or gif)
+      <br/>
+      (for best results, use a 100w x 75h high-quality photo)
+    </p>
+  </li>
+{% endif %}
+ 

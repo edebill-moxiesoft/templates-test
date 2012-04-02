@@ -1,0 +1,12 @@
+<ul class="order_filters spinner_block js_filter_control">
+  {% for filter in filters %}
+  <li class="{% if filter[0] == order %}active{%endif%} {% if forloop.last %}last{% endif %}">
+    <a href="{{ index_url }}?order={{ filter[0] }}&nolayout=true{% if limit_count %}&limit={{ limit_count }}{% endif %}"
+       data-order='{{ filter[0] }}' data-type='html' title='{{ filter[2]}}'>{{ filter[1] }}</a>
+  </li>
+  {% endfor %}
+  <li class="last">
+    <div class='spinner'></div>
+  </li>
+
+</ul>

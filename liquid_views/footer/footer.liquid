@@ -1,0 +1,27 @@
+<div class="logo">
+  <h4>Moxie Software</h4>
+</div>
+<div class="links_and_text">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><a href="/people">People</a></li>
+    <li><a href="/groups/overview">{{ site.group_label | plural }}</a></li>
+    {% if user_request.from_mobile_device? and site.mobile_enabled  %}
+    <li><a href="/?bypass_mobile_version=off">Mobile Version</a></li>
+    {% endif %}
+  </ol>
+  <p>
+    {{ site.community_name }} is your intranet system.
+  </p>
+  <p>        
+    If something is amiss, <a class="mailto" href="mailto:{{ site.site_support_email }}">please let us know</a>.
+    For updates, check out the <a href="{{ site.site_blog }}">{{ site.community_name }} Status blog.</a>    
+  </p>  
+  <p>
+    <a href="http://moxiesoft.com/tal_about/terms-of-use.aspx" target="new">Terms of Use</a> {{ site.version }}/{{ site.revision }}
+     |
+    {% if current_user.super_user? %}
+      <a href="#" id="js_launch_config_wizard_link">Launch Configuration Wizard</a>
+    {% endif %}
+  </p>
+</div>

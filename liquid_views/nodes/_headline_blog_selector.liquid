@@ -1,0 +1,10 @@
+<li class="select " id="{{ form_object.class_name_underscore }}_headline_blog_id_input">
+  <label for="{{ form_object.class_name_underscore }}_headline_blog_id">Headline {{site.blog_label}}</label>
+  <select id="{{ form_object.class_name_underscore }}_headline_blog_id" name="{{ form_object.class_name_underscore }}[headline_blog_id]">
+    <option value="">-- Select a blog --</option>
+    {% for blog in form_object.blogs %}
+      <option {% if blog.id == form_object.headline_blog_id %}selected="selected" {% endif %}value="{{blog.id}}">{{blog.title}}</option>
+    {% endfor  %}
+  </select>
+</li>
+

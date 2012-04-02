@@ -1,0 +1,6 @@
+<form class='tagger' data-remote='true' data-type='html' data-method='post' action='/tags/create'>
+  <input type='hidden' value='{{ node.id }}' name='node_id' />
+  <input type='hidden' value='index_for_tagger' name='action_to_render' />
+  <input name="tags" id="tags" class="tags tags_autocomplete ac_input" autocomplete="on" value="{{ unsaved_tags }}" />
+  <input type='submit' value='+' title='Add Tags' name='commit' />
+</form>

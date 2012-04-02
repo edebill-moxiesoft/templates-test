@@ -1,0 +1,16 @@
+{% if user_request.from_mobile_device? and user_request.from_ipad? == false %}
+
+  {% input for 'created_with' as: 'hidden' value: 'textile' %}</li>
+  {% input for 'body_textile' as: 'textarea' required: 'false' wrapper_class: 'textile_editor' wrapper_style: 'display:visible' label: 'Body (using Textile markup)', hint: "Textile is a simpler, quicker way to create richly-formatted content that even works on mobile devices. <a href='http://redcloth.org/textile' target='new'>Click here</a> to learn more." %}
+
+{% elsif form_object.editor_type == 'wysiwyg' %}
+
+  {% input for 'created_with' as: 'hidden' value: 'wysiwyg' %}</li>
+  {% input for 'body' as: 'textarea' required: 'false' wrapper_class: 'wysiwyg_editor' wrapper_style: 'display:visible' label: 'Body' class: 'wiz_ckeditor ckeditor_custom' %}
+
+{% else %}
+
+  {% input for 'created_with' as: 'hidden' value: 'textile' %}</li>
+  {% input for 'body_textile' as: 'textarea' required: 'false' wrapper_class: 'textile_editor' wrapper_style: 'display:visible' label: 'Body (using Textile markup)', hint: "Textile is a simpler, quicker way to create richly-formatted content that even works on mobile devices. <a href='http://redcloth.org/textile' target='new'>Click here</a> to learn more." %}
+
+{% endif %}

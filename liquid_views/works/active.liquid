@@ -1,0 +1,73 @@
+<div id="works_index">
+  <div class="content_bar_hat">
+    <div class='content_bar'>
+      <div class='section main'></div>
+      <div class='section sidebar'>
+        <div class='menu popdown-menu'>
+          {% include 'menus/clients_overview_add' %}
+          <div class='clear'></div>
+        </div>
+      </div>
+      <div class='clear'></div>
+    </div>
+  </div>
+
+  <div class='section main'>
+    <div class="section unit works js_works_unit">
+      <div class="header">
+        <div class="updated_at"></div>
+        <h2 class="work">
+          Upcoming
+          {% locations_jump_menu for 'leads' %}
+        </h2>
+      </div>
+      <div class="unit_body">
+        {% works type: active start_date: asc   %}
+      </div>
+
+      {% if works_count > 0 %}
+      <div class="footer">
+        <a class="more_link" href="{{ index_url }}">More</a>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <div class="section unit works js_works_unit">
+      <div class="header">
+        <div class="updated_at"></div>
+        <h2 class="work">
+          Ending Soon
+          {% locations_jump_menu for 'leads' %}
+        </h2>
+      </div>
+      <div class="unit_body">
+        {% works type: active end_date: asc  %}
+      </div>
+      {% if works_count > 0 %}
+      <div class="footer">
+        <a class="more_link" href="{{ index_url }}">More</a>
+      </div>
+      {% endif %}
+
+    </div>
+
+    {% include 'works/browser' type: 'active' %}
+
+  </div>
+
+  <div class='section sidebar last'>
+    <div class='aside active works'>
+      {% my works, 2, active %}
+    </div>
+    <div class='aside popular clients works'>
+      {% include 'clients/popular' clients: current_user.popular_clients %}
+    </div>
+    <div class='aside'>
+      {% activity for 'Client' limit 5 %}
+    </div>
+
+  </div>
+
+</div>
+

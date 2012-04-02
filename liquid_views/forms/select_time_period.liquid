@@ -1,0 +1,10 @@
+{% capture in_last_month %}{{for}}_in_last_month{% endcapture %}
+{% capture in_last_6_months %}{{for}}_in_last_6_months{% endcapture %}
+{% capture in_last_year %}{{for}}_in_last_year{% endcapture %}
+
+<select id='{{ id }}' name='{{ name }}'>    
+  <option value=''>{{ default_label }}</option>
+  <option value='{{in_last_month}}' {{ name | is_selected:  params, in_last_month }} >Last Month</option>
+  <option value='{{in_last_6_months}}' {{ name | is_selected:  params, in_last_6_months }} >Last 6 Months</option>
+  <option value='{{in_last_year}}' {{ name | is_selected:  params, in_last_year }} >Last Year</option>
+</select>

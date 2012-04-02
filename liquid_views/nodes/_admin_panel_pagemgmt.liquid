@@ -1,0 +1,69 @@
+<fieldset class="inputs">
+  <legend><span>Page Management</span></legend>
+  
+  {% if node.is_not_modifiable? %}
+    <div class='message_top'><em>Title, Membership, and Current Location of this group are not modifiable, please contact your administrator for assistance.</em></div>
+  {% endif %}
+
+  <div class="set">
+    <div class="label_column">
+      <span class="inputs_set">Current location</span>
+    </div>
+    <div class="settings_column" id="node_management_section">
+      <div class="breadcrumb">{% breadcrumbs %}</div>
+      <div class="mgmt_links">
+        {% unless node.is_deletable? %}
+          <span class='disabled'>Change</span>&nbsp;|&nbsp;<span class='disabled'>Delete</span>
+        {% else %}
+          <a class='node_move' href='#'>Change</a>&nbsp;|&nbsp;<a class="node_delete" href="#" id="node_deletion_link" data-prompt="This will delete this {{ node.site_label }} and all of its children.  Are you sure you want to do this?">Delete</a>
+        {% endunless %}
+      </div>
+    </div>
+    
+      {% if node.is_deletable? %}
+        <div id='node_move_section' data-id='{{ node.id }}'>
+        	<div class='ind'></div>
+        	<h3 class='security_title'>
+        		Change Page Location
+        	</h3>
+        	<p>Drag page to new location</p>
+        	<div class='node_tree'></div>
+        </div>
+      {% endif %}
+  </div>
+  <div class="set">
+    <div class="label_column">
+      <span class="inputs_set">Permalink</span>
+    </div>
+    <div class="settings_column" id="node_permalink_section">
+      <span class="modify_permalink">
+        {{ node.editable_permalink_url }}
+        
+        {% unless node.editable_permalink_url == empty %}
+          <button type="button" id="edit_button">Edit</button>
+        {% endunless %}
+        <input type="hidden" name="node[settings][slug]" value="{{ node.slug }}" id="node_slug_hidden" />
+      </span>
+    </div>
+  </div>
+
+
+  {% if node.supports_configurable_show? %}
+    {% assign selected = node.default_view_selected_value %}
+
+    <div class='set last'>
+      <div class='label_column'>
+        <span class='inputs_set'>Default View</span>
+      </div>
+      <div class='settings_column configurable_show' id='node_customizable_show_section'>
+        <select name="node[settings][default_view][node_id]" id="node_settings_default_view_node_id">
+        {% for option in node.configurable_show_options %}
+          <option value="{{ option[1] }}" {% if selected == option[0] or selected == option[1] %}selected='selected'{% endif %}>{{ option[0] }}</option>
+        {% endfor %}
+        </select>
+      </div>
+    </div>
+  {% endif %}
+
+  
+</fieldset>

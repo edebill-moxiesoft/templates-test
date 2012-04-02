@@ -1,0 +1,39 @@
+{% assign items_shown = 5 %}
+
+<div class="section search_result unit category">
+
+  <div class="header">
+    <h3 class="category">{{ site.category_label | plural }}</h3>
+  </div>
+
+  <div class="content">
+    {% if categories.size < 1 %}
+      <em>No {{ site.category_label | plural | downcase }} found.</em>
+    {% endif %}
+
+    <ol class="item_list">
+      {% for category in categories limit:items_shown %}
+        <li class="item">
+            <a href="{{ category.show_path }}">{{ category.small_avatar }}</a>
+            {{ category.link_to_show_with_container_class }}
+            <p class="description">
+                {{ category.search_result_info.summary }}
+            </p>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  {% if has_more_categories %}
+  <div class="footer">
+      <a class="more_link" href="/groups/categories/search?q={{ query | escape }}&{{ extra_params }}">
+      <span class="more_count">{% if num_hits > 1005 %}
+      over 1000
+      {% elsif num_hits > 5 %}
+      {{ num_hits| minus:items_shown  }}
+      {% endif %}</span>
+      more</a>    
+  </div>
+  {% endif %}
+
+</div>

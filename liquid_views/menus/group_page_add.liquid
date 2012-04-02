@@ -1,0 +1,22 @@
+{% if group.current_user_can_contribute? %}
+  {% menu %}
+    {% submenu Add a Page, #, add_page_link %}
+      <li class="icon_menu_item">{{ site.sub_group_label | link_to_wizard_add_page: 'BasicGroup', group.guid }}</li>
+      <li class="icon_menu_item">{{ site.project_label | link_to_wizard_add_page: 'Project', group.guid }}</li>
+      <li class="icon_menu_item">{{ site.task_list_label | link_to_wizard_add_page: 'TaskList', group.guid }}</li>
+      <li class="icon_menu_item">{{ site.blog_label | link_to_wizard_add_page: 'Blog', group.guid }}</li>
+      <li class="icon_menu_item">{{ site.discussion_archive_label | link_to_wizard_add_page: 'DiscussionArchive', group.guid }}</li>
+      <li class="icon_menu_item">{{ site.ideastorm_label | link_to_wizard_add_page: 'Ideastorm', group.guid }}</li>
+      <li class="icon_menu_item">{{ site.calendar_label | link_to_wizard_add_page: 'Calendar', group.guid }}</li>
+      <li class="icon_menu_item">{{ site.document_library_label | link_to_wizard_add_page: 'DocumentLibrary', group.guid }}
+      </li>
+      <li class="icon_menu_item">{{ site.wiki_label | link_to_wizard_add_page: 'Wiki', group.guid }}</li>
+      <li class="icon_menu_item">{{ site.blank_page_label | link_to_wizard_add_page: 'BlankPage', group.guid }}</li>
+
+      {% if site.clients_section_enabled? %}
+      <li class="icon_menu_item last">{{ site.work_portfolio_label | link_to_wizard_add_page: 'WorkPortfolio', group.guid }}</li>
+      {% endif %}
+      
+    {% endsubmenu %}
+  {% endmenu %}
+{% endif %}

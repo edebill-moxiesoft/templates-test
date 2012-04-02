@@ -1,0 +1,28 @@
+<div class="js_comment_form">
+  <form class='formtastic comment {% if site.fancy_comments %}fancy_comments{% endif %}' action='{{comment.update_path}}?nolayout=true' data-remote='true' data-type='html' method='put' data-method='put' >
+    <div class='ind'></div>
+    <div class="comment_border"></div>
+    <div class='wrapper'>
+    <fieldset class="inputs">
+      <ol>
+        <li class="text optional">
+          <label for="comment_body_{{comment.id}}">Edit Comment</label>
+          <textarea rows="10" name="reply[body]" id="comment_body_{{comment.id}}" cols="70" class="ckeditor">
+            {{comment.editting_body}}
+          </textarea>
+        </li>
+      </ol>
+    </fieldset>
+    <fieldset class="buttons">
+      <ol>
+        <li class="commit">
+          <input id="comment_submit" class="create" type="submit" value="Submit" name="commit"/>
+        </li>
+        <li class='cancel'>
+          <input class='cancel' id='comment_form_canceler_{{comment.id}}' name='cancel' type='button' value='Cancel'/>
+        </li>
+      </ol>
+    </fieldset>
+    </div>
+  </form>
+</div>

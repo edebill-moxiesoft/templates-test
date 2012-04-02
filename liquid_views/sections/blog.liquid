@@ -1,0 +1,70 @@
+{% for blog in blogs %}
+<div class="section unit blogs">
+  <div class='header'>
+    <h2 class="blog">
+      <a href="{{ blog.show_path }}" title="{{ blog.title }}">{{ blog.title }}</a>
+    </h2>
+  </div>
+
+  {% if blog.has_blog_posts? %}
+  <div class="article recent_blog_post">
+    {% assign post = blog.most_recent_blog_post %}
+
+    <h5>
+      <a href="{{ post.show_path }}">{{ post.title }}</a>
+    </h5>
+
+    <div class="post_body user_content">
+      {{ post.excerpted_body }}
+    </div>
+    <div class="footer">
+      <p>
+        <span class="author">
+            By
+              {% if post.external %}
+                <a href="{{post.external_channel_url}}" class="external_link" target="_blank">{{ post.external_item_author }}</a>
+                from
+                <a href="{{post.external_channel_url}}" class="external_link" target="_blank">{{ post.external_channel_title }}</a>
+              {% else %}
+                {{ post.link_to_owner }},
+              {% endif %}
+        </span>
+        <span class="date">{{ post.created_at | time_ago_in_words: 'ago'  }} </span>
+        <a class='collab' href='{{post.show_path}}'>
+          <var class="likes_count">{{ post.likes_count }}</var>
+          <var class="replies_count" title="{{ discussion.replies_count }} replies">{{ post.replies_count }}</var>
+        </a>
+      </p>
+      {{ post.more_text_link }}
+      {% if post.has_tags %}
+      <p>Tagged as: <span class="tags">{{ post.tags_list }}</span></p>
+      {% endif %}
+    </div>
+  </div>
+
+
+  <div class='unit_body'>
+    <h5>Recent Entries</h5>
+    <ul class="other_posts">
+
+      {% children_cursor for 'blog.blog_posts' limit 5 offset 1 %}
+
+      <li>
+        <div class="avatar_block">
+          {{ blog_post.small_avatar_or_parent_avatar }}
+        </div>
+        <div class="post_summary">
+          <p><a href="{{ blog_post.show_path }}">{{ blog_post.title }}</a></p>
+
+          <p>
+            {{ blog_post.limited_body | html_truncate: 30 }}
+          </p>
+        </div>
+      </li>
+
+      {% endchildren_cursor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+{% endfor %}

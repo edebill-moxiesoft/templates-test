@@ -1,0 +1,31 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head></head>
+<body>
+  <div class="user_invites">
+    {% form for 'user_invites_wizard_presenter' action: 'user_invites_wizard_presenter.save_groups_path' class: 'fancyform group' data-remote: true data-type: html %}
+      {% error_messages %}
+      <h2>Invite Users to {{ site.group_label | plural }} (optional)</h2>
+      <fieldset>
+        <input type="text" id="groups_invite_autocomplete" name="groups_invite_autocomplete" class="hint" title="Search for a {{ site.group_label }}"/>
+      </fieldset>
+      
+      <div class="selected_groups">
+        <h3>Selected {{ site.group_label | plural }}</h3>
+        <table>
+          <tbody id="group_invites">
+          <tbody>
+        </table>
+        <legend>
+          You selected {{ site.group_label | plural | downcase }} requiring admin approval for the users to join.
+          If you wish for the invite to be sent immediately, please uncheck the delay checkbox.
+        </legend>
+      </div>
+    {% endform %}
+  </div>
+  <script type="text/javascript">
+    $('#groups_invite_autocomplete').hint({attr:'title', method:'valueSwap'});
+    handle_autocomplete();
+  </script>
+</body>
+</html>

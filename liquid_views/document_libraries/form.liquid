@@ -1,0 +1,11 @@
+{% form for 'document_library' multipart: true class: 'formtastic document_library' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'document_libraries/form_inputs' form_object: document_library %}      
+    {% endform_fields %}
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: document_library %}
+    {% endform_fields %}
+  </div>
+{% endform %}

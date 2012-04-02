@@ -1,0 +1,69 @@
+<div class="works_browse_list">
+
+  {% include 'works/browse_list_controls' %}
+
+  {% if view == 'list' %}
+  <table class="works table_list">
+    <tr>
+      <th>{{site.work_label}}</th>
+      <th>{{site.client_label}}</th>
+      <th>Type</th>
+      <th>Location</th>
+    </tr>
+    {% if works == empty %}
+    <tr>
+      <td><p><em>No {{ site.work_label | plural | downcase }} yet</em></p></li></td>
+    </tr>
+    {% else %}
+    {% for work in works %}
+      <tr>
+        <td>
+          {% if work.has_avatar? %}
+            <a href="{{ work.show_path }}"> <img src="{{ work.small_avatar }}"></a>
+          {% endif %}
+          {{work.link_to_show}}</td>
+        <td>{{work.parent.link_to_show}}</td>
+        <td>
+          {{ work.work_type_label }}
+          {% if work.work_type == 'lead' %}
+          -
+          {% case work.lead_status %}
+            {% when 'cold' %} Cold
+            {% when 'new' %} New
+            {% when 'hot' %} Hot
+            {% else %} Hyper-Hot
+          {% endcase %}
+          {% endif %}
+        </td>
+        <td>{{work.location.link_to_show}}</td>
+      </tr>
+    {% endfor %}
+    {% endif%}
+  </table>
+  {% else %}
+
+  <ol class="works gallery_list">
+    {% if works == empty %}
+    <li><p><em>No {{ site.work_label | plural | downcase }} yet</em></p></li>
+    {% else %}
+    {% for work in works %}
+    <li class="item work">
+      <div class="hipster_avatar">
+        <a href="{{ work.show_path }}" style="background-image:url({{ work.hipster_large_avatar_path }})"
+           title="{{ work.title }}"></a>
+      </div>
+      <a href="{{ work.show_path }}" class="title">{{ work.title }}@{{ work.parent.title }}</a>
+
+      <!--em>
+        Client: {{work.parent.title }} | Type: {{ work.work_type }} | Lead Status: {{ work.lead_status }} | Start Date: {{ work.start_date }} |
+        End Date: {{ work.end_date }} | Location: {{ work.location.title }} | Updated: {{ work.updated_at }} | Created: {{ work.created_at }}
+      </em-->
+    </li>
+    {% endfor %}
+    {% endif %}
+  </ol>
+  {% endif %}
+
+  {% include 'works/browse_list_controls' %}
+
+</div>

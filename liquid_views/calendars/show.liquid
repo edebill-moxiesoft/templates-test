@@ -1,0 +1,66 @@
+<!-- CALENDARS SHOW PAGE -->
+{% if calendar %}
+<div class="section full">
+  <div class='section group header'>
+    {% include 'nodes/header' parent: calendar %}
+  </div>
+
+  <div class='section main'>
+  
+    <div id="container_header">
+      {% capture primary_actions %}
+      <ul class="primary_actions">
+        <li class='js_calendar_subscribe node_actions'>
+          <a class='wizard_launch cal_subscribe' data-height='510' href="/calendars/{{calendar.id}}/subscription_for_user" title="Subscribe to this calendar" data-type='html'>Subscribe</a>
+        </li>
+        <li>
+          <!-- LEAVE THIS ALONE -->
+          <div id="calendar_title_throbber">
+            <img src="/images/throbber.gif" alt="Loading..." title="Loading..."/>
+          </div>
+        </li>
+      </ul>
+      {% endcapture %}
+      {% include 'nodes/page_header' parent: calendar  %}
+
+    </div>
+
+
+    <div class="clear"></div>
+
+    <!-- IMPORTANT! LEAVE THIS ALONE, OR YOUR CALENDAR WILL NOT DISPLAY! -->
+    {% calendar %}
+
+  </div>
+
+  <div class='section sidebar'>
+
+    {% pages_listing for: calendar %}
+
+    <div class='aside security'>
+    
+      <div class='header'>
+        {% include 'nodes/security_heading' item: calendar %}
+      </div>
+    
+      <div class='section'>
+        {% include 'nodes/security_summary' item: calendar %}
+      </div>
+
+    </div>
+    
+    <div class='aside task_list recommendations'>
+      {% recommendations for calendar %}
+    </div>
+
+  </div>
+  
+
+</div>
+
+
+{% if wizard_launch %}
+  <a href="{{ calendar.show_path_shallow }}/new_content" title="Congratulations" data-width="300" data-height="300" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+
+{% endif %}

@@ -1,0 +1,14 @@
+<div class='aside pages_menu'>
+  <div class='section'>
+    {% include 'menus/pages_listing' %}
+  </div>
+</div>
+
+{% assign sections = container.closest_container.sections %}
+{% if sections['BlankPage'] != nil or sections['BasicGroup'] != nil  or sections['Project'] != nil %}
+<div class='aside pages_menu'>
+  <div class='section'>
+    {% include 'menus/groups_listing' parent: container %}
+  </div>
+</div>
+{% endif %}

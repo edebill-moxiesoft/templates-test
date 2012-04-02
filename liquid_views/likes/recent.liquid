@@ -1,0 +1,30 @@
+<div class="header">
+  <h3>What People Like</h3>
+</div>
+  
+<div class="section unit_body">
+
+  {% if likes == empty %}
+    <p>
+      <em>no one likes anything yet</em>
+    </p>
+  {% else %}
+  
+    <ol class="item_list">
+      {% for liked in likes %}
+      <li class="item recent">
+        {{ liked.last_user_who_liked.link_to_show_with_container_class }}
+        likes the  
+        {% if liked.activity? %}
+          {{ liked.friendly_type_name }} {{liked.title}}. <a class="view_activity" href="{{liked.show_path}}">View Activity</a>
+        {% else %}
+          {{ liked.site_label }} {{liked.link_to_show_with_container_class}}</a>.
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  
+  {% endif %}
+
+</div>
+  

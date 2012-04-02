@@ -1,0 +1,35 @@
+<p>{{ user_invite.message }}</p>
+
+{% if site.in_trial_mode? %}
+
+<p>You're Invited!</p>
+<p>{{ creator.display_name }} has invited you to join the private collaboration space: {{ site.community_name }}</p>
+<p><b><a href="{{user_invite.accept_path}}">Accept Invitation</a></b></p> 
+<p>After you’ve created your account, you'll have a chance to invite others from your organization, create groups and projects, and everything else needed for successful collaboration. You're almost there. Get ready to see what happen when bright minds connect...</p>
+
+<p>Moxie Software<br/>
+P: +1-800-474-1149 (North America)<br/>
+P: +44 (0)870 904 1122 (EMEA)<br/>
+<a href="mailto:spaces@moxiesoft.com">spaces@moxiesoft.com</a> <br/>
+<a href="http://www.moxiesoft.com">www.moxiesoft.com</a></p>
+
+<p>Follow Us: <a href="https://twitter.com/#!/moxiesoft">Twitter</a> | <a href="http://www.facebook.com/pages/Moxie-Software/144466498927860">Facebook</a> | <a href="http://www.linkedin.com/company/1229260">LinkedIn</a> | <a href="http://www.youtube.com/moxiesoft">YouTube</a> | <a href="http://feeds.feedburner.com/MoxieSoft">RSS</a></p>
+
+{% else %}
+  {% if password %}
+  <p>Your account will be created using these details after you click the link below:
+    <dl>
+    	<dt>email</dt>
+  		<dd>{{user_invite.email}}</dd>
+      <dt>password</dt>
+      <dd>{{password}}</dd>
+    </dl>
+  </p>
+  {% endif %}
+  
+  <p>### CLICK THE LINK BELOW TO ACCEPT THIS INVITATION ###</p>
+
+  <p><a href="{{user_invite.accept_path}}">{{user_invite.accept_path}}</a></p>
+{% endif %}
+
+{% include 'emails/_sent_from_footer' %}

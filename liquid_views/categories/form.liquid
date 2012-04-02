@@ -1,0 +1,11 @@
+{% form for 'category' multipart: true class: 'formtastic category' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'categories/form_inputs' form_object: category %}      
+    {% endform_fields %}
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: category %}
+    {% endform_fields %}
+  </div>
+{% endform %}

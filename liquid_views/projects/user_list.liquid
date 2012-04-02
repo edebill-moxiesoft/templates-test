@@ -1,0 +1,10 @@
+<div class='unit_body members_listing'>
+  <ul>
+    {% for user in users %}
+    <li>
+      {{ user.small_avatar_with_link }}
+      {{ user.link_to_user_profile }}
+    </li>
+    {% endfor %}
+  </ul>
+</div>

@@ -1,0 +1,86 @@
+<fieldset class="inputs last">
+  <legend style="clear:both"><span>Access</span></legend>
+  <div class="set last">
+    <div class="label_column access">
+      <blockquote class="set-hint">
+        Use the search box to find users and groups. You can then provide administrative, contribution, or view rights by dragging the item to its corresponding section on the right.
+      </blockquote>
+    </div>
+    <div class="settings_column access">
+      {% if node.has_parent? == true %}
+      <div class="node_inherit_toggle">
+        <input id="node_settings_inherit" name="node[settings][inherit]" value="true" type="checkbox"{% if node.security_updated? == false %} checked="checked"{% endif %} />
+        <label for="node_settings_inherit">Inherit settings from {{ node.parent.name }}</label>
+      </div>
+      {% endif %}
+      
+      <div id="node_access_tool">
+        
+        <div id="node_access_tool_search">
+          	<div class="list_popdown socmod_search" id="attn_popdown">
+          	  <div class="header">
+          	    <input type="text" autocomplete="off" name="popdown_search" class="popdown_search js_node_access_search_field" id="attn_search" title="Search" data-url='/nodes/social_module_search?security_groups=true' data-type='html'/>
+          	    <div class='spinner'></div>
+          	    <h3>Search Results</h3>
+          	  </div>
+          	  {% include 'nodes/_admin_panel_socmods' %}	
+          	</div>
+        </div>
+
+        <div id="node_access_tool_roles">
+          <div class="roles_block js_administrators_block" data-role="admin">
+            <span class="header">Administrators</span>
+            <ul class="js_list" data-role="admin">
+              {% if node.accessor_list_admin.size > 0 %}
+                {% for member in node.accessor_list_admin %}
+                <li data-fullid="{{ member.security_id }}" class="draggable popdown_item {{ member.container_class }}_link">
+                  <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+                  <span>{{ member.name }}</span>
+                  <input type="hidden" class="js_node_settings_admin_array" name="node[settings][admin][]" value="{{ member.security_id }}">
+                </li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+          <div class="roles_block js_editors_block" data-role="write">
+            <span class="header">Contributors</span>
+            <label for="node_settings_everyone_write">
+              <input type="checkbox" name="node[settings][everyone_write]" id="node_settings_everyone_write" value="true"{% if node.everyone_write? %} checked="checked"{% endif %} {% if node.security_updated? == false %}disabled='disabled'{% endif %}/>
+              Everyone
+            </label>
+            <ul class="js_list" data-role="write">
+              {% if node.accessor_list_write.size > 0 %}
+                {% for member in node.accessor_list_write %}
+                <li data-fullid="{{ member.security_id }}" class="draggable popdown_item {{ member.container_class }}_link">
+                  <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+                  <span>{{ member.name }}</span>
+                  <input type="hidden" class="js_node_settings_write_array" name="node[settings][write][]" value="{{ member.security_id }}">
+                </li>
+                {% endfor %}
+              {% endif %}              
+            </ul>              
+          </div>
+          <div class="roles_block js_viewers_block" data-role="read">
+            <span class="header">Viewers</span>
+            <label for="node_settings_everyone_read">
+              <input type="checkbox" name="node[settings][everyone_read]" id="node_settings_everyone_read" value="true"{% if node.everyone_read? %} checked="checked"{% endif %} {% if node.security_updated? == false %}disabled='disabled'{% endif %}/>
+              Everyone
+            </label>
+            <ul class="js_list" data-role="read">
+              {% if node.accessor_list_read.size > 0 %}
+                {% for member in node.accessor_list_read %}
+                <li data-fullid="{{ member.security_id }}" class="draggable popdown_item {{ member.container_class }}_link">
+                  <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+                  <span>{{ member.name }}</span>
+                  <input type="hidden" class="js_node_settings_read_array" name="node[settings][read][]" value="{{ member.security_id }}">
+                </li>
+                {% endfor %}
+              {% endif %}                   
+            </ul>
+          </div>
+        </div>        
+      </div>
+      
+    </div>
+  </div>
+</fieldset>

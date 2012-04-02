@@ -1,0 +1,46 @@
+{% if calendars %}
+  {% assign calendar = calendars.first %}  
+{% endif %}
+{% if events == null %}
+  {% assign events = calendar.upcoming_events %}
+{% endif %}
+{% if calendar_events == null %}
+  {% assign calendar_events = calendar.calendar_events %}
+{% endif %}
+<div class="section unit calendar_unit js_calendar_unit">
+  <div class='header'>
+    <h2 class="calendar">
+      <a href="{{ calendar.show_path }}" title="Calendar Summary">{{ calendar.title }}</a>
+    </h2>
+  </div>
+  <div class='unit_body'>
+
+    <div class="mini_calendar" data-dates="{% event_dates for calendar_events in month %}">
+      <div class="cal" data-url="{{ calendar.load_month_path }}" data-start-date="{{ month }}" data-calendar-url="{{ calendar.show_path }}"></div>
+    </div>
+    <div class="events_summary">
+      <h3>
+        Upcoming {{ site.calendar_event_label | plural }}
+      </h3>
+      <ol class="item_list">
+        {% if events != empty %}
+          {% for event in events limit: 5 %}
+            <li>
+              <span class="date">{{ event.date }}</span>
+              <a href="{{ event.show_path }}" class="title">{{ event.title }}</a>
+              <br/>
+              {% if event.limited_body == empty %}
+                <em>no description</em>
+              {% else %}
+                {{ event.limited_body }}
+              {% endif %}
+            </li>
+          {% endfor %}
+        {% else %}
+          <li><p><em>No {{ site.calendar_event_label | plural | downcase }} yet</em></p></li>
+        {% endif %}
+      </ol>
+      <a href="{{ calendar.show_path }}" class="more_link">More</a>
+    </div>
+  </div>
+</div>

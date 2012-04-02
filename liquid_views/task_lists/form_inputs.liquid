@@ -1,0 +1,13 @@
+{% input for 'title' label: 'Title' required: 'true' %}
+{% if form_object.parent_id != null %}
+  {% input for 'parent_id' as: 'hidden' %}
+{% endif %}
+
+{% include 'nodes/_avatar_update_fields' %}
+<li id="task_list_due_at_input" class="string">
+  <label for="task_list_due_at">Due Date</label>
+  <input type="text" style="width: 10%;" size="70" name="task_list[due_at]" id="task_list_due_at" class="datepicker" value="{{form_object.due_at}}">
+</li>
+
+
+{% include 'nodes/_editor_fields' %}

@@ -1,0 +1,18 @@
+{% if activities == empty %}
+ <p><em>no activities found</em></p>
+{% else %}
+  <ol class="item_list activities" id="activities_feed">
+    {% for activity in activities %}
+    {% include 'local_activities/summary' %}
+    {% endfor %}
+  </ol>
+{% endif %}
+
+{% if current_user.user_watching_count < 5 %}
+<p>
+  To generate more content in this feed, you will need to watch some colleagues.
+  Find colleagues to watch at the <a href="/people">People Page</a> or watch some of these colleagues:
+</p>
+{% watch_suggestions user %}  
+
+{% endif %} 

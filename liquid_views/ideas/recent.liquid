@@ -1,0 +1,22 @@
+<div class="header">
+  <h3>Recent {{ site.idea_label | plural }}</h3>
+</div>
+<div class="unit_body">
+  
+  {% if ideas == empty %}
+    <p><em>no {{ site.idea_label | plural | downcase }} available</em></p>
+  {% else %}
+  
+    <ol class="item_list">
+      {% for idea in ideas limit: 3 %}
+        {% include 'ideas/summary' %}
+      {% endfor %}
+    </ol>
+    {% if more_ideas > 0 %}
+      <a class="more_link" href="/ideas?order=recent">{{ more_ideas }} more</a>
+    {% endif %}
+  
+  {% endif %}
+  
+</div>
+

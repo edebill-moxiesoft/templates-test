@@ -1,0 +1,66 @@
+{% if comment_activity != nil %}
+<div id="comment">
+  <p>Recent Comments</p>
+  <ol>
+    {% for activity in comment_activity %}
+      <li>
+        <p>{{ activity.title }} {{ activity.created_text }}</p>
+        <p>{{ activity.additional_detail }}</p>
+				<p><a href="{{ activity.full_show_path }}">View Activity</a></p>
+      </li>
+    {% endfor %}
+  </ol>
+  <p>
+    {% include 'emails/_comment_notification_settings' %}
+  </p>
+</div>
+{% endif %}
+
+{% if like_activity != nil %}
+<div id="like">
+  <p>Liked Content</p>
+  <ol>
+    {% for activity in like_activity %}
+      <li>{{ activity.title }} {{ activity.created_text }} <a href="{{ activity.full_show_path }}">View Activity</a></li>
+    {% endfor %}
+  </ol>
+  <p>
+    {% include 'emails/_like_notification_settings' %}
+  </p>
+</div>
+{% endif %}
+
+{% if node_watch_activity != nil %}
+<div id="node_watch">
+  <p>Activity on Followed Content</p>
+  <ol>
+    {% for activity in node_watch_activity %}
+      <li>
+        <p>{{ activity.title }}</p>
+        <p>{{ activity.additional_detail }}</p>
+				<p><a href="{{ activity.full_show_path }}">View Activity</a></p>
+        <p>{{ activity.full_unwatch_link }}</p>
+      </li>
+    {% endfor %}
+  </ol>
+  <p>
+    {% include 'emails/_node_watch_notification_settings' %}
+  </p>
+</div>
+{% endif %}
+
+{% if user_watch_activity != nil %}
+<div id="user_watch">
+  <p>Activity on Followed Users</p>
+  <ol>
+    {% for activity in user_watch_activity%}
+      <li>{{ activity.title }} {{ activity.created_text }} <a href="{{ activity.full_show_path }}">View Activity</a></li>
+    {% endfor %}
+  </ol>
+  <p>
+    {% include 'emails/_user_watch_notification_settings' %}
+  </p>
+</div>
+{% endif %}
+
+{% include 'emails/_sent_from_footer' %}

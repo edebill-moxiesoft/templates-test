@@ -1,0 +1,93 @@
+<!-- WIKI SHOW PAGE -->
+{% if wiki %}
+<div id='wiki_show' class="section unit_summary item_show">
+  <div class='section group header'>
+    {% include 'nodes/header' parent: wiki %}
+  </div>  
+
+  <div class='section main wiki'>
+  
+    <div id="container_header">
+      {% capture primary_actions %}
+      {% assign viewing_latest = 'true' %}
+      <ul class="primary_actions">
+        <li class="node_actions">{{ wiki.add_wiki_page_link }}</li>
+      </ul>
+      {% endcapture %}
+      {% include 'nodes/page_header' parent: wiki %}
+      <div class="clear"></div>
+    </div>
+
+    <div class="page_description node_details">
+      <div class="wiki_summary">
+        {% include 'sections/wiki_pages_summary' wiki_pages: wiki.wiki_pages %}
+      </div>
+    </div>
+  
+    <div class="item">
+
+    	<div class='user_content'>
+        {{ wiki.body_with_wiki_links_parsed }}
+  		</div>
+  
+      <div class="footer">
+        <span class="user_name">by {{ wiki.link_to_owner }},</span>
+        <span class="created_at">{{ wiki.created_at | time_ago_in_words, 'ago'  }},</span>
+        <span class="unique_views">viewed by {{ 'person' | pluralize: wiki.unique_views }}</span>
+      
+        {% if wiki.versions_count > 1 %}
+          <span>
+            &middot; 
+            <a href="#" class="js_toggle_versions_table">{{ 'version' | pluralize: wiki.versions_count }}</a>
+            of this {{ wiki.site_label | downcase }} available
+          </span>
+        {% endif %}
+
+        {% include 'nodes|like_button' node: wiki %}
+        {% assign viewing_latest = 'true' %}
+        {% include 'wikis/versioning' item: wiki %}
+
+        {% include 'nodes/likes_summary_header' node: wiki %}
+
+        <div class="section unit comments_block">
+          <a name="comments"></a>
+          <div class='header'>
+            <h3 class="comments js_plural_count">{{ 'Comment' | pluralize: wiki.comments_count }} </h3>
+          </div>
+          <div class='unit_body'>
+            {% include 'comments/index' %}
+            {% include 'comments/form' %}
+          </div>
+        </div>
+      </div>
+      {% assign viewing_latest = 'true' %}
+    </div>
+  </div>
+  
+  <div class='section sidebar'>
+  
+    {% pages_listing for: wiki %}
+    
+  
+    {% include 'tags/_tagger_sidebar' node: wiki %}
+    
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'wikis/security_heading' item: wiki %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: wiki %}
+      </div>
+    </div>      
+    <div class='aside wiki recommendations'>
+      {% recommendations for wiki %}
+    </div>
+
+  </div>
+</div>
+
+{% if wizard_launch %}
+  <a href="{{ wiki.show_path_shallow }}/new_content" title="Congratulations" data-width="300" data-height="300" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+
+{% endif %}

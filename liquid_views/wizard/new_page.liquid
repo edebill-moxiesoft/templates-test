@@ -1,0 +1,64 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head>
+</head>
+<body>
+
+
+<div class="wizard_new_page {{node.container_class}}">
+  {% if child %}
+    <div class="success">You have successfully added {{ child.title }}</div>
+    <form>
+      <input id="finish_action" type="hidden" value="{{node.show_path}}">
+    </form>
+  {% else %}
+    <form>
+      <input id="finish_action" type="hidden">
+    </form>
+
+  {% endif %}
+
+  <h1>Select Pages to Add to {{ node.title }}</h1>
+
+  <ol class="wizard_new_pages">
+    <li class="wizard_new_page">
+      {{ site.blog_label | link_to_wizard_from_new_page: 'Blog', node.guid }}
+    </li>
+    <li class="wizard_new_page">
+      {{ site.discussion_archive_label | link_to_wizard_from_new_page: 'DiscussionArchive', node.guid }}
+    </li>
+    <li class="wizard_new_page">
+      {{ site.ideastorm_label | link_to_wizard_from_new_page: 'Ideastorm', node.guid }}
+    </li>
+    <li class="wizard_new_page">
+      {{ site.calendar_label | link_to_wizard_from_new_page: 'Calendar', node.guid }}
+    </li>
+    <li class="wizard_new_page">
+      {{ site.document_library_label | link_to_wizard_from_new_page: 'DocumentLibrary', node.guid }}
+    </li>
+    <li class="wizard_new_page">
+      {{ site.wiki_label | link_to_wizard_from_new_page: 'Wiki', node.guid }}
+    </li>
+    <li class="wizard_new_page">
+      {{ site.task_list_label | link_to_wizard_from_new_page: 'TaskList', node.guid }}
+    </li>
+    <li class="wizard_new_page">
+      {{ site.blank_page_label | link_to_wizard_from_new_page: 'BlankPage', node.guid }}
+    </li>
+  </ol>
+
+  {% if node.pages != empty %}
+  <h2>Added Pages</h2>
+  <ol class="wizard_current_pages">
+    {% for page in node.pages %}
+    <li class="wizard_current_page {% if forloop.last %}last{% endif %}">
+      <a href="{{ page.show_path }}" title="{{ page.title }}" class="{{page.menu_item_class}}">
+        {{ page.page_name }}
+      </a>
+    </li>
+    {% endfor %}
+  </ol>
+  {% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+<option value="{{ task.status }}" selected='selected'>{{ task.status }}</option>
+{% for status in task.available_statuses %}
+  <option value="{{ status }}">{% if status == "defer" %}deferred{% else %}{{ status }}{% endif %}</option>
+{% endfor %}

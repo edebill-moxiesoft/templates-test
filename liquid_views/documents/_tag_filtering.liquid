@@ -1,0 +1,22 @@
+<!-- filtering by tags -->
+{% unless all_tag_words == blank %}
+<div class="all_tag_filtering">
+  <form action="#" method="get" class="tag_filtering_form">
+    <input type="hidden" name="page" value="{{ page }}" id="page" />
+    <input type="hidden" name="order" value="{{ order }}" id="order" />
+    <input type="hidden" name="view" value="{{ view }}" id="view" />
+    <input type="hidden" name="tag_filter" value="{{ tag_filter }}" id="tag_filter" class="js_tag_filter" />
+    <input type="hidden" name="t" value="" id="timestamp"></input>
+    <div class="label"><span>Filter by Tag:</span></div>
+    <ol class="tag_filters">
+      {% for word in all_tag_words %}
+        <li>
+          <a href="#" class="js_tag_filter_link">{{ word }}</a>
+        </li>
+      {% endfor %}
+      <li><input type="submit" value="Apply" class="submit_button button" /></li>
+      <li class="clear_button"><a href="#" class="js_tag_filter_clear">Clear</a></li>
+    </ol>
+  </form>
+</div>
+{% endunless %}

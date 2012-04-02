@@ -1,0 +1,52 @@
+
+<div class='section unit activities js_activity_feed js_microblogger'>
+
+  <div class='header'>
+    <h2>{{site.newsfeed_label}}</h2>
+  </div>
+  
+  <div class="section microblog_control">
+    {% microblogger %}
+  </div>
+
+  {% activity_feed_filters show_scopes: true %}
+
+  <a class="js_update_check" href="/activity/poller?a=1&" data-type='json' data-cache='false'>Check for Updates</a>
+  <a class="js_get_latest_activity" href="/activities/latest?a=1&" data-type='html'>Get Latest</a>
+
+  <div class="more_updates">
+    <a class="js_show_all_latest_activity">
+      <var></var> 
+      <span class="js_singular"> new activity item - click to view</span>
+      <span class="js_plural"> new activity items - click to view</span>
+    </a>
+  </div>
+
+
+  <div class="unit_body">
+    <ol class="item_list activities js_filter_body {% if no_render_activities %}js_activities_fetch{% endif %}" id="activities_feed" data-fetch_latest_url="/activities/latest?since={{activities_fetch_timestamp}}" {% if no_render_activities %}data-fetch_url="/activities/fetch/{{activities_fetch_timestamp}}"{% endif %}>
+      {% unless no_render_activities %}
+        {% for activity in activities %}
+          {% cache local_activity, activity, activity.parent, activity.parent.parent, activity.closest_container, current_user, filter_by %}
+            {% include 'local_activities/activity' %}
+          {% endcache %}
+        {% endfor %}
+      {% endunless %}
+    </ol>
+  </div>
+
+  <div class="footer" >
+    <div class="paginate js_paginate">
+      <span class="indicator">
+        <div class='spinner'></div>
+      </span>
+      <a>More</a>
+    </div>
+  </div>
+
+  <div class="activity_comment_stub">
+    {% include 'local_activities/comment_form' %}
+  </div>
+
+</div>
+

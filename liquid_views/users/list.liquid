@@ -1,0 +1,5 @@
+<ul class="user_block_list js_user_block_list">
+  {% for user in users %}
+  {% include 'users/list_user' user: user %}
+  {% endfor %}
+</ul>

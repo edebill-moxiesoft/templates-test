@@ -1,0 +1,15 @@
+<div class="item search_result calendar_event">
+  <div class="avatar">{{ calendar_event.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ calendar_event.link_to_show_with_container_class }} | {{ calendar_event.site_label }}</h3>
+    <h4>
+      {{ calendar_event.date | date: "%m/%d/%y" }}&nbsp;&nbsp;|&nbsp;
+      {% if calendar_event.where and calendar_event.where != empty  %}Where: {{ calendar_event.where }}&nbsp;&nbsp;|&nbsp;{% endif %}
+      {{ calendar_event.parent.site_label }} {{ calendar_event.parent.link_to_show_with_container_class }}
+    </h4>
+    <p>{{ calendar_event.search_excerpt }}</p>
+
+    {% include 'search_results/footer_content' node: calendar_event %}
+  </div>
+  <div class='clear'></div>
+</div>

@@ -1,0 +1,140 @@
+<div class="work_type_summary section works unit">
+
+  <!-- **** LEADS **** -->
+  <div class="header js_work_leads_header">
+    <span class="most_recent_update">Updated {{ lead_works.first.updated_at | time_ago_in_words }}</span>
+
+    <h2 class="work">
+      <a href="/works/lead">{{ site.client_lead_label | plural }}</a>
+      {% locations_jump_menu for 'leads' %}
+    </h2>
+  </div>
+  <div class="unit_body">
+
+    {% if lead_works == empty %}
+    <p><em>No {{ site.client_lead_label | plural | downcase }} yet.</em></p>
+
+    {% else %}
+    <ol class="works leads item_list">
+      {% for work in lead_works %}
+      <li class="item">
+        <p>{{ work.link_to_owner }} added</p>
+
+        <p class="work_body">
+          <a href="{{ work.show_path }}" class="project_link">{{ work.title }}</a>
+          {{ work.excerpted_body_no_more_link }}
+        </p>
+        {% if work.tags_list != empty %}
+        <p>Tagged as: <span class='tags'>{{ work.tags_list }}</span></p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+
+    {% endif %}
+  </div>
+
+  {% if lead_works_count > limit %}
+  <div class="footer"><a class="more_link" href="TODO">More</a></div>
+  {% endif %}
+
+
+</div>
+<div class="work_type_summary section works unit">
+
+  <!-- **** ACTIVES **** -->
+  <div class="header js_work_actives_header">
+    {% unless active_works == empty %}
+    <span class="most_recent_update">Updated {{ active_works.first.updated_at | time_ago_in_words }}</span>
+    {% endunless %}
+    <h2 class="work">
+      <a href="/works/active">Active {{ site.work_label | plural | downcase }}</a>
+      {% locations_jump_menu for 'actives' %}
+    </h2>
+  </div>
+  <div class="unit_body">
+    {% if active_works == empty %}
+    <p><em>No active {{ site.work_label | plural | downcase }} yet.</em></p>
+    {% else %}
+    <ol class="works actives item_list">
+      {% for work in active_works %}
+      <li class="item">
+        {% unless work.team_sorted_by_role == empty %}
+        <div class="people">
+          {% for member in work.team_sorted_by_role %}
+          {{ member.small_avatar_with_link }}
+          {% endfor %}
+        </div>
+        {% endunless %}
+        <a href="{{ work.show_path }}" class="work_avatar">{{ work.small_avatar_or_parent_avatar }}</a>
+
+        <div class="details">
+          <a href="{{ work.show_path }}" class="project_link">{{ work.title }}</a>
+
+          <p>for <a href="{{ work.parent.show_path }}" class="project_link for_client">{{ work.parent.title }}</a></p>
+
+          <p>{{ work.excerpted_body_no_more_link }}</p>
+
+          {% if work.tags_list != '' %}
+          <p>Tagged as: <span class='tags'>{{ work.tags_list }}</span></p>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% endif %}
+  </div>
+  {% if active_works_count > limit %}
+  <div class="footer"><a class="more_link" href="TODO">More</a></div>
+  {% endif %}
+
+</div>
+<div class="work_type_summary section works unit">
+
+  <!-- **** COMPLETES **** -->
+  <div class="header js_work_completes_header">
+    {% unless complete_works == empty %}
+    <span class="most_recent_update">Updated {{ complete_works.first.updated_at | time_ago_in_words }}</span>
+    {% endunless %}
+    <h2 class="work">
+      <a href="/works/complete">{{ site.client_completed_label }} {{ site.work_label | plural | downcase }}</a>
+      {% locations_jump_menu for 'completes' %}
+    </h2>
+  </div>
+  <div class="unit_body">
+    {% if complete_works == empty %}
+    <p><em>No {{ site.client_completed_label | downcase }} {{ site.work_label | plural | downcase }} yet</em></p>
+    {% else %}
+    <ol class="works completes item_list">
+      {% for work in complete_works %}
+      <li class="item">
+        {% unless work.team_sorted_by_role == empty %}
+        <div class="people">
+          {% for member in work.team_sorted_by_role %}
+          {{ member.small_avatar_with_link }}
+          {% endfor %}
+        </div>
+        {% endunless %}
+        <a href="{{ work.show_path }}" class="work_avatar">{{ work.small_avatar_or_parent_avatar }}</a>
+
+        <div class="details">
+          <a href="{{ work.show_path }}" class="project_link">{{ work.title }}</a>
+
+          <p>for <a href="{{ work.parent.show_path }}" class="project_link for_client">{{ work.parent.title }}</a></p>
+
+          <p>{{ work.excerpted_body_no_more_link }}</p>
+
+          {% if work.tags_list != '' %}
+          <p>Tagged as: <span class='tags'>{{ work.tags_list }}</span></p>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% endif %}
+  </div>
+  {% if complete_works_count > limit %}
+  <div class="footer"><a class="more_link" href="TODO">More</a></div>
+  {% endif %}
+
+</div>

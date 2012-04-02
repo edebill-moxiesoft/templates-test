@@ -1,0 +1,42 @@
+{% if changes.new %}
+  <p>
+    The {{ task.link_to_show }} task has been created and assigned to you by {{ updater.link_to_show }}.
+  </p>
+{% else %}
+  {% if updater != nil %}
+  <p>
+  Task '{{task.link_to_show}}' has been updated by {{updater.link_to_show}}:
+  </p>
+  {% else %}
+  <p>
+  Task '{{task.link_to_show}}' has been updated:
+  </p>
+  {% endif %}  
+  <p>
+    {% if changes.assignee %}
+      Its assignment has changed from {{ changes.assignee.old.link_to_show }} to {{ changes.assignee.new.link_to_show }}.<br/>
+    {% endif %}
+    {% if changes.title %}
+      Its title has changed from {{ changes.title.old }} to {{ changes.title.new }}.<br/>
+    {% endif %}
+    {% if changes.due_date %}
+      {% if changes.due_date.old == 'any time' %}
+        A due date of {{changes.due_date.new}} has been added.<br/>
+      {% else %}
+        Its due date has changed from {{ changes.due_date.old }} to {{ changes.due_date.new }}.<br/>
+      {% endif %}      
+    {% endif %}
+    {% if changes.status %}
+      Its status has changed from {{ changes.status.old }} to {{ changes.status.new }}.<br/>
+    {% endif %}
+    {% if changes.body %}
+      {% if changes.body == 'blank'%}
+        Its description has been removed.
+      {% else %}
+        Its description has been modified. It now reads: 
+        <p>{{changes.body.new}}</p>
+      {%endif%}
+    {% endif %}      
+  </p>
+{% endif %}
+{% include 'emails/_sent_from_footer' %}

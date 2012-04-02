@@ -1,0 +1,9 @@
+{% input for 'title' label: 'Page Title' required: 'true' %}
+
+{% include 'nodes/_avatar_update_fields' %}
+{% include 'nodes/_editor_fields' %}
+
+{% unless blank_page.parent_id == null %}
+  {% input for 'parent_id' as: 'hidden' %}
+{% endunless %}
+

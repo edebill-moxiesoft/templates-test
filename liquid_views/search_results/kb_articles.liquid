@@ -1,0 +1,16 @@
+{% assign items_shown = 5 %}
+
+{% if hide_if_none != false and articles and articles != empty %}
+<div class="section search_result unit kb_article">
+  
+  <div class="header">
+    <h3 class="kb_article">
+      {{ site.article_label | plural }}
+    </h3>
+    
+  </div>
+  
+  {% include 'articles/search_results' limit: items_shown  hide_more: true hide_total: true %}
+
+</div>
+{% endif %}

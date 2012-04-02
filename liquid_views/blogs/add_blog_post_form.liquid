@@ -1,0 +1,28 @@
+<div id="blog_post_form" class="post_form js_post_form">
+  <div class='new_post'>
+    <div class="post_form_toggler">
+      <div class='ind'></div>
+
+
+      {% form for 'form_object' id: 'post_form' action: "blog.url_for_new_blog_post" class: 'formtastic blog_post' data-type: html %}
+      {% error_messages %}
+      <div class='wrapper'>
+        {% form_fields for 'inputs' %}
+        {% input for 'title' label: 'Title' required: 'true' %}
+        {% input for 'slug' label: 'Permalink' required: 'false' class: 'slug_field', hint: "(optional) may only contain letters, numbers, and hyphens" %}
+        {% include 'nodes/_editor_fields' %}
+        <li>
+          <label>Add Tags</label>
+          {{ form_object.tagging_text_field }}
+        </li>
+        {% endform_fields %}
+        {% form_fields for 'buttons' %}
+        {% input as: submit value: Submit class: create %}
+        <li class='cancel'><input id="cancel" title="Cancel" type="button" value="Cancel" class="cancel" data-url="{{form_object.path}}"/></li>
+        {% endform_fields %}
+      </div>
+
+      {% endform %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+{% assign items_shown = 5 %}
+
+<div class="section search_result unit calendar_event">
+  
+  <div class="header">
+    <h3 class="calendar">{{ site.calendar_event_label | plural }}</h3>
+  </div>
+  
+  {% include 'calendar_events/search_results' limit: items_shown  hide_more: true  hide_total: true %}
+
+  {% if has_more_calendar_events %}
+  <div class="footer">
+      <a class="more_link" href="/calendar_events/search?q={{ query | escape }}&{{ extra_params }}">
+      <span class="more_count">{% if num_hits > 1005 %}
+      over 1000
+      {% elsif num_hits > 5 %}
+      {{ num_hits| minus:items_shown  }}
+      {% endif %}</span>
+      more</a>
+  </div>  
+  {% endif %}
+
+</div>

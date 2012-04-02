@@ -1,0 +1,25 @@
+<li class='comment {% if forloop.last %}last{% endif %}'>
+  {{ comment.creator.small_avatar_with_link }}
+  <div class="user_link">
+    {{ comment.creator.link_to_show }}
+  </div>
+  <ul class="comment_actions js_comments_action">
+    <li class="created">{{ comment.created_at | time_ago_in_words, 'ago'  }}</li>
+    {% if comment.deletable_by_viewer? and disable_edit != true %}
+      <li class="delete">
+        <a href='{{comment.delete_path}}.json' title="Delete Comment" data-method='DELETE' data-remote='true'></a>
+      </li>
+    {% endif %}    <li class="quote"><a title="Quote Comment"></a></li>
+    {% if comment.editable_by_viewer? and site.comment_editing? %}
+      <li class="edit">
+        <a href="{{ comment.edit_path }}?nolayout=true" title="Edit Comment" data-remote='true' data-type="html"></a>
+      </li>
+    {% endif %}
+    <li class="comment_indicator">
+        <div class='spinner'></div>
+    </li>
+  </ul>
+  <div class="body user_content">
+    {{ comment.body }}
+  </div>
+</li>

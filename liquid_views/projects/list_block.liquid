@@ -1,0 +1,22 @@
+<div class='section unit projects js_filtered'>
+
+  <div class='section unit_body '>
+    <ol class="projects item_list js_filter_body">
+      {% if projects == empty %}
+        <p><em>No Projects Yet</em></p>
+      {% else %}
+        {% for project in projects %}
+          <li class="item ">
+            <a href="{{ project.show_path }}">{{ project.small_avatar }}</a>
+            {{ project.link_to_show_with_container_class }} ({{ 'member' | pluralize: project.members_count }})
+            <p class="description">
+                {{ project.limited_body }}
+            </p>
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ol>
+  </div>
+
+  {% more projects %}
+</div>

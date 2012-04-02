@@ -1,0 +1,26 @@
+<div class='section unit discussion_archives js_filtered'>
+
+  <div class='section unit_body '>
+    <ol class="discussion_archives item_list js_filter_body">
+      {% if discussion_archives == empty %}
+        <p><em>No {{ site.discussion_archive_label | plural }} Yet</em></p>
+      {% endif %}
+
+      {% for discussion_archive in discussion_archives %}
+        <li class="item ">
+          <div class='discussion_count'>
+            {{ site.discussion_label | pluralize: discussion_archive.discussions_count }}
+          </div>
+          <div class='discussion'>
+            {{ discussion_archive.link_to_show }}
+            <p class='updated'>
+              Created {{ discussion_archive.created_at | time_ago_in_words, 'ago'  }}
+            </p>
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+  
+  {% more discussion_archives %}
+</div>

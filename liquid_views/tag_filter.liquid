@@ -1,0 +1,13 @@
+{% if tag_words != empty %}
+<div>Filter by Tag:</div>
+<ul class='js_filter_control tag_filters spinner_block'>
+  {% for tag_word in tag_words %}
+  <li class=''>
+    <a href='{{ index_url }}' data-type='html' data-tag='{{ tag_word["word"] }}' class=''>{{ tag_word["word"] }}</a>
+  </li>
+  {% endfor %}
+  <li>
+    <div class='spinner'></div>
+  </li>
+</ul>
+{% endif %}

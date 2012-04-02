@@ -1,0 +1,52 @@
+{% if pages %}
+  {% if pages != empty %}
+
+    {% if section_title == site.blank_page_label %}
+
+    <li class="menu_item icon_menu_item has_multiple  {{ node | node_in_pages: pages}}">
+      <a href="#" title="{{section_title}}" class="{{pages[0].menu_item_class}}  section_link">{{section_title}}s ({{pages.size}})</a>
+      <ol {{ node | node_in_pages_open_list: pages}} >
+      {% for page in pages %}
+        <li class="menu_item icon_menu_item {% if forloop.last %}last{% endif %} {% if node.id == page.id %} selected{% endif %}">
+          <a href="{{ page.show_path }}" title="{{ page.title }}" class="group_subnav_item ">
+          {{ page.page_name | truncate: 30}}
+          </a>
+        </li>
+      {% endfor %}
+      </ol>
+    </li>
+
+    {% elsif section_title == "Lead" %}
+
+    <li class="menu_item icon_menu_item has_multiple  {{ node | node_in_pages: pages}}">
+      <a href="#" title="{{section_title}}" class="{{pages[0].menu_item_class}}  section_link">Leads ({{pages.size}})</a>
+      <ol {{ node | node_in_pages_open_list: pages}} >
+      {% for page in pages %}
+        <li class="menu_item icon_menu_item {% if forloop.last %}last{% endif %} {% if node.id == page.id %} selected{% endif %}">
+          <a href="{{ page.show_path }}" title="{{ page.title }}" class="group_subnav_item ">
+          {{ page.page_name | truncate: 30}}
+          </a>
+        </li>
+      {% endfor %}
+      </ol>
+    </li>
+    
+    {% else %}
+    
+    <li class="menu_item icon_menu_item has_multiple  {{ node | node_in_pages: pages}}">
+      <a href="#" title="{{section_title}}" class="{{pages[0].menu_item_class}}  section_link">{{section_title}} {{ site.work_label | pluralize: '' }} ({{pages.size}})</a>
+      <ol {{ node | node_in_pages_open_list: pages}} >
+      {% for page in pages %}
+        <li class="menu_item icon_menu_item {% if forloop.last %}last{% endif %} {% if node.id == page.id %} selected{% endif %}">
+          <a href="{{ page.show_path }}" title="{{ page.title }}" class="group_subnav_item ">
+          {{ page.page_name | truncate: 30}}
+          </a>
+        </li>
+      {% endfor %}
+      </ol>
+    </li>
+
+    {% endif %}
+
+  {% endif %}
+{% endif %}

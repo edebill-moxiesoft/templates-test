@@ -1,0 +1,55 @@
+<div class='section filters'>
+  <form class="activity_filters js_activity_filters" data-method='get' data-remote='true'
+        data-type="html" action="{% if node %}{{node.show_path}}/newsfeed{% elsif user_id %}/users/{{user_id}}/activities{% else %}/activities{% endif %}">
+    <input type='hidden' name="limit" value='10'>
+    <input type='hidden' name="offset" value='0'>
+
+    <ul class="spinner_block">
+      {% if filter_by == 'watched' %}
+      <li class="mark_read"><a href="markasread">Mark All as Read</a></li>
+      {% endif %}
+      <li class="label">Filters</li>
+
+      {% if scopes %}
+      <li class="scope_selector">
+        <select name="scope">
+        {% for s in scopes %}
+          <option value="{{s[0]}}" {% if scope == s[0] %} selected="selected" {% endif %}>{{s[1]}}</option>
+        {% endfor %}
+        </select>
+      </li>
+      {% endif %}
+
+      {% for filter in filters %}
+        <li class="toggleable">
+        {% capture checked %}{{ selected_filters | in_array: filter[0] }}{% endcapture %}
+        <label for='filter_{{filter[0]}}' title='{{ filter[2]}}' {% if checked == "true" %} class="active" {% endif %}>
+          {{ filter[1] }}
+          <input type='checkbox' value='{{filter[0]}}' id='filter_{{filter[0]}}' name='filters[]' {% if checked == "true" %} checked="checked" {% endif %} />
+        </label>
+        </li>
+      {% endfor %}
+
+      {% comment %}
+      This is the date picker for newsfeed.  Remove comments to enable
+      <li class="date">
+        <label for='start_date' title='Start Date'>From</label>
+        <input type='text' value='' id='start_date' name='start_date' class="datepicker_range"/>
+        <div>clear</div>
+      </li>
+      <li class="date">
+        <label for='end_date' title='End Date'>To</label>
+        <input type='text' value='' id='end_date' name='end_date' class="datepicker_range" data-max-date='+0d'/>
+        <div>clear</div>
+      </li>
+      Remove the below inputs when we reenable the date pickers
+      {% endcomment %}
+      <input type='hidden' value='' id='start_date' name='start_date' />
+      <input type='hidden' value='' id='end_date' name='end_date' />
+
+      <li class="indicator">
+        <div class='spinner'></div>
+      </li>
+    </ul>
+  </form>
+</div>

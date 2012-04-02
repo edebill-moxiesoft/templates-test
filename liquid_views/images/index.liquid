@@ -1,0 +1,7 @@
+<ul class="images">
+    {% for document in parent.images limit: limit_size %}
+        <li>
+            <a href="/documents/{{document.id}}"><img src="{{document.thumbnail_square_path}}" /></a>
+        </li>
+    {% endfor %}
+</ul>

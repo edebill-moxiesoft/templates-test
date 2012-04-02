@@ -1,0 +1,15 @@
+<div class="item search_result project">
+  <div class="avatar">{{ project.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ project.link_to_show_with_container_class }} | {{ project.site_label }}</h3>
+    <h4>
+      {{ 'Member' | pluralize: project.members_count }}
+      {% if project.distlist %}<span class="email"><a href="mailto:{{ project.distlist }}">{{ project.distlist }}</a></span>{% endif %}
+      {% if project.parent %}| Located in the {{ project.parent.site_label | downcase }} {{ project.parent.link_to_show_with_container_class }} {% endif %}
+    </h4>
+    <p>{{ project.search_excerpt }}</p>
+    {% include 'search_results/footer_container' node: project %}
+
+  </div>
+  <div class='clear'></div>
+</div>

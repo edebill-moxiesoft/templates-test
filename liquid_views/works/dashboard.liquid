@@ -1,0 +1,93 @@
+<div id='show_work'>
+
+
+  <div class='section group header'>
+     {% include 'nodes/header' parent: work %}
+  </div>
+
+
+  <div class='clear'></div>
+
+
+  <div class='section three_column'>
+    
+    <div class='section listing js_listing stretched'>
+    </div>  
+    
+    <div class='section left_sidebar'>
+      {% if work.has_avatar? %}
+      <div class='profile_photo'>
+        {{ work.profile_avatar }}
+      </div>
+      {% endif %}
+
+      <div class='aside '>
+        {% include 'works/details' work: work %}
+      </div>
+      <div class='aside security'>
+        <div class='header'>
+          {% include 'nodes/security_heading' item: work %}
+        </div>
+        <div class='section'>
+          {% include 'nodes/security_summary' item: work %}
+        </div>
+      </div>
+  
+    </div>
+
+    <div class='section middle'>
+      <div class="section listing followers">
+        {% watchers for 'work' %}
+        <div class="footer">
+          <a href="{{ work.watchers_url }}">directory view</a>
+        </div>
+
+      </div>
+
+      <div class="work_header">
+        {% case work.work_type %}
+        {% when 'lead' %}
+        {% include 'works/lead_header' work: work %}
+        {% when 'active' %}
+        {% include 'works/active_header' work: work %}
+        {% when 'complete' %}
+        {% include 'works/complete_header' work: work %}
+        {% endcase %}
+
+        {% show_child_sections for 'work' hide 'newsfeed' %}
+      </div>
+      <div>&nbsp;</div>
+  
+    </div>
+
+    <div class='section right_sidebar'>
+
+      {% pages_listing for: work %}
+
+
+      {% membership for work.lead_team title: 'Lead Team' %}
+      {% membership for work.core_team title: 'Core Team' %}
+      {% membership for work.extended_team title: 'Extended Team' %}
+
+      {% fancy_watchers for work %}
+
+      <div class='aside projects'>
+
+        {% include 'works/related' works: work.related %}
+
+      </div>
+      
+      {% include 'tags/_tagger_sidebar' node: work %}
+
+      <div class='aside work recommendations'>
+        {% recommendations for work %}
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+{% if work.current_user_can_contribute? and wizard_launch %}
+  <a href="{{ work.show_path }}/new_page" title="Congratulations" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}

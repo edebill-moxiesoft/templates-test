@@ -1,0 +1,17 @@
+{% if work.has_progress? %}
+<div class="active_progress">
+  <div class="bar">
+    <div class="percentage" style="width:{{ work.percentage }}%">
+      <div class="pointer">
+        <img src="/images/works_pointer.png">
+      </div>
+      <div class="day {% if work.percentage > 50 %}left{% endif %}">day {{ work.active_day }}</div>
+
+    </div>
+  </div>
+  <div class="dates">
+    <div class="end">{{ work.end_date | date: "%B %d, %Y"  }}</div>
+    <div class="start">{{ work.start_date | date: "%B %d, %Y"  }}</div>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,11 @@
+<div class="item search_result blog_post">
+  <div class="avatar">{{ blog_post.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ blog_post.link_to_show_with_container_class }} | {{ blog_post.site_label }}</h3>
+    <h4>Located in the {{ blog_post.parent.site_label | downcase }} {{ blog_post.parent.link_to_show_with_container_class }}</h4>
+    <p>{{ blog_post.search_excerpt }}</p>
+
+    {% include 'search_results/footer_content' node: blog_post %}
+  </div>
+  <div class='clear'></div>
+</div>

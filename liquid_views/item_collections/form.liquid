@@ -1,0 +1,12 @@
+{% form for 'item_collection' multipart: true class: 'item_collection fancyform' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'item_collections/form_inputs' form_object: item_collection %}
+    {% endform_fields %}
+
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: item_collection %}
+    {% endform_fields %}
+  </div>
+{% endform %}

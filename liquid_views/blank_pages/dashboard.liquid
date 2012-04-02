@@ -1,0 +1,39 @@
+
+
+<div id='show_group'>
+  <div class='section group header'>
+    {% include 'nodes/header' parent: blank_page %}
+  </div>
+
+  <div class='clear'></div>
+
+  <div class='section main group'>
+    {% show_child_sections for 'blank_page' %}
+    <div>&nbsp;</div>
+  </div>
+
+  <div class='section sidebar'>
+    {% pages_listing for: blank_page %}
+
+
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: blank_page %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: blank_page %}
+      </div>
+    </div>
+
+    <div class='aside group recommendations'>
+      {% recommendations for blank_page %}
+    </div>
+
+
+
+  </div>
+</div>
+
+{% if blank_page.current_user_can_contribute? and wizard_launch %}
+  <a href="{{ blank_page.show_path }}/new_content" title="Congratulations" data-width="300" data-height="300" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}

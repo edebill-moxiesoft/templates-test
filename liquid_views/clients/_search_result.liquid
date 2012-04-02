@@ -1,0 +1,14 @@
+<div class="item search_result client">
+  <div class="avatar">{{ client.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ client.link_to_show_with_container_class }} | {{ client.site_label }}</h3>
+    <h4>
+      {{ site.work_label | pluralize: client.total_works }}
+      {% if client.status != '' %}&nbsp;|&nbsp;&nbsp;Status: {{ client.status }}{% else %}&nbsp;|&nbsp;&nbsp;Status: <span class="note">none specified</span>{% endif %}
+    </h4>
+    <p>{{ client.search_excerpt }}</p>
+    {% include 'search_results/footer_container' node: client %}
+
+  </div>
+  <div class='clear'></div>
+</div>

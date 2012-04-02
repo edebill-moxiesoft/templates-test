@@ -1,0 +1,11 @@
+{% input for 'title' label: 'Title' required: 'true' %}
+{% if form_object.parent_id != null %}
+  {% input for 'parent_id' as: 'hidden' %}
+{% elsif form_object.new_record? == true %}
+  {% input for 'parent_id' as: 'category_select' label: 'Category' class: 'select' required: 'false' include blank: 'true' %}
+{% endif %}
+
+{% include 'nodes/_avatar_update_fields' %}
+
+
+{% include 'nodes/_editor_fields' %}

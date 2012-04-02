@@ -1,0 +1,5 @@
+<span class="likes_details">
+  <a href="{{ activity.show_path }}" class="like_string js_like_string">
+    {{ 'person Likes this' | pluralize: activity.likes_count, 'people Like this' }}</a>
+  <span class="likes_link">{{ activity.likes_link }}</span>
+</span>

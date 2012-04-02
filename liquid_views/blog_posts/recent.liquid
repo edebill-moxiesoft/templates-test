@@ -1,0 +1,39 @@
+<ol class="recent_blog_posts_list item_list">
+  {% for post in blog_posts %}
+    <li class="item blog_post {% if forloop.last %}last{% endif %}">
+      <div class="avatar">
+        {{ post.small_avatar_with_link }}
+      </div>
+      <div>
+        <div class="title link">
+          {{ post.link_to_show_with_container_class }}
+        </div>
+
+
+
+        <div class="creator">
+              By
+              {% if post.external %}
+                <a href="{{post.external_channel_url}}" class="external_link" target="_blank">{{ post.external_item_author }}</a>
+                from
+                <a href="{{post.external_channel_url}}" class="external_link" target="_blank">{{ post.external_channel_title }}</a>
+              {% else %}
+                {{ post.link_to_owner }}
+              {% endif %}
+              in {{ post.parent.parent.link_to_show_with_container_class }}
+
+        </div>
+        <div class="user_content post_body">
+          {{ post.sanitized_body_no_full_link | truncate: 300 }}
+          <p class='updated'>{{ post.updated_at | time_ago_in_words, 'ago'  }} </p>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </li>
+  {% endfor %}
+</ol>
+{% if more_blog_posts > 0 %}
+  <div class='more'>
+    <a class="more_link" href='{{ more_link }}'>{{ more_blog_posts }} More</a>
+  </div>
+{% endif %}

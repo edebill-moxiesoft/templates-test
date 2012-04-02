@@ -1,0 +1,19 @@
+<fieldset class="select">
+  <label for="work_type">{{ site.work_label }} Type</label>
+  {% work_type_select id: work_type %}
+</fieldset>
+
+<fieldset class="select">
+  <label for="started_in">Start date</label>
+  {% include "forms/select_time_period" for: 'started' name: 'start_date' id: 'started_in' default_label: 'Any' %}
+</fieldset>
+
+<fieldset class="select">
+  <label for="ended_in">Completed date</label>
+  {% include "forms/select_time_period" for: 'ended' name: 'end_date' id: 'ended_in' default_label: 'Any' %}
+</fieldset>
+
+<fieldset class="select">
+  <label for="locations">Location</label>
+  {% locations_select id: locations default_label: Any %}
+</fieldset>

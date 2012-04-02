@@ -1,0 +1,22 @@
+<div class="section">
+  {% if users == empty %}
+  <p>
+    <em>no users available</em>
+  </p>
+  {% else %}
+  <ol class="item_list">
+    {% for user in users %}
+      {% if forloop.index < 5 %}
+      <li class="item {% if forloop.last %}last{% endif %}">
+        <a href="{{ user.show_path }}" class="face">{{ user.small_avatar }}</a>
+        <p class="details">
+          <a href="{{ user.show_path }}" class="user_link">{{ user.display_name }}</a>
+          {{ user.location }}
+          <span class="role">{{ user.expertise_list }}</span>
+        </p>
+      </li>
+      {% endif %}
+    {% endfor %}
+  </ol>
+  {% endif %}
+</div>

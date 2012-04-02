@@ -1,0 +1,37 @@
+<div class="header">
+  <h2>Status Updates</h2>
+</div>
+<div class="unit_body">
+  
+  {% if activities == empty %}
+    <p>
+      <em>no status updates available</em>
+    </p>
+  {% else %}
+  
+    <ol class="item_list">
+      {% for status_update in activities %}
+      <li class="item {% if forloop.last %}last{% endif %}">
+        {% if status_update.creator == nil %}
+          <a href="#" class="face">
+            <img class='user_avatar' src='/images/avatar_missing.png' alt='missing image' data-user-id="{{status_update.creator.id}}"/>
+          </a>
+        {% else %}
+          {{ status_update.creator.small_avatar_with_link }}    
+        {% endif %}
+        <p class="details">
+        {{ status_update.title }}        
+        </p>
+        <p class="updated">
+          {{ status_update.created_at | time_ago_in_words, 'ago' }} 
+					&middot;
+					<a href="/activities/{{ status_update.id}}" class="view_activity">View Activity</a>
+        </p>  
+        
+      </li>
+      {% endfor %}
+    </ol>
+  
+  {% endif %}
+  
+</div>

@@ -1,0 +1,7 @@
+<p>
+    {{ unlocked_by.display_name }} has unlocked a document that you had locked.
+</p>
+<p>
+    Document link: <a href="{{document.full_view_path}}">{{document.title}}</a>
+</p>
+{% include 'emails/_sent_from_footer' %}

@@ -1,0 +1,40 @@
+{% unless blog_posts == empty %}
+<div id="blog_rotator" class='section unit headlines js_scrollable'>
+  <div class="header accordion_header">
+    <span id="{{id_name}}" class="expander {{state}}" data-id="{{group.id}}" data-setting="node_headline_blog_open" data-url="{{url}}">
+      {% if state == 'open' %}Hide{%else%}Show{%endif%}
+    </span>
+    <h2>
+      <div class="navi"></div>
+      Headlines
+    </h2>
+  </div>
+  <div id="headline_blog_posts_container" class="accordion_panel" {% if state == 'closed'  %}style="display:none";{% endif %}>
+    <!-- "previous page" action -->
+    <a class="prev browse left"></a>
+
+    <!-- root element for scrollable -->
+    <div class="scrollable ">
+      <!-- root element for the items -->
+      <div class="items">
+
+        {% for blog_post in blog_posts %}
+          {% if state == 'open'  %}
+            {% assign first = forloop.first %}
+          {% else %}
+            {% assign first = false %}
+          {% endif %}
+          {% include 'blog_posts/rotator_post' first: first %}
+        {% endfor %}
+
+      </div>
+
+
+    </div>
+
+    <!-- "next page" action -->
+    <a class="next browse right"></a>
+
+  </div>
+</div>
+{% endunless %}

@@ -1,0 +1,4 @@
+{{ site.project_label | top_link_to_wizard_add_page: 'Project' }}
+{% if current_user.site_admin? %}
+  {{ site.category_label | top_link_to_wizard_add_page: 'Category' }}
+{% endif %}

@@ -1,0 +1,31 @@
+{% cache show_watchings_mini, current_user %}
+<div id="show_watchings_mini" class="watchings_list">
+  <ol>
+    {% show_watchings for User limit 5 %}
+    <li class="person">
+      <div class="label">People</div>
+      {% include 'watchings/watchings', watchings: watchings %}
+    </li>
+    {% endshow_watchings %}
+    {% show_watchings for Project limit 5 %}
+    <li class="project">
+      <div class="label">{{ site.project_label }}</div>
+      {% include 'watchings/watchings', watchings: watchings %}
+    </li>
+    {% endshow_watchings %}
+    {% show_watchings for Group limit 5 %}
+    <li class="group">
+      <div class="label">{{ site.group_label }}</div>
+      {% include 'watchings/watchings', watchings: watchings %}
+    </li>
+    {% endshow_watchings %}
+    {% show_watchings for Client limit 5 %}
+    <li class="project">
+      <div class="label">{{ site.client_label }}</div>
+      {% include 'watchings/watchings', watchings: watchings %}
+    </li>
+    {% endshow_watchings %}
+
+  </ol>
+</div>
+{% endcache %}

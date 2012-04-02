@@ -1,0 +1,22 @@
+<div class='section unit groups js_filtered'>
+
+  <div class='section unit_body '>
+    <ol class="groups item_list js_filter_body">
+      {% if groups == empty %}
+        <p><em>No Groups Yet</em></p>
+      {% else %}
+        {% for group in groups %}
+          <li class="item ">
+            <a href="{{ group.show_path }}">{{ group.small_avatar }}</a>
+            {{ group.link_to_show_with_container_class }} ({{ 'member' | pluralize: group.members_count }})
+            <p class="description">
+                {{ group.limited_body }}
+            </p>
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ol>
+  </div>
+
+  {% more groups %}
+</div>

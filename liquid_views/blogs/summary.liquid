@@ -1,0 +1,14 @@
+<li class="item blog {% if forloop.last %}last{% endif %}">
+    <p class='title'>
+       {{ blog.link_to_show }}
+       <span class="author">
+          By {{ blog.link_to_owner }}
+       </span>
+    </p>
+    <p class='description'>
+        {{ blog.search_result_info.summary }}
+    </p>
+    <p class='updated'>
+        {{ blog.created_at | time_ago_in_words, 'ago'  }} 
+    </p>
+</li>

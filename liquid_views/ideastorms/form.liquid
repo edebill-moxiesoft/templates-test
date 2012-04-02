@@ -1,0 +1,12 @@
+{% form for 'ideastorm' multipart: true class: 'formtastic ideastorm' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'ideastorms/form_inputs' form_object: ideastorm %}      
+    {% endform_fields %}
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: ideastorm%}
+    {% endform_fields %}
+  </div>
+{% endform %}
+ 

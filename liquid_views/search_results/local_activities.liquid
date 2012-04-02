@@ -1,0 +1,22 @@
+{% assign items_shown = 5 %}
+<div class="section unit search_result activity">
+
+  <div class="header">
+    <h3 class="activity">Activities</h3>
+  </div>
+
+  {% include 'activities/search_results' limit: items_shown activities: local_activities hide_more: true  hide_total: true %}
+
+  {% if has_more_local_activities %}
+  <div class="footer">
+    <a class="more_link" href="/activities/search?q={{ query | escape }}&{{ extra_params }}">
+      <span class="more_count">{% if num_hits > 1005 %}
+      over 1000
+      {% elsif num_hits > 5 %}
+      {{ num_hits| minus:items_shown  }}
+      {% endif %}</span>
+    more</a>
+  </div>
+  {% endif %}
+
+</div>

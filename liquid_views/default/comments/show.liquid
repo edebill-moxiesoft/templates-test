@@ -1,0 +1,29 @@
+{{ comment.creator.small_avatar_with_link }}
+
+
+<div class="comment js_comment">
+  {% if comment.deletable_by_viewer? %}
+  <a class='remove' href='{{comment.delete_path}}.json' data-method='DELETE' data-remote='true'>remove</a>
+
+  <div class='spinner'></div>
+  {% endif %}
+  <div class="comment_border"></div>
+  <div class="comment_body user_content">{{ comment.body }}</div>
+
+  <div class="footer">
+    <div class="quote js_quote">Quote</div>
+    {% if comment.editable_by_viewer? and site.comment_editing? %}
+    <a class="edit js_edit_comment" href="{{ comment.edit_path }}?nolayout=true" data-remote='true' data-type="html">Edit</a>
+
+    <div class='spinner'></div>
+    {% endif %}
+    <span class="owner">{{ comment.creator.link_to_show }}</span>
+    <span class='time_ago'>, {{ comment.created_at | time_ago_in_words, 'ago' }} </span>
+    {% unless comment.updated_at == null %}
+    <div class='updated'>
+      <span class="updated owner">Updated by {{ comment.updator.link_to_show }}</span>
+      <span class='updated time_ago'>, {{ comment.updated_at | time_ago_in_words, 'ago' }} </span>
+    </div>
+    {% endunless %}
+  </div>
+</div>

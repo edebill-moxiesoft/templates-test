@@ -1,0 +1,18 @@
+<div class="item search_result blog">
+  <div class="avatar">{{ blog.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ blog.link_to_show_with_container_class }} | {{ blog.site_label }}</h3>
+    <h4>
+      {% if blog.parent %}
+        Located in the {{ blog.parent.site_label | downcase }} {{ blog.parent.link_to_show_with_container_class }}
+      {% else %}
+        Personal {{ blog.site_label }} of {{ blog.link_to_owner }}
+      {% endif %}
+    </h4>
+    <p>{{ blog.search_excerpt }}</p>
+
+    {% include 'search_results/footer_container' node: blog %}
+
+  </div>
+  <div class='clear'></div>
+</div>

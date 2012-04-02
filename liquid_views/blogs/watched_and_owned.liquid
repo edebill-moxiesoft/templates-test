@@ -1,0 +1,31 @@
+<div class="header">
+  <h3>My Blogs</h3>
+</div>
+<div class="section">
+
+  {% if blogs == empty %}
+    <p>
+      <em>no blogs available</em>
+    </p>
+  {% else %}
+
+    <ol>
+      {% for blog in blogs %}
+      <li class="item">
+        <div class="idea_count"><var>{{ 'blog' | pluralize: blog.blog_posts_count, 'posts' }}</var></div>
+        <div class="idea">
+          {{ blog.link_to_show }}
+          <p class="updated">
+            updated {{ blog.updated_at | time_ago_in_words, 'ago' }} 
+          </p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% if more_blogs %}
+      <a href="/blogs/overview?order=watched_and_owned" class="more_link">{{ more_blogs }} more</a>
+    {% endif %}
+
+  {% endif %}
+
+</div>

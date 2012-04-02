@@ -1,0 +1,16 @@
+<div id="document_library_unit" class="section unit">
+  {% for document_library in document_libraries %}
+  <div class='header'>
+    <h2 class="document_library">
+      <a href="{{ document_library.show_path }}" title="{{ document_library.title }}">{{ document_library.title }}</a>
+    </h2>
+  </div>
+  <div class='unit_body'>
+    {% load_children documents from 'document_library.documents_and_folders' limit 3 %}
+    {% include 'documents/list' documents: documents %}
+  </div>
+  <div class="footer">
+    <a href="{{ document_library.show_path }}" class="more_link">More</a>
+  </div>
+  {% endfor %}
+</div>

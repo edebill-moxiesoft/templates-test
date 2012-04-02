@@ -1,0 +1,42 @@
+{% if email_archive %}
+
+<div class='section group header'>
+  {% include 'nodes/header' parent: email_archive %}
+</div>
+
+<div class='section main item_collection email_archives '>
+  <div id="container_header">
+    {% include 'nodes/page_header' parent: email_archive %}
+    <div class="clear"></div>
+  </div>
+  <div class="node_details">
+    <div class='description user_content'>
+      {{ email_archive.description }}
+    </div>
+  </div>
+
+
+  {% email_archive limit 10 %}
+</div>
+
+<div class='section sidebar item_show'>
+
+  {% pages_listing for: email_archive %}
+
+  <div class="section unit likes_block">
+    <div class='aside'>
+      {% activity for 'email_archive' %}
+    </div>
+  </div>
+
+  <div class='aside security'>
+    <div class='header'>
+      {% include 'nodes/security_heading' item: email_archive %}
+    </div>
+    <div class='section'>
+      {% include 'nodes/security_summary' item: email_archive %}
+    </div>
+  </div>
+
+</div>
+{% endif %}

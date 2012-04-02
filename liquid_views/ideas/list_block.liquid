@@ -1,0 +1,84 @@
+<div class='section unit ideastorm js_filtered'>
+
+  <!-- No filters on search yet - too hard to get a full result set - reinstate after we sync security to autonomy -->
+  {% if query == null %}
+  <div class='header'>
+    <div class='section filters'>
+      {% show_filters %}
+    </div>
+
+    {% if ideastorm != nil%}
+      <h2 class='js_plural_count'>{{ "Idea" | pluralize: ideastorm.ideas_count }} for this {{ site.ideastorm_label }}</h2>
+    {% else %}
+      <h2>{{ site.idea_label | plural }}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class='section tags'>
+    {% if ideastorm %}
+    {% tag_filter for 'ideastorm' resource limit: limit_count %}
+    {% else %}
+    {% tag_filter for 'Idea' resource limit: limit_count %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class='section unit_body js_filter_body '>
+
+
+    <ol class="item_list ">
+      {% if ideas == empty %}
+
+      <p><em>no ideas available</em></p>
+
+      {% endif %}
+      {% for idea in ideas %}
+      <li class="item {% if forloop.last %}last{% endif %}">
+        <div class="creator">
+          {{ idea.creator.small_avatar_with_link }}
+        </div>
+        <div class="idea {% if idea.implemented? %}implemented{% endif %}">
+          {% if idea.implemented? %}
+						<div class="implemented_text">Implemented</div>
+					{% endif %}
+					{% if idea.current_user_can_admin? %}
+            <div class="implement_link">{{ idea.implement_link }}</div>
+          {% endif %}
+          <div class="arrow">&nbsp;</div>
+          <h3>
+            <a href="{{idea.show_path}}">{{ idea.title }}</a>
+            <!-- <small>created in {{ idea.parent.link_to_show }}</small> -->
+          </h3>
+          <div class="likes_details">
+            <a class='collab' href='{{idea.show_path}}'>
+              <var class="likes_count">{{ idea.likes_count }}</var>
+            </a>
+            <span class="likes_link">{{ idea.likes_link }}</span>
+          </div>
+          {% if idea.has_body %}
+          <div class="idea_body user_content">{{ idea.body }}</div>
+          {% endif %}
+          <div class="details">
+            <p class="slug">
+              {{ idea.link_to_owner }},
+              {{ idea.created_at | time_ago_in_words, 'ago' }}
+              {% if idea.has_tags %}
+              , tagged as: <span class="tags">{{ idea.tags_list }}</span>
+              {% endif %}
+              <a class='collab' href='{{idea.show_path}}'>
+                <var class="replies_count" title="{{ idea.replies_count }} replies">{{ idea.replies_count }}</var>
+              </a>
+            </p>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+
+
+    <div class='clear'></div>
+  </div>
+
+  {% more ideas %}
+</div>

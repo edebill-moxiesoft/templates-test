@@ -1,0 +1,36 @@
+<ol class="security_listing">
+  <li class="item">
+     <dl class="reversed">
+        <dt>Your permissions for this {{ item.site_label | downcase }}:</dt>
+        <dd>
+{% if item.current_user_can_admin? %}
+Administrator
+{% elsif item.current_user_can_contribute? %}
+Contributor
+{% else %}
+Viewer
+{% endif %}
+        </dd>
+     </dl>
+  </li>
+  <li class="item">
+    <dl>
+      <dt>Viewers</dt>
+      <dd>{{ item.viewers_security_summary }}</dd>
+    </dl>
+  </li>
+
+  <li class="item">
+    <dl>
+      <dt>Contributors</dt>
+      <dd>{{ item.authors_security_summary }}</dd>
+    </dl>
+  </li>
+  
+  <li class="item">
+    <dl>
+      <dt>Administrators</dt>
+      <dd>{{ item.admins_security_summary }}</dd>
+    </dl>
+  </li>
+</ol>

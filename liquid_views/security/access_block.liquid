@@ -1,0 +1,40 @@
+<div class="access_block" id="{{ permission}}">
+  <div class="security_title">{{ label }}</div>
+  {% if permission != 'admin' %}
+  {% if everyone %}
+    {% assign checked = true %}
+  {% endif %}
+  <input {% if checked %}checked="checked"{% endif %} class="everyone_cb" id="everyone_{{ permission}}" name="everyone_{{ permission}}" type="checkbox">
+  <label for="everyone_{{ permission}}">Everyone</label>
+  {% endif %}
+
+  <div class="drag_label">drag to here</div>
+  <ul class="access_list connected_list ui-sortable" unselectable="on">
+    {% for member in members %}
+    {% if member.is_user? %}
+    {% if member.id == current_user.id %}
+    <li class="user ui-state-off" data-id="{{ member.id }}" data-type="User">
+      {{ member.name }}
+    </li>
+    {% else %}
+    <li class="user ui-draggable" data-id="{{ member.id }}" data-type="User">
+      <a href="/groups/update_security" class="removeItem" title="Remove this User">
+        <img alt="delete icon" src="/images/icons/delete_small.png">
+      </a>
+      {{ member.name }}
+    </li>
+    {% endif %}
+
+    {% else %}
+    <li class="{{ member.class_name_underscore }} ui-draggable" data-id="{{ member.id }}" data-type="{{ member.class_name }}">
+      <a href="/groups/update_security" class="removeItem" title="Remove this User">
+        <img alt="delete icon" src="/images/icons/delete_small.png">
+      </a>
+      {{ member.class_name }}
+      {{ member.name }}
+    </li>
+    {% endif %}
+
+    {% endfor %}
+  </ul>
+</div>

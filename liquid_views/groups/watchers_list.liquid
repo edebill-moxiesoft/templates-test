@@ -1,0 +1,10 @@
+
+{% if users == empty %}
+  <span>no users found</span>
+{% else %}
+  {% include 'users/list' limit: limit offset: offset %}
+
+  <div class="footer">
+    <a href="{{ group.watchers_url }}">directory view</a>
+  </div>
+{% endif %}

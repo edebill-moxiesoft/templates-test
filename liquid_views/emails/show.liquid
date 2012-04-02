@@ -1,0 +1,65 @@
+{% if email %}
+  <div class='section group header'>
+    {% include 'nodes/header' parent: email %}
+  </div>
+    
+  <div class='section main email_thread'>
+    <div id='container_header'>
+      {% include 'nodes/page_header' parent: email %}
+      <div class="clear"></div>
+    </div>
+    <div class="header node_details">
+      <p>
+        Started by {{ email.creator.link_to_profile }} on {{ email.created_at | date: "%b %e, %Y" }}
+        {% include 'nodes|like_button' node: email %}
+      </p>
+    </div>
+    
+    {% include 'nodes/likes_summary_header' node: email %}
+    
+    <a name="comments"></a>
+    <div class="section unit comments_block">
+      <div class='header'>
+        <h3 class="comments js_plural_count">{{ 'Email' | pluralize: email.comments_count }} </h3>
+      </div>
+      <div class='unit_body'>
+        <div class="section comments">
+          <ol class='children_list'>
+            <li class='child js_comment_container'>
+              {% include 'comments/show' comment: email disable_edit: true %}
+            </li>
+          </ol>
+        </div>
+                
+        {% include 'comments/index' disable_edit: true %}
+      </div>
+    </div>
+
+  </div>
+  
+  <div class='section sidebar item_show'>
+  
+    {% pages_listing for: email %}
+  
+    <div class="section unit likes_block">
+      <div class='aside'>
+        {% activity for 'email' %}
+      </div>
+      
+      {% if limit < email.likes_count %}
+      <div class="footer">
+        <a class="all" href="{{ blog_post.likers_path }}" data-remote="true" data-type="html">more</a>
+      </div>
+      {% endif %}
+    </div>
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: email %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: email %}
+      </div>
+    </div>
+    
+  </div>
+{% endif %}

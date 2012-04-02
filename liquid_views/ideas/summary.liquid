@@ -1,0 +1,31 @@
+<li class="item {% if forloop.last %}last{% endif %}">
+
+  <div class="creator">
+    {{ idea.creator.small_avatar_with_link }}
+  </div>
+  <div class="idea {% if idea.implemented? %}implemented{% endif %}">
+    <div class="arrow">&nbsp;</div>
+    <h3>
+      <div class="likes_details">
+        <a class='collab' href='{{idea.show_path}}'>
+          <var class="likes_count">{{ idea.likes_count }}</var>
+        </a>
+        <span class="likes_link">{{ idea.likes_link }}</span>
+      </div>
+      <a href="{{idea.show_path}}">{{ idea.title }}</a>
+      <small>created in {{ idea.parent.link_to_show }}</small>
+    </h3>
+    <div class="details">
+      <p class="slug">
+        {{ idea.link_to_owner }},
+        {{ idea.created_at | time_ago_in_words, 'ago'  }} ,
+        tagged as: <span class="tags">{{ idea.tags_list }}</span>
+        <a class='collab' href='{{idea.show_path}}'>
+          <var class="replies_count" title="{{ idea.replies_count }} replies">{{ idea.replies_count }}</var>
+        </a>
+      </p>
+    </div>
+  </div>
+
+
+</li>

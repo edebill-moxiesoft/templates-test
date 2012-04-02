@@ -1,0 +1,42 @@
+{% capture work_type_label %}
+{% if subtype == 'lead' %}
+  {{ site.client_lead_label | plural | downcase }}
+{% else %}
+  {% if subtype == 'complete' %}
+    {{ site.client_completed_label | downcase }}
+  {% elsif subtype == 'active' %}
+    {{ site.client_active_label | downcase }}
+  {% else %}
+    {{subtype}} 
+  {% endif %}
+  {{site.work_label | plural | downcase}}
+{% endif %}
+
+{% endcapture %}
+<div class="header">
+  <h3>My {{ work_type_label }}</h3>
+</div>
+<div class="section">
+
+  {% if works == empty %}
+    <p>
+      <em>no {{ work_type_label }} available</em>
+    </p>
+  {% else %}
+
+    <ol>
+      {% for work in works %}
+      <li class="item">
+        <a href="{{ work.show_path }}">{{ work.small_avatar }}</a>
+        {{ work.link_to_show }}
+        <p>{{ work.parent.title }}</p>   
+      </li>
+      {% endfor %}
+    </ol>
+    {% if more_works > 0 %}
+      <a href="/works?work_type={{subtype}}&mine=true" class="more_link">{{ more_works }} more</a>
+    {% endif %}
+
+  {% endif %}
+
+</div>

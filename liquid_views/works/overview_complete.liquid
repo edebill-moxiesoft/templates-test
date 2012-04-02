@@ -1,0 +1,38 @@
+<form>
+  <input type="hidden" class="works_index_url" value="{{index_url}}">
+  <input type="hidden" class="works_limit" value="{{limit}}">
+  <input type="hidden" class="works_template" value="works/overview_complete">
+  <div class="updated_at">Updated {{ works.first.updated_at | time_ago_in_words }}</div>
+
+</form>
+<ol class="works completes item_list js_filter_body">
+  {% if works == empty %}
+  <li><p><em>No Projects Yet</em></p></li>
+  {% else %}
+  {% for work in works %}
+  <li class="item work">
+    {% unless work.team_sorted_by_role == empty %}
+    <div class="people">
+      {% for member in work.team_sorted_by_role %}
+      {{ member.small_avatar_with_link }}
+      {% endfor %}
+    </div>
+    {% endunless %}
+    <a href="{{ work.show_path }}" class="work_avatar">{{ work.small_avatar_or_parent_avatar }}</a>
+
+    <div class="details">
+      <a href="{{ work.show_path }}" class="project_link">{{ work.title }}</a>
+
+      <p>for <a href="{{ work.parent.show_path }}" class="project_link for_client">{{ work.parent.title }}</a></p>
+
+      <p>{{ work.excerpted_body_no_more_link }}</p>
+
+      {% if work.tags_list != '' %}
+      <p>Tagged as: <span class='tags'>{{ work.tags_list }}</span></p>
+      {% endif %}
+    </div>
+  </li>
+  {% endfor %}
+  {% endif %}
+
+</ol>

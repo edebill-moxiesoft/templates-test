@@ -1,0 +1,56 @@
+{% include 'search_results/showing_count' showing_count: activities.size total_count: nodes_count hide: hide_total %}
+
+<div class='section unit activities activity js_filtered'>
+  <div class="unit_body">
+    <ol class="item_list activities js_filter_body" id="activities_feed">
+    {% for activity in activities limit: limit %}
+      
+      {% if activity.is_status? or activity.is_direct_message? %}
+      <li class='item activity activity_{{activity.title_id}} type_{{activity.parent_type}} {{ activity.theme_class }} {% if forloop.last %}last{% endif %} {{ new_activity }}' data-guid="{{ activity.guid }}">
+        <div class="likes_count js_likes_count {% if activity.likes_count > 0 %}enabled{% endif %}">{{activity.likes_count}}</div>
+        <div class="comments_count js_comments_count {% if activity.comments_count > 0 %}enabled{% endif %}">{{activity.comments_count}}</div>
+
+        {{ activity.creator.small_avatar }}
+
+        <div class='body'>
+          <div class="user_link">
+            {{ activity.creator.link_to_show_with_container_class }}
+          </div>
+
+          {% if activity.user_attentions != empty or activity.group_attentions != empty or activity.project_attentions != empty  or activity.task_attentions != empty or activity.work_attentions != empty or activity.client_attentions != empty %}
+          <div class="attention">
+            <span class="attn">To:</span>
+            {{ activity.attention_links }}
+          </div>
+          {% endif %}
+
+          <div class="activity_title">
+            {{ activity.title_auto_linked }}
+          </div>
+
+        </div>
+        <ol class="activity_actions">
+
+          <li class="created">{{ activity.content_updated_at | time_ago_in_words, 'ago'  }}</li>
+
+          <li class="view first">
+            <a class='view_activity' href='/activities/{{ activity.id}}'>
+              View Activity
+              <div class="icon"></div>
+            </a>
+          </li>
+
+        </ol>
+      </li>
+
+      {% endif %}
+             
+    {% endfor %}
+    </ol>
+  </div>
+
+  {% unless hide_more %}
+    {% include 'search_results/showing_count' showing_count: activities.size total_count: nodes_count hide: hide_total %}
+    {% more activities search: true %}
+  {% endunless %}
+</div>

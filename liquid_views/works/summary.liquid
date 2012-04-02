@@ -1,0 +1,62 @@
+{% if lead_works != empty %}
+<div class="work_type_summary section works unit">
+
+  <div class="header">
+    <h2 class="work">
+      <a href="{{ client.show_path }}/works?work_type=lead" title="{{ site.client_lead_label | plural }}">{{ site.client_lead_label | plural }}</a>
+    </h2>
+  </div>
+  <div class="unit_body">
+    {% include 'works/list' works: lead_works %}
+  </div>
+
+  {% if lead_works_count > limit %}
+  <div class="footer">
+    <a class="more_link" href="{{ client.filtered_work_lead_index_path }}">{{ lead_works_count - limit }} More</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endif %}
+
+{% if active_works != empty %}
+<div class="work_type_summary section works unit">
+  <div class="header">
+    <h2 class="work">
+      <a href="{{ client.show_path }}/works?work_type=active" title="{{ site.client_active_label }} {{ site.work_label | plural }}">
+        {{ site.client_active_label }} {{ site.work_label | plural }}
+      </a>
+    </h2>
+  </div>
+  <div class="unit_body">
+    {% include 'works/list' works: active_works %}
+  </div>
+  {% if active_works_count > limit %}
+  <div class="more">
+    <a class="more" href="{{ client.filtered_work_active_index_path }}">{{ active_works_count - limit }} More</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endif %}  
+
+{% if complete_works != empty %}
+<div class="work_type_summary section works unit">
+
+  <div class="header">
+    <h2 class="work">
+      <a href="{{ client.show_path }}/works?work_type=complete" title="{{ site.client_completed_label }} {{ site.work_label | plural }}">
+        {{ site.client_completed_label }} {{ site.work_label | plural }}
+      </a>
+    </h2>
+  </div>
+  <div class="unit_body">
+    {% include 'works/list' works: complete_works %}
+  </div>
+  {% if complete_works_count > limit %}
+  <div class="footer">
+    <a class="more_link" href="{{ client.filtered_work_complete_index_path }}">{{ complete_works_count - limit }} More</a>
+  </div>
+  {% endif %}
+</div>
+{% endif %}

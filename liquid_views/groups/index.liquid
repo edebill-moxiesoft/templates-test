@@ -1,0 +1,21 @@
+<div id="groups_index">
+  <div class='header'>
+    <h1>{% if order == 'Member of' %}My{%else%}{{ order | titleize }}{%endif%} {{ site.group_label | plural }}</h1>
+  </div>
+  <div class='section main'>
+    <div class='section unit js_filtered'>
+      <ol class="item_list js_filter_body">
+        {% for group in groups %}
+        <li class="item">
+          <a href="{{ group.show_path }}">{{ group.small_avatar }}</a>
+          {{ group.link_to_show_with_container_class }}
+          <p class="description">
+            {{ group.limited_body }}
+          </p>
+        </li>
+        {% endfor %}
+      </ol>
+      {% more groups %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="header">
+  <h3>My Ideastorms</h3>
+</div>
+<div class="section">
+  
+  {% if ideastorms == empty %}
+    <p>
+      <em>no ideastorms available</em>
+    </p>
+  {% else %}
+  
+    <ol>
+      {% for ideastorm in ideastorms %}
+      <li class="item">        
+        <div class="idea_count"><var>{{ 'idea' | pluralize: ideastorm.ideas_count, 'ideas' }}</var></div>
+        <div class="idea">
+          {{ ideastorm.link_to_show }}
+          <p class="updated">
+            updated {{ ideastorm.updated_at | time_ago_in_words, 'ago' }}
+          </p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% if more_ideastorms %}
+      <a class="more_link" href="/ideastorms?order=watched_and_owned">{{ more_ideastorms }} more</a>
+    {% endif %}
+  
+  {% endif %}
+  
+</div>

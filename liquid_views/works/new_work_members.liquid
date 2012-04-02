@@ -1,0 +1,19 @@
+<form id="node_{{ node.id}}" class="fancyform admin_panel" method="post" action="{{node.new_access_path}}"
+      data-remote="true" data-type="html">
+  <input type="hidden" name="node[_type]" value="{{node._type}}">
+  <input type="hidden" id="back_action" value="{{node.new_work_path}}">
+
+  <div class="admin_container">
+    {% include 'works/_admin_panel_members' %}
+  </div>
+
+</form>
+<a class="close_wizard" href="/reset_node_wizard?type={{ node._type }}" data-remote='true'></a>
+
+
+<script type="text/javascript" src="/javascripts/wizard_members.js"></script>
+<script type="text/javascript" >
+if ( typeof PopdownList !== 'undefined'){
+  PopdownList.setup();
+}
+</script>

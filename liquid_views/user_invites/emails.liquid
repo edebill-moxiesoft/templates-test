@@ -1,0 +1,58 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head></head>
+<body>
+  <div class="user_invites">
+    {% if user_invites_wizard_presenter.has_group? %}
+        {% form for 'user_invites_wizard_presenter' action: 'user_invites_wizard_presenter.save_emails_path' class: 'fancyform group' data-remote: true data-type: html  %}
+        {% if user_invites_wizard_presenter.group %}
+          {% input for 'group_id' as: 'hidden' %}
+        {% endif %}
+        <input type="hidden" name="user_invite_group" id="user_invite_group" value="{{ user_invites_wizard_presenter.group.id }}" />
+        <div class="user_search">
+            <h3>Please enter the names of the people you want to invite to the group "{{ user_invites_wizard_presenter.group.title }}".</h3>
+            <input name="users_invites_autocomplete" id="users_invites_autocomplete" size="50">
+            <img class="indicator" src="/images/ajax-small-transparent.gif" style="display:none;" />
+        </div>
+        <!-- {% input for 'message' as: 'textarea' rows: 8 required: 'false' wrapper_class: 'location_attribute' %} -->
+      <br />
+      <br />
+      <br />
+      <div class="selected_users">
+        <h3>Selected Users</h3>
+        <table>
+          <tbody id="user_invites">
+          </tbody>
+        </table>
+        <legend>
+          Your selected users will be auto joined to this group as soon as one of the admins approves the
+          membership.
+        </legend>
+      </div>
+     {% endform %}
+    {% else %}
+        {% form for 'user_invites_wizard_presenter' action: 'user_invites_wizard_presenter.save_emails_path' class: 'fancyform group' data-remote: true data-type: html  %}
+          {% error_messages %}
+          {% input for 'emails' as: 'textarea' rows: 5 required: 'true' wrapper_class: 'location_attribute' label_hint: "(use commas to separate emails)"%}
+          <br/>
+          <br/>
+          {% input for 'message' as: 'textarea' rows: 8 required: 'false' wrapper_class: 'location_attribute' %}
+        {% endform %}
+    {% endif %}
+  </div>
+  <script type="text/javascript">
+    Wizard.validateForm = function() {
+      var email_list = $('.user_invites #user_invites_wizard_presenter_emails');
+      if (email_list.exists() && email_list.blank()) {
+        Wizard.disableButtons();
+      } else {
+        Wizard.enableButtons();
+      }
+    };
+    $('.user_invites #user_invites_wizard_presenter_emails').keyup(function() {
+      Wizard.validateForm();
+    });
+    handle_user_autocomplete();
+  </script>
+</body>
+</html>

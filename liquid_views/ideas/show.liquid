@@ -1,0 +1,90 @@
+<!-- IDEA SHOW PAGE -->
+
+<div class="section item_show idea_show">
+
+  <div class='section group header'> 
+    {% include 'nodes/header' parent: idea %}
+  </div>
+
+  <div class='section main idea'>
+    <div id="container_header">
+      {% include 'nodes/page_header' parent: idea.parent %}
+    </div>  
+    
+    <div class="idea_container">
+      <div class="user_picture">
+        {{ idea.creator.color_profile_photo }}
+      </div>
+
+      <div class="item {% if idea.implemented? %}implemented{% endif %}">
+        {% if idea.implemented? %}<div class="implemented_text">Implemented</div>{% endif %}
+        <div class="idea_border"></div>
+
+        <div class='header'>
+          <h3>
+            {{ idea.title }}
+          </h3>
+          <ul class="secondary_actions">
+            <li class="container_share action_btn">{{ idea.share_button }}</li>
+          {% if idea.current_user_can_admin? %}
+            <li class="container_edit action_btn">{{ idea.edit_link }}</li>
+            <li class="implement_link">{{ idea.implement_link }}</li>
+          {% endif %}
+          </ul>
+        </div>
+
+        <div class="section fulltext user_content">
+          {{ idea.body }}
+        </div>
+
+        <div class="footer">
+          <span class="user_name">by {{ idea.link_to_owner }},</span>
+          <span class="created_at">{{ idea.created_at | time_ago_in_words, 'ago'  }},</span>
+          <span class="unique_views">viewed by {{ 'person' | pluralize: idea.unique_views }}</span>
+          &middot;
+          {% include 'nodes|like_button' node: idea %}
+        </div>
+      </div>
+
+    </div>
+
+    {% include 'nodes/likes_summary_header' node: idea %}
+
+    <div class="section unit comments_block">
+      <div class='header'>
+        <h3 class="comments js_plural_count">{{ 'Comment' | pluralize: idea.comments_count }}</h3>
+      </div>
+      <div class='unit_body'>
+        {% include 'comments/index' %}
+        {% include 'comments/form' %}
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class='section sidebar'>
+  
+    {% pages_listing for: idea %}
+  
+  
+    <div class='aside'>
+      {% activity for 'idea' %}
+    </div>
+    
+    {% include 'tags/_tagger_sidebar' node: idea %}
+    
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: idea %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: idea %}
+      </div>
+      <div class='aside idea recommendations'>
+        {% recommendations for idea %}
+      </div>
+
+    </div>
+  </div>
+</div>

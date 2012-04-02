@@ -1,0 +1,28 @@
+<div class="header">
+  <h3>New {{ site.group_label | plural }}</h3>
+</div>
+<div class="section">
+  
+  {% if groups == empty %}
+    <p><em>no {{ site.group_label | plural | downcase}} available</em></p>
+  {% else %}
+  
+    <ol>
+      {% for group in groups %}
+      <li class="item recent">
+        <a href="{{ group.show_path }}">{{ group.small_avatar }}</a>
+        <p class='title'>
+          {{ group.link_to_show }}
+        </p>
+        {% join group %}
+      </li>
+      {% endfor %}
+    </ol>
+    {% if more_groups > 0 %}
+      <div class="ie8_hack">
+        <a href="/groups?order=recent&limit=10" class="more_link">{{ more_groups }} more</a>
+      </div>
+    {% endif %}
+  
+  {% endif %}
+</div>

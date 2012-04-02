@@ -1,0 +1,9 @@
+<div class='idea_count'>
+  {{ 'idea' | pluralize: ideastorm.ideas_count, 'ideas' }}
+</div>
+<div class='idea'>
+  {{ ideastorm.link_to_show }} <small> (in {{ ideastorm.parent.link_to_show }})</small>
+  <p class='updated'>
+    Created {{ ideastorm.created_at | time_ago_in_words, 'ago'  }}
+  </p>
+</div>

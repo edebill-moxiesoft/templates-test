@@ -1,0 +1,13 @@
+{% if blog_posts != empty %}
+
+<ol class="item_list">
+  {% for post in blog_posts limit: limit_size offset: offset %}
+    {% include 'blog_posts/summary' %}
+  {% endfor %}
+</ol>
+
+
+
+{% else %}
+  <p><em>No posts yet</em></p>
+{% endif %}

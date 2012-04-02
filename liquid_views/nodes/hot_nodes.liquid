@@ -1,0 +1,27 @@
+<div class="header">
+  <h3>Hot Items</h3>
+</div>
+<div class="section">
+  
+  {% if nodes == empty %}
+    <p>
+      <em>no items available</em>
+    </p>
+  {% else %}
+  
+    <ol>
+      {% for item in nodes %}
+      <li class="item hot">
+        <a href="{{ item.show_path }}">{{ item.small_avatar }}</a>
+        {{ item.link_to_show_with_container_class }}
+      </li>
+      {% endfor %}
+    </ol>
+    {% if more_items > 0 %}
+      <a href="/items?order=hot&limit=10" class="more_link">{{ more_items }} more</a>
+    {% endif %}
+  
+  {% endif %}
+  
+</div>
+

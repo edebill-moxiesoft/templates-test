@@ -1,0 +1,10 @@
+{% form for 'work' multipart: true class: 'fancyform work' %}
+  {% error_messages %}
+  {% include 'works/form_inputs' form_object: work %}
+
+
+  {% form_fields for 'buttons' %}
+    {% include 'forms/buttons' form_object: work %}
+  {% endform_fields %}
+
+{% endform %}

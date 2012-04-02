@@ -1,0 +1,9 @@
+<div class='body'>
+  <div class="activity_title">
+    {{ activity.title }}
+  </div>
+  {{ activity.badge.image }}
+  <div class="name">{{ activity.badge.title }}</div>
+  <div class="description">{{ activity.badge.description | html_truncate: 60 }}</div>
+
+</div>

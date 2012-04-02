@@ -1,0 +1,29 @@
+{% for dl in document_libraries %}
+  <div class='section unit document_library '>
+    <div class='header'>
+      <h2 class='document_library'><a href="{{dl.show_path}}">{{ dl.title }}</a></h2>
+    </div>
+    <div class="gallery small">
+      {% for document in dl.documents_for_gallery %}
+        <div class="gallery_small_pic">
+            <a href="{{ document.show_path }}" title="{{ document.title }}">
+            {% if document.is_image %}
+                <img class="gallery_image_small" src="{{ document.thumbnail_square_path }}"/>
+            {% elsif document.is_folder? %}
+                <img class="gallery_image_small" src="/images/spaces_icons/media_folder_blue_gallery.png" />
+            {% else %}
+                <img class="gallery_image_small" src="{{ document.non_image_thumbnail }}"/>
+            {% endif %}
+            </a>
+        </div>
+      {% endfor %}
+    </div>
+    {% if dl.documents_for_gallery.size == 5 %}
+      <div class="footer gallery">
+        <a class='more_link' href='{{ dl.show_path }}'>More</a>
+      </div>
+    {% endif %}
+  </div>
+{% endfor %}
+
+

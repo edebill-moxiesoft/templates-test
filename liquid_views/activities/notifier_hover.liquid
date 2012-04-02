@@ -1,0 +1,17 @@
+<div class="section unit">
+
+  {% if activities == empty %}
+  <p>
+    <em>no activities recorded</em>
+  </p>
+  {% else %}
+
+  <ol class="item_list activities" >
+    {% for activity in activities %}
+    {% include 'local_activities/likes_summary' activity: activity %}
+    {% endfor %}
+  </ol>
+
+  {% endif %}
+
+</div>

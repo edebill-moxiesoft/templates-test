@@ -1,0 +1,13 @@
+<div class='section unit activities js_filtered'>
+  <div class="unit_body">
+    <ol class="item_list activities js_filter_body" id="activities_feed">
+      {% for activity in activities %}
+        {% include 'local_activities/activity' %}
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div class="footer" id="js_paginate">
+    {% more activities %}
+  </div>
+</div>

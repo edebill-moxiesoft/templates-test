@@ -1,0 +1,13 @@
+<div class="item search_result ideastorm">
+  <div class="avatar">{{ ideastorm.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ ideastorm.link_to_show_with_container_class }} | {{ ideastorm.site_label }}</h3>
+    <h4>
+      Located in the {{ ideastorm.parent.site_label | downcase }} {{ ideastorm.parent.link_to_show_with_container_class }}
+    </h4>
+    <p>{{ ideastorm.search_excerpt }}</p>
+
+    {% include 'search_results/footer_container' node: ideastorm %}
+  </div>
+  <div class='clear'></div>
+</div>

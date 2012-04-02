@@ -1,0 +1,49 @@
+<div class="section unit versions_table">
+  <table class="versions">
+    <thead>
+      <tr>
+        <th>Rev</th>
+        <th>Size</th>
+        <th>Created</th>
+        <th>Creator</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rev in item.versions %}
+        {% if viewing_latest == 'true' and forloop.index == 1 %}
+        <tr class="viewing">
+        {% elsif revision and revision.index == rev.index %}
+        <tr class="viewing">
+        {% else %}
+        <tr>
+        {% endif %}
+          <td>{{ rev.index }}</td>
+          <td>{{ rev.characters_count | number_with_delimiter }} chars</td>
+          <td>{{ rev.created_at | date: "%B %d, %Y" }}</td>
+          <td class="creator">
+            {{ rev.creator.small_avatar_with_link }}
+            {{ rev.creator.link_to_user_profile }}
+          </td>
+          <td>
+            {% if viewing_latest != 'true' and forloop.index == 1 %}
+              <a href="{{ item.show_path }}">View</a>
+            {% elsif viewing_latest == 'true' and forloop.index == 1 %}
+              Viewing
+            {% else %}
+              {% if revision.index == rev.index %}
+                Viewing
+              {% else %}
+                <a href="{{ rev.path_to_show }}">View</a>
+              {% endif %}
+              {% if rev.parent.current_user_can_contribute? %}
+                &middot;            
+                <a href="{{ rev.path_to_rollback }}">Restore as Latest</a>
+              {% endif %}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

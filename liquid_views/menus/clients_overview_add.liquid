@@ -1,0 +1,4 @@
+{% capture add_a_client %}Add a {{ site.client_label }}{% endcapture %}
+{{ add_a_client | link_to_add_page: 'Client', #, 'add_link' }}
+{{ site.work_label | top_link_to_wizard_add_page: 'Work' }}
+

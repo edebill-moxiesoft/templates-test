@@ -1,0 +1,74 @@
+<div id='show_projects_index'>
+  <div class="content_bar_hat">
+    <div class='content_bar'>
+      <div class='section main'></div>
+      <div class='section sidebar'>
+        <div class='menu popdown-menu'>
+          {% include 'menus/project_index_add' %}
+          <div class='clear'></div>
+        </div>
+      </div>
+      <div class='clear'></div>
+    </div>
+  </div>
+
+  <div class='section main'>
+
+    <div class='section unit projects_list js_filtered' >
+      <div class="header">
+        <h3>{{ site.project_label }} Listings</h3>
+      </div>
+      <div class='section unit_body '>
+        <ol class="js_filter_body">
+          {% for project in projects %}
+          <li>
+            <a href="{{ project.show_path }}" class="avatar_wrapper">{{ project.small_avatar }}</a>
+
+            <div class="content_wrapper">
+              {{ project.link_to_show_with_container_class }} ({{ 'member' | pluralize: project.members_count }})
+              {% if project.parent %} in <a href="{{ project.parent.show_path }}" class="{{ project.parent.container_class }}_link">{{ project.parent.title }}</a>{% endif %}
+              <div class="owner">Administered By:
+                {% for admin in project.admins %}
+                  {{ admin.link_to_show }}{% unless forloop.last %},{% endunless%}
+                {% endfor %}
+              </div>
+              <div class="task_completion">
+                Task Completion: {{ project.number_complete }}/{{ project.number_tasks }}
+                {% if project.overdue_tasks_count > 0 %}
+                <span class="overdue">Overdue: {{ project.overdue_tasks_count }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% if more_projects > 0 %}
+      <div class='js_paginate'>
+        <a class="more" href="/projects/overview?nolayout=true&limit=20" data-offset='{{ offset }}' data-type='html' >More</a>
+        <div class='spinner'></div>
+      </div>
+      {% endif %}
+    </div>
+ 
+
+
+  </div>
+
+  <div class='section sidebar'>
+
+    <div class='aside projects'>
+      {% my projects %}
+    </div>
+
+    <div class='aside projects'>
+      {% hot projects, 3 %}
+    </div>
+
+    <div class='aside projects'>
+      {% recent projects limit 3 %}
+    </div>
+
+
+  </div>
+</div>

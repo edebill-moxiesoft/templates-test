@@ -1,0 +1,7 @@
+<div class='section group header'>
+  {% include 'nodes/header' parent: group hide_details: true %}
+</div>
+
+<div class="section main">
+  {% include 'users/directory' base_url: group.watchers_url search_prompt: 'Search for people named...' %}
+</div>

@@ -1,0 +1,103 @@
+<div class="section unit search_controls">
+  <form class='search' action="/{% if tab and tab != 'all' %}{{ tab }}/{% endif %}search">
+  
+    <div class="unit_body">
+      <fieldset class="search_bar">
+        <input id='keyword' name='q' value="{{ search.query | escape }}"/>
+        <input type="submit" class="search_btn" name="commit" value="Search"/>
+        <input type="hidden" name="sort" class="js_sort_param" value="" />
+        <input type="hidden" name="order" class="js_order_param" value="" />
+        {% if tab == 'all' %}<input type="hidden" name="view" class="js_view_param" value="" />{% endif %}
+      </fieldset>
+    </div>
+  
+    <div class="unit_body by_type">
+      
+      <div class="extra_search_controls">
+      
+      <h2>Search</h2>
+      
+      <ul>
+        <li class="{% if tab == 'all' %}active{% endif %}"><a href="/search?q={{ search.query | escape_everything }}">Everything</a></li>
+        <li class="{% if tab == 'users' %}active{% endif %}"><a href="/users/search?q={{ search.query | escape_everything }}">People</a></li>
+        <li class="{% if tab == 'basic_groups' %}active{% endif %}"><a href="/groups/basic_groups/search?q={{ search.query | escape_everything }}">{{ site.basic_group_label | plural }}</a></li>
+        <li class="{% if tab == 'location_groups' %}active{% endif %}"><a href="/groups/location_groups/search?q={{ search.query | escape_everything }}">{{ site.location_group_label | plural }}</a></li>
+        <li class="{% if tab == 'projects' %}active{% endif %}"><a href="/projects/search?q={{ search.query | escape_everything }}">{{ site.project_label | plural }}</a></li>
+        {% if site.clients_section_enabled? %}
+        <li class="{% if tab == 'clients' %}active{% endif %}"><a href="/clients/search?q={{ search.query | escape_everything }}">{{ site.client_label | plural }}</a></li>
+        {% endif %}
+        {% if site.clients_section_enabled? %}
+        <li class="{% if tab == 'works' %}active {% endif %}"><a href="/works/search?q={{ search.query | escape_everything }}">{{ site.work_label | plural }}</a></li>
+        {% endif %}       
+        <li class="{% if tab == 'blog_posts' %}active{% endif %}"><a href="/blog_posts/search?q={{ search.query | escape_everything }}">{{ site.blog_post_label | plural }}</a></li>
+        <li class="{% if tab == 'discussions' %}active{% endif %}"><a href="/discussions/search?q={{ search.query | escape_everything }}">{{ site.discussion_label | plural }}</a></li>
+        <li class="{% if tab == 'emails' %}active{% endif %}"><a href="/emails/search?q={{ search.query | escape_everything }}">{{ site.email_label | plural }}</a></li>
+        <li class="{% if tab == 'documents' %}active{% endif %}"><a href="/documents/search?q={{ search.query | escape_everything }}">{{ site.document_label | plural }}</a></li>
+        <li class="{% if tab == 'ideas' %}active{% endif %}"><a href="/ideas/search?q={{ search.query | escape_everything }}">{{ site.idea_label | plural }}</a></li>
+        {% if site.sharepoint_enabled? %}
+        <li class="{% if tab == 'sharepoint_search_documents' %}active{% endif %} "><a href="/sharepoint_search_documents/search?q={{ search.query }}">SharePoint Files</a></li>
+        {% endif %}
+        <li class="{% if tab == 'tasks' %}active{% endif %}"><a href="/tasks/search?q={{ search.query | escape_everything }}">{{ site.task_label | plural }}</a></li>
+        <li class="{% if tab == 'wikis' or tab == 'wiki_pages' %}active {% endif %}last"><a href="/wiki_pages/search?q={{ search.query | escape_everything }}">{{ site.wiki_page_label | plural }}</a></li>
+      </ul>
+      </div>
+      
+    </div>  
+  
+    {% if search.tags.size > 0 %}
+    <div class="unit_body">
+      <fieldset>
+        <h2>Tags</h2>
+        <div class="tags_content js_more_less">
+        {% for tag in search.tags limit:20 %}
+          {% assign enable_filter_button = true %}
+          <label class="search_tag_js">
+            {{ tag.tag | escape }} ({{ tag.count }})
+            <input type="checkbox" class="search_tag_checkbox" name="tags[]" value="{{ tag.tag }}" {{ tag.tag |  search_tag_selected : tags }}/>
+          </label>
+        {% endfor %}
+        {% if search.tags_count > 20 %}
+          <span class="tags_more" id="tags_more">
+          {% for tag in search.tags offset:20 %}
+            <label class="search_tag_js">
+              {{ tag.tag | escape }} ({{ tag.count }})
+              <input type="checkbox" class="search_tag_checkbox" name="tags[]" value="{{ tag.tag }}" {{ tag.tag | search_tag_selected : tags }}/>
+            </label>
+          {% endfor %}
+          </span>
+          <a class='more_link' href='#' onclick="">More</a>
+          {% endif %}
+          <div id="tag_search_inputs_js"></div>
+        </div>
+      </fieldset>
+    </div>
+    {% endif %}
+    
+    {% if tab == 'documents' or tab == 'users' or tab == 'works' or tab == 'clients' %}
+    <div class="unit_body">
+      <div class="extra_search_controls">
+        {% assign enable_filter_button = true %}
+        {% capture extra_search_controls%}{{tab}}/extra_search_controls{% endcapture %}
+        {% include extra_search_controls %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if enable_filter_button %}
+    <fieldset class="submit"><input type="submit" value="Filter"></fieldset>
+    {% endif %}
+  </form>
+</div>
+<div class="search_summary">
+  <span class="search_results_count">
+    {% if view != 'per-type' %}{% if nodes_count > 1000 %}
+         more than 1,000
+      {% else %}
+        {{ nodes_count | number_with_commas }}
+      {% endif %}
+    {% endif %}
+     search results for "<b>{{ search.query | escape }}</b>" in "<b>{% if tab == 'all' %}Everything{% else %}{{ label | plural }}{% endif %}</b>"
+  </span>
+  {% if tab == 'all' %}{% include 'searches/_view_toggle' view: view %}{% endif %}
+  <div class='clear'></div>
+</div>

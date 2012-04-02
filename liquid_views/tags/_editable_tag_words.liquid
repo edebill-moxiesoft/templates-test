@@ -1,0 +1,14 @@
+<ul class='tag_list' id='tag_list_{{ node.id }}'>
+  {% if node.tag_words_alpha == empty %}
+    <li class="no_tags"><em>this {{ node.site_label | downcase }} has no tags</em></li>
+  {% else %}
+    {% for tag in node.tag_words_alpha %}
+      <li class='tag'>
+        {{ tag[0] }}
+        <a href="/tags/destroy?node_id={{ node.id }}&tags={{ tag[1] }}" data-type="html" data-remote="true" data-method="delete" class="tag_deleter">
+          <span>X</span>
+        </a>
+      </li>
+    {% endfor %}
+  {% endif %}
+</ul>

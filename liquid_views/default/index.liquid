@@ -1,0 +1,72 @@
+<div class="section page">
+  <div class='section main'>
+
+    {% blog_post_rotator %}
+
+    {% upcoming_events %}
+
+    {% activities limit 10 fetch: true %}
+
+  </div>
+
+
+  <div class='section sidebar'>
+    <div class="aside today">
+      <p>Today is {{ site.date_today }}</p>
+    </div>
+
+{% if site.in_trial_mode? %}
+      <div class='aside do_next'>
+        <div class="header">
+          <h3>What To Do Next</h3>
+        </div>
+        <div class="section">
+          <ul>
+            <li class='user_completion'><a href="#">Complete your profile</a></li>
+            <li><a href="/user_invites/emails" class='wizard_launch' title="Invite Users" data-height="400">Invite people</a></li>
+            <li><a href="/people">Follow people</a></li>
+            <li><a href="/groups/new?node[_type]=BasicGroup&amp;clear=true" data-height="600" title="Add a Group" class="basic_group_menu_item wizard_launch">
+              Create a group</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class='aside people'>
+        {% include 'default|spaces_ad_and_trial_countdown' %}
+      </div>      
+      <div class='aside groups'>
+        {% my groups, 4, groups/_aside_users_groups %}
+      </div>
+      <div class='aside groups'>
+        {% recommend_groups title: "Suggested Groups" limit: 3 %}
+      </div>
+      <div class='aside users'>
+        {% recommend_users %}
+      </div>      
+      <div class='aside hot'>
+        {% hot nodes, 5 %}
+      </div>      
+      <div class='aside projects'>
+        {% my projects, 3%}
+      </div>
+      <div class='aside ideastorms'>
+        {% my ideastorms %}
+      </div>
+{% else %}
+      <div class='aside hot'>
+        {% hot nodes, 5 %}
+      </div>    
+      <div class='aside groups'>
+        {% my groups, 4, groups/_aside_users_groups %}
+      </div>    
+      <div class='aside projects'>
+        {% my projects, 3%}
+      </div>
+      <div class='aside ideastorms'>
+        {% my ideastorms %}
+      </div>
+{% endif %}
+
+
+  </div>
+
+</div>

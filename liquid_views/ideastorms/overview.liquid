@@ -1,0 +1,14 @@
+<div id="ideastorms_index">    
+  <div class='header'>
+    <h1>{{order}} {{ site.ideastorm_label | plural }}</h1>
+  </div>
+  <div class='section main'>
+    {% ideastorms limit 50 %}
+    {% ideas limit 50 %}
+  </div>
+  <div class='section sidebar'>
+    <div class='aside my_ideastorms'>
+      {% my ideastorms %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+
+<div class='body'>
+  <div class="activity_title">
+    {{ activity.title }}
+  </div>
+
+  <ol class='file_list'>
+    {% for file in activity.last_3_rolled_up_added_nodes %}
+      <li>
+        <a href="{{file.show_path}}" title="{{ file.title }}" class="{{file.container_class}}">
+          {{ file.activity_feed_rollup_avatar }}
+        </a>
+      </li>
+    {% endfor %}
+  </ol>
+
+
+</div>
+
+
+

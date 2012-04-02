@@ -1,0 +1,21 @@
+<div id='node_management_section'>
+  <h3 class='security_title'>
+    Page Management
+  </h3>
+  Current location: {% breadcrumbs no links %}
+  <a class='node_move' href='#'>change</a>
+  &nbsp;|&nbsp;
+  <form class='delete' method='post' action='{{ node.delete_path }}'>
+    <input type='hidden' name='_method' value='delete'/>
+    <input type='submit' value='delete' data-confirm='This will delete this {{ node.friendly_type_name }} and all of its children.  Are you sure you want to do this?'/>
+  </form>
+</div>
+
+<div id='node_move_section' data-id='{{ node.id }}'>
+	<div class='ind'></div>
+	<h3 class='security_title'>
+		Change Page Location
+	</h3>
+	<p>Drag page to new location</p>
+	<div class='node_tree'></div>
+</div>

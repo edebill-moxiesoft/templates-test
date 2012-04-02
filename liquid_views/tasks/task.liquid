@@ -1,0 +1,62 @@
+<li class="item task {% if forloop.last %}last{% endif %} status_{{ task.status }}">
+  <div data-path="{{ task.edit_path }}">
+    {% if task.current_user_can_contribute? %}
+    <a href="{{ task.toggle_path }}" class="status_control {{ task.toggle_icon }} "
+       data-remote="true" data-method="POST" data-type="json"></a>
+    {% else %}
+    <div class="status_control {{ task.toggle_icon }} disabled"></div>
+    {% endif %}
+
+    <div class="task_details">
+      <div class="stats">
+        <div class="collab_stats">
+          <a class='collab' href='{{task.show_path}}'>
+            <var class="likes_count">{{ task.likes_count }}</var>
+            <var class="replies_count" title="{{ task.replies_count }} replies">
+              {{ task.replies_count }}
+            </var>
+          </a>
+        </div>
+        <dl class="task_stats">
+          {% if task.is_task_list %}
+          <dd class="load">{% progress_bar percentage 'task.percent_completion' display 'task.tasks_complete_string' %}</dd>
+          {% endif %}
+          {% if task.duration > 0 %}
+          <dt class="duration">Duration:</dt>
+          <dd class="duration">{{ task.duration_string }}</dd>
+          {% endif %}
+          {% if task.due_date %}
+          <dt class="due">Due:</dt>
+          <dd class="due">{{ task.due_date | date: "%m/%d/%Y" }}</dd>
+          {% endif %}
+          <dt class="status">Status:</dt>
+          <dd class="status">{{ task.status }}</dd>
+          <dt class="milestone">Milestone?</dt>
+          <dd class="milestone"><var>{% if task.milestone %}Yes{% else %}No{% endif %}</var></dd>
+        </dl>
+      </div>
+
+      {{ task.assignee.small_avatar_with_link }}
+      <h6 class='title'>
+        {{ task.link_to_show }}
+        {% if task.assigned %}
+        assigned to {{ task.link_to_assignee }}
+        {% endif %}
+      </h6>
+
+
+      {% if task.has_description %}
+      <div class="description user_content">{{ task.description }}</div>
+      {% endif %}
+
+
+      <div class="footer">
+        {% if task.current_user_can_contribute? %}
+        <a href="{{ task.inline_edit_path }}" class="edit_task" data-remote="true" data-type="html">Edit</a>
+        {% endif %}
+        Created {{ task.created_at | time_ago_in_words, 'ago' }}
+      </div>
+
+    </div>
+  </div>
+</li>

@@ -1,0 +1,9 @@
+<p>{{ user_invite.message }}</p>
+
+<p>Congratulations. You have been approved for the following groups on behalf of {{ user_invite.creator.display_name }}:
+<ul>
+    {% for group_invite in user_invite.group_invites %}
+        <li><a href="{{ url_start }}{{ group_invite.group.show_path }}">{{ group_invite.group.title }}</a></li>
+    {% endfor %}
+</ul>
+{% include 'emails/_sent_from_footer' %}

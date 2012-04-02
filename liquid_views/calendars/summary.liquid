@@ -1,0 +1,7 @@
+<a href="{{ calendar.show_path }}">{{ calendar.small_avatar }}</a>
+{{ calendar.link_to_show }}
+
+{{ # the calendar search also returns events (by design), so display them differently }}
+{% if calendar.type_name == "CalendarEvent" %}
+  (<small>event in calendar {{ calendar.parent.link_to_show }}</small>)
+{% endif %}

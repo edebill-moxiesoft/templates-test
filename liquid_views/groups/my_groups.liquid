@@ -1,0 +1,41 @@
+<div id='show_groups_my_groups'>
+  <div id="group_header">
+    <h1>
+      My {{ site.group_label | plural }}
+    </h1>
+  </div>
+<!--
+  <div class="content_bar_hat">
+    <div class='content_bar'>
+      <div class='section main'></div>
+      <div class='section sidebar'>
+        <div class='menu popdown-menu'>
+          {% include 'menus/group_index_add' %}
+          <div class='clear'></div>
+        </div>
+      </div>
+      <div class='clear'></div>
+    </div>
+  </div>
+-->  
+  <div class='section' id="categories_overview_search">
+    <input class="js_group_autocomplete hint" data-go-link='true' name="group_title" type="text" title="Search for a specific group" />
+    <input class='js_group_id' name="group_id" type="hidden" value="any" data-default-value="any">
+  </div>
+
+  <div class='section main'>
+    {% groups_overview limit: 6 %}
+  </div>
+  
+  <div class='section sidebar'>    
+
+    <div class='aside groups'>
+      {% hot groups, 6 %}
+    </div>
+
+    <div class='aside groups'>
+      {% new_groups limit: 5 %}
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,34 @@
+{% case activity.parent_type %}
+{% when null %}
+{% assign theme_class = 'user' %}
+{% when 'Project' %}
+{% assign theme_class = 'project' %}
+{% else %}
+{% assign theme_class = 'group' %}
+{% endcase %}
+
+<li class='item activity activity_{{ activity.title_id }} {{ theme_class }} {% if forloop.last %}last{% endif %}'>
+  <div class="section">
+    <form><input class='activity_id' type='hidden' value='{{ activity.guid }}'/></form>
+
+    {% case activity.title_id %}
+
+
+    {% when 'added' %}
+      {% include 'local_activities/activity_content' for activity %}
+
+    {% when 'liked' %}
+      {% include 'local_activities/activity_liked' for activity %}
+
+    {% when 'replied' %}
+      {% include 'local_activities/activity_replied' for activity %}
+
+    {% else %}
+
+      {% include 'local_activities/activity_status' for activity %}
+
+
+    {% endcase %}
+  </div>
+</li>
+

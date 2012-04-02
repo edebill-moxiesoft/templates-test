@@ -1,0 +1,16 @@
+<div class="item search_result local_activity">
+  <div class="avatar">{{ local_activity.small_avatar_with_link }}</div>
+  <div class="details">
+    <h3>{{ local_activity.link_to_owner }}&nbsp;|&nbsp;{{ local_activity.site_label }}</h3>
+    <h4>
+      {% if local_activity.parent %}Posted in the {{ local_activity.parent.site_label | downcase }} <a class="{{ local_activity.parent.theme_class}}_link" href="{{ local_activity.parent.show_path }}" title="{{ local_activity.parent.title }}">{{ local_activity.parent.title }}</a>&nbsp;&nbsp;|&nbsp; {% endif %}
+      {% if local_activity.user_attentions != empty or local_activity.group_attentions != empty or local_activity.project_attentions != empty  or local_activity.task_attentions != empty or local_activity.work_attentions != empty or local_activity.client_attentions != empty %}
+         To: {{ local_activity.attention_links }}
+      {% endif %}
+    </h4>
+    <p>{{ local_activity.search_excerpt_auto_linked }}</p>
+
+    {% include 'search_results/footer_content' node: local_activity %}
+  </div>
+  <div class='clear'></div>
+</div>

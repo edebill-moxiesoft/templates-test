@@ -1,0 +1,63 @@
+<div class="user_status">
+  <div class="content">
+    {% if current_user %}
+    <!-- current_user.small_avatar_with_link -->
+    {{ current_user.link_to_user_profile }}
+    <q class="js_status_message">{{ current_user.status }}</q>
+    <a class="js_clear_status clear_status {%if current_user.has_status%}enabled{%endif%}" href="/users/clear_status"
+       data-remote="true" data-type="json" data-method="POST">
+      <img src="/images/cross_light_grey.png" />
+    </a>
+    {% endif %}
+  </div>
+</div>
+<div class="user_actions">
+  <div class="menu">
+    {% if current_user %}
+    <ol>
+	  {% unless site.use_saml? %}
+      <li class="sign_out">{{ 'Sign Out' | link_to_logout }}</li>
+      {% endunless %}
+      {% if site.help_enabled? %}
+	  <li class="help"><a href="/help" id="global_help">Help</a></li>
+	  {% endif %}
+      {% assign counter_class = "no_content" %}
+      {% if current_user.comment_updates_count > 0 %}
+      {% assign counter_class = "has_content" %}
+      {% endif %}
+      <li class="{{ counter_class }}">
+        <a id="js_comments-hover" class="notifiers comment" data-url="/activities/comment_notifiers">
+          <abbr
+            title="{{ current_user.comment_updates_count }} comment{% if current_user.comment_updates_count != 1 %}s{%endif%}"
+            class="{% if current_user.comment_updates_count == 0 %}disabled{% endif %}">
+            <var class="comments_count">{{ current_user.comment_updates_count }}</var>
+          </abbr>
+        </a>
+      </li>
+      {% assign counter_class = "no_content" %}
+      {% if current_user.like_updates_count > 0 %}
+      {% assign counter_class = "has_content" %}
+      {% endif %}
+      <li class="{{ counter_class }}">
+        <a id="js_likes-hover" class="notifiers like" data-url="/activities/like_notifiers">
+          <abbr title="{{ current_user.like_updates_count }} likes"
+            class="{% if current_user.like_updates_count == 0 %}disabled{% endif %}">
+            <var class="likes_count">{{ current_user.like_updates_count }}</var>
+          </abbr>
+        </a>
+      </li>
+      {% assign counter_class = "no_content" %}
+      {% if current_user.watch_updates_count > 0 %}
+      {% assign counter_class = "has_content" %}
+      {% endif %}
+      <li class="{{ counter_class }}">
+        <a id="js_watching-hover" class="notifiers watching" data-url="{{ current_user.show_path }}/watchings">
+          <abbr title="{{ current_user.watch_updates_count }} watched items" class="disabled">
+            <var class="watchings_count">{{ current_user.watch_updates_count }}</var>
+          </abbr>
+        </a>
+      </li>
+    </ol>
+    {% endif %}
+  </div>
+</div>

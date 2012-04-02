@@ -1,0 +1,101 @@
+<div id="show_watchings" class="section">
+  <div class='section main user header'>
+    {% include 'users/user_header' parent: user hide_details: true %}
+  </div>
+  <div class="clear"></div>
+
+  <div class="section main ">
+    <div id="container_header">
+      <h2 class="container_title">Following List</h2>
+
+      <div class="clear"></div>
+    </div>
+
+    <!--div class="section two_column "-->
+    <!--div class="left_column"-->
+    <div class="filter_controls">
+      <h2 class="section_title">Filter</h2>
+      <ul class="type_selector">
+        <li class="{% if type == 'users' %}active{% endif %}"><a href="/watchings/users">People</a></li>
+        <li class="{% if type == 'nodes' %}active{% endif %}"><a href="/watchings">All Content</a></li>
+        <li class="{% if type == 'basic_groups' %}active{% endif %}"><a href="/watchings/basic_groups">{{ site.basic_group_label | plural }}</a></li>
+        <li class="{% if type == 'location_groups' %}active{% endif %}"><a href="/watchings/location_groups">{{ site.location_group_label | plural }}</a></li>
+        <li class="{% if type == 'projects' %}active{% endif %}"><a href="/watchings/projects">{{ site.project_label | plural }}</a></li>
+        {% if site.clients_section_enabled? %}
+        <li class="{% if type == 'clients' %}active{% endif %}"><a href="/watchings/clients">{{ site.client_label | plural }}</a></li>
+        {% endif %}
+        {% if site.clients_section_enabled? %}
+        <li class="{% if type == 'works' %}active {% endif %}"><a href="/watchings/works">{{ site.work_label | plural }}</a></li>
+        {% endif %}
+        <li class="{% if type == 'blogs' %}active{% endif %}"><a href="/watchings/blogs">{{ site.blog_label | plural }}</a></li>
+        <li class="{% if type == 'discussion_archives' %}active{% endif %}"><a href="/watchings/discussion_archives">{{ site.discussion_archive_label | plural }}</a></li>
+        <li class="{% if type == 'emails' %}active{% endif %}"><a href="/watchings/emails">{{ site.email_label | plural }}</a></li>
+        <li class="{% if type == 'document_libraries' %}active{% endif %}"><a href="/watchings/document_libraries">{{ site.document_library_label | plural }} &amp; {{ site.document_label | plural }}</a></li>
+        <li class="{% if type == 'ideastorms' %}active{% endif %}"><a href="/watchings/ideastorms">{{ site.ideastorm_label | plural }}</a></li>
+        <li class="{% if type == 'task_lists' %}active{% endif %}"><a href="/watchings/task_lists">{{ site.task_list_label | plural }}</a></li>
+        <li class="{% if type == 'wikis' %}active {% endif %}"><a href="/watchings/wikis">{{ site.wiki_label | plural }}</a></li>
+        <li class="{% if type == 'calendars' %}active {% endif %}"><a href="/watchings/calendars">{{ site.calendar_label | plural }}</a></li>
+      </ul>
+    </div>
+    <!--/div-->
+    <!--div class="middle_column"-->
+      <ol class="watchings_list">
+        {% if watchings_count == 0 %}
+        <li>No Results Found</li>
+        {% endif %}
+        {% for watching in watchings %}
+        <li class="watching type_{{watching.theme_class}}">
+          <div class='indicator'></div>
+          <div class="avatar_and_button">
+            {{ watching.small_avatar_with_link }}
+          </div>
+          <div class="details">
+            <div class="follow_link">{{ watching.watch_button_small }}</div>
+            <div class="title">{{ watching.link_to_show }} | {{ watching.site_label }}</div>
+            <div class="description">
+              {% if watching.is_user? %}
+              {% if watching.has_location? %}{{ site.location_group_label }}: {{ watching.location }}{% endif %}
+              {% if watching.has_desk_number? %}<span class="phone work">{{ watching.desk_number }}</span>{% endif %}
+              {% if watching.has_mobile_number? %}<span class="phone cell">{{ watching.mobile_number }}</span>{% endif %}
+              <span class="email"><a href="mailto:{{ watching.email }}">{{ watching.email }}</a></span>
+
+              {% elsif watching.acts_like_group? %}
+              {{ 'Member' | pluralize: watching.members_count }}
+              {% else %}
+              {% assign closest_container = watching.closest_container %}
+              {% if closest_container.is_user? %}
+              Personal {{ watching.site_label }} of {{ watching.creator.link_to_show }}
+              {% else %}
+                {% if watching.closest_container and watching.closest_container.id != watching.id %}
+                  Located in {{ watching.closest_container.link_to_show }}
+                {% endif %}
+              {% endif %}
+              {% endif %}
+            </div>
+            {% if watching.last_time_viewed_by_current_user != nil %}
+            <div class="last_viewed">
+              Last Viewed {{ watching.last_time_viewed_by_current_user | time_ago_in_words, 'ago' }}
+            </div>
+            {% endif %}
+            <div class="clear"></div>
+          </div>
+
+        </li>
+
+        {% endfor %}
+      </ol>
+
+      {% generate_pagination total: watchings_count limit: limit current_offset: offset next: '&raquo;' back: '&laquo;' %}
+        <a href="/watchings/{{type}}?offset={{ page_offset }}" class="{{ current }}">{{ page }}</a>
+      {% endgenerate_pagination %}
+
+
+    <!--/div-->
+    <!--/div-->
+
+
+  </div>
+  <div class='section sidebar'>
+    {% pages_listing for: user %}
+  </div>
+</div>

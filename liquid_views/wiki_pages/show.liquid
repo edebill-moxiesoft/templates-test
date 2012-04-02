@@ -1,0 +1,92 @@
+<!-- WIKI SHOW PAGE -->
+{% if wiki_page %}
+<div id='wiki_show' class="section unit_summary item_show">
+  
+  <div class='section group header'>
+    {% include 'nodes/header' parent: wiki_page %}
+  </div>
+
+  <div class='section main wiki'>
+  
+    <div id="container_header">
+      {% capture primary_actions %}
+      <ul class="primary_actions">
+        {% if wiki_page.current_user_can_contribute? %}
+        <li class="node_actions"><a class='add_link' href="{{ wiki_page.show_path_shallow }}/wiki_pages/new" title="Add new {{ site.wiki_page_label }}">Add {{ site.wiki_page_label }}</a></li>
+        {% endif %}
+      </ul>
+      {% endcapture %}
+      {% include 'nodes/page_header' parent: wiki_page %}
+      <div class="clear"></div>
+    </div>
+
+    
+    <div class="page_description node_details">
+      <div class="wiki_summary">
+        {% include 'sections/wiki_pages_summary' wiki_pages: wiki_page.wiki_pages %}
+      </div>
+    </div>
+  
+    <div class="item">
+      <div class='user_content'>
+        {{ wiki_page.body_with_wiki_links_parsed }}
+	    </div>
+	    <div class="footer">
+        <span class="user_name">by {{ wiki_page.link_to_owner }},</span>
+        <span class="created_at">{{ wiki_page.created_at | time_ago_in_words, 'ago'  }}, </span>
+        <span class="unique_views">viewed by {{ 'person' | pluralize: wiki_page.unique_views }}</span>
+        
+        {% if wiki_page.versions_count > 1 %}
+          <span>
+            &middot; 
+            <a href="#" class="js_toggle_versions_table">{{ 'version' | pluralize: wiki_page.versions_count }}</a>
+            of this {{ wiki_page.site_label | downcase }} available
+          </span>
+        {% endif %}
+        {% include 'nodes|like_button' node: wiki_page %}
+        {% assign viewing_latest = 'true' %}
+        {% include 'wikis/versioning' item: wiki_page %}
+      </div>
+
+      {% include 'nodes/likes_summary_header' node: wiki_page %}
+
+      <div class="section unit comments_block">
+        <a name="comments"></a>
+        <div class='header'>
+          <h3 class="comments js_plural_count">{{ 'Comment' | pluralize: wiki_page.comments_count }} </h3>
+        </div>
+        <div class='unit_body'>
+          {% include 'comments/index' %}
+          {% include 'comments/form' %}
+        </div>
+      </div>
+
+    </div>
+  
+  </div>
+  
+
+
+  <div class='section sidebar'>
+  
+    {% pages_listing for: wiki_page %}
+  
+  
+    {% include 'tags/_tagger_sidebar' node: wiki_page %}
+    
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'wikis/security_heading' item: wiki_page %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: wiki_page %}
+      </div>
+    </div>
+    <div class='aside wiki_page recommendations'>
+      {% recommendations for wiki_page %}
+    </div>
+
+  </div>
+
+</div>
+{% endif %}

@@ -1,0 +1,65 @@
+{% if user %}
+
+<div id='user_show' class='section user_works'>
+
+  <div class='section main user header'>
+    {% include 'users/user_header' parent: user hide_details: true %}
+  </div>
+
+<div class='clear'></div>
+	
+	<div class="section main js_user_works">
+		
+		<form action="/users/{{ user.slug }}/work_types_list" class="" method="get" data-remote='true' data-type="html">
+      
+			<div class="section unit works">
+				<div class="header">
+	        <div class="updated_at js_works_updated_at"></div>
+	        <h2 class="work">
+	          {{ site.work_label | plural }}
+	        </h2>
+	      
+		      <input type="hidden" name="nolayout" value="true">
+				
+					<fieldset class="fs_inline fs_dates">
+					  {% include "forms/select_time_period" for: 'created' name: 'date_filter' default_label: 'All Dates' %}
+					</fieldset>
+				
+					<fieldset class="fs_inline fs_locations">
+						{% locations_select %}
+					</fieldset>
+						
+					<fieldset class="fs_inline fs_team_filters">
+						<input type="checkbox" name="team_filters[]" value="Lead Team" id="team_filter_lead" />
+						<label for="team_filter_lead">Lead Team</label>
+						<input type="checkbox" name="team_filters[]" value="Core Team" id="team_filter_core" />
+						<label for="team_filter_lead">Core Team</label>
+						<input type="checkbox" name="team_filters[]" value="Extended Team" id="team_filter_extended" />
+						<label for="team_filter_lead">Extended Team</label>
+					</fieldset>
+				
+					<img class="inline_ind" src="/images/spaces_icons/follow_button_spinner.gif" />
+				</div>
+			</div>
+		</form>
+					
+		{% include 'users/work_types_list' %}
+		
+		
+  </div>
+	
+	<div class='section sidebar last'>
+	
+	{% pages_listing for: user %}
+	
+	<div class='aside'>
+      {% activity for 'user' limit 5 %}
+      <div class='section'>
+        <a class='more_link' href='{{user.activities_path}}'>More</a>
+      </div>
+    </div>	
+	</div>
+	
+</div>
+
+{% endif %}

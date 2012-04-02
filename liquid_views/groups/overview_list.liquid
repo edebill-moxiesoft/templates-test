@@ -1,0 +1,46 @@
+<div class='section unit categories_summary js_filtered'>
+  <div class="header">
+    <div class="section filters">
+      {% show_filters %}
+    </div>
+    <h3>My {{ site.group_label | plural }}</h3>
+  </div>
+
+  <div class="categories_overview js_filter_body">
+    <ol class='item_list'>
+      {% if groups == empty %}
+        <li class='item'>
+          <em>You are not a member, follower or admin of any {{ site.group_label | plural | downcase }}.</li>
+        </li>
+      {% else %}
+        {% for group in groups %}
+          <li class='item category'>
+            {{ group.small_avatar }}
+    
+            <div class='summary'>
+              <div class='box_arrow'></div>
+              <div class='title'>
+                <h3><a href="{{ group.show_path }}">{{ group.title }}</a></h3>
+                <div class="toggle_link">
+                  <a href="#">Hide</a>
+                </div>
+                <div class="breadcrumbs">{{ group.breadcrumbs }}</div>
+              </div>
+      
+              <div class="activities">
+                {% activity for 'group' limit 3 %}
+          
+                <div class="clear"></div>
+              </div>
+            </div>
+    
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ol>
+  </div>
+
+  {% more groups base_url: '/groups/index_overview' %}
+  
+  <div class="clear"></div>
+</div>

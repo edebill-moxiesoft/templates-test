@@ -1,0 +1,9 @@
+{% for task_list in task_lists %}
+    <div class="section unit task_lists">
+      <div class='header'>
+        <h2 class="task_list">
+          <a href="{{ task_list.show_path }}" title="{{ task_list.title }}">{{ task_list.title }}</a>
+        </h2>
+      </div>
+    </div>
+{% endfor %}

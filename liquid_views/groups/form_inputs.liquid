@@ -1,0 +1,62 @@
+{% capture group_label %}{% if group._type == 'LocationGroup' %}{{ site.location_group_label }}{% else %}{{ site.group_label }}{% endif %}{% endcapture %}
+{% capture details_label %}{{group_label}} Details{% endcapture %}
+{% capture description_label %}{{group_label}} Description{% endcapture %}
+
+{% form_fields for 'inputs' name: details_label %}
+  {% if group.is_not_modifiable? %}
+    <div class='message_top'><em>Title, Membership, and Current Location of this group are not modifiable, please contact your administrator for assistance.</em></div>
+  {% endif %}
+
+  {% input for 'title' label: 'Title' required: 'true' class: 'title' disabled_by_drop: group.is_not_modifiable? %}
+  
+  {% if group.parent_id != null %}
+    {% input for 'parent_id' as: 'hidden' %}
+  {% elsif group.new_record? == true  %}
+    {% input for 'parent_id' as: 'category_select' label: 'Category' class: 'select' required: 'false' include blank: 'true' %}
+  {% endif %}
+  {% input for '_type' as: 'select' label: 'Type' required: 'true' include_blank: 'false' collection: [['Basic Group', 'BasicGroup'], ['Location Group', 'LocationGroup']] %}
+  <!-- special location group-only attributes -->
+  {% input for 'city' required: 'false' wrapper_class: 'location_attribute' %}
+  {% input for 'state' required: 'false' wrapper_class: 'location_attribute' %}
+  {% input for 'street_address' label: 'Address' required: 'false' wrapper_class: 'location_attribute' %}
+  {% input for 'postal_code' label: 'Zip' required: 'false' wrapper_class: 'location_attribute' %}
+  {% input for 'phone' required: 'false' wrapper_class: 'location_attribute' %}
+  {% input for 'fax' required: 'false' wrapper_class: 'location_attribute' %}
+
+{% endform_fields %}
+
+{% form_fields for 'inputs' name: description_label %}
+  {% include 'nodes/_editor_fields' %}
+  {% include 'nodes/_avatar_update_fields' %}
+  {% include 'nodes/_headline_blog_selector' %}
+{% endform_fields %}
+
+{% unless group.children_in_sort_order_no_subgroups == empty %}
+  <fieldset class="display_on_show_page last">
+    <legend>
+      <span>
+        Display on the Dashboard<br/>
+        <span class="legend-hint">Include the following<br/>modules on the page.</span>
+      </span>
+    </legend>
+  
+    <input type="hidden" name="group[update_children_order]" value="" class="js_sort_list" id="node_update_children_order" />
+  
+    <ol class="checkbox_collection sortable js_sortable">
+      {% for child in group.children_in_sort_order_no_subgroups %}
+    
+        <li class="boolean" id="i_{{ child.id }}">
+          <label title='Display the {{child.friendly_type_name}} "{{child.title}}"' for="group_displayed_children_{{ child.id }}">
+            <input type="hidden" name="group[update_displayed_children][{{ child.id }}]" value="0" />
+            <input type="checkbox" name="group[update_displayed_children][{{ child.id }}]"
+                  value="1" {% if child.displayed_on_parent? == true %}checked="checked"{% endif %}
+                  id="group_displayed_children_{{ child.id }}" />
+            {{ child.title }}
+          </label>
+        </li>
+    
+      {% endfor %}
+    </ol>
+  </fieldset>
+{% endunless %}
+

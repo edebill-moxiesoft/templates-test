@@ -1,0 +1,41 @@
+{% form for 'blank_page' multipart: true class: 'fancyform blank_page' %}
+  {% error_messages %}
+  {% form_fields for 'inputs' %}
+      {% include 'blank_pages/form_inputs' form_object: blank_page%}
+  {% endform_fields %}
+
+  {% unless blank_page.children_in_sort_order_no_subgroups == empty %}
+  <fieldset class="display_on_show_page last">
+    <legend>
+      <span>
+        Display on the Dashboard<br/>
+        <span class="legend-hint">Include the following<br/>modules on the page.</span>
+      </span>
+    </legend>
+
+    <input type="hidden" name="blank_page[update_children_order]" value="" class="js_sort_list" id="node_update_children_order" />
+
+    <ol class="checkbox_collection sortable js_sortable">
+      {% for child in blank_page.children_in_sort_order_no_subgroups %}
+
+        <li class="boolean" id="i_{{ child.id }}">
+          <label title='Display the {{child.friendly_type_name}} "{{child.title}}"' for="blank_page_displayed_children_{{ child.id }}">
+            <input type="hidden" name="blank_page[update_displayed_children][{{ child.id }}]" value="0" />
+            <input type="checkbox" name="blank_page[update_displayed_children][{{ child.id }}]"
+                  value="1" {% if child.displayed_on_parent? == true %}checked="checked"{% endif %}
+                  id="blank_page_displayed_children_{{ child.id }}" />
+            {{ child.title }}
+          </label>
+        </li>
+
+      {% endfor %}
+    </ol>
+  </fieldset>
+  {% endunless %}
+
+  {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: blank_page%}
+  {% endform_fields %}
+
+
+{% endform %}

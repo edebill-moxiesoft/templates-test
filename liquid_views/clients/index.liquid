@@ -1,0 +1,21 @@
+<div id="groups_index">
+  <div class='header'>
+    <h1>Clients</h1>
+  </div>
+  <div class='section main'>
+    <div class='section unit js_filtered'>
+      <ol class="item_list js_filter_body">
+        {% for client in clients %}
+        <li class="item">
+          <a href="{{ client.show_path }}">{{ client.small_avatar }}</a>
+          {{ client.link_to_show }}
+          <p class="description">
+            {{ client.limited_body }}
+          </p>
+        </li>
+        {% endfor %}
+      </ol>
+      {% more clients %}
+    </div>
+  </div>
+</div>

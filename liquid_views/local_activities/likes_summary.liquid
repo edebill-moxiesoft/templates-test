@@ -1,0 +1,17 @@
+<li class='item activity notifier_summary activity_{{activity.title_id}} {{activity.container_class }} {% if forloop.last %}last{% endif %}'>
+  <div class="section">
+    {{ activity.creator.small_avatar_no_hover }}
+
+    <div class="summary">
+      {{activity.creator.link_to_profile}} liked
+
+      {% if activity.parent.is_status? or activity.parent.is_direct_message? or activity.parent.is_badge? %}
+        {{activity.parent.creator.possessive_link_to_profile}} <a href="{{ activity.parent.view_path }}" class="person_link">status</a>
+      {% else %}
+        {{ activity.parent.link_to_show_with_container_class}}
+      {% endif %}
+
+    </div>
+  </div>
+
+</li>

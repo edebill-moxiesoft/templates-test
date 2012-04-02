@@ -1,0 +1,21 @@
+{% form for 'node' anchor: 'admin' multipart: true class: 'fancyform admin_panel node' %}
+  <div class="admin_container" id="node_admin_system">
+  {% error_messages %}
+  
+  {% include 'nodes/_admin_panel_pagemgmt' %}
+  
+  {% include 'works/_admin_panel_members' %}
+  
+  {% include 'nodes/_admin_panel_access' %}
+  
+  {% form_fields for 'buttons' %}
+    {% include 'forms/buttons' form_object: node %}
+  {% endform_fields %}
+  </div>
+{% endform %}
+
+<!-- hidden form to handle node deletion on link click -->
+<form action="{{ node.delete_path }}" method="post" accept-charset="utf-8" id="delete_this_node">
+  <input type="hidden" name="id" value="{{ node.id }}" id="id">
+  <input type="hidden" name="_method" value="delete" />
+</form>

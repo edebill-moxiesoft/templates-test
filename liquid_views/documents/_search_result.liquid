@@ -1,0 +1,25 @@
+<div class="item search_result document">
+  <div class="avatar">{{ document.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ document.link_to_show_with_container_class }} | {{ document.site_label }}</h3>
+    <h4>
+      {{ document.file_size | number_to_filesize}}&nbsp;&nbsp;|&nbsp;&nbsp;{{ document.friendly_file_type }}
+      {% if document.parent %}&nbsp;|&nbsp;&nbsp;Located in the {{ document.parent.site_label | downcase }} {{ document.parent.link_to_show_with_container_class }} {% endif %}
+    </h4>
+    <div class="document_summary">
+      <div class="document_preview">{{ document.activity_feed_avatar }}</div>
+      <div class="document_details">
+        <span class="file_name">{{ document.file_name }}</span>
+        {% if document.has_preview? %}
+          | {{ document.preview_link }}
+        {% endif %}
+        <div class="excerpt">
+          {{ document.search_excerpt }}
+        </div>
+      </div>
+    </div>
+
+    {% include 'search_results/footer_content' node: document %}
+  </div>
+  <div class='clear'></div>
+</div>

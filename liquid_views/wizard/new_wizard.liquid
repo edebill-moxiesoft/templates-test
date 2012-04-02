@@ -1,0 +1,90 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head>
+</head>
+<body>
+
+{% case form_object._type %}
+  {% when 'LocationGroup' %}
+    {% assign action = form_object.new_location_path %}
+  {% when 'Work' %}
+    {% assign action = form_object.new_work_path %}
+  {% when 'Category' %}
+    {% assign action = form_object.new_access_path %}
+  {% else %}
+    {% assign action = form_object.new_members_path %}
+{% endcase %}
+
+{% form for 'form_object' action: 'action' multipart: true class: 'fancyform group' data-wizard-remote: true   %}
+
+  {% error_messages %}
+
+  {% form_fields for 'inputs' %}
+    <input type="hidden" id="node__type" name="node[_type]" value="{{form_object._type}}">
+
+    {% input for '_type' as: 'hidden' %}
+    {% if form_object._type == 'Work' %}
+      {% input for 'parent_id' as: 'client_select' label: 'Client' class: 'select' required: 'true' include_blank: 'false' %}
+    {% elsif parent %}
+      {% if parent.is_category? %}
+        {% input for 'parent_id' as: 'category_select' label: 'Category' class: 'select' required: 'false' include_blank: 'true' %}
+      {% else %}
+        {% input for 'parent_id' as: 'hidden' %}
+      {% endif %}
+    {% elsif form_object._type == 'BasicGroup' or form_object._type == "LocationGroup" %}
+      {% input for 'parent_id' as: 'category_select' label: 'Category' class: 'select' required: 'false' include_blank: 'true' %}
+    {% endif %}
+
+    {% input for 'title' label: 'Name' required: 'true' class: 'title' %}
+
+    {% if form_object._type == 'Work' %}
+      <li class="select" id="work_work_type_input">
+        <label for="work_work_type">Type <abbr title="required">*</abbr></label>
+        <select id="work_work_type" name="work[work_type]">
+          <option value="{{ form_object.work_type_lead }}" {% if form_object.work_type == form_object.work_type_lead %}selected='selected'{% endif %}>{{ form_object.work_type_lead_label }}</option>
+					<option value="{{ form_object.work_type_active }}" {% if form_object.work_type == form_object.work_type_active %}selected='selected'{% endif %}>{{ form_object.work_type_active_label }}</option>
+					<option value="{{ form_object.work_type_complete }}" {% if form_object.work_type == form_object.work_type_complete %}selected='selected'{% endif %}>{{ form_object.work_type_complete_label }}</option>
+        </select>
+      </li>
+    {% endif %}
+
+    {% include 'nodes/_avatar_update_fields' %}
+    {% unless form_object._type == 'Category' or form_object._type == 'Work'%}
+    <li class="boolean " id="post_processing_create_headline_blog_input">
+      <label for="post_processing_create_headline_blog">Create Headline {{site.blog_label}}</label>
+      <input id="post_processing_create_headline_blog" name="post_processing[create_headline_blog]"
+             {% if post_processing.create_headline_blog == '1' %}checked="checked"{% endif %}
+             value="1" type="checkbox">
+    </li>
+
+    <li class="text " id="post_processing_headline_blog_title_input" {% if post_processing.create_headline_blog != '1' %}style="display:none"{% endif %}>
+      <label for="post_processing_headline_blog_title">Headline {{site.blog_label}} Title</label>
+      <input id="post_processing_headline_blog_title" data-dirty="{% if post_processing.headline_blog_title %}true{% else %}false{% endif %}"
+             name="post_processing[headline_blog_title]" value="{{post_processing.headline_blog_title}}"
+             title="Headline {{site.blog_label}} Title" type="text">
+    </li>
+    {% endunless %}
+
+    {% include 'nodes/_wizard_editor_fields' body_label: 'Description' %}
+
+    {% if form_object._type == 'TaskList' %}
+      <li class="text" id="project_due_at_input">
+        <label for="project_due_at">Due Date</label>
+        <input type="text" style="width: 10%;" size="70" name="project[due_at]" id="project_due_at" class="datepicker"
+               value="{{form_object.due_at}}">
+      </li>
+    {% endif %}
+
+
+
+
+
+
+
+  {% endform_fields %}
+
+{% endform %}
+<a class="close_wizard" href="/reset_node_wizard?type={{ node._type }}" data-remote='true'></a>
+<script type="text/javascript" src="/javascripts/group_wizard_load.js?{{ site.site_version }}"></script>
+</body>
+</html>

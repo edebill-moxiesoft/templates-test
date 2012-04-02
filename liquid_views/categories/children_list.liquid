@@ -1,0 +1,17 @@
+<ol class="children_list">
+  {% for child in children %}
+  <li class="{{child._type}}">
+    {% if child.has_child_categories_or_groups? %}
+      <a class="load_children js_load_children" href="/categories/directory/{{child.id}}" data-remote='true' data-type='html'></a>
+    {% endif %}
+    <a href="{{child.show_path}}">{{child.title}}</a>
+
+  </li>
+  {% endfor %}
+  {% if other %}
+  <li class="Category">
+    <a class="load_children js_load_children" href="/categories/directory/other"  data-remote='true' data-type='html'></a>
+    <a>Uncategorized</a>
+  </li>
+  {% endif %}
+</ol>

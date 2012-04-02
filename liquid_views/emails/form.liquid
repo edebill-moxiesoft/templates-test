@@ -1,0 +1,11 @@
+{% form for 'email' multipart: true class: 'formtastic email' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'emails/form_inputs' form_object: email %}      
+    {% endform_fields %}
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: email %}
+    {% endform_fields %}
+  </div>
+{% endform %}

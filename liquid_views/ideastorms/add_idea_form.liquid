@@ -1,0 +1,28 @@
+<div id="idea_post_form" class='post_form js_post_form'>
+  <div class='new_post'>
+    <div class="post_form_toggler">
+      <div class='ind'></div>
+
+			{% form for 'form_object' id: 'post_form' action: "ideastorm.url_for_new_idea" class: 'formtastic idea' data-type: html %}
+				{% error_messages %}
+				<div class="wrapper">
+          <div class='form_inputs'>
+		  		{% form_fields for 'inputs' name: "NEW IDEA" %}
+						{% input for 'title' label: 'Title' required: 'true' class: 'title' %}
+						{% include 'nodes/_editor_fields' body_label: 'Description' %}
+						<li>
+              <label>Add Tags</label>
+              {{ form_object.tagging_text_field }}
+            </li>
+					{% endform_fields %}
+					{% form_fields for 'buttons' %}
+						{% input as: submit value: "SUBMIT IDEA" class: create  %}
+						{% input as: button value: Cancel class: cancel %}
+			    {% endform_fields %}
+					</div>
+				</div>
+			{% endform %}
+
+    </div>
+  </div>
+</div>

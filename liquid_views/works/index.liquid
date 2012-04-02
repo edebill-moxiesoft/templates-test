@@ -1,0 +1,42 @@
+<div>
+  {% if client %}
+  <div id='show_client'>
+
+    <div class="content_bar_hat"></div>
+
+    <div class='section main client'>
+      <div class='header' id='client_header'>
+        <h1>
+          {{ client.title }}
+        </h1>
+        <ul class="details">
+          <li>
+            {{ client.share_button }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class='clear'></div>
+  </div>
+  {%endif%}
+
+  <div class='section main'>
+    <div class="section unit works js_filtered">
+      <div class="unit_body">
+        {% works limit 10 %}
+      </div>
+      {% if works_count > 0 %}
+
+      <div class="js_paginate">
+        <a class="more" href="{{ index_url }}&limit{{limit}}" data-offset="{{ offset }}" data-type="html">More</a>
+        <div class="spinner" style="display: none; "></div>
+      </div>
+      <div class="footer" style="display:none">
+        <a class="more_link" href="{{ index_url }}">More</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+</div>

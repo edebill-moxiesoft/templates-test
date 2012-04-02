@@ -1,0 +1,42 @@
+{% form for 'document' multipart: true class: 'fancyform document' %}
+
+  {% error_messages %}
+  
+  {% unless document.has_document? %}
+  
+    {% form_fields for 'single_or_multi' %}
+      <li class="radio">
+        <label for="single_upload">
+          Upload One File
+          <input type="radio" id="single_upload" name="single_or_multi" value="single" checked="checked" />
+        </label>
+        <label for="multiple_upload">
+          Upload Multiple Files
+          <input type="radio" id="multiple_upload" name="single_or_multi" value="multiple" />
+        </label>
+      </li>
+    {% endform_fields %}
+  
+  {% endunless %}
+  
+  <div id="document_single_upload_inputs">
+
+    {% form_fields for 'inputs' %}
+      {% include 'documents/form_inputs' form_object: document %}      
+    {% endform_fields %}
+
+    {% form_fields for 'buttons' %}
+      {% comment %} Can't use typical submit button as PlUpload apparently breaks it. {% endcomment %}
+      <li class="commit"><input id="submit_for_plupload" class="submit" type="submit" value="Save" /></li>
+      <li class='cancel'> <input class='cancel' type='button' value='Cancel' onclick='location.href="{{form_object.cancel_path}}"'/> </li>
+
+    {% endform_fields %}
+
+  </div>
+  
+  <div id="document_multiple_upload_inputs" data-redirect_url="{{document.parent.show_path}}">
+    {% include 'documents/multi_upload' form_object: document %}
+  </div>  
+  
+
+{% endform %}

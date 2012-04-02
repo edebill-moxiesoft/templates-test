@@ -1,0 +1,6 @@
+<div class='section unit my_works'>
+  <div class='header'>
+    <h2 class='work_portfolio'><a href="{{ user.works_url }}">{{ site.work_label | pluralize: user.possessive_display_name }}</a></h2>
+  </div>
+  {% highlighted_works limit 5 %}
+</div>

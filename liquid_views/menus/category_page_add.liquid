@@ -1,0 +1,12 @@
+{% if category.current_user_can_contribute? %}
+  {% menu %}
+    {% submenu Add a Page, #, add_page_link %}
+      {% if category.current_user_can_admin? %}
+        <li class="icon_menu_item">{{ site.category_label | link_to_wizard_add_page: 'Category', category.guid }}</li>
+      {% endif %}
+      <li class="icon_menu_item">{{ site.basic_group_label | link_to_wizard_add_page: 'BasicGroup', category.guid  }}</li>
+      <li class="icon_menu_item">{{ site.location_group_label | link_to_wizard_add_page: 'LocationGroup', category.guid  }}</li>
+      <li class="icon_menu_item last">{{ site.project_label | link_to_wizard_add_page: 'Project', category.guid }}</li>
+    {% endsubmenu %}
+  {% endmenu %}
+{% endif %}

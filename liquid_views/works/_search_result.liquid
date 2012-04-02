@@ -1,0 +1,13 @@
+<div class="item search_result work">
+  <div class="avatar">{{ work.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ work.link_to_show_with_container_class }} | {{ work.site_label }}</h3>
+    <h4>
+      {% if work.parent %}Located in the {{ work.parent.site_label | downcase }} {{ work.parent.link_to_show_with_container_class }} {% endif %}
+    </h4>
+    <p>{{ work.search_excerpt }}</p>
+
+    {% include 'search_results/footer_container' node: work %}
+  </div>
+  <div class='clear'></div>
+</div>

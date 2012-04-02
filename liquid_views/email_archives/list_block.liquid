@@ -1,0 +1,47 @@
+<div class='section unit js_filtered'>
+  <div class='header'>
+    <div class="section_filters">
+      {% show_filters %}
+    </div>
+  
+    <h2>Emails</h2>
+  </div>
+
+  <div class="emails item_list js_filter_body">
+    <ol class="item_list">
+      {% if emails == blank or emails == null %}
+        <li class='item'>
+          No email threads found.
+        </li>
+      {% else %}
+        {% for email in emails %}
+          <li class='item'>
+            <div class='email_summary'>
+              <p class='email_details'>
+                <a href="{{ email.show_path }}">{{ email.title }}</a><br />
+                {% if email.last_commented_at == null %}
+                  Started {{ email.created_at | date: "%b %e, %Y"}}
+                {% else %}
+                  Between {{ email.created_at | date: "%b %e, %Y"}} and {{ email.last_commented_at | date: "%b %e, %Y" }}
+                {% endif %}
+                &middot;
+                Started by {{ email.creator.link_to_profile }}
+              </p>
+            </div>
+            <div class='email_likes_and_comments'>
+              <a href="{{ email.show_path }}#comments">
+                <var class="comments_count">{{ email.comments_count }}</var>
+              </a>
+              <a href="{{ email.show_path }}#likes">
+                <var class="likes_count">{{ email.likes_count }}</var>
+              </a>
+            </div>
+            <div class='clear'></div>
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ol>
+  </div>
+  
+  {% more emails %}
+</div>

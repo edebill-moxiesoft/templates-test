@@ -1,0 +1,12 @@
+<div class="item search_result article">
+  <div class="avatar default_avatar"><img class="node_avatar" src="/images/doc_icons/generic.png" alt="{{ article.sanitized_title }}"></div>
+  <div class="details">
+    <h3>
+      <a href="{{ article.base_path }}" {% if article.wikified %}class="wikified" title="This {{ article.friendly_type_name }} has been wikified."{% endif %}>
+        {{ article.sanitized_title }}</a>&nbsp;|&nbsp;{{ article.friendly_type_name }}
+    </h3>
+    <p class="tight">{{ article.sanitized_body | strip_html }}</p>
+    {% include 'search_results/footer_content' node: article %}
+  </div>
+  <div class='clear'></div>
+</div>

@@ -1,0 +1,50 @@
+<div id='show_people_index' class='three_column'>
+
+
+
+   <!-- ======== LEFT COLUMN ======== -->
+  <div class="section left_sidebar">
+    <div class='aside locations around_the_globe'>
+      {% show_around_the_globe %}
+    </div>
+    
+    <div class='aside photos'>
+      {% show_recent_photos  %}
+    </div>
+  </div>
+  
+  
+   <!-- ======== MIDDLE COLUMN ======== -->
+  <div class='section middle'>
+    <div class='section unit status_updates'>
+      {% activity type 'status' with template 'users|status_updates' %}
+    </div>
+  
+    <div class='section unit likes'>
+      {% show_recent_likes %}
+    </div>
+  
+    <div class='section unit recent_blogs'>
+      {% recent blogs limit 3 %}
+    </div>
+  </div>
+  
+  
+  <!-- ======== RIGHT COLUMN ======== -->
+  <div class="section right_sidebar">
+    <div class='aside users'>
+      {% show_new_faces %}
+    </div>
+    
+    <div class='aside users'>
+      {% recommend_users %}
+    </div>
+    
+    <div class='aside activities'>
+      {% activity limit 2 %}
+    </div>
+  </div>
+  
+  
+  
+</div>

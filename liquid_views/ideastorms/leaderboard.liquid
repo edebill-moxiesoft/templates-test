@@ -1,0 +1,36 @@
+<div id="ideastorms_leaderboard">
+  <div class="header">
+    <h1>Leaderboard</h1>
+  </div>
+  
+  <div class="section main">
+    {% ideastorms split_on_open: true, with template 'ideastorms/leaderboard_list' %}
+  </div>
+  
+  <div class="section sidebar">
+    <div class="aside ideastorms_recent_winners">
+      {% ideas_recent_winners %}
+    </div>
+    
+    <div class="aside implemented_ideas">
+      {% implemented_ideas %}
+    </div>
+
+    <div class="aside ideastorms_top_contributors">
+      <div class="header"><h3>Top Contributors</h3></div>
+      {% idea_makers limit 5 %}
+      <div class="legend">
+        <ul>
+          <li class="ideas">{{ site.idea_label | plural }} submitted by the user</li>
+          <li class="comments">Comments on ideas by the user</li>
+          <li class="likes">{{ site.idea_label | plural }} liked by the user</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="aside my_ideastorms">
+      {% my ideastorms %}
+    </div>
+  </div>
+  
+</div>

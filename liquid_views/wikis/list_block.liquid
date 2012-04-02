@@ -1,0 +1,18 @@
+<div class='section unit wikis js_filtered'>
+
+  <div class='section unit_body '>
+    <ol class="wikis item_list js_filter_body">
+      {% if wikis == empty %}
+        <p><em>No {{ site.wiki_label | plural }} Yet</em></p>
+      {% endif %}
+
+      {% for wiki in wikis %}
+        <li class="item ">
+          {% include 'wikis/summary' %}
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  {% more wikis %}
+</div>

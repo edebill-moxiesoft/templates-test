@@ -1,0 +1,13 @@
+<div class="content_bar_hat"></div>
+
+<div class='section main'>
+  <div class='header' id='group_header'>
+    <h1>
+      {{ node.title }} - Likes
+    </h1>
+  </div>
+</div>
+
+<div class="section main">
+  {% include 'users/directory' base_url: node.like_path hide_search_and_finder: 'true' %}
+</div>

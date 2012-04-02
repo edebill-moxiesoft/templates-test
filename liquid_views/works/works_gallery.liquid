@@ -1,0 +1,57 @@
+<ol class="works gallery_list js_filter_body">
+  {% if works == empty %}
+  <li><p><em>No {{ site.work_label | plural | downcase }} yet</em></p></li>
+  {% else %}
+
+	<div class="hidden js_time_compare">{{ works.first.updated_at | time_in_iso }}</div>
+
+  {% for work in works %}
+  <li class="item work js_work_li {{ work | highlighted: user }}">
+    <div class="hipster_avatar js_user_works_pic">
+      <a href="{{ work.show_path }}" style="background-image:url({{ work.hipster_small_avatar_path }})" title="{{ work.title }}">
+				<div class="star"></div>
+			</a>
+    </div>
+
+    <div class="tool_tip js_tooltip">
+      <div class="tooltip_image_container">
+        {% if work.has_avatar? %}
+					<img class="tooltip_image" src="{{ work.profile_avatar_url }}"/>
+				{% else %}
+				  <img class="tooltip_image" src="{{ work.hipster_small_avatar_path }}"/>
+				{% endif %}
+									
+				<div class="clear"></div>					
+												
+				{% if current_user.id == user.id %}
+						<a class="unhighlight js_work_highlight " href="{{ work.unhighlight_path }}" data-subject="{{ work.title }}" 
+							data-remote="true" data-method="post" data-type="html"></a>
+						<a class="highlight js_work_highlight" href="{{ work.highlight_path }}" data-subject="{{ work.title }}" 
+							data-remote="true" data-method="post" data-type="html"></a>
+					<img class="inline_ind" src="/images/spaces_icons/follow_button_spinner.gif" />
+				{% else %}
+				  <span class="unhighlight"></span>
+        {% endif %}
+			</div>
+      <div class="tooltip_image_details_container">
+        <a class="title" href="{{ work.show_path }}">{{ work.title }}</a><br/>
+				for <span class="client_name">{{ work.parent.name }}</span>
+        
+				{% if work.body and work.body != empty %}
+					<hr/>
+	        {{ work.sanitized_body | html_truncate: 100  }}
+				{% endif %}
+				{% if work.location and work.location != empty %}
+				  <hr/>
+					Location: {{ work.location.name }}
+				{% endif %}
+      </div>
+			<div class="clear"></div>
+    </div>
+		<a href="{{ work.show_path }}" class="title no_underline">{{ work.title | truncate: 20 }}</a>
+
+
+  </li>
+  {% endfor %}
+  {% endif %}
+</ol>

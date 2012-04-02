@@ -1,0 +1,37 @@
+{% include 'search_results/showing_count' showing_count: task_lists.size total_count: nodes_count hide: hide_total %}
+<table class="search_results task_lists  ">
+  <thead>
+  <tr>
+    <th>Title of {{ site.task_list_label }}</th>
+    <th>Created by</th>
+    <th>Creation date</th>
+  </tr>
+  </thead>
+  {% if task_lists == empty %}
+  <tr>
+    <td colspan="6"><p><em>No {{ site.task_list_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for task_list in task_lists  limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ post.container_class }}">
+    <td>
+      {% if task_list.has_avatar? %}
+      {{ task_list.small_avatar }}
+      {% endif %}
+      <div class="title">{{ task_list.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ task_list.link_to_owner }}</td>
+    <td>{{ task_list.created_at | date: "%m/%d/%y" }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: task_lists.size total_count: nodes_count hide: hide_total %}
+  {% more task_lists search: true %}
+{% endunless %}

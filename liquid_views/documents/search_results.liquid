@@ -1,0 +1,45 @@
+{% include 'search_results/showing_count' showing_count: documents.size total_count: nodes_count hide: hide_total %}
+<table class="search_results documents  ">
+  <thead>
+  <tr>
+    {% include 'searches/_sort_header' title: "Name" sort_by: "name" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "File Size" sort_by: "file_size" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: site.document_library_label sort_by: "parent_title" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Type" sort_by: "file_type" hide_sorting: hide_total %}
+    <th></th>
+  </tr>
+  </thead>
+  {% if documents == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.document_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for document in documents limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ document.container_class }}">
+    <td>
+      {% if document.is_image %}
+        <a href="{{document.show_path}}"><img src="{{document.thumbnail_path}}" class="file_thumbnail"/></a>
+      {% else %}
+        <a href="{{document.show_path}}"><img src="{{document.non_image_thumbnail}}" class="file_thumbnail"/></a>
+      {% endif %}
+      <div class="title">{{ document.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ document.file_size |number_to_filesize}}</td>
+    <td>{{ document.parent.link_to_show_with_container_class }}</td>
+    <td>{{ document.friendly_file_type }}</td>
+    <td>
+      <a class="download" href="{{ document.download_path }}">Download</a>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: documents.size total_count: nodes_count hide: hide_total %}
+  {% more documents search: true %}
+{% endunless %}

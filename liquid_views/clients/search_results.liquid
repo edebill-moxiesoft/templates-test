@@ -1,0 +1,48 @@
+{% include 'search_results/showing_count' showing_count: clients.size total_count: nodes_count hide: hide_total %}
+<table class="search_results clients  ">
+  <thead>
+  <tr>
+    {% include 'searches/_sort_header' title: "Name" sort_by: "name" hide_sorting: hide_total %}
+    {% capture num_works_label %}# of {{ site.work_label | plural }}{% endcapture %}
+    {% include 'searches/_sort_header' title: num_works_label sort_by: "works_count" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Status" sort_by: "client_status" hide_sorting: hide_total %}
+    <th>Contacts</th>
+    {% include 'searches/_sort_header' title: "Date Added" sort_by: "created_at" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Date Updated" sort_by: "updated_at" hide_sorting: hide_total %}
+  </tr>
+  </thead>
+  {% if clients == empty %}
+  <tr>
+    <td colspan="6"><p><em>No {{ site.client_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for client in clients  limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ post.container_class }}">
+    <td>
+      {% if client.has_avatar? %}
+      {{ client.small_avatar }}
+      {% endif %}
+      <div class="title">{{ client.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ client.total_works }}</td>
+    <td>{{ client.status }}</td>
+    <td>
+      <div class="contacts">
+        {% for contact in client.contacts %}<span class="{% if forloop.last %}last{%endif%}">{{contact.link_to_show}}</span> {% endfor%}
+      </div>
+    </td>
+    <td>{{ client.created_at | date: "%m/%d/%y" }}</td>
+    <td>{{ client.updated_at | date: "%m/%d/%y" }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: clients.size total_count: nodes_count hide: hide_total %}
+  {% more clients search: true %}
+{% endunless %}

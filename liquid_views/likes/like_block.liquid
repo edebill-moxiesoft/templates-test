@@ -1,0 +1,13 @@
+<div class="like_block">
+  <p class="popout_tab likes">
+    <abbr title="This {{ object_name }} has been liked {{ object.likes_count }} times">
+      <var class="likes_count">{{ object.likes_count }}</var>
+      <span class="likes_text">{% if object.likes_count == 1 %}Like{% else %}Likes{% endif %}</span>
+    </abbr>
+  </p>
+
+  <div class='me_likey {{ object.likes_class }}'>
+    {{ object.likes_link }}
+    <div class='spinner'></div>
+  </div>
+</div>

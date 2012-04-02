@@ -1,0 +1,11 @@
+{% form for 'task' multipart: true class: 'formtastic task' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'tasks/form_inputs' form_object: task%}      
+    {% endform_fields %}
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: task%}
+    {% endform_fields %}
+  </div>
+{% endform %}

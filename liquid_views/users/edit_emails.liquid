@@ -1,0 +1,54 @@
+{% if site.allow_user_email_editing? or current_user.super_user? %}
+<fieldset class="email_addresses_editor inputs{% if user.email_errors? %} error{% endif%}">
+  <legend>
+    <span>Email Addresses</span>
+  </legend>
+
+  <ol>
+  	<li class="label-hints">
+    Primary email address is the one that is selected below. {%unless current_user.super_user?%}Changing your primary email address requires email confirmation.{%endunless%}
+    </li>
+
+    {% if user.email %}
+  	<li class="radio_label">
+  		<input type="radio" name="user[primary_email]" value="{{user.email}}" class="primary_email" checked="checked" />
+  		<input type="hidden" name="user[all_emails][]" value="{{user.email}}" />
+  		<label for="primary_email">{{user.email}} (Primary)</label>
+  	</li>
+    {% endif %}
+
+  	{% for email_address in user.non_primary_emails %}
+  	<li class="radio_label">
+  		<input type="radio" name="user[primary_email]" value="{{email_address}}" id="email_address_{{forloop.index}}" />
+  		<input type="hidden" name="user[all_emails][]" value="{{email_address}}" />
+  		<label for="email_address_{{forloop.index}}">
+        {{ email_address }}
+      </label>
+        {% unless email_address == user.pending_primary_email %}
+          <a class="email_remove_button">Remove</a>
+        {% else %}
+          <span class="pending_primary_note">(Pending Primary)</span>          
+        {% endunless %}
+      {% if user.email_validation_sent_at and email_address == user.pending_primary_email %}
+        <span class="small">Confirmation email sent {{ user.email_validation_sent_at | time_ago_in_words, 'ago'}}</span>
+      {% endif %}
+  	</li>
+  	{% endfor %}
+
+  	<li class='email_add_li'>
+  		<input type="text" class="email_add_input" value="" />
+  		<a class="email_add_button">Add</a>
+  		<span class="add_email_validation_msg">Invalid Email Address</span>
+  	</li>
+
+  	{% comment %}This hidden one is a template used when inserting new email addresses{% endcomment %}
+  	<li class="radio_label_template radio_label">
+  		<input type="radio" name="user[primary_email]" value="" id="" disabled="true" />
+  		<input type="hidden" name="user[all_emails][]" value="" disabled="true" />
+  		<label for=""></label>
+  		<a class="email_remove_button">Remove</a>
+  	</li>
+  </ol>
+
+ </fieldset>
+ {% endif %}

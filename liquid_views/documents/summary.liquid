@@ -1,0 +1,21 @@
+<tr class="item document {% if forloop.last %}last{% endif %}">
+  <td>
+    {% if document.is_image %}
+    <a href="{{document.show_path}}"><img src="{{document.tiny_square_path}}" class="file_thumbnail"/></a>
+    {% else %}
+    <a href="{{document.show_path}}"><img src="{{document.non_image_thumbnail}}" class="file_thumbnail"/></a>    
+    {% endif %}
+  </td>
+  <td>
+    <a href="{{document.show_path}}">{{document.name}}</a>
+    <br/>
+    {{ document.file_extension | upcase }} &middot; {{ document.file_size | number_to_filesize }}
+    <br />
+    {{ document.sanitized_body | truncatewords: 15 }}
+    <br />
+    {{ document.search_result_info.summary }}
+  </td>
+  <td>{{ document.created_at | date: "%B %d, %Y" }}</td>
+</tr>
+
+

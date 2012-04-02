@@ -1,0 +1,73 @@
+<div class="js_recipient_wrapper">
+  <div class="recipient_list js_recipient_list">
+    <span class="title">Attn: </span>
+    <ul class="recipients js_recipients">
+      {% if attn %}
+      <li class="recipient {{attn.container_type}} js_system_added">
+        {{attn.title }}
+      </li>
+      {% endif %}
+      {% if user %}
+      <li class="recipient user">{{user.display_name}}</li>
+      {% endif %}
+      <li class="add_recipient"><a href="#" title="Add Recipient" class="js_add_recipient">+</a></li>
+    </ul>
+    <div class="node_search_modal js_node_search_modal">
+      <div class="header">
+        <span class="close_btn">Close</span>
+        <input class="node_search_modal_input js_node_search_modal_input" type="text" autocomplete="off" name="node_search" title="Search" data-type="html"/>
+        <div class="spinner"></div>
+        <h3>Search Results</h3>
+      </div>
+      {% include 'local_activities/microblogger_attn_list' users: followed_people, groups: followed_groups, projects: followed_projects, clients: followed_clients, tasks: followed_tasks %}
+    </div>
+  </div>
+
+  <form action="{% if attn %}{{attn.show_path_shallow}}{% endif %}/activities" method="post"
+        class="new_message js_new_message" data-remote="true" data-type="html" data-class="attn">
+    {% if direct_message %}
+      <input type="hidden" id="continue_label" value="Send">
+    {% endif %}
+    {% if attn %}
+      <input id="initial_attn" class="js_system_added js_recipient_input" type="hidden" name="initial_attn" value="{{attn.id}}">
+    {% endif %}
+
+    <fieldset class="recipient_inputs">
+      {% if attn %}
+      <input id="attn_node" class="js_system_added js_recipient_input" type="hidden" name="attn[node][]" value="{{attn.id}}">
+      {% endif %}
+      {% if user %}
+      <input id="attn_user" class="js_system_added js_recipient_input" type="hidden" name="attn[user][]" value="{{user.id}}">
+      {% endif %}
+    </fieldset>
+    <div class="avatar">{{ current_user.small_avatar }}</div>
+    <div class="js_control control">
+      {% if direct_message %}
+        <textarea name="activity[direct_message]" class="post js_post"></textarea>
+      {% else %}
+        <textarea name="activity[status]" class="post js_post" title="What&#x27;s happening right now?"></textarea>
+      {% endif %}
+      <fieldset class="buttons">
+        <input type="submit" name="submit" value="Submit"/>
+        <div class="spinner"></div>
+      </fieldset>
+      <fieldset class="permissions">
+        <!--
+        <label for="attn_security">Viewable by:</label>
+        <select id="attn_security" name="attn[security]">
+          {% unless direct_message %}
+          {% if attn %}
+          <option value="public">Viewers of {{attn.title}}</option>
+          {% else %}
+          <option value="public">Everyone</option>
+          {% endif %}
+          {% endunless %}
+          <option value="recipients">Recipients Only</option>
+        </select>
+        -->
+      </fieldset>
+    </div>
+  </form>
+
+  <div class="clear"></div>
+</div>

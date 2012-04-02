@@ -1,0 +1,42 @@
+{% if project %}
+<div id='show_project' data-id="{{ project.id }}">
+
+  <div class='section group header'>
+    {% include 'nodes/header' parent: project %}
+  </div>
+
+  <div class='section main project'>
+    <div class="section listing js_listing"></div>
+    {% activities limit 10 %}
+   </div>
+
+  <div class='section sidebar'>
+
+    {% pages_listing for: project %}
+
+    {% membership for project %}
+    {% fancy_watchers for project %}
+    
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: project %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: project %}
+      </div>
+    </div>
+
+
+    <div class='aside project recommendations'>
+      {% recommendations for project %}
+    </div>
+
+  </div>
+</div>
+    
+{% if project.current_user_can_contribute? and wizard_launch %}
+  <a href="{{ project.show_path }}/new_page" title="Congratulations" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+
+
+{% endif %}

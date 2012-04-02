@@ -1,0 +1,48 @@
+{% input for 'title' label: 'Title' required: 'true' %}
+
+{% unless task.is_task_list %}
+<li id="task_status_input" class="select required">
+  <label for="task_status">Status<abbr title="required">*</abbr></label>
+  <select name="task[status]" id="task_status">
+    <option selected="selected" value="{{form_object.status}}">{{form_object.status}}</option>
+    {% for available_status in form_object.available_statuses %}
+      <option value="{{available_status}}">{% if available_status == "defer" %}deferred{% else %}{{ available_status }}{% endif %}</option>
+    {% endfor %}
+  </select>
+</li>
+{% endunless %}
+
+<li id="task_assignee_id_input" class="select optional">
+  <label for="task_assignee_id">Who</label>
+  <select name="task[assignee_id]" id="task_assignee_id">
+    <option value=""></option>
+    {% for contributor in form_object.contributors %}
+      <option value="{{contributor.id}}" {%if contributor.id == task.assignee_id %}selected="selected"{%endif%}>{{contributor.name}}</option>
+    {% endfor %}
+  </select>
+</li>  
+
+<li class='string optional' id='task_due_date_input'>
+  <label for='task_due_date'>Due Date</label>
+  <input class='datepicker task_due_date' id='task_due_date' name='task[due_date]' size='70' style='width: 10%' value="{{form_object.due_date}}" />
+</li>
+
+{%input for 'milestone' label: 'Milestone?' as: 'checkbox' required: 'false' class: 'task_milestone'%}
+
+<li class='string' id='task_duration_input'>
+  <div class='label' for='task_duration'>Duration</div>
+  <div class='text_date_picker' data-name='task[duration_string]' data-value="{{form_object.duration_string}}"></div>
+</li>
+
+{%input for 'duration' as: 'hidden'%}
+
+
+{% include 'nodes/_editor_fields' %}
+
+{% input for 'slug' label: 'Permalink' required: 'false' class: 'slug_field' hint: '(optional) may only contain letters, numbers, and hyphens' %}
+
+{% tags_input %}
+
+{% unless form_object.parent_id == null %}
+  {% input for 'parent_id' as: 'hidden' %}
+{% endunless %}

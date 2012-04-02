@@ -1,0 +1,26 @@
+<div class="login_box confirmation">
+  <div class="backdrop">
+    <div class="contents">
+      <div class="header"><h2>Resend Confirmation</h2></div>
+      {% flash_messages %}
+      {% form for resource class: 'login_form' action: action %}
+        {% error_messages message 'An error has occurred sending you confirmation email, please contact the administrator' %}
+
+        {% form_fields for 'inputs' %}
+          {% input for 'email' label: 'Email Address' required: 'true' %}
+        {% endform_fields %}
+
+        {% form_fields for 'buttons' %}
+          <li>
+            <a href="/users/sign_in" class="sign-up-link">Sign in</a>
+          </li>
+          {% input as: 'submit' value: 'Resend confirmation instructions'%}
+        {% endform_fields %}
+
+      {% endform %}
+
+    </div>
+  </div>
+</div>
+
+

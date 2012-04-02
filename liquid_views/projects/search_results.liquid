@@ -1,0 +1,41 @@
+{% include 'search_results/showing_count' showing_count: projects.size total_count: nodes_count hide: hide_total %}
+<table class="search_results projects  ">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Created by</th>
+    <th>Members</th>
+    <th>Creation date</th>
+    <th># Followers</th>
+  </tr>
+  </thead>
+  {% if projects == empty %}
+  <tr>
+    <td colspan="6"><p><em>No {{ site.project_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for project in projects  limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ post.container_class }}">
+    <td>
+      {% if project.has_avatar? %}
+      {{ project.small_avatar }}
+      {% endif %}
+      <div class="title">{{ project.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ project.link_to_owner }}</td>
+    <td>{{ project.members_count }}</td>
+    <td>{{ project.created_at | date: "%m/%d/%y" }}</td>
+    <td>{{ project.watchers_count }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: projects.size total_count: nodes_count hide: hide_total %}
+  {% more projects search: true %}
+{% endunless %}

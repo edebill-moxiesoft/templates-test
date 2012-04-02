@@ -1,0 +1,63 @@
+<div id="page_header" class="content_bar_hat">
+  <div class="section main">
+    {% assign closest_container = parent.closest_container %}
+
+    <h1>
+      {{ closest_container.title }}
+    </h1>
+
+    {% unless parent.child_show_page? or hide_details %}
+
+      {% if closest_container.description != empty %}<span class="expander">Show details</span>{% endif %}
+      <div class="clear"></div>
+      <ul class="details">
+        <li class="action_btn">{{ closest_container.share_button }}</li>
+      {% if closest_container.is_modifiable %}
+        <li class="action_btn"><a href="/user_invites/emails?group={{closest_container.id}}" class="wizard_launch" title="Invite Users" data-height='400'>Invite Users</a></li>
+      {% endif %}
+      {% if closest_container.current_user_can_admin? %}
+        <li class="action_btn">{{ closest_container.edit_link }}</li>
+      {% endif %}
+   
+      {% if closest_container.member_of? and closest_container.join_button_no_ajax != '' %}
+        <li class="leave_group action_btn">{{ closest_container.join_button_no_ajax }}</li>
+      {% endif %}
+      {% if closest_container.distlist %}
+        <li><a href="mailto:{{ group.distlist }}">{{ closest_container.distlist}}</a></li>
+      {% endif %}
+      </ul>
+
+    {% endunless %}
+  </div>
+
+  <div class="section sidebar content_bar">
+    {% unless parent.child_show_page? or hide_details %}
+      <div class="menu popdown-menu">
+      {% unless closest_container.member_of? %}
+        {{ closest_container.join_button }}
+      {% endunless %}
+      {% if closest_container.is_group? %}
+        {% include 'menus/group_page_add' group: closest_container %}
+      {% elsif closest_container._type == 'BlankPage' %}
+        {% include 'menus/blank_page_add' group: closest_container %}
+      {% elsif closest_container._type == 'Client' %}
+        {% include 'menus/client_page_add' client: closest_container %}
+      {% elsif closest_container._type == 'Project' %}
+        {% include 'menus/project_page_add' project: closest_container %}
+      {% elsif closest_container._type == 'Work' %}      
+        {% include 'menus/work_page_add' work: closest_container %}
+      {% endif %}
+      </div>
+    {% endunless %}
+  </div>
+
+  <div class="clear"></div>
+
+{% unless parent.child_show_page? or hide_details %}
+  {% if closest_container.description != empty %}
+    <div class="section container_details">
+      {{ closest_container.description }}
+    </div>
+  {% endif %}
+{% endunless %}
+</div>

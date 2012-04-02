@@ -1,0 +1,31 @@
+<div id="discussions_index">
+  <div class="content_bar_hat"></div>
+
+  <div class='header'>
+    <h1>{{order}} Discussions</h1>
+  </div>
+  <div class='section main'>
+    {% discussions limit 10 %}
+  </div>
+  <div class='section sidebar'>
+
+    <div class='aside my_discussion_archives discussion_archives'>
+      {% my discussion_archives %}
+    </div>
+
+    <div class='aside recent liked discussions'>
+      {% show_recent_likes for discussions %}
+    </div>
+
+    <div class='aside  recent viewed discussions discussion_archives'>
+      <div class='header'>
+        <h3>Recently Viewed</h3>
+      </div>
+      <div class="section">
+        {% recently_viewed for discussions %}
+      </div>
+    </div>
+
+  </div>
+</div>
+

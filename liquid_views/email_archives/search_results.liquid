@@ -1,0 +1,39 @@
+{% include 'search_results/showing_count' showing_count: email_archives.size total_count: nodes_count hide: hide_total %}
+<table class="search_results email_archives  ">
+  <thead>
+  <tr>
+    <th>Title of {{ site.email_archive_label }}</th>
+    <th>Author</th>
+    <th># of {{ site.discussion_label | plural }}</th>
+    <th>Date Created</th>
+  </tr>
+  </thead>
+  {% if email_archives == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.email_archive_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for email_archive in email_archives limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ email_archive.container_class }}">
+    <td>
+      {% if email_archive.display_avatar? %}
+      {{ email_archive.avatar }}
+      {% endif %}
+      <div class="title">{{ email_archive.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ email_archive.link_to_owner }}</td>
+    <td>{{ email_archive.children_count }}</td>
+    <td>{{ email_archive.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: email_archives.size total_count: nodes_count hide: hide_total %}
+  {% more email_archives search: true %}
+{% endunless %}

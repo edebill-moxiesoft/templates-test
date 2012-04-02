@@ -1,0 +1,29 @@
+{% comment %} Markup changes here should also update users/pages_listing.liquid {% endcomment %}
+
+<ol>
+  {% if container.display_dashboard? %}
+  {% if node.id == container.id and action == 'dashboard' %}
+    {% assign selected = 'selected' %}
+  {% elsif node.id == container.id and action == 'show' %}
+    {% assign selected = 'selected' %}
+  {% endif %}
+  <li class="menu_item icon_menu_item {{selected}}">
+    <a href="{{ container.dashboard_path }}" title="{{ site.dashboard_label }}" class="dashboard_menu_item">
+      {{ site.dashboard_label }}
+    </a>
+  </li>
+  {% endif %}
+  {% unless container.is_blank_page? %}
+  <li class="menu_item icon_menu_item {% if node.id == container.id and action == 'index' %}selected{% endif %}">
+    <a href="{{ container.newsfeed_path }}" title="{{ site.newsfeed_label }}" class="newsfeed_menu_item">
+      {{ site.newsfeed_label }}
+    </a>
+  </li>
+  {% endunless %}
+  {% if sections != empty %}
+    {% for section_label in section_labels %}
+      {% include 'menus/pages_listing_item' node: node, container: container, pages: sections[section_label], section_title:  section_label %}
+    {% endfor %}
+  {% endif %}
+</ol>
+  

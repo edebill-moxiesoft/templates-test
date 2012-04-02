@@ -1,0 +1,16 @@
+<div class='section unit tasks js_filtered'>
+  {% if parent.current_user_can_contribute? %}
+  {% include 'tasks/new_task' parent: parent %}
+  {% endif %}
+  <div class="unit_body">
+    <ol class="item_list tasks js_filter_body">
+      {% for task in tasks limit: limit_count %}
+        {% include 'tasks/task' %}
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div class="footer js_paginate">
+    {% more tasks %}
+  </div>
+</div>

@@ -1,0 +1,21 @@
+{% if parent.closest_container.sections[section] %}
+
+      <li class="menu_item icon_menu_item has_multiple">
+        <a href="#" title="{{section_title | append:'s' }}" class="{{parent.closest_container.sections[section][0].menu_item_class}} unselected section_link">{{section_title | append:'s' }} ({{parent.closest_container.sections[section].size}})</a>
+        
+      <ol>
+      
+         {% for page in parent.closest_container.sections[section] %}
+           <li class="menu_item icon_menu_item {% if forloop.last %}last{% endif %}">               
+            
+            <a href="{{ page.show_path }}" title="{{ page.title }}" class="group_subnav_item{% if parent.guid != page.guid %} unselected{% endif %}">
+              {{ page.page_name | truncate: 30}}
+            </a>
+          </li>
+        {% endfor %}
+      
+        </ol>
+      
+      </li>
+
+{% endif %}

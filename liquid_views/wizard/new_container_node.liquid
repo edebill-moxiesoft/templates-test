@@ -1,0 +1,21 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head>
+</head>
+<body>
+  {% form for 'form_object' action: 'form_object.wizard_create' multipart: true class: 'fancyform container_node' data-wizard-remote: true  %}
+    {% if new_page %}
+      <input type="hidden" name="new_page" value="true">
+    {% endif %}
+    {% error_messages %}
+
+    {% form_fields for 'inputs' %}
+      {% include form_object.form_input_file wizard: true %}
+    {% endform_fields %}
+
+  {% endform %}
+
+<script type="text/javascript" src="/javascripts/group_wizard_load.js?{{ site.site_version }}"></script>
+</body>
+</html>
+

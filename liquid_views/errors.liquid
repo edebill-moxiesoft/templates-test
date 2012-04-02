@@ -1,0 +1,11 @@
+{% if object.errors? %}
+  <div id='errorExplanation' class='errorExplanation'>
+    <h2>{{ 'error' | pluralize: object.errors.size}} prohibited this {{ object.friendly_type_name }} from being saved</h2>
+    <p>There were problems with the following fields:</p>
+    <ul>
+      {% for error in object.errors %}
+        <li>{{ error[0] | capitalize }} {{ error[1] }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

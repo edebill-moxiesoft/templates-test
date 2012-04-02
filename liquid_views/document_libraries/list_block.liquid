@@ -1,0 +1,26 @@
+<div class='section unit document_libraries js_filtered'>
+                           
+  <div class='section unit_body '>
+    <ol class="document_libraries item_list js_filter_body">
+      {% if document_libraries == empty %}
+        <p><em>No document libraries yet</em></p>
+      {% endif %}
+
+      {% for dl in document_libraries %}
+        <li class="item ">
+          <div class='document_count'>
+            {{ 'document' | pluralize: dl.documents_count, 'documents' }}
+          </div>
+          <div class='documents'>
+            {{ dl.link_to_show }}
+            <p class='updated'>
+              Created {{ dl.created_at | time_ago_in_words, 'ago'  }}
+            </p>
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+  
+  {% more document_libraries %}
+</div>

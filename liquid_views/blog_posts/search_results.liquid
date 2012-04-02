@@ -1,0 +1,41 @@
+{% include 'search_results/showing_count' showing_count: blog_posts.size total_count: nodes_count hide: hide_total %}
+<table class="search_results blog_posts  ">
+  <thead>
+  <tr>
+    {% capture post_header_label %}Title of {{ site.blog_post_label }}{% endcapture %}
+    {% include 'searches/_sort_header' title: post_header_label sort_by: "name" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Author" sort_by: "created_by" hide_sorting: hide_total %}
+    {% capture blog_header_label %}{{ site.blog_label }} Name{% endcapture %}
+    {% include 'searches/_sort_header' title: blog_header_label sort_by: "parent_title" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Date Posted" sort_by: "created_at" hide_sorting: hide_total %}
+  </tr>
+  </thead>
+  {% if blog_posts == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.blog_post_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for post in blog_posts limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ post.container_class }}">
+    <td>
+      {% if post.display_avatar? %}
+      <div class="avatar_container">{{ post.activity_feed_avatar }}</div>
+      {% endif %}
+      <div class="title">{{ post.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ post.link_to_owner }}</td>
+    <td>{{ post.parent.link_to_show_with_container_class }}</td>
+    <td>{{ post.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: blog_posts.size total_count: nodes_count hide: hide_total %}
+  {% more blog_posts search: true %}
+{% endunless %}

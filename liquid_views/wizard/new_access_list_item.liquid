@@ -1,0 +1,8 @@
+<li data-fullid="{{ node.security_type }}_nodewizardaccesslevel"
+    class="draggable popdown_item {{ node.security_type }}_link">
+  {{ node.small_avatar }}
+  <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10"/></a>
+  <span>{{ node.name }}</span>
+  <input type="hidden" class="js_node_settings_{{ new_access }}_array" name="node[settings][{{ new_access }}][]"
+         value="{{ node.security_type }}_nodewizardaccesslevel">
+</li>

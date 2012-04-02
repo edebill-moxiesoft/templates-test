@@ -1,0 +1,23 @@
+{% if highlighted_works != blank %}
+  <div class="gallery small">
+    {% for work in highlighted_works %}
+      <div class="gallery_small_pic">
+          <a href="{{ work.show_path }}" title='{{ work.title }}'>
+          <!-- this needs to change; we should probably begin storing 87x87 variants for all node avatars -->
+          {% if work.has_avatar? %}
+            <img src="{{ work.large_avatar_url }}" style="width:87px; height:87px;" />
+          {% else %}
+            <div class="no_avatar"></div>
+          {% endif %}
+          <span class='my_work_title'>{{ work.title | truncate: 13 }}</span>
+          </a>
+      </div>
+    {% endfor %}
+  </div>
+  <div class='footer gallery'>
+    <a href="{{ user.works_url }}" class="more_link">More</a>
+  </div>
+  <div class='clearfix'></div>
+{% else %}
+  <p>No {{ site.work_label | pluralize: 'current'}}</p>
+{% endif %}

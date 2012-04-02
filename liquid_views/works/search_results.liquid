@@ -1,0 +1,43 @@
+{% include 'search_results/showing_count' showing_count: works.size total_count: nodes_count hide: hide_total %}
+<table class="search_results works">
+  <thead>
+  <tr>
+    {% include 'searches/_sort_header' title: "Name" sort_by: "name" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Client" sort_by: "client" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Complete Date" sort_by: "work_end_date" hide_sorting: hide_total %}
+    <th>Duration</th>
+    <th>Lead Team</th>
+    <th>Privacy</th>
+  </tr>
+  </thead>
+  {% if works == empty %}
+  <tr>
+    <td colspan="6"><p><em>No {{ site.work_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for work in works limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ post.container_class }}">
+    <td>
+      {% if work.has_avatar? %}
+      {{ work.small_avatar }}
+      {% endif %}
+      <div class="title">{{ work.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ work.parent.link_to_show_with_container_class }}</td>
+    <td>{{ work.end_date | date: "%m/%d/%y" }}</td>
+    <td>{{ work.duration }}</td>
+    <td>{{ work.lead_users_links }}</td>
+    <td>{{ work.privacy_status }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: works.size total_count: nodes_count hide: hide_total %}
+  {% more works search: true %}
+{% endunless %}

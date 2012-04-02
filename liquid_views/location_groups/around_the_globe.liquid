@@ -1,0 +1,26 @@
+<div class="header">
+  <h3 class="globe">Around the Globe</h3>
+</div>
+<div class="section">
+  
+  {% if locations == empty %}
+    <p><em>no locations available</em></p>
+  {% else %}
+  
+    <ol class="item_list">
+      {% for location in locations %}
+      <!-- TO DO make the style section in the following line load the actual image for this location -->
+      <li class="item location_placard" style="background-image: url({{ location.wide_avatar_url }})" data-link="{{ location.show_path }}">
+        <p class='title shadowed'>
+          {{ location.name | truncate length: 16 }}        
+        </p>
+        <p class='members_count shadowed'>
+          {{ location.members_count }}
+        </p>
+      </li>
+      {% endfor %}
+    </ol>
+  
+  {% endif %}
+  
+</div>

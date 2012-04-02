@@ -1,0 +1,18 @@
+<div class="content">
+  {% if articles.size < 1 %}
+    <em>No {{ site.article_label | plural }} found.</em>
+  {% endif %}
+  <ol class="item_list">    
+    {% for article in articles limit: limit %}
+      <li class="item kb_article {% if forloop.last %}last{% endif %}">
+        <p class='title'>            
+          <a href="{{ article.base_path }}" {% if article.wikified %}class="wikified" title="This {{ site.article_label }} has been wikified."{% endif %}>
+            {{ article.sanitized_title }}
+            {{ article.friendly_type_name }}
+          </a>
+        </p>
+        <p class='description'>{{ article.sanitized_body }}</p>
+      </li>
+    {% endfor %}
+  </ol>
+</div>

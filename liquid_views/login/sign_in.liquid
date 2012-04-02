@@ -1,0 +1,50 @@
+<div class="login_box sign_in">
+  <div class="backdrop">
+    <div class="contents">
+      <div class="header"><h2>Enter Your Credentials</h2></div>
+      {% flash_messages %}
+      {% form for resource class: 'login_form' action: action %}
+      {% error_messages %}
+      {% form_fields for 'inputs' %}
+      {% input for 'email' label: 'Email Address' required: 'true' %}
+      {% input for 'password' as: 'password' label: 'Password' required: 'true' %}
+      <li class="checkbox">
+        <label for="user_remember_me">
+          <input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+          Remember Me
+        </label>
+      </li>
+
+      {% endform_fields %}
+
+      {% form_fields for 'buttons' %}
+      <li>
+        No account yet?
+        <a href="/users/sign_up" class="sign-up-link">Sign Up</a>
+      </li>
+      {% input as: 'submit' value: 'Sign In'%}
+      {% endform_fields %}
+      {% endform %}
+
+      <div class="outside-box">
+        <p class="password-reset">
+
+          <a href="/users/password/new">Forgot your password?</a>
+        </p>
+
+        <p class="resend-email">
+
+          <a href="/users/confirmation/new">Missed the confirmation email?</a>
+        </p>
+
+        <p class="support-email">
+
+          <a href="mailto:{{ site.site_support_email }}">To contact support</a>
+        </p>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

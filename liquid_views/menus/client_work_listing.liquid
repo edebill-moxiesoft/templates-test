@@ -1,0 +1,9 @@
+<div class='aside pages_menu'>
+  <div class='section'>
+    <ol>
+      {% for section_label in section_labels %}
+        {% include 'menus/client_work_listing_item' node: client, container: client, pages: sections[section_label], section_title:  section_label %}
+      {% endfor %}
+    </ol>
+  </div>
+</div>

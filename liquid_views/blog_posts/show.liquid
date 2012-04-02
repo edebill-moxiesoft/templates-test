@@ -1,0 +1,93 @@
+{% if blog_post %}
+
+<div id='show_blog_post' class="section item_show">
+
+  <div class='section group header'> 
+    {% include 'nodes/header' parent: blog_post %}
+  </div>
+
+  <div class='clear'></div>
+
+  <div class='section main blog'>
+    <div id="container_header">
+      {% include 'nodes/page_header' parent: blog_post.parent %}
+    </div>
+    <div class="item">
+      <h2 class="page_title">{{ blog_post.title }}</h2>
+      <ul class="primary_actions content_show">
+        <li class="container_share action_btn">{{ blog_post.share_button }}</li>
+        {% if blog_post.current_user_can_admin?? %}
+        <li class="action_btn">{{ blog_post.edit_link }}</li>
+        {% endif %}
+      </ul>
+      <div class='clear'></div>
+      <div class="section fulltext user_content">
+        {{ blog_post.body }}
+      </div>
+
+      <div class="footer">
+        <span class="user_name">
+              by
+              {% if blog_post.external %}
+                <a href="{{blog_post.external_channel_url}}" class="external_link" target="_blank">{{ blog_post.external_item_author }}</a>
+                from
+                <a href="{{blog_post.external_channel_url}}" class="external_link" target="_blank">{{ blog_post.external_channel_title }}</a>
+              {% else %}
+                {{ blog_post.link_to_owner }},
+              {% endif %}
+        </span>
+        <span class="created_at">{{ blog_post.created_at | time_ago_in_words, 'ago'  }} </span>
+				, <span class="unique_views">viewed by {{ 'person' | pluralize: blog_post.unique_views }}</span>
+        {% include 'nodes|like_button' node: blog_post %}
+      </div>
+
+    </div>
+
+    {% include 'nodes/likes_summary_header' node: blog_post %}
+
+    <div class="section unit comments_block">
+      <a name="comments"></a>
+      <div class='header'>
+        <h3 class="comments js_plural_count">{{ 'Comment' | pluralize: blog_post.comments_count }} </h3>
+      </div>
+      <div class='unit_body'>
+        {% include 'comments/index' %}
+        {% include 'comments/form' %}
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class='section sidebar'>
+    
+    {% pages_listing for: blog_post %}
+    
+    <div class='aside blog_post'>
+      <div class='header'>
+        <h3>About This {{ site.blog_label }}</h3>
+      </div>
+      <div class='section'>
+        {{blog_post.blog.limited_body}}
+      </div>
+    </div>
+    
+    {% include 'tags/_tagger_sidebar' node: blog_post %}
+
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: blog_post %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: blog_post %}
+      </div>
+    </div>
+    
+    <div class='aside blog_post recommendations'>
+      {% recommendations for blog_post %}
+    </div>
+    
+
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,92 @@
+<table class="documents item_list ">  
+  {% if show_weird_header %}
+  <thead>
+  <tr>
+    <th>&nbsp;</th>
+    <th>Name</th>
+    <th class="document_added">Added</th>
+    {% if all_docs_view %}
+      <th>{{ site.document_library_label }}</th>
+    {% else %}
+      <th class="document_updated">Updated</th>
+    {% endif %}
+    <th >&nbsp;</th>
+  </tr>
+  </thead>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% if documents != empty %}
+    {% for document in documents %}
+    
+      <tr class="item document{% if forloop.last %} last{% endif %}">
+        <td>
+          {% if document.is_folder?  %}
+          <a href="{{document.show_path}}" class="folder_list_img">
+          </a>
+          {% else %}
+          <a href="{{document.show_path}}">
+            {% if document.has_embedded_document_thumbnail? %}
+              <img src="{{document.embedded_document_thumbnail_path}}" class="file_thumbnail"/>
+            {% else %}
+              <img src="{{document.tiny_avatar_url}}" class="file_thumbnail"/>
+            {% endif %}
+          </a>
+          {% endif %}
+        </td>
+        <td>
+          <a href="{{document.show_path}}" title="{{document.name}}">{{ document.name | middle_truncate: 40, 10 }}</a>
+          <br/>
+          {% if document.is_folder? %}
+            {{ 'file' | pluralize: document.aggregate_document_count }} 
+            {% if document.aggregate_document_count > 0 %}
+               &middot; {{ document.aggregate_file_size | number_to_filesize }}
+            {% endif %}
+          {% else %}
+            {{ document.friendly_file_type }} &middot; {{ document.file_size | number_to_filesize }}
+          {% endif %}
+          <br/>
+          {% if document.has_body %}
+            {{ document.sanitized_body | html_truncate: 50, ''   }}
+          {% endif %}
+
+        </td>
+        <td class="document_date">{{ document.created_at | date: "%b %d, %Y" }}</td>
+      
+        {% if all_docs_view %}
+          <td>{{ document.parent_or_creator_link }}</td>
+        {% else %}
+          <td class="document_date">
+          {% if document.versions_count > 1 %}
+            {{ document.updated_at | date: "%b %d, %Y" }}
+          {% elsif document.is_folder? %}
+            {{ document.document_last_updated_at | date: "%b %d, %Y" }}
+          {% endif %}
+          </td>
+        {% endif %}
+      
+        <td class="actions">
+          {% if document.has_preview? %}
+            {{document.preview_link}}
+          {% endif %}
+          {% unless document.is_folder? %}
+            <a href="{{ document.download_path }}" class="file_details">Download</a>
+          {% endunless %}
+        </td>
+      </tr>
+      
+    {% endfor %}
+
+  {% else %}
+    <tr>
+      <td><em>No {{ site.document_label | plural | downcase }} yet</em></td>
+    </tr>
+
+  {% endif %}
+  </tbody>
+
+</table>
+
+{% if all_documents and all_documents != empty %}
+  {% paginate all_documents %}
+{% endif %}

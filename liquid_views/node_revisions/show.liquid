@@ -1,0 +1,53 @@
+<!-- REVISION SHOW PAGE -->
+<div id='wiki_show' class="section unit_summary">
+  <div class="content_bar_hat">
+    {% if revision.current_user_can_contribute? %}
+    <div class='content_bar'>
+      <div class='section main'></div>
+      <div class='section sidebar'></div>
+      <div class='clear'></div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class='section main'>
+    <div class="header" id="wiki_header">
+      <h1>
+        {{ revision.title }}
+      </h1>
+    </div>
+  </div>
+
+  <div class='clear'></div>
+
+
+  <div class='section main wiki'>
+    <div class='user_content'>
+      {{ revision.body_with_wiki_links_parsed }}
+	  </div>
+	  {% if revision.parent.current_user_can_contribute? %}
+	  <div class='section restore'>
+  	  <div class="restore_button">
+  	   <a href="{{ revision.path_to_rollback }}">Restore Revision {{ revision.index }} as Latest</a>
+  	  </div>
+	  </div>
+	  {% endif %}
+	  <div class="footer">
+      <span class="user_name">by {{ revision.link_to_owner }},</span>
+      <span class="created_at">{{ revision.created_at | time_ago_in_words, 'ago'  }} </span>
+
+      {% if revision.parent.versions_count > 1 %}
+      <span>
+        &middot; 
+        <a href="#" class="js_toggle_versions_table">{{ 'version' | pluralize: revision.parent.versions_count }}</a>
+        of this wiki available
+      </span>
+      {% endif %}          
+      
+      {% include 'wikis/versioning' item: revision.parent %}
+    </div>
+  </div>
+
+
+</div>
+

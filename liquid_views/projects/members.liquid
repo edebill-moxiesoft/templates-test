@@ -1,0 +1,7 @@
+<div class='section group header'>
+  {% include 'nodes/header' parent: project hide_details: true %}
+</div>
+
+<div class="section main">
+  {% include 'users/directory' base_url: project.members_directory_url %}
+</div>

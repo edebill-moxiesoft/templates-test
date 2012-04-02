@@ -1,0 +1,242 @@
+<!-- DOCUMENT SHOW PAGE -->
+
+
+{% if document %}
+<div id='document_show' class="section item_show">
+
+  <div class='section group header'> 
+    {% include 'nodes/header' parent: document %}  
+  </div> 
+  
+  <div class='section main document'>
+    <div id="container_header">
+      {% include 'nodes/page_header' parent: document %}
+    </div>
+    <!-- Header with image or avatar icon -->
+    <div class='header' id='document_body'>     
+      <div class='header_details'>
+        {% if document.is_image or document.is_video or document.has_transcoded_video or document.has_embedded_document? or document.processing_embedded_document? %}
+          {% if document.is_image %}
+            <div class='section main full_image'>
+              <a href="{{ document.file_path }}" target="_blank"><img src="{{ document.large_path }}" /></a>
+            </div> 
+          {% elsif document.has_transcoded_video %}
+            <div class='section main'>
+              <a class="video_player" id="video_{{ site.random_string }}" href="{{ document.transcoded_video_url }}" style="background-image: url({{ document.transcoded_video_poster_url }});">
+                <img src="/images/play_large.png" alt="Play this video" />
+              </a>
+            </div>
+          {% elsif document.processing_embedded_document? %}
+              <div class='section main processing_embeddable_document' >
+                <a href="{{ document.download_path }}" target="_blank">
+                  <img src="{{ document.avatar_url }}" class='doc_avatar' />
+                </a>
+                <div class="loading_document">
+                  <a class="js_processing_embeddable_document" href="/document/embedded_progress/{{document.id}}" data-remote='true'>Fetch Progress</a>
+                  <img src="/images/ajax-loader-transparent.gif"><br>
+                  Document preview is currently processing...
+                </div>
+              </div>
+          {% elsif document.has_embedded_document? %}
+              <div class='section main embeddable_document' >
+                <div class="loading_document">
+                  <img src="/images/ajax-loader-transparent.gif"><br>
+                  Document is loading...
+                </div>
+                {% include 'documents/preview_toolbar' %}
+                <div id='DocViewer_{{document.id}}' class="doc_viewer" data-doc_js='{{document.direct_docviewer_doc_js_url}}' data-load-on-ready="true"></div>
+              </div>
+          {% elsif document.is_video %}
+            {% if document.is_playable_video %}   
+              <div class='section main'>
+                <a class="video_player {% if document.pending_transcode? %}pending_transcode{% endif %}" id="video_{{ site.random_string }}" href="{{ document.file_path }}" style="background-image:url({{ document.transcoded_video_poster_url }})">
+                    <img src="/images/play_large.png" alt="Play this video" />
+                </a>
+              </div>  
+            {% else %}
+              {% if document.pending_transcode? %}
+                <img src="/images/pending_transcode.png" class="pending_transcode" />
+              {% else %}
+                <p style="margin: 1em 0;">
+                  Please 
+                  <a href="{{document.download_path}}" target="_blank">download this video</a>
+                  to your local computer to watch.
+                </p>    
+              {% endif %}
+            {% endif %}
+            {% if document.pending_transcode? %}
+              <img src="/images/throbber.gif" class="transcoding_throbber" />
+              <div class="transcode_status pending">
+                <p>
+                This video is currently being transcoded. We are showing the original video above (if playable in-browser), but we will
+                display a transcoded MP4 shortly. Please check back later. 
+                <strong>Transcoding Progress: {{ document.transcoding_progress }}%</strong>
+                </p>
+              </div>
+            {% elsif document.transcode_failed? %}
+              <img src="/images/icons/error.png" class="transcoding_throbber" />"
+              <div class="transcode_status failed">
+                <p>The video failed to transcode.</p>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% else %}
+          <a href="{{ document.download_path }}" target="_blank">
+            <img src="{{ document.avatar_url }}" class='doc_avatar' />
+          </a>
+        {% endif %}       
+      </div>
+      <div class='clear'></div>
+    </div> 
+    
+    <!-- Metadata Details About This Document/File -->
+    <div class="section description fulltext user_content">
+      {% if document.description != empty %}
+        {{ document.description }}
+      {% else %}
+        <em>No description provided</em>
+      {% endif %}
+    </div>
+  
+    <div class="footer">
+      <span class="user_name">By {{ document | truncated_link_to_owner }}</span>
+      <span class="created_on">on {{ document.created_at | date: "%B %d, %Y" }} </span>
+
+      {% if document.version %}
+      <span>
+        &middot; 
+        <a href="#" class="js_toggle_versions_table">{{ 'version' | pluralize: document.versions_count }}</a>
+        of this document available
+        &middot;
+        Viewed by {{ 'person' | pluralize: document.unique_views }}
+      </span>
+      {% endif %}
+      {% include 'nodes|like_button' node: document %}
+      
+    </div>
+    <br/>
+    <table class="versions">
+      <thead>
+        <tr>
+          <th>Version #</th>
+          <th>Tag</th>
+          <th>Created</th>
+          <th>Creator</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for version in document.versions %}
+          <tr>
+            <td>{{ version.version }}</td>
+            <td>
+              {% if version.tag == nil %}
+                &ndash;
+              {% else %}
+                {{ version.tag }}
+              {% endif %}
+            </td>
+            <td>{{ version.created_at | date: "%B %d, %Y" }}</td>
+            <td class="creator">
+              {{ version.creator.small_avatar_with_link }}
+              {{ version.creator.link_to_user_profile }}
+            </td>
+            <td>
+              {% if version.latest? %}
+                <a href="{{ version.download_path }}">Download</a>
+              {% else %}
+                <a href="{{ version.download_path }}">Download</a>
+              {% endif %}
+              {% if document.current_user_can_admin? %}
+							  {% unless version.latest? %}
+                  &middot;
+                  <a href="{{ version.path_to_rollback }}">Restore as Latest</a>
+						    {% endunless %}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    {% include 'nodes/likes_summary_header' node: document %}
+
+    <div class="section unit comments_block">
+      <div class='header'>
+        <h3 class="comments js_plural_count">{{ 'Comment' | pluralize: document.comments_count }} </h3>
+      </div>
+      <div class='unit_body'>
+        {% include 'comments/index' %}
+        {% include 'comments/form' %}
+      </div>
+    </div>
+          
+  </div>
+      
+  <div class='section sidebar'>
+  
+    {% pages_listing for: document %}
+  
+    <div class='aside about_file'>
+      <div class='header'><h3>About this File</h3></div>
+      <div class='section'>
+        <dl class='file_details'>
+          <dt>File type:</dt>
+            <dd>{{ document.friendly_file_type }}</dd>
+          <dt>File size:</dt>
+            <dd>{{ document.file_size | number_to_filesize }}</dd>
+          <dt>Latest version:</dt>
+            <dd>{{ document.latest_version_number }}</dd>
+        </dl>
+        <ul class="details">
+          <li><span><a href="{{ document.download_path }}" target="_blank">Download File</a></span></li>
+        </ul>        
+      </div>
+    </div>
+    
+    {% include 'tags/_tagger_sidebar' node: document %}
+
+    {% if document.is_image or document.is_video %}
+    <div class='aside embed_file {% if document.is_video %}video_file{% endif %}'>
+      <div class='header'><h3>Embed this File in Spaces</h3></div>
+      <em>This file will not be viewable outside of Spaces</em>
+      <div class='section'>
+      {% if document.is_image%}
+        <textarea ><img src='{{ document.file_path }}'/></textarea >
+      {% else %}
+        <textarea ><video src='{{ document.file_path }}'{%if document.video_thumbnail_path%} poster='{{document.video_thumbnail_path}}'{%endif%}></video></textarea>
+      {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: document %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: document %}
+      </div>
+    </div>   
+    {% if document.locked? %}
+    <div class='aside'>
+      <div class='header'>
+        <h3>Document Locked</h3>
+      </div>
+      <div class='section'>
+          <p>This document was locked by <a href="{{ document.locked_by.show_path }}">{{ document.locked_by.display_name }}</a> {{ document.locked_at | time_ago_in_words, 'ago' }}.</p>
+      </div>
+    </div>
+    {% endif %}
+    <div class='aside document recommendations'>
+      {% recommendations for document %}
+    </div>
+    
+  </div>
+
+</div>
+{% endif %}
+
+
+

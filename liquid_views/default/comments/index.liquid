@@ -1,0 +1,16 @@
+{% if comments == nil %}
+{% assign comments = object.comments %}
+{% endif %}
+{% if object == nil %}
+{% assign object = parent %}
+{% endif %}
+
+<div class="section comments">
+  <ol class='children_list'>
+    {% for comment in comments %}
+    <li class='child {% if forloop.last %}last{% endif %} js_comment_container'>
+      {% include 'comments/show' %}
+    </li>
+    {% endfor %}
+  </ol>
+</div>

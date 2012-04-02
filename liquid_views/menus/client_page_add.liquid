@@ -1,0 +1,20 @@
+{% if client.current_user_can_contribute? %}
+  {% menu %}
+    {% submenu Add a Page, #, add_page_link %}
+      <li class="icon_menu_item">{{ site.blog_label | link_to_wizard_add_page: 'Blog', client.guid }}</li>
+      <li class="icon_menu_item">{{ site.discussion_archive_label | link_to_wizard_add_page: 'DiscussionArchive', client.guid }}</li>
+      <li class="icon_menu_item">{{ site.ideastorm_label | link_to_wizard_add_page: 'Ideastorm', client.guid }}</li>
+      <li class="icon_menu_item">{{ site.calendar_label | link_to_wizard_add_page: 'Calendar', client.guid }}</li>
+      <li class="icon_menu_item">{{ site.document_library_label | link_to_wizard_add_page: 'DocumentLibrary', client.guid }}</li>
+      <li class="icon_menu_item">{{ site.wiki_label | link_to_wizard_add_page: 'Wiki', client.guid }}</li>
+      <li class="icon_menu_item">{{ site.blank_page_label | link_to_wizard_add_page: 'BlankPage', client.guid }}</li>
+      <li class="icon_menu_item">{{ site.task_list_label | link_to_wizard_add_page: 'TaskList', client.id }}</li>
+      <li class="icon_menu_item {% unless site.clients_section_enabled? %}last{% endunless %}">{{ site.work_label | link_to_wizard_add_page: 'Work', client.guid }}</li>
+
+      {% if site.clients_section_enabled? %}
+      <li class="icon_menu_item last">{{ site.work_portfolio_label | link_to_wizard_add_page: 'WorkPortfolio', client.guid }}</li>
+      {% endif %}
+
+    {% endsubmenu %}
+  {% endmenu %}
+{% endif %}

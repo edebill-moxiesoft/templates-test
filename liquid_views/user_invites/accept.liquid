@@ -1,0 +1,44 @@
+<div class="login_box sign_up">
+  <div class="backdrop">
+    <div class="contents">
+      <div class="header"><h2>Sign Up</h2></div>
+      {% flash_messages %}
+      {% form for user class: 'login_form' action: "user_invite.accept_path"  %}
+      {% error_messages %}
+      {% form_fields for 'inputs' %}
+      {% input for 'first_name' label: 'First Name' required: 'true' %}
+      {% input for 'last_name' label: 'Last Name' required: 'true'  %}
+      {% input for 'email' label: 'Email Address' required: 'true' disabled: 'true' %}
+      {% input for 'password' as: 'password' label: 'Password' required: 'true' %}
+      {% input for 'password_confirmation' as: 'password' label: 'Confirm Password' required: 'true' %}
+
+      <li class="checkbox">
+        <label for="terms">
+          <input id="terms" name="terms" type="checkbox" data-required="true">
+          I accept the <a href="{{site.terms_and_conditions_url}}" target="_blank">Terms of Use</a>
+        </label>
+      </li>
+
+      {% endform_fields %}
+
+      {% form_fields for 'buttons' %}
+      <li>
+        Already have an account?
+        <a href="/users/sign_in" class="sign-up-link">Sign in</a>
+      </li>
+
+      {% input as: 'submit' value: 'Sign Up' class: 'disabled' required: 'false' %}
+      {% endform_fields %}
+      {% endform %}
+      <div class="outside-box">
+        <p class="privacy-policy">
+
+          <a href="http://www.moxiesoft.com/tal_about/privacy.aspx">Privacy Policy</a>
+        </p>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+

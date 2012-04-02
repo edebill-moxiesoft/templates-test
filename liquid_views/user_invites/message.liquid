@@ -1,0 +1,12 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head></head>
+<body>
+  {% form for 'user_invites_wizard_presenter' action: 'user_invites_wizard_presenter.save_message_path' class: 'fancyform group' data-remote: true data-type: html  %}
+
+    {% error_messages %}
+    {% input for 'message' as: 'textarea' required: 'false' wrapper_class: 'location_attribute' %}
+
+  {% endform %}
+</body>
+</html>

@@ -1,0 +1,64 @@
+<div id='show_groups_index'>
+  <div class="content_bar_hat">
+    <div class='content_bar'>
+      <div class='section main'></div>
+      <div class='section sidebar'>
+        <div class='menu popdown-menu'>
+          {% include 'menus/group_index_add' %}
+          <div class='clear'></div>
+        </div>
+      </div>
+      <div class='clear'></div>
+    </div>
+  </div>
+
+  <div class='section main'>
+  
+    <div class='section unit categories_summary'>
+      <div class="header">
+        <h3>{{ site.group_label }} Listings</h3>
+      </div>
+      {% show_summaries_section_by category %}
+      <div class="clear"></div>
+    </div>
+    
+    <div class='section unit discussion_archives'>
+      {% recent discussions non-personal in-groups limit 3 %}
+    </div>
+      
+    <div class='section unit recent_blog_posts'>
+      <div class="header">
+        <h2>Recent {{ site.group_label }} {{ site.blog_post_label | plural }}</h2>
+      </div>
+      <div class="unit_body">
+        {% recent blog_posts non-personal in-groups limit 3 %}
+      </div>
+    </div>
+
+    <div class='section unit ideastorm'>
+      {% recent ideas non-personal in-groups limit 3 %}
+    </div>
+    
+    
+  </div>
+  
+  <div class='section sidebar'>    
+
+    <div class='aside groups'>
+      {% my groups, 3, groups/_aside_users_groups %}
+    </div>
+
+    <div class='aside groups'>
+      {% hot groups, 3 %}
+    </div>
+
+    <div class='aside groups'>
+      {% recent groups, 3 %}
+    </div>
+
+    <div class='aside activities'>
+      {% activity for 'Group' limit 5 %}
+    </div>
+    
+  </div>
+</div>

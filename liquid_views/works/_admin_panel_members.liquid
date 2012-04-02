@@ -1,0 +1,85 @@
+<fieldset class="inputs">
+  <legend><span>Membership</span></legend>
+  <div class="set last" id="client_project_membership">
+    <div class="label_column">
+      &nbsp;
+    </div>
+    <div class="settings_column">
+      <input type="hidden" name="node[settings][joinable]" value="admin_control" />    
+      <input type="text" title="Search" name="node[settings][add_member_search]" id="node_settings_add_member_search" class="js_add_member_search hint" />        
+
+      <div id="node_membership_tool_search">
+      	<div class="list_popdown socmod_search" id="attn_popdown">
+      	  <div class="header">
+      	    <input type="text" autocomplete="off" name="popdown_search" class="popdown_search js_node_membership_search_field" id="attn_search" title="Search" data-url='/nodes/social_module_search_only_users' data-type='html'/>
+      	    <div class='spinner'></div>
+      	    <h3>Search Results</h3>
+      	  </div>
+      	  {% include 'nodes/_admin_panel_socmods' %}	
+      	</div>
+      </div>
+      
+      <table id="client_project_membership_teams">
+        <thead>
+        <tr>
+          <th class="name">Name</th>
+          <th class="role">Lead</th>
+          <th class="role">Core</th>
+          <th class="role">Extended</th>
+        </tr>
+        </thead>
+        
+        <tbody>
+        <!-- this is a template TR. if you mess with it, the tool may stop working properly -->
+        <tr style="display:none" id="membership_teams_radios_template">
+          <td class="name" data-id="USERID">
+            <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+            USERNAME
+          </td>
+          <td class="role"><input type="radio" name="node[settings][teams][USERID]" value="lead" disabled="disabled" /></td>
+          <td class="role"><input type="radio" name="node[settings][teams][USERID]" value="core" disabled="disabled" /></td>
+          <td class="role"><input type="radio" name="node[settings][teams][USERID]" value="extended" disabled="disabled" checked="checked" /></td>
+        </tr>
+        
+        {% for member in node.lead_users %}
+        <tr data-id="{{ member.id }}">
+          <td class="name" data-id="{{ member.id }}">
+            <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+            {{ member.name }}
+          </td>
+          <td class="role"><input type="radio" name="node[settings][teams][{{ member.id }}]" value="lead" checked="checked" /></td>
+          <td class="role"><input type="radio" name="node[settings][teams][{{ member.id }}]" value="core" /></td>
+          <td class="role"><input type="radio" name="node[settings][teams][{{ member.id }}]" value="extended" /></td>
+        </tr>          
+        {% endfor %}
+
+        {% for member in node.core_users %}
+        <tr data-id="{{ member.id }}">
+          <td class="name" data-id="{{ member.id }}">
+            <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+            {{ member.name }}
+          </td>
+          <td class="role"><input type="radio" name="node[settings][teams][{{ member.id }}]" value="lead" /></td>
+          <td class="role"><input type="radio" name="node[settings][teams][{{ member.id }}]" value="core" checked="checked" /></td>
+          <td class="role"><input type="radio" name="node[settings][teams][{{ member.id }}]" value="extended" /></td>
+        </tr>          
+        {% endfor %}
+        
+        {% for member in node.extended_users %}
+        <tr data-id="{{ member.id }}">
+          <td class="name" data-id="{{ member.id }}">
+            <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+            {{ member.name }}
+          </td>
+          <td class="role"><input type="radio" name="node[settings][teams][{{ member.id }}]" value="lead" /></td>
+          <td class="role"><input type="radio" name="node[settings][teams][{{ member.id }}]" value="core" /></td>
+          <td class="role"><input type="radio" name="node[settings][teams][{{ member.id }}]" value="extended" checked="checked" /></td>
+        </tr>          
+        {% endfor %}
+        
+        </tbody>
+      </table>
+      
+    </div>
+  </div>
+</fieldset>

@@ -1,0 +1,76 @@
+<div class="works_browser js_works_browser">
+  <div class="section unit works">
+    <div class="header">
+      <div class="updated_at"></div>
+      <h2 class="work">
+        Browse {{ site.work_label | plural }}
+      </h2>
+    </div>
+    <div class="unit_body">
+      <form action="/works" class="" method="get" data-remote='true' data-type="html">
+        <input type="hidden" name="with_template" value="browse">
+        <input type="hidden" name="order" value="alphabetical">
+        <input type="hidden" name="nolayout" value="true">
+        <input type="hidden" name="offset" id="offset">
+
+        <fieldset class="fs_tags">
+          <label>Tags</label>
+          {% tags_for_node type: Work %}
+          <ul class="tags">
+            {% for tag in tags %}
+            <li><a href="#" data-tag_word="{{tag}}">{{tag}}</a></li>
+            {% endfor %}
+          </ul>
+          {% endtags_for_node %}
+        </fieldset>
+
+        <fieldset class="fs_active_tags">
+          <label>Selected Tags</label>
+          <ul class="active_tags"></ul>
+
+        </fieldset>
+
+        <div class="attribute_filters">
+        {% unless type %}
+        <fieldset class="fs_inline">
+          <label for="work_type">Type</label>
+          <select name="work_type" id="work_type">
+            <option value="">All {{ site.work_label }} Types</option>
+            <option value="lead">{{ site.client_lead_label | plural }}</option>
+            <option value="active">{{ site.client_active_label  }} {{ site.works_label }}</option>
+            <option value="complete">{{ site.client_completed_label }} {{ site.works_label }}</option>
+          </select>
+        </fieldset>
+        {% else %}
+        <input type="hidden" name="work_type" id="work_type" value="{{type}}">
+        {% endunless %}
+
+
+          {% if type == nil or type == 'lead' %}
+          <fieldset class="fs_inline" id="lead_status_fieldset">
+            <label for="work_type">{{ site.client_lead_label | plural }} Status</label>
+            <select name="lead_status" id="lead_status">
+              <option value="">All {{ site.client_lead_label | plural }} statuses</option>
+              <option value="cold">Cold</option>
+              <option value="new">New</option>
+              <option value="hot">Hot</option>
+              <option value="hothot">Hyper-Hot</option>
+            </select>
+          </fieldset>
+          {% endif %}
+
+          <fieldset class="fs_inline">
+            <label>{{ site.location_group_label }}</label>
+            {% locations_select %}
+          </fieldset>
+
+          <input class="submit" type="submit" value="Filter"/>
+        </div>
+
+        {% works type: type with template 'works/browse_list' limit 20 order: alphabetical %}
+
+      </form>
+    </div>
+
+  </div>
+</div>

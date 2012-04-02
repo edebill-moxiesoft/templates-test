@@ -1,0 +1,132 @@
+{% if article %}
+
+<div id='show_article' class="section item_show">
+  <div class="content_bar_hat">
+    {% if article.editable? %}
+    <div class="content_bar">
+
+      <div class='section main'>&nbsp;</div>
+      <div class='section sidebar'>
+        <div class='menu'>
+          {% if article.current_user_can_contribute? %}
+            {{ article.edit_link }}
+          {% endif %}
+        </div>
+      </div>
+      <div class='clear'></div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class='section main widesidebar'>
+    <div class="header">
+      <h1>
+        {{ article.title | truncate: 40 }}
+      </h1>
+    </div>
+  </div>
+
+  <div class='section sidebar widesidebar'>
+    {{ article.watch_button }}
+    {% unless article.editable? %}
+    <div class='aside revise'>
+      <div class="revise_button">
+        <a class="revise_link" href="{{ article.edit_path }}">
+          Revise
+        </a>
+      </div>
+    </div>
+    {% else %}
+    <div class='aside promote'>
+      <div class="promote_button">
+        <a class="promote_link" href="{{ article.edit_path }}">
+          Promote
+        </a>
+      </div>
+    </div>
+    {% endunless %}
+
+  </div>
+  <div class='clear'></div>
+
+
+  <div class='section main article fullwidth'>
+
+    <div class="item">
+      <div class="section fulltext user_content kb_article">
+        <iframe src="{{ article.body_path }}" id="kb_article_frame" frameborder='0' style="height: 600px; overflow-y: scroll"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class='section main article'>
+
+    <div class="section unit likes_block">
+      <a name="likes"></a>
+
+      <div class='header'>
+        <h3 class="likes js_plural_count">{{ 'Person' | pluralize: article.likes_count }} Liked this {{ article.site_label }}</h3>
+      </div>
+      <div class='unit_body'>
+        {% likers for 'article' %}
+
+
+        {% if article.current_user_owns != true %}
+        <div class="likes_details">
+          <var class="likes_count">{{ article.likes_count }}</var>
+          <span class="likes_link">{{ article.likes_link }}</span>
+        </div>
+        {% endif %}
+
+      </div>
+      {% if limit < article.likes_count %}
+      <div class="footer">
+        <a class="all" href="{{ article.likers_path }}" data-remote="true" data-type="html">more</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="section unit comments_block">
+      <a name="comments"></a>
+
+      <div class='header'>
+        <h3 class="comments js_plural_count">{{ 'Comment' | pluralize: article.comments_count }} </h3>
+      </div>
+      <div class='unit_body'>
+        {% include 'comments/index' %}
+        {% include 'comments/form' %}
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class='section sidebar'>
+    <div class='aside about_article'>
+      <div class='header'>
+        <h3>About This {{ article.site_label }}</h3>
+      </div>
+      <div class='section'>
+        <dl>
+          <dt class="article_id">{{ article.site_label }} ID#</dt>
+          <dd class="article_id">{{ article.kb_ref_id }}</dd>
+        </dl>
+        <dl>
+          <dt class="created_at">Date Created</dt>
+          <dd class="created_at">{{ article.created_at | date: "%B %d, %Y" }}</dd>
+        </dl>
+        <dl>
+          <dt class="updated_at">Date Modified</dt>
+          <dd class="updated_at">{{ article.updated_at | date: "%B %d, %Y" }}</dd>
+        </dl>
+				<dl>
+					<dt class="unique_views">People Viewed this {{ article.site_label }}</dt>
+					<dd class="unique_views">{{ article.unique_views }}</dd>
+				</dl>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endif %}

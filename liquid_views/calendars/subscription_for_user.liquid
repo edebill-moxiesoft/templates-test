@@ -1,0 +1,25 @@
+<div class='section' id="subscription_wizard">
+  <div class='section column-2 ical'>
+    <h3>Subscribe in iCal</h3>
+    <p>In iCal go to Calendars &gt; Subscribe and paste the following url:</p>
+    <input type='text' value="{{ calendar.subscription_path }}" id="ical_subscription" />
+  </div>
+  <div class='ical_img'></div>
+  <div class='clear'></div>
+  <div class='section column-2' id="outlook">
+    <h3>Subscribe in Outlook</h3>
+    <p>Clicking the link below will open Outlook.</p>
+    <p><a href="{{ calendar.subscription_path }}">Add to Outlook</a></p>
+    <p><em>Note: Outlook for Mac is not supported at this time.</em></p>
+  </div>
+  <div class='section column-2'>
+    <h3>Subscribe in Google</h3>
+    <p>Clicking the link below will open Google Calendar in a separate window.</p>
+    <p><a target="_blank" href="{{ calendar.google_subscription_path }}">Add to Google Calendar</a></p>
+  </div>
+  
+</div>
+
+<form>
+  <input id="finish_action" type="hidden" />
+</form>

@@ -1,0 +1,22 @@
+<div class='section unit works js_filtered'>
+
+  <div class='section unit_body '>
+    <ol class="works item_list js_filter_body">
+      {% if works == empty %}
+        <p><em>No {{ site.work_label | plural | downcase }} yet</em></p>
+      {% else %}
+      {% for work in works %}
+      <li class="item ">
+        <a href="{{ work.show_path }}">{{ work.small_avatar }}</a>
+        {{ work.link_to_show }}
+        <p class="description">
+          {{ work.limited_body }}
+        </p>
+      </li>
+      {% endfor %}
+      {% endif %}
+    </ol>
+  </div>
+
+  {% more works %}
+</div>

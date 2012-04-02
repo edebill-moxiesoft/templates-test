@@ -1,0 +1,12 @@
+<div class="item search_result discussion_archive">
+  <div class="avatar">{{ discussion_archive.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ discussion_archive.link_to_show_with_container_class }} | {{ discussion_archive.site_label }}</h3>
+    <h4>Located in the {{ discussion_archive.parent.site_label | downcase }} {{ discussion_archive.parent.link_to_show_with_container_class }}</h4>
+    <p>{{ discussion_archive.search_excerpt }}</p>
+
+    {% include 'search_results/footer_container' node: discussion_archive %}
+
+  </div>
+  <div class='clear'></div>
+</div>

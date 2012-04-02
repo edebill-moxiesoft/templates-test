@@ -1,0 +1,21 @@
+<li class='item activity notifier_summary activity_{{activity.title_id}} {{activity.container_class }} {% if forloop.last %}last{% endif %}'>
+  <div class="section">
+    <div class="avatar">
+      {{ activity.creator.small_avatar_no_hover }}
+    </div>
+    <div class="summary">
+        {{activity.creator.link_to_profile}} commented on
+        {% if activity.parent.is_status? or activity.parent.is_direct_message?  %}
+          {{activity.parent.creator.possessive_link_to_profile}} <a href="{{ activity.parent.view_path }}" class="person_link">status</a>
+        {% elsif activity.parent.is_badge? %}
+          {{activity.parent.creator.possessive_link_to_profile}} <a href="{{ activity.parent.view_path }}" class="person_link">badge</a>
+        {% else %}
+          {{ activity.parent.link_to_show_with_container_class }}
+        {% endif %}
+      <div class="comment_summary">
+        {{ activity.parent_comment.sanitized_body_no_full_link | truncate: 100 }}
+      </div>
+    </div>
+  </div>
+
+</li>

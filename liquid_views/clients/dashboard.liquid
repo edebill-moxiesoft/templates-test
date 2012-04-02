@@ -1,0 +1,207 @@
+{% if client %}
+
+<div id='show_client'>
+
+  <div class='section group header'>
+     {% include 'nodes/header' parent: client %}
+  </div>
+
+  <div class='clear'></div>
+
+<div class='section three_column'>
+  
+  <div class='section left_sidebar'>
+    {% if client.has_avatar? %}
+    <div class='profile_photo'>
+      {{ client.profile_avatar }}
+    </div>
+    {% endif %}
+
+    <div class='aside '>
+      <div class='header'>
+        <h3>{{ site.client_label }} Details</h3>
+      </div>
+      <div class='section client_details'>
+        <dl>
+          <dt class="total_works">Total {{ site.work_label | plural | titleize }}: {{ client.total_works }}</dt>
+          <dt class="url">Website:</dt>
+          <dd><a href="{{ client.url }}" target="_blank">{{ client.url }}</a></dd>
+
+        </dl>
+      </div>
+    </div>
+
+    {% if client.status != '' %}
+    <div class='aside '>
+      <div class='header'>
+        <h3>{{ site.client_label }} Status</h3>
+      </div>
+      <div class='section status'>
+        <p class="user_content">{{client.status}}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if client.client_contacts != empty %}
+    <div class='aside '>
+      <div class='header'>
+        <h3>{{ site.client_label }} Contacts</h3>
+      </div>
+      <div class='section status'>
+        {% for client_contact in client.client_contacts %}
+          <p>
+            {% if client_contact.name != empty and client_contact.email != empty %}
+              <a href='mailto:{{ client_contact.email }}' class='user_link'>{{ client_contact.name }}</a><br />
+            {% elsif client_contact.name != empty %}
+              <strong>{{ client_contact.name }}</strong><br />
+            {% endif %}
+            
+            {% if client_contact.title != empty %}
+              <strong>{{ client_contact.title }}</strong><br />
+            {% endif %}
+            {% if client_contact.mobile_number != empty %}
+              {{ client_contact.mobile_number }}<br />
+            {% endif %}
+            {% if client_contact.desk_number != empty %}
+              {{ client_contact.desk_number }}<br />
+            {% endif %}
+            {% if client_contact.notes != empty %}
+              NOTES: {{ client_contact.notes }}
+            {% endif %}
+          </p>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+
+  <div class='section middle'>
+    <div class="section listing followers">
+      {% watchers for 'client' %}
+      <div class="footer">
+        <a href="{{ client.watchers_url }}">directory view</a>
+      </div>
+
+    </div>
+
+    {% show_child_sections for 'client' hide 'newsfeed' %}
+
+    <div class="section unit works js_works_unit">
+      <div class="header">
+        <div class="updated_at"></div>
+        <h2 class="work">
+          <a href="{{ client.show_path }}/works?work_type=lead">{{ site.client_lead_label | plural }}</a>
+
+        </h2>
+      </div>
+      <div class="unit_body">
+        {% works type: lead order: recent limit 5 %}
+      </div>
+
+      {% if works_count > 0 %}
+      <div class="footer">
+        <a class="more_link" href="{{ index_url }}">More</a>
+      </div>
+      {% endif %}
+
+    </div>
+    <div class="section unit works js_works_unit">
+      <div class="header">
+        <div class="updated_at"></div>
+        <h2 class="work">
+          <a href="{{ client.show_path }}/works?work_type=active">{{ site.client_active_label }} {{ site.work_label | plural }}</a>
+        </h2>
+      </div>
+      <div class="unit_body">
+        {% works type: active order: recent limit 5  %}
+      </div>
+
+      {% if works_count > 0 %}
+      <div class="footer">
+        <a class="more_link" href="{{ index_url }}">More</a>
+      </div>
+      {% endif %}
+
+    </div>
+    <div class="section unit works js_works_unit">
+      <div class="header">
+        <div class="updated_at"></div>
+
+        <h2 class="work">
+          <a href="{{ client.show_path }}/works?work_type=complete">{{ site.client_completed_label }} {{ site.work_label | plural }}</a>
+
+        </h2>
+      </div>
+      <div class="unit_body">
+        {% works type: complete order: recent limit 5  %}
+      </div>
+
+      {% if works_count > 0 %}
+      <div class="footer">
+        <a class="more_link" href="{{ index_url }}">More</a>
+      </div>
+      {% endif %}
+
+    </div>
+    
+  </div>
+
+  <div class='section right_sidebar'>
+
+    {% pages_listing for: client %}
+
+    <div class='aside users'>
+      <div class="header">
+        <h3>Contacts</h3>
+      </div>
+      <div class="section">
+        {% if client.contacts == empty %}
+        <p>
+          <em>no users available</em>
+        </p>
+        {% else %}
+        <ol class="item_list">
+          {% for user in client.contacts %}
+          <li class="item {% if forloop.last %}last{% endif %}">
+
+            <a href="{{ user.show_path }}" class="face">{{ user.small_avatar }}</a>
+
+            <p class="details">
+              <a href="{{ user.show_path }}" class="user_link">{{ user.display_name }}</a>
+              {{ user.location }}
+              <span class="role">{{ user.role }}</span>
+            </p>
+          </li>
+          {% endfor %}
+        </ol>
+        {% endif %}
+
+      </div>
+    </div>
+
+    {% fancy_watchers for client %}
+    
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: client %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: client %}
+      </div>
+    </div>
+
+    <!-- salted -->
+
+   
+
+    <div class='aside client recommendations'>
+      {% recommendations for client %}
+    </div>
+
+
+  </div>
+</div>
+
+
+</div>
+{% endif %}

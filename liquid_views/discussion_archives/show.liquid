@@ -1,0 +1,64 @@
+{% if discussion_archive %}
+<div class='section group header'>  
+  {% include 'nodes/header' parent: discussion_archive %}    
+</div>
+
+<div id='discussion_archive_show' class="section unit_summary">
+  
+  <div class='section main discussion_archive'>  
+
+    <div id="container_header">
+      {% capture primary_actions %}
+        {% if discussion_archive.current_user_can_contribute? %}
+        <ul class="primary_actions">
+          <li class="node_actions"><a href="#" class="add_link new_post_link">Start a {{ site.discussion_label }}</a></li>
+        </ul>
+        {% endif %}
+      {% endcapture %}
+
+      {% include 'nodes/page_header' parent: discussion_archive  %}
+
+    </div>  
+  
+    <div class="node_details">
+      <div class='description user_content'>
+        {{ discussion_archive.body }}
+      </div>
+    </div>
+
+    {% if discussion_archive.current_user_can_contribute? %}
+    {% include 'discussion_archives/add_discussion_form' %}
+    {% endif %}
+
+    {% discussions limit 10 %}
+
+  </div>
+
+  <div class='section sidebar'>
+  
+    {% pages_listing for: discussion_archive %}
+      
+    <div class='aside'>
+      {% activity for 'discussion_archive' %}
+    </div>
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: discussion_archive %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: discussion_archive %}
+      </div>
+    </div>
+    <div class='aside discussion_archive recommendations'>
+      {% recommendations for discussion_archive %}
+    </div>
+
+  </div>
+</div>
+
+{% if wizard_launch %}
+  <a href="{{ discussion_archive.show_path_shallow }}/new_content" title="Congratulations" data-width="300" data-height="300" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+
+{% endif %}
+

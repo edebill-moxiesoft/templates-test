@@ -1,0 +1,18 @@
+<div class="item search_result task_list">
+  <div class="avatar">{{ task_list.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ task_list.link_to_show_with_container_class }} | {{ task_list.site_label }}</h3>
+    <h4>
+      {{ site.task_label | pluralize: task_list.number_tasks }}&nbsp;|&nbsp;
+      {% if task_list.parent %}
+        Located in the {{ task_list.parent.site_label | downcase }} {{ task_list.parent.link_to_show_with_container_class }}
+      {% else %}
+        Personal {{ task_list.site_label }} of {{ task_list.link_to_owner }}
+      {% endif %}
+    </h4>
+    <p>{{ task_list.search_excerpt }}</p>
+
+    {% include 'search_results/footer_container' node: task_list %}
+  </div>
+  <div class='clear'></div>
+</div>

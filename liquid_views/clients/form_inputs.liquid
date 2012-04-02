@@ -1,0 +1,69 @@
+{% capture client_details %}{{ site.client_label }} Details{% endcapture %}
+{% form_fields for 'inputs' name: client_details %}
+  {% input for 'title' label: 'Title' required: 'true' class: 'title' %}
+  {% if client.parent_id != null %}
+    {% input for 'parent_id' as: 'hidden' %}
+  {% endif %}
+  
+  {% input for 'status' label: 'Status' required: 'false' %}
+  
+  {% input for 'url' label: 'Website' required: 'false' %}
+
+  <li id="client_contact_user_ids_input" class="text contact_user_ids_input">
+    <label for="client_contact_users">Contact Users</label>
+    <input type="text" name="client_contact_users" class="hint contact_users" title="Type to search for users" value="" id="client_contact_users">
+    <input type="hidden" name="client[set_contact_user_ids]" class="set_contact_user_ids" value="{{ form_object.contact_user_ids_list }}" id="client_set_contact_user_ids">
+    <ul id="client_contact_user_ids_selection_list" class="ac_selections contact_user_ids_selection_list">
+      {{ form_object.contact_users_list_items }}
+    </ul>
+  </li>
+
+{% input for 'slug' label: 'Permalink' required: 'false' class: 'slug_field' wrapper_class: 'last' hint: '(optional) may only contain letters, numbers, and hyphens' %}
+
+{% endform_fields %}
+
+{% capture client_description %}{{ site.client_label }} Description{% endcapture %}
+{% form_fields for 'inputs' name: client_description %}
+  {% include 'nodes/_editor_fields' %}
+  {% include 'nodes/_avatar_update_fields' %}
+{% endform_fields %}
+
+<div id='client_contact_fields_to_clone' style='display: none;'>
+  {% form_fields for 'inputs client_contacts' %}
+    {% include 'clients/_client_contact_fields' %}
+  {% endform_fields %}
+</div>
+
+<div class='clear'></div>
+
+{% capture client_contacts %}{{ site.client_label }} Contacts{% endcapture %}
+{% if @client.client_contacts == empty %}
+  {% form_fields for 'inputs client_contacts add_button first' name: client_contacts %}
+    <li class='add_button'>
+      <a href="#" class='add_button' id='add_client_contact_fields' title='Add {{ site.client_label }} Contacts'>Add</a>
+
+    </li>
+  {% endform_fields %}
+  {% form_fields for 'inputs client_contacts' %}
+    {% include 'clients/_client_contact_fields' %}
+  {% endform_fields %}
+{% else %}
+  {% for client_contact in @client.client_contacts %}
+    {% if forloop.index == 1 %}
+      {% form_fields for 'inputs client_contacts add_button first' name: 'Client Contacts' %}
+        <li>
+          <a href="#" class='add_button' id='add_client_contact_fields' title='Add {{ site.client_label }} Contacts'>Add</a>
+        </li>
+      {% endform_fields %}
+      {% form_fields for 'inputs client_contacts' %}
+        {% include 'clients/_client_contact_fields' client_contact: client_contact %}
+      {% endform_fields %}
+    {% else %}
+      {% form_fields for 'inputs client_contacts' %}
+        {% include 'clients/_client_contact_fields' client_contact: client_contact %}
+      {% endform_fields %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+<div id='new_client_contact_fields'></div>

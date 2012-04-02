@@ -1,0 +1,31 @@
+<div class="header">
+  <h3>My {{ site.discussion_archive_label | plural }}</h3>
+</div>
+<div class="section">
+
+  {% if discussion_archives == empty %}
+    <p>
+      <em>no {{ site.discussion_archive_label | plural | downcase }} available</em>
+    </p>
+  {% else %}
+
+    <ol>
+      {% for discussion_archive in discussion_archives %}
+      <li class="item">
+        <div class="discussion_count"><var>{{ site.discussion_label | pluralize: discussion_archive.discussions_count }}</var></div>
+        <div class="discussion">
+          {{ discussion_archive.link_to_show_with_container_class }}
+          <p class="updated">
+            updated {{ discussion_archive.updated_at | time_ago_in_words, 'ago' }} 
+          </p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% if more_discussion_archives > 0 %}
+      <a class="more_link" href="/discussion_archives/overview?order=my">{{ more_discussion_archives }} more</a>
+    {% endif %}
+
+  {% endif %}
+
+</div>

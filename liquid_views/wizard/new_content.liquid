@@ -1,0 +1,14 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head>
+</head>
+<body>
+You have successfully created {{ node.site_label | downcase }} '{{ node.title }}'
+<a class="new_post_link wizard_close add_link add_type_{{node._type}}">Add {{ node.child_label | indefinitize }}</a>
+<form>
+  <input id="finish_action" type="hidden">
+</form>
+
+
+</body>
+</html>

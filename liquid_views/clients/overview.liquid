@@ -1,0 +1,21 @@
+<div id='show_clients_index'>
+  <div class="content_bar_hat">
+    <div class='content_bar'>
+      <div class='section main'></div>
+      <div class='section sidebar'>
+        <div class='menu popdown-menu'>
+          {% include 'menus/clients_overview_add' %}
+          <div class='clear'></div>
+        </div>
+      </div>
+      <div class='clear'></div>
+    </div>
+  </div>
+
+  <div class='section main'>
+
+    {% clients_summary %}
+
+
+  </div>
+</div>

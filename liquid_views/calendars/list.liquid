@@ -1,0 +1,17 @@
+<ol class="item_list js_filter_body">
+  {% if calendars != empty %}
+    {% for calendar in calendars limit: limit offset: offset %}
+      <h1>
+        <li class="item title {% if forloop.last %}last{% endif %}">
+          <div class="title">
+            {% include 'calendars/summary' %}
+          </div>
+        </li>
+      </h1>
+    {% endfor %}
+  {% else %}
+    <p><em>No Calendars Yet</em></p>
+  {% endif %}
+</ol>
+
+{% more calendars %}

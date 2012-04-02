@@ -1,0 +1,50 @@
+<div class="js_user_work_types_list ">
+
+<div class="section unit works js_filtered">
+  <div class="header dashed">
+    <h2 class="work">
+      {{ site.client_lead_label | plural }}
+    </h2>
+  </div>
+
+  {% works type: lead order: updated limit 10 with template 'works/works_gallery' %}
+ 
+	<div class="footer">
+		{% more works work_type: lead %}
+	</div>
+</div>
+
+<div class="section unit works js_filtered">
+  <div class="header dashed">
+    <h2 class="work">
+      {{ site.client_active_label }}
+    </h2>
+  </div>
+
+  {% works type: active order: updated limit 10 with template 'works/works_gallery' %}
+ 
+	<div class="footer">
+		{% more works work_type: active %}
+	</div>
+</div>
+
+<div class="section unit works js_filtered">
+  <div class="header dashed">
+    <h2 class="work">
+      {{ site.client_completed_label }}
+    </h2>
+  </div>
+  
+
+	<form class="js_work_type_form">
+		<input type="hidden" name="work_type" value="complete" />
+	</form>
+
+	{% works type: complete order: updated limit 10 with template 'works/works_gallery' %}
+
+	<div class="footer">
+		{% more works work_type: complete %}
+  </div>
+</div>
+
+</div>

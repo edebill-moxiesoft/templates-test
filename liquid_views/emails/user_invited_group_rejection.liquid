@@ -1,0 +1,14 @@
+<p>
+  The user with the e-mail address "{{ email }}" that you invited to {{site.community_name}} has
+  {% if admin == nil %}
+    expired because not all the group admins have approved the invitation within {{ site.group_invitation_expiry_in_days }} days.
+  {% else %}
+    been rejected by the admin {{ admin.display_name }} ({{admin.email}}) of the group {{ group.link_to_show }}.
+  {% endif %}
+  
+</p>
+<p>
+  You have received this email because you are the person who originally invited "{{ email }}".
+</p>
+
+{% include 'emails/_sent_from_footer' %}

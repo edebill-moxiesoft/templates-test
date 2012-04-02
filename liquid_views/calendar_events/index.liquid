@@ -1,0 +1,12 @@
+<div class="section full">
+  <div class="content_bar_hat"></div>
+
+  <div class='header'>
+    <h1>{{ site.calendar_event_label | plural }} for {{ date }}</h1>
+  </div>
+
+  <div class='section unit main js_filtered'>
+    {% include 'calendar_events/list_block', calendar_events: calendar_events %}
+  </div>
+
+</div>

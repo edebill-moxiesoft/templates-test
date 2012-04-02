@@ -1,0 +1,101 @@
+{% form_fields for 'inputs' name: 'Project Details' %}
+{% input for 'title' label: 'Title' required: 'true' class: 'title' %}
+{% input for 'parent_id' as: 'hidden' %}
+  
+  <li class="select" id="work_work_type_input">
+  <label for="work_work_type">Type <abbr title="required">*</abbr></label>
+  <select id="work_work_type" name="work[work_type]">
+    <option value="{{ form_object.work_type_lead }}" {% if form_object.work_type == form_object.work_type_lead %}selected='selected'{% endif %}>{{ form_object.work_type_lead_label }}</option>
+		<option value="{{ form_object.work_type_active }}" {% if form_object.work_type == form_object.work_type_active %}selected='selected'{% endif %}>{{ form_object.work_type_active_label }}</option>
+		<option value="{{ form_object.work_type_complete }}" {% if form_object.work_type == form_object.work_type_complete %}selected='selected'{% endif %}>{{ form_object.work_type_complete_label }}</option>
+  </select>
+  </li>
+
+	{% capture lead_label %}{{ form_object.work_type_lead_label }} Status{% endcapture %}
+  {% input for 'lead_status' as: 'select' label_from_variable: lead_label wrapper_style: 'display:none' required: 'false' include_blank: 'false' collection: [['Cold','cold'],['New','new'],['Hot','hot'],['Hyper-Hot','hothot']] %}
+
+  {% input for 'location_group_id' as: 'location_group_select' class: 'select' label: 'Location' required: 'false' include_blank: 'true' %}
+
+  <li id="work_start_date_input" class="text">
+    <label for="work_start_date">Start Date</label>
+    <input type="text" style="width: 240px" name="work[start_date]" id="work_start_date" class="datepicker" value="{{form_object.start_date}}">
+  </li>
+
+  <li id="work_end_date_input" class="text">
+    <label for="work_end_date">End Date</label>
+    <input type="text" style="width: 240px" name="work[end_date]" id="work_end_date" class="datepicker" value="{{form_object.end_date}}">
+  </li>
+  
+  <li id="work_related_work_ids_input" class="text">
+    <label for="work_related_works">Related Projects</label>
+    <input type="text" name="work_related_works" class="hint" title="Type to search for projects" value="" id="work_related_works" data-ignore="{{ form_object.id }}">
+    <input type="hidden" name="work[set_related_work_ids]" value="{{ form_object.related_work_ids_list }}" id="work_set_related_work_ids">
+    <ul id="work_related_work_selection_list" class="ac_selections">
+      {{ form_object.related_work_list_items }}
+    </ul>
+  </li>
+
+  <li id="work_contact_user_ids_input" class="text contact_user_ids_input">
+    <label for="work_contact_users">Contact Users</label>
+    <input type="text" name="work_contact_users" class="hint contact_users" title="Type to search for users" value="" id="work_contact_users">
+    <input type="hidden" name="work[set_contact_user_ids]" class="set_contact_user_ids" value="{{ form_object.contact_user_ids_list }}" id="work_set_contact_user_ids">
+    <ul id="work_contact_user_ids_selection_list" class="ac_selections contact_user_ids_selection_list">
+      {{ form_object.contact_users_list_items }}
+    </ul>
+  </li>
+
+  {% input for 'notes' as: 'textarea' required: 'false' label: 'Confidentiality Notes' rows: 5 %}
+
+  {% tags_input %}
+
+  {% input for 'slug' label: 'Permalink' required: 'false' class: 'slug_field' wrapper_class: 'last' hint: '(optional) may only contain letters, numbers, and hyphens' %}
+
+{% endform_fields %}
+
+
+{% form_fields for 'inputs' name: 'Project Description' %}
+
+  {% include 'nodes/_editor_fields' %}
+
+  {% if user_request.from_mobile_device?  %}
+    {% input for 'market_impact' as: 'textarea' required: 'false' wrapper_style: 'display:none'  wrapper_class: 'textile_editor' label: 'Market Impact' %}
+    {% input for 'short_summary' as: 'textarea' required: 'false' wrapper_style: 'display:none'  wrapper_class: 'textile_editor' label: '100 Word Summary' %}
+  {% else %}
+    {% input for 'market_impact' as: 'textarea' wrapper_style: 'display:none'  wrapper_class: 'wysiwyg_editor' class: 'ckeditor ckeditor_custom' label: 'Market Impact' required: 'false' %}
+    {% input for 'short_summary' as: 'textarea' wrapper_style: 'display:none'  wrapper_class: 'wysiwyg_editor' class: 'ckeditor ckeditor_custom' label: '100 Word Summary' required: 'false' %}
+  {% endif %}
+  
+  {% include 'nodes/_avatar_update_fields' %}
+
+{% endform_fields %}
+
+
+{% unless work.children_in_sort_order_no_subgroups == empty %}
+<fieldset class="display_on_show_page last">
+  <legend>
+      <span>
+        Display on the Dashboard<br/>
+        <span class="legend-hint">Include the following<br/>modules on the page.</span>
+      </span>
+  </legend>
+
+  <input type="hidden" name="work[update_children_order]" value="" class="js_sort_list" id="node_update_children_order"/>
+
+  <ol class="checkbox_collection sortable js_sortable">
+    {% for child in work.children_in_sort_order_no_subgroups %}
+
+    <li class="boolean" id="i_{{ child.id }}">
+      <label title='Display the {{child.friendly_type_name}} "{{child.title}}"' for="work_displayed_children_{{ child.id }}">
+        <input type="hidden" name="work[update_displayed_children][{{ child.id }}]" value="0"/>
+        <input type="checkbox" name="work[update_displayed_children][{{ child.id }}]"
+               value="1" {% if child.displayed_on_parent? == true %}checked="checked"{% endif %}
+        id="work_displayed_children_{{ child.id }}" />
+        {{ child.title }}
+      </label>
+    </li>
+
+    {% endfor %}
+  </ol>
+</fieldset>
+{% endunless %}
+

@@ -1,0 +1,18 @@
+<div class="header">
+  <h3>People You Should Follow</h3>
+</div>
+<div class="section">
+  
+  {% if users == empty %}
+    <p>
+      <em>no recommendations available</em>
+    </p>
+  {% else %}
+    <ol class="item_list">
+      {% for user in users %}
+        {% include 'users/recommend' user: user %}
+      {% endfor %}
+    </ol>
+  {% endif %}
+  
+</div>

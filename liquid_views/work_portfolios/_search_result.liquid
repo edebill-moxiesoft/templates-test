@@ -1,0 +1,16 @@
+<div class="item search_result work_portfolio">
+  <div class="avatar">{{ work_portfolio.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ work_portfolio.link_to_show_with_container_class }} | {{ work_portfolio.site_label }}</h3>
+    <h4>
+      {% if work_portfolio.parent %}
+        Located in the {{ work_portfolio.parent.site_label | downcase }} {{ work_portfolio.parent.link_to_show_with_container_class }}
+      {% else %}
+        Personal {{ work_portfolio.site_label }} of {{ work_portfolio.link_to_owner }}
+      {% endif %}
+    </h4>
+
+    {% include 'search_results/footer_container' node: work_portfolio %}
+  </div>
+  <div class='clear'></div>
+</div>

@@ -1,0 +1,198 @@
+<div>
+{% if document_library %}
+<div class='section group header'> 
+  {% include 'nodes/header' parent: document_library %}  
+</div> 
+
+<div id='show_document_library_gallery' class="section js_filtered ">
+  <div class='js_filter_body'>
+
+  <div class='section main item_show'>
+  
+    <div id="container_header">
+      {% capture primary_actions %}
+        {% if document_library.current_user_can_contribute? %}
+          <ul class="primary_actions">
+            <li class="node_actions">{{ document_library.add_document_link }}</li>
+            <li class="node_actions">{{ "Add Folder" | link_to_wizard_add_page: 'DocumentLibrary', document_library.guid }}</li>
+          </ul>
+        {% endif %}
+      {% endcapture %}
+      {% include 'nodes/page_header' parent: document_library %}
+      
+      {% capture documents_label %}{{ site.document_label }}(s){% endcapture %}
+      <div class="clear"></div>
+    </div>
+    <div class='header node_details'>
+      {{ document_library.body }}
+      <div class="section filters">
+        {% show_filters %}
+      </div>
+      <div class='bottom_header'>
+        <div class="toggle_view">
+          {% if view == "gallery" %}
+          <a href="{{ document_library.switch_view_path }}?view=list&order={{order}}&tag_filter={{ tag_filter }}"><img
+            src="/images/list_view_off.png"
+            alt="List view" title="List view"/></a>
+          <a href="{{ document_library.switch_view_path }}?view=gallery&order={{order}}&tag_filter={{ tag_filter }}"><img
+            src="/images/grid_view_on.png"
+            alt="Gallery view" title="Gallery view"/></a>
+          {% else %}
+          <a href="{{ document_library.switch_view_path }}?view=list&order={{order}}&tag_filter={{ tag_filter }}"><img
+            src="/images/list_view_on.png"
+            alt="List view" title="List view"/></a>
+          <a href="{{ document_library.switch_view_path }}?view=gallery&order={{order}}&tag_filter={{ tag_filter }}">
+            <img src="/images/grid_view_off.png" alt="Gallery view" title="Gallery view"/></a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if document_library.sharepoint_synced? %}
+        <h2 class="sharepoint">Sharepoint Document Library</h2>
+        {% if document_library.very_recently_created? %}
+            <h2 class="sharepoint">Sharepoint sync is in progress. Documents and Folders will start appearing soon.</h2>
+        {% endif %}
+      {% endif %}
+
+
+      {% include 'nodes|like_button' node: document_library %}
+    </div>
+
+
+    {% if view == 'gallery' %}
+    <div class="main">
+      {% include 'documents/_tag_filtering' %}
+      <div class="gallery_container">
+        {% if all_documents and all_documents != empty %}
+        {% for document in all_documents %}
+        
+          <div class="gallery_pic js_gallery_pic">
+            <a href="{{ document.show_path }}" class='image_link{% if document.is_folder? %} folder_gallery_img{% endif %}'>
+              {% if document.is_image %}
+                <img class="gallery_image" src="{{ document.thumbnail_square_path }}"/>
+              {% elsif document.transcoded_video_medium_url %}
+                <img src="{{ document.transcoded_video_medium_url }}" style="width:130px; height:130px;" />
+              {% elsif document.has_embedded_document_thumbnail? %}
+                <img src="{{ document.embedded_document_thumbnail_path }}" style="width:130px; height:130px;" />
+              {% elsif document.is_folder? == false %}
+                <img class="gallery_image" src="{{ document.non_image_thumbnail }}"/>
+              {% endif %}
+            </a>
+            <a class="title" href="{{ document.show_path }}" >{{ document.title | middle_truncate: 15,8 }}</a> 
+          </div>
+          <div class="tool_tip">
+            <div class="tooltip_image_container">
+              {% if document.is_image %}
+                <img class="tooltip_image" src="{{ document.medium_path }}"/>
+              {% elsif document.transcoded_video_medium_url %}
+                <img src="{{ document.transcoded_video_medium_url }}" style="width:130px; height:130px;" />
+              {% elsif document.has_embedded_document_thumbnail? %}
+                <img src="{{ document.embedded_document_thumbnail_path }}" style="width:130px; height:130px;" />
+              {% elsif document.is_folder? %}
+                <span class="folder_gallery_img"></span>
+              {% else %}
+                <img class="tooltip_image" src="{{ document.non_image_thumbnail }}"/>
+              {% endif %}
+            </div>
+
+            <div class="tooltip_image_details_container">
+              <h2><a href="{{ document.show_path }}">{{ document.title }}</a></h2>
+              <p>
+              {% if document.is_folder? %}
+                {{ 'file' | pluralize: document.aggregate_document_count }}
+                 {% if document.aggregate_document_count > 0 %}
+                   &middot; {{ document.aggregate_file_size | number_to_filesize }}
+                 {% endif %}
+              {% else %}
+                {{ document.friendly_file_type }} &middot; {{ document.file_size | number_to_filesize }}
+              {% endif %}
+              </p>
+              <div class="collab_stats">
+                added {{ document.created_at | date: "%B %d, %Y" }}
+                {% if document.is_folder? %}
+                  {% if document.document_last_updated_at != nil %}
+                    , updated {{ document.document_last_updated_at | date: "%B %d, %Y"}}
+                  {% endif %}
+                {% elsif document.versions_count > 1 %}
+                  , updated {{ document.updated_at | date: "%B %d, %Y"}}
+                {% endif %}
+
+                <var class="likes_count">{{ document.likes_count }}</var>
+                <var class="replies_count" title="{{ discussion.replies_count }} replies">{{ document.replies_count }}</var>
+              </div>
+              <hr/>
+              {% if document.has_preview? %}
+                {{ document.preview_link }}
+              {% endif %}
+
+              {% if document.has_body %}
+
+              <p class="description">  {{ document.sanitized_body | html_truncate: 300, ''   }} </p>
+              {% endif %}
+            </div>
+          </div>
+          
+        {% endfor %}
+        {% endif %}
+        <div class="clear"></div> 
+      </div>
+      {% if all_documents and all_documents != empty %}
+      {% paginate all_documents %}
+      {% endif %}
+    </div>
+    {% endif %}
+  
+  
+    <div class='clear'></div>
+  
+  
+    {% if view != 'gallery' %}
+      {% include 'documents/_tag_filtering' %}
+      {% if all_documents != empty %}
+        {% include 'documents/list' documents: all_documents show_weird_header: true %}
+      {% endif %}
+    {% endif %}
+    {% include 'nodes/likes_summary_header' node: document_library %}
+    <div class="section unit comments_block">
+      <div class='header'>
+        <h3 class="comments js_plural_count">{{ 'Comment' | pluralize: document_library.comments_count }} </h3>
+      </div>
+      <div class='unit_body'>
+        {% include 'comments/index' %}
+        {% include 'comments/form' %}
+      </div>
+    </div>
+  </div>
+
+  <div class='section sidebar item_show'>
+
+  
+    {% pages_listing for: document_library %}
+      
+    {% include 'tags/_tagger_sidebar' node: document_library %}
+    
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: document_library %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: document_library %}
+      </div>
+    </div>
+    <div class='aside'>
+      {% activity for 'document_library' %}
+    </div>
+    <div class='aside document_library recommendations'>
+      {% recommendations for document_library %}
+    </div>
+    
+  </div>
+  </div>
+</div>
+
+{% if wizard_launch %}
+  <a href="{{ document_library.show_path_shallow }}/new_content" title="Congratulations" data-width="400" data-height="300" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+
+{% endif %}
+</div>

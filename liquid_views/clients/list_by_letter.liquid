@@ -1,0 +1,8 @@
+{% unless clients == empty %}
+  <h1>{{ letter }}</h1>
+  <ol class="clients_list">
+    {% for client in clients %}
+      <li><a href="{{ client.show_path }}">{{ client.title }}</a></li>
+    {% endfor %}
+  </ol>
+{% endunless %}

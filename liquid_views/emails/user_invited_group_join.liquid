@@ -1,0 +1,23 @@
+<p>
+  {{ creator.display_name }} has requested that the pending user "{{ email }}" be approved to join the group "{{ group.link_to_show }}"
+</p>
+<p>
+  You have received this email because you are an administrator of the {{ group.link_to_show }} group.
+</p>
+<p>
+  You can choose to <a href="{{url_start}}{{group.approve_invitation_path}}&invite={{invite.id}}&approve=1">APPROVE</a> this request and
+  allow "{{ email }}" to become a member of {{ group.link_to_show }}, or you can
+  <a href="{{url_start}}{{group.approve_invitation_path}}&invite={{invite.id}}&reject=1">REJECT</a> the request to join.
+</p>
+<br/>
+<p>
+  If the above approve or reject links do not work for you due to email client settings, you can copy and paste the appropriate URL below into your browser:
+</p>
+<p>
+  APPROVE: {{url_start}}{{group.approve_invitation_path}}&invite={{invite.id}}&approve=1
+</p>
+<p>
+  REJECT:  {{url_start}}{{group.approve_invitation_path}}&invite={{invite.id}}&reject=1
+</p>
+
+{% include 'emails/_sent_from_footer' %}

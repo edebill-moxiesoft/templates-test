@@ -1,0 +1,39 @@
+{% include 'search_results/showing_count' showing_count: work_portfolios.size total_count: nodes_count hide: hide_total %}
+<table class="search_results work_portfolios  ">
+  <thead>
+  <tr>
+    <th>Title of {{ site.work_portfolio_label }}</th>
+    <th>Author</th>
+    <th># of {{ site.work_label | plural }}</th>
+    <th>Date Created</th>
+  </tr>
+  </thead>
+  {% if work_portfolios == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.work_portfolio_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for work_portfolio in work_portfolios limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ work_portfolio.container_class }}">
+    <td>
+      {% if work_portfolio.display_avatar? %}
+      {{ work_portfolio.avatar }}
+      {% endif %}
+      <div class="title">{{ work_portfolio.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ work_portfolio.link_to_owner }}</td>
+    <td>{{ work_portfolio.items_count }}</td>
+    <td>{{ work_portfolio.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: work_portfolios.size total_count: nodes_count hide: hide_total %}
+  {% more work_portfolios search: true %}
+{% endunless %}

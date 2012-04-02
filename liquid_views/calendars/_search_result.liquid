@@ -1,0 +1,18 @@
+<div class="item search_result calendar">
+  <div class="avatar">{{ calendar.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ calendar.link_to_show_with_container_class }} | {{ calendar.site_label }}</h3>
+    <h4>
+      {% if calendar.parent %}
+        Located in the {{ calendar.parent.site_label | downcase }} {{ calendar.parent.link_to_show_with_container_class }}
+      {% else %}
+        Personal {{ calendar.site_label }} of {{ calendar.link_to_owner }}
+      {% endif %}
+    </h4>
+    <p>{{ calendar.search_excerpt }}</p>
+
+    {% include 'search_results/footer_container' node: calendar %}
+
+  </div>
+  <div class='clear'></div>
+</div>

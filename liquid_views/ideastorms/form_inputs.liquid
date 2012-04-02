@@ -1,0 +1,15 @@
+{% input for 'title' label: 'Title' required: 'true' %}
+
+{% include 'nodes/_avatar_update_fields' %}
+{% input for 'subtitle' label: 'Sub-title' required: 'false' %}   
+
+<li id="ideastorm_close_at_input" class="text string required">
+  <label for="ideastorm_close_at">Accept ideas through<abbr title="required">*</abbr></label>
+  <input type="text" style="width: 10%;" size="70" name="ideastorm[close_at]" id="ideastorm_close_at" class="datepicker" value="{{form_object.close_at}}">
+</li>
+
+{% include 'nodes/_editor_fields' %}
+
+{% unless form_object.parent_id == null %}
+  {% input for 'parent_id' as: 'hidden' %}
+{% endunless %}

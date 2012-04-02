@@ -1,0 +1,19 @@
+<div class='section unit ideastorm js_filtered'>
+
+  <div class='section unit_body js_filter_body '>
+    <ol class="item_list ">
+      {% if ideastorms == empty %}
+        <p><em>No Ideastorms Available</em></p>
+      {% else %}
+        {% for ideastorm in ideastorms %}
+          <li class="item {% if forloop.last %}last{% endif %}">
+            {% include 'ideastorms/summary' %}
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ol>
+    <div class='clear'></div>
+  </div>
+
+  {% more ideastorms %}
+</div>

@@ -1,0 +1,11 @@
+{% form for 'wiki' multipart: true class: 'formtastic wiki' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'wikis/form_inputs' form_object: wiki %}      
+    {% endform_fields %}
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: wiki %}
+    {% endform_fields %}
+  </div>
+{% endform %}

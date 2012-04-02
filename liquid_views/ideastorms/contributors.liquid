@@ -1,0 +1,17 @@
+<ul class="top_contributors_list">
+  {% for user in contributors %}
+    <li>
+      <div class="headshot">
+        {{ user.small_avatar_with_link }}
+      </div>
+      <div class="details">
+        <p class="contributor">{{ user.link_to_show }}</p>
+        <ul class="contributor_stats">
+          <li><var class="ideas_count">{{ user.ideastorm_idea_counts }}</var></li>
+          <li><var class="comments_count">{{ user.ideastorm_comment_counts }}</var></li>
+          <li><var class="likes_count">{{ user.ideastorm_like_counts }}</var></li>
+        </ul>
+      </div>
+    </li>
+  {% endfor %}
+</ul>

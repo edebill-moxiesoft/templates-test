@@ -1,0 +1,13 @@
+{% if ideas != empty %}
+
+
+<ol class="item_list">
+  {% for idea in ideas limit: limit_size %}
+    {% include 'ideas/summary' %}
+  {% endfor %}
+</ol>
+
+
+{% else %}
+<em>No ideas yet</em>
+{% endif %}

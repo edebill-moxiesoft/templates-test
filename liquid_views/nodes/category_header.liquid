@@ -1,0 +1,33 @@
+<div id="page_header" class="content_bar_hat">
+  <div class="section main">
+    <h1>
+      {{ category.title }}
+    </h1>
+
+    {% if category.body != empty %}<span class="expander">Show details</span>{% endif %}
+    <div class="clear"></div>
+    <ul class="details">
+      <li class="action_btn">{{ category.share_button }}</li>
+    {% if category.is_modifiable %}
+      <li class="action_btn"><a href="/user_invites/emails?group={{closest_container.id}}" class="wizard_launch" title="Invite Users" data-height='400'>Invite Users</a></li>
+    {% endif %}
+    {% if category.current_user_can_admin? %}
+      <li class="action_btn">{{ category.edit_link }}</li>
+    {% endif %}
+    </ul>
+  </div>
+
+  <div class="section sidebar content_bar">
+    <div class="menu popdown-menu">     
+      {% include 'menus/category_page_add' category: category %}
+    </div>
+  </div>
+
+  <div class="clear"></div>
+
+  {% if category.body != empty %}
+    <div class="section container_details">
+      {{ category.body }}
+    </div>
+  {% endif %}
+</div>

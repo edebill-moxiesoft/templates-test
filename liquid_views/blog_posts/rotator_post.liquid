@@ -1,0 +1,21 @@
+<div class="item" data-guid="{{ blog_post.id }}" {% if first %}data-loaded='true'{%endif%} >
+  <div class="item_content">
+    <div class="headline_image_video">
+      {% if first %}
+        {{ blog_post.headline_image_video }}
+      {% else %}
+        <img class="loading_headline_img" >
+      {% endif %}
+    </div>
+    <div class="headline_content">
+      <div class="title"><a href="{{ blog_post.show_path }}">{{ blog_post.title }}</a></div>
+      <div class="headline_body">
+        {% if first %}
+          {{ blog_post.excerpted_body_without_images_videos }}
+        {% else %}
+          <img class="loading_headline_body" src="/images/ajax-loader-transparent.gif">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+{% assign container_user = parent.closest_container %}
+
+<div id="page_header" class="content_bar_hat">
+  <div class="section main">
+    <h1>{{ container_user.display_name }}</h1>
+  {% unless parent.child_show_page? or hide_details %}
+    {% if container_user.has_status %}<span class="user expander">Show current status</span>{% endif %}
+    <div class="clear"></div>
+    {% if container_user.current_user? %}
+      <ul class="details">
+        <li class="action_btn"><a class="edit_link" href="{{ user.edit_path }}">Edit Your Profile</a></li>
+      </ul>
+    {% endif %}
+  {% endunless %}  
+</div>
+
+  <div class="section sidebar content_bar">
+    {% if container_user.current_user? %}
+      {% unless parent.child_show_page? or hide_details %}  
+      <div class="menu popdown-menu">
+        {% include 'menus/user_page_add' %}
+      </div>
+      {% endunless %}
+    {% else  %}
+      {{ container_user.watch_button }}
+    {% endif %}
+  </div>
+
+  <div class="clear"></div>
+
+{% unless parent.child_show_page? or hide_details %}
+  {% if container_user.has_status %}
+  <div class="section container_details">
+    <p class='status'>{{ container_user.status_autolinked }}
+      <span class='seperator'>&middot;</span>
+      <span class='status_time'>{{ container_user.status_time | time_ago_in_words, 'ago'  }}</span>
+      <span class='seperator'>&middot;</span>
+      <a class="status_likes_count" href="{{ user.status_path }}">
+        <span class="collab_stats">
+          <var class="replies_count" title="{{ user.status_replies_count }} replies">
+            {{ container_user.status_replies_count }}
+          </var>
+          <var class="likes_count" title="{{ user.status_likes_count }} likes">
+            {{ container_user.status_likes_count }}
+          </var>
+        </span>
+      </a>
+    </p>
+  </div>
+  {% endif %}
+{% endunless %}
+
+</div>

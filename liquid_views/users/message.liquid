@@ -1,0 +1,38 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head></head>
+<body class="bp">
+<div id='page' class="direct_message">
+  <div class="section microblog_control">
+    {% include 'local_activities/microblogger' %}
+  </div>
+  <script>
+    // init node search plugin (jquery.node_search.js)
+    $('.direct_message .js_add_recipient').nodeSearch({
+      processMethod:          "addRecipient",                     // method to call for processing the result
+      offsetX:                0,                                  // horizontal offset of the modal
+      offsetY:                0,                                  // vertical offset of the modal
+      inputSelector:          ".js_add_recipient",                // selector for element that activates the modal
+      inputType:              "link",                             // options are input or link
+      width:                  400,                                // modal window width
+      url:                    "/activities/microblogger_search",   // the url to submit the query
+      viewport:               '#page.direct_message'
+    });
+
+    Wizard.validateForm = function() {
+      var message = $('.direct_message textarea');
+      if (message.blank()) {
+        Wizard.disableButtons();
+      } else {
+        Wizard.enableButtons();
+      }
+    };
+    $('.direct_message textarea').keyup(function() {
+      Wizard.validateForm();
+    });
+
+  </script>
+</div>
+</body>
+</html>
+

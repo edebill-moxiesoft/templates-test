@@ -1,0 +1,30 @@
+<!-- A simple child renderer section example -->
+<div id="children_unit" class="section unit">
+  {% for child in children %}
+  <div class='header'>
+    <h2 class="child">
+      <a href="{{ child.show_path }}" title="{{ child.title }}">{{ child.title }}</a>
+    </h2>
+  </div>
+
+  <ol class="item_list">
+    {% for childchild in child.children limit:3 %}
+    <li class="item {% if forloop.last %}last{% endif %}">
+      <div class="title">
+        <a href="{{childchild.show_path}}">{{ childchild.title }}</a>
+      </div>
+
+      <div class="comments">
+        <a href='{{childchild.show_path}}'>{{ 'like' | pluralize: childchild.likes_count }}</a>
+      </div>
+
+      <div class="author">
+        by {{ childchild.link_to_owner }}
+        <span class="post_date">{{ childchild.created_at | time_ago_in_words }}</span>
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+
+  {% endfor %}
+</div>

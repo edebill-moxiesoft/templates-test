@@ -1,0 +1,84 @@
+<!-- BLOGS SHOW PAGE -->
+{% if blog %}
+<div class='section group header'>
+  {% include 'nodes/header' parent: blog %}
+</div>
+
+<div id='blog_show' class="section unit_summary">
+
+  <div class='section main blog js_filtered'>
+  
+    <div id="container_header">
+      {% capture primary_actions %}
+        <ul class="primary_actions">
+          {% if blog.current_user_can_contribute? %}
+          <li class="node_actions"><a href="#" class="add_link new_post_link">Add {{ site.blog_post_label | indefinitize }}</a></li>
+          {% endif %}
+        </ul>
+      {% endcapture %}
+      {% include 'nodes/page_header' parent: blog %}
+
+    </div>
+
+    <div class="node_details">
+    </div>
+
+    {% if blog.current_user_can_contribute? %}
+    {% include 'blogs/add_blog_post_form' %}
+    {% endif %}
+
+    {% blog_posts limit 5 %}
+  </div>
+
+  <div class='section sidebar'>
+  
+    {% pages_listing for: blog %}
+  
+    <div class='aside blogs'>
+      <div class='header'>
+        <h3>About this {{ blog.site_label }}</h3>
+      </div>
+      <div class='section'>
+        <ol>
+          <li class="item description">
+            {{ blog.limited_body }}
+          </li>
+        </ol>
+      </div>
+    </div>
+          
+    {% if blog.has_external_channels %}
+        <div class='aside external_channels'>
+            <div class='header'>
+                <h3>External Feeds</h3>
+            </div>
+            <div class='section'>
+                <ol>
+                {% for external_channel in blog.external_channels %}
+                    <li class="item"><a href="{{ external_channel.url }}" title="{{external_channel.title}}">{{ external_channel.title | truncate: 30 }}</a></li>
+                {% endfor %}
+                </ol>
+            </div>
+        </div>
+    {% endif %}
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: blog %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: blog %}
+      </div>
+    </div>
+
+    <div class='aside blog recommendations'>
+      {% recommendations for blog %}
+    </div>
+
+  </div>
+</div>
+
+{% if wizard_launch %}
+  <a href="{{ blog.show_path_shallow }}/new_content" title="Congratulations" data-width="300" data-height="300" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+
+{% endif %}

@@ -1,0 +1,16 @@
+<div class="section unit tasks js_filtered">
+  <div class='header'>
+    <div class="section filters">
+      {% show_filters %}
+    </div>
+    <h2 class="task">
+      {{ site.task_label | plural }}
+    </h2>
+  </div>
+
+  <div class="unit_body">
+    {% tasks limit 20 %}
+  </div>
+  
+
+</div>

@@ -1,0 +1,18 @@
+<div class='section unit'>
+  <div class='header'>
+    <h2 class='story'>The Short Story</h2>
+  </div>
+  <div class='section user_content'>
+    {% if user.has_short_bio or user.has_bio %}
+      <p>{{ user.short_bio }}</p>
+      <p>{{ user.bio }}</p>
+    {% else %}
+      {% if current_user.id == user.id %}
+        <p>Please <a class="edit_link" href="{{ user.edit_path }}">edit your profile</a> to add your story.</p>
+      {% else %}
+        <p><a href="{{ user.show_path }}" class="person_link">{{ user.display_name }}</a> has not entered a bio yet.</p>
+        {% endif %}
+    <p></p>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,117 @@
+{% if discussion %}
+  <div class='section group header'>
+    {% include 'nodes/header' parent: discussion %}
+  </div>
+
+<div id='show_discussion' class="section item_show">
+  <div class='section main discussion'>
+    
+    <div id="container_header">
+      {% include 'nodes/page_header' parent: discussion.parent %}
+      <div class="clear"></div>
+    </div>
+
+    <div class="node_details">
+      <h2 class="page_title">{{ discussion.title }}</h2>
+      {{ discussion.watch_button_small }}
+      <div class="clear"></div>
+                
+      {% if discussion.current_user_can_admin? or discussion.closed? %}
+        <ul class="primary_actions content_show">
+          <li class="container_share action_btn">{{ discussion.share_button }}</li>
+          {% if discussion.current_user_can_admin? %}
+          <li class="action_btn">{{ discussion.edit_link }}</li>        
+          <li>
+            {% form for 'discussion' class: 'formtastic discussions toggle close_discussion' id: 'toggle_form' %}
+              {% if discussion.closed? %}
+                {% assign toggle = 'open' %}
+                {% assign close_at = "" %}
+              {% else %}
+                {% assign toggle = 'close' %}
+                {% assign close_at = discussion.time_to_close_at %}
+              {% endif %}
+              <input type="hidden" name="discussion[close_at]" id="discussions_close_at" value="{{ close_at }}" />
+              <a href="#" class="toggle_link js-{{ toggle }}" onclick="DiscussionToggleForm.submit('{{ site.discussion_label }}');">{{ toggle | capitalize }}</a>
+            {% endform %}          
+          </li>
+          {% endif %}        
+          {% if discussion.closed? %}
+          <li><span class='closed_at'>Closed {{ discussion.closed_at }}</span></li>       
+          {% endif %}        
+        </ul>  
+        <div class="clear"></div> 
+      {% endif %}
+
+      <span class="owner">Started by {{ discussion.creator.link_to_show }}</span>
+      <span class='time_ago'>, {{ discussion.created_at | time_ago_in_words, 'ago' }}</span>      
+      <span class="unique_views">viewed by {{ 'person' | pluralize: discussion.unique_views }}</span>
+      <span class="comments js_plural_count"><var class="replies_count">{{ discussion.comments_count }}</var></span>      
+      {% include 'nodes|like_button' node: discussion %}
+    </div>
+
+    {% include 'nodes/likes_summary_header' node: discussion %}
+    
+    <div class="section unit comments_block item">
+      <div class='unit_body'>
+        <div class="section comments">
+          <ol class='children_list'>
+            <li class='child comment_block '>
+              {{ discussion.creator.small_avatar_with_link }}
+              <div class="comment user_content">
+                <div class="comment_border"></div>
+                <p class="comment_body ">{{ discussion.body }}</p>
+
+                <div class="footer">
+                  <span class="owner">{{ discussion.creator.link_to_show }}</span>
+                  <span class='time_ago'>, {{ discussion.created_at | time_ago_in_words, 'ago' }} </span>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="section unit comments_block items">
+      <div class='unit_body'>
+        {% assign disable_edit = discussion.closed? %}
+        {% include 'comments/index' disable_edit: disable_edit %}
+        
+        {% unless discussion.closed? %}
+          {% include 'comments/form' %}
+        {% endunless %}
+      </div>
+    </div>
+
+  </div>
+
+  <div class='section sidebar'>   
+
+    {% pages_listing for: discussion %}
+  
+    <div class='aside discussion'>
+      <div class='header'>
+        <h3>What This Discussion Is About</h3>
+      </div>
+      <div class='section'>
+        {{discussion.parent.limited_body}}
+      </div>
+    </div>
+    
+    {% include 'tags/_tagger_sidebar' node: discussion %}
+    
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: discussion %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: discussion %}
+      </div>
+    </div>
+    <div class='aside discussion recommendations'>
+      {% recommendations for discussion %}
+    </div>
+
+  </div>
+</div>
+{% endif %}

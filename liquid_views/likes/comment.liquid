@@ -1,0 +1,14 @@
+<li class='child comment_block {% if forloop.last %}last{% endif %}'>
+
+  <div class="metadata">
+    {{ comment.creator.small_avatar_with_link }}
+    <p class="owner">{{ comment.creator.link_to_show }}</p>
+
+    <p class='time_ago'>{{ comment.created_at | time_ago_in_words, 'ago'  }} </p>
+  </div>
+
+  <div class="comment_body">
+    <p class="comment">{{ comment.body }}</p>
+  </div>
+
+</li>

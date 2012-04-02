@@ -1,0 +1,79 @@
+{% if task_list %}
+<div id='show_task_list' data-id="{{ task_list.id }}">
+
+  <div class='section group header'>
+    {% include 'nodes/header' parent: task_list %}
+  </div>
+
+  <div class='section main task_list'>
+  
+    <div id="container_header">
+      {% include 'nodes/page_header' parent: task_list node: task_list %}
+    </div>
+
+    <div class="node_details">
+      <dl class="details">
+        {% if task_list.due_at %}
+        <dt class="due {% if task_list.late? %}late{% endif %}">Due:</dt>
+        <dd class="due js_parent_due {% if task_list.late? %}late{% endif %}">{{ task_list.due_at }}</dd>
+        {% endif %}
+        <dt class="status">Status:</dt>
+        <dd class="status js_parent_status">{{ task_list.status }}</dd>
+        <dt class="complete {% if task_list.tasks == empty %}disabled{% endif %}">Task Completion:</dt>
+        <dd class="complete js_parent_complete  {% if task_list.tasks == empty %}disabled{% endif %}">
+          {% progress_bar percentage 'task_list.percent_completion' display 'task_list.tasks_complete_string' %}
+        </dd>
+      </dl>
+      <div class="clear"></div>
+    </div>
+
+    {% if task_list.description %}
+      <div class="user_content">{{ task_list.description }}</div>
+    {% endif %}
+
+    {% if task_list.calendars_count > 0 %}
+    {% include 'sections/calendar_summary' calendar: task_list.default_calendar %}
+    {% endif %}
+
+    {% include 'sections/task' %}
+
+
+  </div>
+
+  <div class='section sidebar'>
+
+    {% pages_listing for: task_list %}
+
+
+    <div class='aside'>
+      <div class="header">
+        <h3>Who's Responsible</h3>
+      </div>
+      <div class="section">
+        {% include 'task_lists/assignee_summary' users: task_list.assignees limit: 3 %}
+      </div>
+    </div>
+
+    <div class='aside'>
+      {% activity for 'task_list' %}
+    </div>
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: task_list %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: task_list %}
+      </div>
+    </div>
+    <div class='aside task_list recommendations'>
+      {% recommendations for task_list %}
+    </div>
+
+  </div>
+</div>
+
+{% if task_list.current_user_can_contribute? and wizard_launch %}
+  <a href="/task_lists/{{ task_list.id }}/new_content" title="Congratulations" data-width="300" data-height="300" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+  
+{% endif %}

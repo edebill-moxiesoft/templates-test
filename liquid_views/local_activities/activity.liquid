@@ -1,0 +1,127 @@
+<li class='item activity activity_{{activity.title_id}} type_{{activity.parent_type}} {{ activity.theme_class }} {% if forloop.last %}last{% endif %} {{ new_activity }}  {% if site.mark_as_read_enabled? %}{% if activity.read? %}read{% else %}unread{% endif %}{% endif %}' data-guid="{{ activity.guid }}" data-comment_url="{{ activity.comments_path }}" data-replace_activity="{{activity.replaced_activity_id}}">
+  <div class="likes_count js_likes_count {% if activity.likes_count > 0 %}enabled{% endif %}">{{activity.likes_count}}</div>
+  <div class="comments_count js_comments_count {% if activity.comments_count > 0 %}enabled{% endif %}">{{activity.comments_count}}</div>
+
+
+  {{ activity.small_avatar_link }}
+
+  {% case activity.title_id %}
+
+    {% when 'added','updated', 'updated_rollup', 'idea_implemented','task_status' %}
+      {% include 'local_activities/activity_content' for activity %}
+      {% assign actionable = true %}
+    {% when 'liked' %}
+      {% include 'local_activities/activity_liked' for activity %}
+      {% assign actionable = false %}
+    {% when 'badge' %}
+      {% include 'local_activities/activity_badge' for activity %}
+      {% assign actionable = true %}
+    {% when 'replied' %}
+      {% include 'local_activities/activity_replied' for activity %}
+      {% assign actionable = false %}
+    {% when 'added_rollup' %}
+      {% include 'local_activities/activity_files' for activity %}
+      {% assign actionable = false %}
+    {% else %}
+      {% include 'local_activities/activity_status' for activity %}
+      {% assign actionable = true %}
+  {% endcase %}
+
+  {% if actionable and activity.can_comment? %}
+    {% if show_all %}
+      {% assign comments = activity.comments %}
+    {% else %}
+      {% assign comments = activity.last_two_comments %}
+    {% endif %}
+    <div class="activity_feed_comments">
+      <ol class='comment_list'>
+        {% if activity.comments_count > 2 and show_all != true %}
+        <li class='show_all'>
+          {{ activity.comments_count | minus: 2 }} more, 
+          <a class="js_show_comments" data-remote='true' data-type='html' href="/activities/{{ activity.id}}">Show all</a>
+        </li>
+        {% endif %}
+        {% for comment in comments %}
+          {% include 'local_activities/comment' %}
+        {% endfor %}
+      </ol>
+    </div>
+    <div class="activity_comment_form"></div>
+  {% endif %}
+
+
+    <ol class="activity_actions">
+      {% if activity.deletable_by_viewer? %}
+        <li class="delete">
+          <a class='remove_activity {% if activity.current_status_of_viewer? %} current_status {% endif %}'
+            href='{{activity.delete_path}}.json' data-method='DELETE' data-remote='true'>
+            Delete
+          </a>
+          <div class="icon"></div>
+
+        </li>
+      {% endif %}
+
+      <li class="created">{{ activity.content_updated_at | time_ago_in_words, 'ago'  }}</li>
+
+      {% assign first = true %}
+      {% if actionable %}
+        {% if activity.likable? %}
+          <li class="like {% if first %}first{%endif%}">
+            {{ activity.likes_link }}
+            <div class="icon"></div>
+          </li>
+          {% assign first = false %}
+        {% endif %}
+        {% if activity.can_comment? %}
+          <li class="comment {% if first %}first{%endif%}">
+            <a class="js_add_comment">Comment</a>
+            <div class="icon"></div>
+
+          </li>
+          {% assign first = false %}
+        {% endif %}
+        <!--li class="share {% if first %}first{%endif%}">
+          <a>Sharing</a>
+        </li-->
+        <!--% assign first = false %}-->
+      {% endif %}
+
+      {% if activity.is_status? or activity.is_direct_message? or activity.is_badge? %}
+        <li class="view {% if first %}first{%endif%}">
+          <a class='view_activity' href='/activities/{{ activity.id}}'>View Activity</a>
+          <div class="icon"></div>
+
+        </li>
+        {% assign first = false %}
+      {% endif %}
+
+      {% if site.follow_in_feed? and activity.parent_watchable? %}
+        <li class="watch {% if first %}first{%endif%}">
+          <a href="{{activity.parent.watch_url}}" data-remote='true' class="{% if activity.parent.watching? %}watching{% endif %}">
+            {% if activity.parent.watching? %}Unfollow{% else %}Follow{%endif%}
+          </a>
+          <div class="icon"></div>
+
+        </li>
+        {% assign first = false %}
+      {% endif %}
+
+      {% if site.mark_as_read_enabled? %}
+        <li class="js_read {% if activity.read? %}read{% else %}unread{% endif %} {% if first %}first{%endif%}">
+          <a class='mark_as_read_link js_mark_as_read'  href='{{ activity.mark_as_read_path }}' data-method='PUT' data-remote='true'>
+            Mark as {% if activity.read? %}Unread{% else %}Read{% endif %}
+          </a>
+          <div class="icon"></div>
+
+        </li>
+      {% endif %}
+
+      <li class="activity_indicator">
+        <div class='spinner'></div>
+      </li>
+
+    </ol>
+
+</li>
+

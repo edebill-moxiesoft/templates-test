@@ -1,0 +1,37 @@
+<div class='header'>
+  <h3>Project Details</h3>
+</div>
+<div class='section work_details'>
+  <dl>
+    {% if work.parent %}
+    <dt class="client">Client</dt>
+    <dd class="client">{{ work.parent.link_to_show }}</dd>
+    {% endif %}
+
+    {% if work.location %}
+    <dt class="location">Location</dt>
+    <dd class="location">{{ work.location.link_to_show }}</dd>
+    {% endif %}
+
+    {% if work.practice %}
+    <dt class="practice">Practice</dt>
+    <dd class="practice">{{ work.practice }}</dd>
+    {% endif %}
+    
+    <dt class="start_date">Start date</dt>
+    <dd class="start_date work">{{ work.start_date | date: "%B %d, %Y" }}</dd>
+    <dt class="end_date">End date</dt>
+    <dd class="end_date work">{{ work.end_date | date: "%B %d, %Y"  }}</dd>
+
+    {% unless work.work_type == 'lead' %}
+    <dt class="fees">Client Fees</dt>
+    <dd class="fees">{{ work.fees }}</dd>
+    <dt class="margin">Margin</dt>
+    <dd class="margin">{{ work.margin }}</dd>
+    {% endunless %}
+
+    <dt class="notes">Confidentiality Notes</dt>
+    <dd class="notes">{{ work.notes }}</dd>
+
+  </dl>
+</div>

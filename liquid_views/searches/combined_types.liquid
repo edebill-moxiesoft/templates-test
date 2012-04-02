@@ -1,0 +1,46 @@
+<div class="section full">
+
+  <div class="section main fullwidth js_filtered">
+    {% include 'searches/controls' tab: 'all' %}
+    {% search_results of nodes %}
+    {% if nodes_count > 0 %}
+    <div class="search_summary footer">
+      {% include 'search_results/showing_count' showing_count: nodes.size total_count: nodes_count %}
+      {% more nodes search: true %}
+      <div class="clear"></div>
+    </div>
+    {% endif %}
+  </div>
+  
+  {% if articles and articles != empty %}
+  <div class="section main fullwidth kb_search">
+    <div class="search_summary">
+      <span class="search_results_count">
+        {{ articles_count | number_with_commas }} search results for "<b>{{ search.query | escape }}</b>" in "
+        <b>{{ site.article_label | plural }}</b>"
+      </span>
+      <div class='clear'></div>
+    </div>
+    {% search_results of articles %}
+  </div>
+  {% endif %}
+  
+  {% if sharepoint_search_documents and sharepoint_search_documents != empty %}
+  <div class="section unit main fullwidth sharepoint_search_documents">
+    <div class="search_summary">
+      <span class="search_results_count">
+        {{ sharepoint_search_documents_count | number_with_commas }} search results for "<b>{{ search.query | escape }}</b>" in "
+        <b>SharePoint</b>"
+      </span>
+      <div class='clear'></div>
+    </div>
+    {% search_results of sharepoint_search_documents %}
+    {% if has_more_sharepoint_search_documents %}
+    <div class="search_summary footer">
+        <a class="more_link" href="/sharepoint_search_documents/search?q={{ query | escape }}">More</a>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+</div>

@@ -1,0 +1,41 @@
+{% include 'search_results/showing_count' showing_count: groups.size total_count: nodes_count hide: hide_total %}
+<table class="search_results groups  ">
+  <thead>
+  <tr>
+    {% include 'searches/_sort_header' title: "Name" sort_by: "name" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Created by" sort_by: "created_by" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Members" sort_by: "member_count" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Creation date" sort_by: "created_at" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "# Followers" sort_by: "followers_count" hide_sorting: hide_total %}
+  </tr>
+  </thead>
+  {% if groups == empty %}
+  <tr>
+    <td colspan="6"><p><em>No {{ site.group_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for group in groups limit: limit  %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ post.container_class }}">
+    <td>
+      {% if group.has_avatar? %}
+      {{ group.small_avatar }}
+      {% endif %}
+      <div class="title">{{ group.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ group.link_to_owner }}</td>
+    <td>{{ group.members_count }}</td>
+    <td>{{ group.created_at | date: "%m/%d/%y" }}</td>
+    <td>{{ group.watchers_count }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: groups.size total_count: nodes_count hide: hide_total %}
+  {% more groups search: true %}
+{% endunless %}
+

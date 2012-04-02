@@ -1,0 +1,34 @@
+{% if site.sharepoint_sync_enabled? %}
+    {% if document_library.new_record? %}
+        <li class="boolean" id="document_library_sync_input">
+            <label for="sync_from_sharepoint">Sync from a Sharepoint Document Library?</label>
+            <input type="checkbox" name="sync_from_sharepoint" id="sync_from_sharepoint" />
+        </li>
+        <li class="sharepoint_select" id="document_library_sharepoint_key_input" style="display:none;">
+            <label for="sharepoint_list_autocomplete">Sharepoint Document Library<abbr title="required">*</abbr></label>
+            <input data-required="true" class="hint" id="sharepoint_list_autocomplete" title="Search for document libraries" type="text" value="{{ document_library.sharepoint_list_title }}">
+        </li>
+    {% elsif document_library.sharepoint_synced? %}
+        <h4>Sharepoint Document Library</h4>
+        <p>This document library is syced from sharepoint so the title and body can not be modified.</p>
+        <br/><br/>
+    {% endif %}
+    <input type="hidden" id="document_library_sharepoint_key" name="document_library[sharepoint_key]" value=" {{ document_library.sharepoint_key }}" />
+{% endif %}
+{% input for 'title' label: 'Title' required: 'true' %}
+
+{% unless form_object.is_folder? %}
+  {% include 'nodes/_avatar_update_fields' %}
+{% endunless %}
+
+
+{% include 'nodes/_editor_fields' %}
+
+{% input for 'default_view' label: 'Default View' as: 'select' collection: [['gallery', 'gallery'], ['list', 'list']] %}
+
+
+{% tags_input %}
+
+{% unless form_object.parent_id == null %}
+  {% input for 'parent_id' as: 'hidden' %}
+{% endunless %}

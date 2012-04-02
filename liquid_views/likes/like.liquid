@@ -1,0 +1,32 @@
+<li class="like activity">
+  <div class='avatar'>
+    {{ like.small_avatar }}
+  </div>
+
+  <div class='contents a'>
+    <div class='title'>
+      <div class="likes_details">
+        <a class="collab" href="{{like.show_path}}">
+          <var class="likes_count js_likes_count">{{ like.likes_count }}</var>
+        </a>
+      </div>
+      {{ like.link_to_likeable }}
+    </div>
+
+
+    <ol class="activity_actions">
+      <li class="created">{{ like.last_liked_at | time_ago_in_words, 'ago'  }}</li>
+      {% if like.likable? %}
+      <li class="like likes_link {% if first %}first{%endif%}">
+        {{ like.likes_link }}
+        <div class="icon"></div>
+      </li>
+      {% endif %}
+      <li class="activity_indicator">
+        <div class='spinner'></div>
+      </li>
+    </ol>
+
+  </div>
+
+</li>

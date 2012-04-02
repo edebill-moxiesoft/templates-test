@@ -1,0 +1,15 @@
+        The frequency for your 'Activity on Followed Content' e-mail is set to "{{ user_settings.deliver_node_watch_notifications_on }}".
+        Change the frequency to
+        {% if user_settings.deliver_node_watch_notifications_on == "hourly" %}
+            <a href="{{ user.update_deliver_node_watch_notification_to_daily_url }}">daily</a>,
+            <a href="{{ user.update_deliver_node_watch_notification_to_immediately_url }}">immediately</a>,
+            or <a href="{{ user.update_deliver_node_watch_notification_to_never_url }}">never</a>
+        {% elsif user_settings.deliver_node_watch_notifications_on == "daily" %}
+            <a href="{{ user.update_deliver_node_watch_notification_to_hourly_url }}">hourly</a>,
+            <a href="{{ user.update_deliver_node_watch_notification_to_immediately_url }}">immediately</a>,
+            or <a href="{{ user.update_deliver_node_watch_notification_to_never_url }}">never</a>
+        {% elsif user_settings.deliver_node_watch_notifications_on == "immediately" %}
+            <a href="{{ user.update_deliver_node_watch_notification_to_hourly_url }}">hourly</a>,
+            <a href="{{ user.update_deliver_node_watch_notification_to_daily_url }}">daily</a>,
+            or <a href="{{ user.update_deliver_node_watch_notification_to_never_url }}">never</a>
+        {% endif %}

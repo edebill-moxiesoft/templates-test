@@ -1,0 +1,33 @@
+
+<div class='section unit activities js_activity_feed js_filtered'>
+
+  <div class='header'>
+    <h2>{{site.newsfeed_label}}</h2>
+  </div>
+
+  {% activity_feed_filters %}
+
+  <div class="unit_body">
+    <ol class="item_list activities js_filter_body" id="activities_feed">
+      {% for activity in activities %}
+        {% include 'local_activities/activity' %}
+      {% endfor %}
+    </ol>
+  </div>
+
+
+
+  <div class="footer" >
+    <div class="paginate js_paginate">
+      <span class="indicator">
+        <div class='spinner'></div>
+      </span>
+      <a>More</a>
+    </div>
+  </div>
+
+  <div class="activity_comment_stub">
+    {% include 'local_activities/comment_form' %}
+  </div>
+</div>
+

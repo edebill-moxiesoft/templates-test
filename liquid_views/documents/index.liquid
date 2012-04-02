@@ -1,0 +1,32 @@
+<div id="documents_index">
+  <div class="content_bar_hat"></div>
+
+  <div class='header'>
+
+    <div class="section filters">
+      <ul class="order_filters spinner_block ">
+        <li class="{% if order == 'recent' or order == null %}active{% endif %}">
+          <a href="?view={{view}}&order=recent&tag_filter={{ tag_filter }}" data-order="recent" data-type="html"
+             title='Recently created'>Recent</a>
+        </li>
+        <li class="{% if order == 'alpha' %}active{% endif %}">
+          <a href="?view={{view}}&order=alpha&tag_filter={{ tag_filter }}" data-order="recent" data-type="html"
+             title='Sorted alphabetically'>Alphabetical</a>
+        </li>
+        <li class="{% if order == 'popular' %}active{% endif %} last">
+          <a href="?view={{view}}&order=popular&tag_filter={{ tag_filter }}" data-order="popular" data-type="html"
+             title='Most liked'>Popular</a>
+        </li>
+      </ul>
+    </div>
+    <h1>{{ site.document_label | plural }}</h1>
+  </div>
+
+  <div class='section main fullwidth last'>
+    {% include 'documents/_tag_filtering' %}
+    {% include 'documents/list' documents: documents show_weird_header: true %}
+    {% if documents and documents != empty %}
+    {% paginate documents %}
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,172 @@
+<div class="content_bar_hat"></div>
+
+<form id="profile_upload_form" class="fancyform">
+  <fieldset class="inputs profile_pic_edit">
+    <legend><span>Profile Picture</span></legend>
+    <ol>
+      <li class='current_avatar user_profile last'>
+        <p class="inline-hints photo-hints">
+          A resolution of at least 400 x 400 will ensure your photo looks great 
+          throughout the site and when printed.</p>
+        <div class="clear">&nbsp;</div>
+        <div id="profile_preview">
+          {{ user.color_profile_photo }}
+        </div>
+        <a href="#" class="brightbutton update_avatar_toggle js_update_node_avatar">Update picture</a>
+        <br/>
+        <!-- <a href="#" class="remove_avatar js_insert_avatar_clear">Remove</a> -->
+        <div id="js_avatar_upload_field" class="avatar_upload_field">
+          <input type="file" name="image" id="user_profile" />
+        </div>
+      </li>
+    </ol>
+  </fieldset>
+</form>
+
+
+{% form for 'user' multipart: true class: 'fancyform user' %}
+  {% error_messages %}
+  {% form_fields for 'inputs' name: 'Personal Details' %}
+    {% input for 'display_name', required: 'true' class: 'display_name' %}
+    {% input for 'desk_number', required: 'false', label: 'Desk Phone #' %}
+    {% input for 'mobile_number', required: 'false' %}
+    {% input for 'skype_id', required: 'false' %}
+    {% input for 'location', required: 'false' %}
+    
+    {% if site.expertise_or_role? == 'expertise' %}
+    
+      <li id="user_expertise_autocomplete" class="text">        
+        <label for='user_expertise'>Expertise</label>
+        <input name="user[expertise_list]" value="{{ user.expertise_list }}" id="user_expertise" class="js_user_expertise_ac ac_input" autocomplete="off">
+        <p class="inline-hints">a comma-separated list of expertise tags</p>
+      </li>
+    
+    {% else %}
+      {% input for 'role', as: 'roles_select'  required: 'false' include_blank: 'true' wrapper_class: 'select' %}
+    {% endif %}
+    
+    {% input for 'community', required: 'false' %}
+    {% input for 'hire_date', required: 'false' %}
+    
+    <li id="user_time_zone_select" class="select last">
+      <label for="user_time_zone">Time Zone</label>
+      <select name="user[time_zone]" id="user_time_zone" {% if user.time_zone_read_only? %}disabled="disabled"{% endif %}>
+      {% for time_zone in site.time_zones %}
+        {% assign tz_selected = 'data-att="u"' %}
+        {% if time_zone[0] == user.time_zone %}
+          {% assign tz_selected = 'selected="selected"' %}            
+        {% endif %}
+        <option value="{{time_zone[0]}}" {{tz_selected}}>{{time_zone[1]}}</option>
+        {% endfor %}          
+      </select>
+    </li>
+    
+  {% endform_fields %}
+		
+  {% form_fields for 'inputs' name: 'Status Update'%}
+    {% input for 'twitter_name', required: 'false' %}
+    {% input for 'facebook', required: 'false' wrapper_class: 'last' %}
+  {% endform_fields %}
+		
+  {% form_fields for 'inputs' name: 'Biography'%}
+    {% input for 'one_sentence_bio', required: 'false' label: 'Short Biography' %}
+    {% input for 'full_bio', as: 'textarea' rows: '8' required: 'false' label: 'Biography' wrapper_class: 'last' %}
+  {% endform_fields %}
+
+	{% if user.can_edit_password? %}
+    {% form_fields for 'inputs' name: 'Change Password'%}
+      {% input for 'current_password', as: 'password', label: 'Current Password', required: 'false' %}
+      {% input for 'password', as: 'password', label: 'New Password', required: 'false' %}
+      {% input for 'password_confirmation', as: 'password', label: 'Confirm', required: 'false' wrapper_class: 'last' %}
+    {% endform_fields %}
+  {% endif %}
+
+  {% unless user.personal_nodes_in_sort_order == empty %}
+    <fieldset class="display_on_show_page user">
+      <legend>
+        <span>
+          Display on the Dashboard<br/>
+          <span class="legend-hint">Include the following<br/>modules on the page.</span>
+        </span>
+      </legend>
+
+      <input type="hidden" name="user[update_children_order]" value="" class="js_sort_list" id="node_update_children_order" />
+
+      <ol class="checkbox_collection sortable js_sortable user">
+        {% for child in user.personal_nodes_in_sort_order %}
+
+          {% if child == 'user_bio' %}
+          <li class="boolean" id="user_bio">
+            <label title="Display the user's biography" for="user_displayed_bio">
+              <input type="hidden" name="user[update_displayed_children][user_bio]" value="0" />
+              <input type="checkbox" name="user[update_displayed_children][user_bio]"
+                    value="1" {% if user.show_custom_section? == true %}checked="checked"{% endif %}
+                    id="user_displayed_bio" />
+              &ndash;User Biography&ndash;
+            </label>
+          </li>
+
+          {% else %}
+          <li class="boolean" id="i_{{ child.id }}">
+            <label title='Display the {{child.friendly_type_name}} "{{child.title}}"' for="user_displayed_personal_nodes_{{ child.id }}">
+              <input type="hidden" name="user[update_displayed_children][{{ child.id }}]" value="0" />
+              <input type="checkbox" name="user[update_displayed_children][{{ child.id }}]"
+                    value="1" {% if child.displayed_on_parent? == true %}checked="checked"{% endif %}
+                    id="user_displayed_personal_nodes_{{ child.id }}" />
+              {{ child.title }}
+            </label>
+          </li>
+
+          {% endif %}
+
+        {% endfor %}
+      </ol>
+    </fieldset>
+  {% endunless %}
+
+  
+  {% include 'users/edit_emails' %}
+  
+
+  {% form_fields for 'inputs' name: 'Notification Settings'%}
+    {% input for 'user_settings[deliver_like_notifications_on]', as: 'select' required: 'false' include blank: 'false' collection: [['Immediately','immediately'], ['Hourly', 'hourly'], ['Daily','daily'], ['Never', 'never']] label: 'Like notification emails should occur:' %}
+    {% input for 'user_settings[deliver_comment_notifications_on]', as: 'select' required: 'false' include blank: 'false' collection: [['Immediately','immediately'], ['Hourly', 'hourly'], ['Daily','daily'], ['Never', 'never']] label: 'Comment notification emails should occur:' %}
+    {% input for 'user_settings[deliver_node_watch_notifications_on]', as: 'select' required: 'false' wrapper_class: 'last' include blank: 'false' collection: [['Immediately','immediately'], ['Hourly', 'hourly'], ['Daily','daily'], ['Never', 'never']] label: 'Notification emails for items I am following should occur:' %}
+  {% endform_fields %}
+
+  {% form_fields for 'inputs' name: 'Home Page Settings'%}
+    {% input for 'user_settings[show_headline_blog]', as: 'select' required: 'false' include blank: 'false' collection: [['Open','true'], ['Closed','false']] label: 'Default Headline Blog state to:' %}
+    {% input for 'user_settings[show_aggregate_calendar]', as: 'select' required: 'false' include blank: 'false' collection: [['Open','true'], ['Closed','false']] label: 'Default Calendar state to:' %}
+  {% endform_fields %}
+
+	{% if user.current_user? %}
+	<fieldset class="inputs">
+	  <legend>
+	   <span>
+	     API Key<br />
+	   </span>
+	  </legend>
+	  <ol class="last">
+  	  <li class="last">
+  	  	<label for="user_api_key">&nbsp;</label>
+  	  	<div class="pseudo_input">
+    	  	The API Key is required to access the Spaces APIs using an external program.  
+    	  	Upon downloading a new API Key, any key you may have previously downloaded will no longer work.
+    	  	<br/>
+    	  	{{ user.link_to_api_key_reset }}
+  	  	</div>
+  	  </li>
+	  </ol>
+	</fieldset>
+	{% endif %}
+
+  {% form_fields for 'buttons' %}
+    {% include 'forms/buttons' form_object: user %}
+  {% endform_fields %}
+
+{% endform %}
+
+
+<div id="image_editor" style="display:none">
+  <img src='/images/big_indicator.gif' alt='indicator' />Processing your image and loading the editor...
+</div>

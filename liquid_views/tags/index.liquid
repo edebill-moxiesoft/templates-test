@@ -1,0 +1,20 @@
+<ul class="tag_list">
+    {% for tag in tags %}
+        <li>
+            {% assign already_tagged = false %}
+            {% for user_id in tag.user_ids %}
+                {% if current_user.id == user_id %}
+                    {% assign already_tagged = true %}
+                {% endif %}
+            {% endfor %}
+
+
+            {{tag.word}}
+            {% if already_tagged %}
+                <a class="tag_deleter" href="/tags/destroy?node_id={{taggable.id}}&tags={{tag.word}}" data-method="delete" data-remote="true" data-type="html">
+                    <img class="tag_delete" src="/images/icons/delete_small.png" alt="delete this tag" title="delete this tag" />
+                </a>
+            {% endif %}
+         </li>
+    {% endfor %}
+</ul>

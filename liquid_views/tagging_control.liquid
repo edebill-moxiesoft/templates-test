@@ -1,0 +1,16 @@
+<div class="tag_summary">{% include 'tags/index' taggable: taggable, tags: taggable.model_tags %}</div>
+<form action="/nodes/{{ taggable.id }}/tags" method="post" class="node_tagger control simple_control tagger" data-type="html" data-remote="true">
+    <fieldset class="inputs">
+        <ol>
+            <li class="string">
+                <label for="tags_for_{{ taggable.id }}"></label>
+                {{ taggable.tagging_text_field }}
+            </li>
+        </ol>
+    </fieldset>
+    <fieldset class="buttons">
+        <ol>
+            <li class="commit"><input type="submit" name="commit" value="Tag" /></li>
+        </ol>
+    </fieldset>
+</form>

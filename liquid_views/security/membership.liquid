@@ -1,0 +1,32 @@
+<div class="section" id="node_membership_section">
+  <h3 class="security_title">Membership</h3>
+
+  <div id="membership_joinable">
+    <div class="radios">
+      <input class="choice" id="joinable_by_anyone" name="joinable" type="radio"
+             value="by_anyone" {% if node.anyone_can_join? or node.anyone_can_join? == '' %}checked="checked"{% endif %}>
+      Anyone can join
+    </div>
+    <div class="radios">
+      <input class="choice" id="joinable_admin_control" name="joinable" type="radio"
+             value="admin_control" {% if node.anyone_can_join?  == false %}checked="checked"{% endif %}>
+      Membership controlled by admin(s)
+    </div>
+    <img class="whirly" src="/images/ajax-small-transparent.gif">
+  </div>
+  <div id="membership_members">
+    <h4 class="security_title">
+      Members
+    </h4>
+    <a class="add_member_toggle">Add a User</a>
+
+    <div id="add_member_dialog" title="Find and Add a User">
+      <input type="text" id="add_member_search" size="30" name="add_member_search" class="security_autocomplete_input">
+    </div>
+    <img class="whirly" src="/images/ajax-small-transparent.gif">
+
+    <div id="membership_member_list">
+      {% include 'security/members_list' node: node %}
+    </div>
+  </div>
+</div>

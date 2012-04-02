@@ -1,0 +1,8 @@
+{% if hide_sorting %}
+<th>{{ title }}</th>
+{% else %}
+{% capture on_click_order %}{% if order == "asc" and sort_by == sort  %}desc{% else %}asc{% endif %}{% endcapture %}
+<th class="js_sortable_header sortable {{order}} {%if sort_by == sort%}active{%endif%}">
+  <a href="#" data-sort="{{ sort_by }}" data-order="{{ on_click_order }}">{{ title }}</a>
+</th>
+{% endif %}

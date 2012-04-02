@@ -1,0 +1,10 @@
+{% form for 'group' multipart: true class: 'fancyform group' %}
+  {% error_messages %}
+
+  {% include 'groups/form_inputs' form_object: group %}      
+    
+  {% form_fields for 'buttons' %}
+    {% include 'forms/buttons' form_object: group %}
+  {% endform_fields %}
+  
+{% endform %}

@@ -1,0 +1,14 @@
+<div class="content_bar_hat"></div>
+
+<div class='section main'>
+  <div class='header' id='project_header'>
+    <h1>
+      {{ task_list.small_avatar }}
+      {{ task_list.title }} - Assignees
+    </h1>
+  </div>
+</div>
+
+<div class="section main">
+  {% include 'projects/user_list' users: task_list.assignees %}
+</div>

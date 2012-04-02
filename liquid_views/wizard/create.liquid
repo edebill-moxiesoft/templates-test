@@ -1,0 +1,19 @@
+<div>
+  {% if node %}
+  <form>
+    <input type="hidden" id="finish_action" value="{{ node.show_path }}">
+  </form>
+  <div class="header">
+    <h2>Congratulations, you have created
+      {% if node.has_avatar? %}
+      <a href="{{ node.show_path }}">{{ node.small_avatar }}</a>
+      {% endif %}
+      {{ node.link_to_show }}
+    </h2>
+  </div>
+  {% endif %}
+  <a class="close_wizard" href="/reset_node_wizard" data-remote='true'></a>
+  {% if error %}
+  <div class="error">{{ error }}</div>
+  {% endif %}
+</div>

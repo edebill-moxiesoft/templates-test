@@ -1,0 +1,17 @@
+<div class="item search_result document_library">
+  <div class="avatar">{{ document_library.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ document_library.link_to_show_with_container_class }} | {{ document_library.site_label }}</h3>
+    <h4>
+      {% if document_library.parent %}
+        Located in the {{ document_library.parent.site_label | downcase }} {{ document_library.parent.link_to_show_with_container_class }}
+      {% else %}
+        Personal {{ document_library.site_label }} of {{ document_library.link_to_owner }}
+      {% endif %}
+    </h4>
+    <p>{{ document_library.search_excerpt }}</p>
+
+    {% include 'search_results/footer_container' node: document_library %}
+  </div>
+  <div class='clear'></div>
+</div>

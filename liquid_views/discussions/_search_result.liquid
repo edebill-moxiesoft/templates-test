@@ -1,0 +1,11 @@
+<div class="item search_result discussion">
+  <div class="avatar">{{ discussion.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ discussion.link_to_show_with_container_class }} | {{ discussion.site_label }}</h3>
+    <h4>Located in the {{ discussion.parent.site_label | downcase }} {{ discussion.parent.link_to_show_with_container_class }}</h4>
+    <p>{{ discussion.search_excerpt }}</p>
+
+    {% include 'search_results/footer_content' node: discussion %}
+  </div>
+  <div class='clear'></div>
+</div>

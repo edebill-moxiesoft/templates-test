@@ -1,0 +1,27 @@
+<div id="js_activity_comment_form_stub">
+  <div class='ind'></div>
+  <form class="formtastic {% if site.fancy_comments %}fancy_comments{% endif %}" action='/activities/comment/'
+        method='post' data-remote='true' data-type='html'>
+    <div class="wrapper">
+      <input type="hidden" name="output" value="newsfeed">
+      <fieldset class="inputs">
+        <ol>
+          <li class="text optional">
+            <label for="comment_body">Comment</label>
+            <textarea rows="10" name="reply[body]" id="comment_body" cols="70"></textarea>
+          </li>
+        </ol>
+      </fieldset>
+      <fieldset class="buttons">
+        <ol>
+          <li class="commit">
+            <input class="create" type="submit" value="Submit" name="commit"/>
+          </li>
+          <li class='cancel'>
+            <input class='cancel' name='cancel' type='button' value='Cancel'/>
+          </li>
+        </ol>
+      </fieldset>
+    </div>
+  </form>
+</div>

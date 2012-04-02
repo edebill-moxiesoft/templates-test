@@ -1,0 +1,117 @@
+<!-- TASK SHOW PAGE -->
+{% if task %}
+<div id='task_show' class="section unit_summary">
+  <div class='section group header'>
+    {% include 'nodes/header' parent: task %}
+  </div>
+  <div class='section main task'>
+    <div class="header" id="task_header">
+      <div id="container_header">
+        {% include 'nodes/page_header' parent: task %}
+      </div>
+    </div>
+    <div class="node_details">
+      <dl class="details">
+        {% if task.assigned %}
+        <dt class="assignee">Assigned To:</dt>
+        <dd class="assignee">
+          {{ task.link_to_assignee }}
+        </dd>
+        {% endif %}
+        {% if task.is_task_list == false and task.duration > 0 %}
+        <dt class="duration">Duration:</dt>
+        <dd class="duration js_parent_duration">{{ task.duration_string }}</dd>
+        {% endif %}
+        {% if task.due_date %}
+        <dt class="due {% if task.late? %}late{% endif %}">Due:</dt>
+        <dd class="due js_parent_due {% if task.late? %}late{% endif %}">{{ task.due_date | date: "%m/%d/%Y" }}</dd>
+        {% endif %}
+        <dt class="status">Status:</dt>
+        <dd class="status js_parent_status">
+          {% if task.is_task_list or task.current_user_can_contribute? == false %}
+          {{ task.status }}
+          {% else %}
+          <form action="/tasks/{{ task.id }}/toggle_status" data-remote='true' data-type="html" method="POST"
+                data-method="POST">
+            <select name="status" id="task_status">
+              {% include 'tasks/status' task: task %}
+            </select>
+          </form>
+          {% endif %}
+        </dd>
+        {% if task.is_task_list %}
+        <dt class="load">Task Completion:</dt>
+        <dd class="load js_parent_complete">{% progress_bar percentage 'task.percent_completion' display 'task.tasks_complete_string' %}</dd>
+        {% endif %}
+        <dt>{% include 'nodes|like_button' node: task %}</dt>
+        <dd></dd>
+      </dl>
+      
+      <div class="clear"></div>
+    </div>
+
+    {% if task.has_description %}
+    <div class="user_content">{{ task.description }}</div>
+    {% endif %}
+
+    {% if task.is_task_list or task.current_user_can_contribute? %}
+    <div class="section unit tasks js_filtered">
+
+      <div class='header'>
+        <div class='section filters'>
+          {% show_filters filter_source: "Task" parent_for_index_url: 'task' %}
+        </div>
+        <h2 class="task">
+          <a href="{{ task.show_path }}" title="Subtasks">Subtasks</a>
+        </h2>
+      </div>
+      {% tasks limit 20 %}
+    </div>
+    {% endif %}
+    
+    {% include 'nodes/likes_summary_header' node: task %}
+
+    <div class="section unit comments_block">
+      <div class='header'>
+        <h3 class="comments js_plural_count">{{ 'Comment' | pluralize: task.comments_count }}</h3>
+      </div>
+      <div class='unit_body'>
+        {% include 'comments/index' %}
+        {% include 'comments/form' %}
+      </div>
+    </div>
+    
+
+  </div>
+
+
+  <div class='section sidebar'>
+
+    {% pages_listing for: task %}
+
+    <div class='aside'>
+      {% activity for 'task' %}
+    </div>
+    
+    {% include 'tags/_tagger_sidebar' node: task %}
+
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: task %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: task %}
+      </div>
+    </div>
+    <div class='aside task recommendations'>
+      {% recommendations for task %}
+    </div>
+
+  </div>
+</div>
+{% endif %}
+
+
+
+
+

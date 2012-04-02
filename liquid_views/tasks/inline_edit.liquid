@@ -1,0 +1,83 @@
+<div id="task_form_{{task.id}}" class="post_form js_post_form">
+  <div class="post_form_toggler">
+    <div class='ind'></div>
+    {% form for 'task' class: 'formtastic task' data-remote: true data-type: 'html' action: 'task.inline_update_path' %}
+    <input name="inline_edit" value="true" type='hidden'>
+
+    <div class='wrapper'>
+      {% form_fields for 'inputs' %}
+
+      <li class="text" id="task_title_input_{{task.id}}">
+        <label for="task_title_{{task.id}}">Title<abbr title="required">*</abbr></label>
+        <input id="task_title_{{task.id}}" name="task[title]" type="text" value="{{ task.title }}">
+      </li>
+
+      {% unless task.is_task_list %}
+      <li class="select" id="task_status_input_{{task.id}}">
+        <label for="task_status_{{task.id}}">Status<abbr title="required">*</abbr></label>
+        <select id="task_status_{{task.id}}" name="task[status]">
+          {% include 'tasks/status' task: task %}
+        </select>
+      </li>
+      {% endunless %}
+
+      <li class="select" id="task_assignee_id_input_{{task.id}}">
+        <label for="task_assignee_id_{{task.id}}">Who</label>
+        <select id="task_assignee_id_{{task.id}}" name="task[assignee_id]">
+          <option ></option>
+          {% for contributor in task.contributors %}
+          <option value="{{ contributor.id }}" {%if contributor.id == task.assignee_id %}selected="selected"{%endif%}>{{ contributor.name }}</option>
+          {% endfor %}
+        </select>
+      </li>
+      <li class="string optional" id="task_due_date_input_{{task.id}}">
+        <label for="task_due_date_{{task.id}}">Due Date</label>
+        <input class="datepicker task_due_date" id="task_due_date_{{task.id}}" name="task[due_date]" size="70" style="width: 10%" 
+               value="{{ task.due_date_string }}">
+      </li>
+
+      <li class="boolean optional" id="task_milestone_input_{{task.id}}">
+        <label for="task_milestone_{{task.id}}">
+          <input type="hidden" value="0" name="task[milestone]">
+          <input type="checkbox" class="checkbox task_milestone" value="1" name="task[milestone]"
+                 id="task_milestone_{{task.id}}" {% if task.milestone %}checked="checked"{% endif %}>
+          Milestone?
+        </label>
+      </li>
+
+      <li class="select" id="task_duration_input_{{task.id}}">
+        <label for="task_duration_{{task.id}}">Duration</label>
+        <div class="text_date_picker" data-value="{{ task.duration_string }}" data-name="task[duration_string]"></div>
+        <input class="task_duration" id="task_duration_{{task.id}}" name="task[duration]" type="hidden" value="{{ task.duration }}">
+      </li>
+
+      {% if task.editor_type == 'textile' %}
+      <li class="text textile_editor" id="task_body_textile_input_{{task.id}}" >
+        <label for="task_body_textile_{{task.id}}">Body (using Textile markup)</label>
+        <textarea cols="40" id="task_body_textile_{{task.id}}" name="task[body_textile]" rows="20">{{ task.body_textile }}</textarea>
+      </li>
+      {% else %}
+      <li class="textarea wysiwyg_editor" id="task_body_input_{{task.id}}" >
+        <label for="task_body_{{task.id}}">Body</label>
+        <textarea class="ckeditor" cols="40" id="task_body_{{task.id}}" name="task[body]" rows="20">{{ task.body }}</textarea>
+      </li>
+      {% endif %}
+
+      {% endform_fields %}
+      {% form_fields for 'buttons' %}
+      <li class="commit">
+        <input class="create" id="submit_{{task.id}}" name="commit" type="submit" value="Submit" role="button" aria-disabled="false">
+      </li>
+      <li class='cancel'>
+        <input class='cancel' id='task_form_canceler_{{task.id}}' name='cancel' type='button' value='Cancel'/>
+      </li>
+      {% endform_fields %}
+    </div>
+    {% endform %}
+  </div>
+
+</div>
+
+
+
+

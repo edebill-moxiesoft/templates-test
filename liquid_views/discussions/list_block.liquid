@@ -1,0 +1,69 @@
+<div class='section unit discussion_archives js_filtered'>
+
+  {{ # No filters on search yet - too hard to get a full result set - reinstate after we sync security to autonomy }}
+  {% if query == null %}
+  <div class='header'>
+    <div class='section filters'>
+      {% show_filters %}
+    </div>
+
+    <h2 class='discussion js_plural_count'>
+      {% if discussion_archive != nil %}
+        {{ site.discussion_label | pluralize: discussion_archive.discussions_count }}
+      {% else %}
+        {{ site.discussion_label | plural }}
+      {% endif %}
+    </h2>
+  </div>
+
+  <div class='section tags'>
+    {% if discussion_archive %}
+    {% tag_filter for 'discussion_archive' resource limit: limit_count tag limit: 100 %}
+    {% else %}
+    {% tag_filter for 'Discussion' resource limit: limit_count tag limit: 100 %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class='section unit_body '>
+    <ol class="discussions item_list js_filter_body">
+      {% if discussions == empty %}
+      <p><em>no {{ site.discussion_label | plural | downcase }} yet</em></p>
+      {% endif %}
+      {% for discussion in discussions %}
+
+      <li class="item ">
+        <h3 class="title">
+          <a href="{{ discussion.show_path }}">{{discussion.title }}</a>
+
+          <div class="collab_stats">
+            <a class='collab' href='{{discussion.show_path}}'>
+              <var class="likes_count">{{ discussion.likes_count }}</var>
+              <var class="replies_count" title="{{ discussion.replies_count }} replies">
+                {{ discussion.replies_count }}
+              </var>
+            </a>
+          </div>
+        </h3>
+        <p class="details">
+          Created {{ discussion.created_at | time_ago_in_words, 'ago' }}
+          &middot;
+          <span class="started_by">Started by {{ discussion.link_to_owner }}</span>
+          <span class="started_in">in {{ discussion.parent.link_to_show }}</span>
+          {% if discussion.closed? %}
+            <span class='closed_at'>&middot; Closed {{ discussion.closed_at }}</span>
+          {% endif %}
+        </p>
+
+        <div class="content user_content">
+          {{ discussion.limited_body }}
+        </div>
+
+      </li>
+
+
+      {% endfor %}
+    </ol>
+  </div>
+  {% more discussions %}
+</div>

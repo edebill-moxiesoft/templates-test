@@ -1,0 +1,31 @@
+<div class="header">
+  <h3>My Discussion Forums</h3>
+</div>
+<div class="section">
+
+  {% if discussion_archives == empty %}
+    <p>
+      <em>no discussions available</em>
+    </p>
+  {% else %}
+
+    <ol>
+      {% for discussion in discussion_archives %}
+      <li class="item">
+        <div class="discussion_count"><var>{{ 'discussion' | pluralize: discussion.discussions_count, 'discussions' }}</var></div>
+        <div class="discussion">
+          {{ discussion.link_to_show }}
+          <p class="updated">
+            updated {{ discussion.updated_at | time_ago_in_words, 'ago' }} 
+          </p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% if more_discussion_archives %}
+      <a class="more_link" href="/discussion_archives/overview?order=watched_and_owned">{{ more_discussion_archives }} more</a>
+    {% endif %}
+
+  {% endif %}
+
+</div>

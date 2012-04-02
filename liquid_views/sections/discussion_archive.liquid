@@ -1,0 +1,24 @@
+<div class="section unit discussion_archives">
+  {% for discussion_archive in discussion_archives %}
+  <div class='header'>
+    <h2 class="discussion_archive">
+      <a href="{{ discussion_archive.show_path }}">{{ discussion_archive.title }}</a>
+    </h2>
+  </div>
+  <div class='unit_body'>
+		{% if discussion_archive.has_discussions? %}
+		<ol class="item_list">
+			{% children_cursor for 'discussion_archive.discussions' limit 3 sort latest_commented %}
+		    {% include 'discussions/summary' %}
+		  {% endchildren_cursor %}
+		</ol>
+	 {% else %}
+	 <p><em>No discussions yet</em></p>
+	 {% endif %}
+  </div>
+  <div class="footer">
+    <a href="{{ discussion_archive.show_path }}" class="more_link">More</a>
+  </div>
+
+  {% endfor %}
+</div>

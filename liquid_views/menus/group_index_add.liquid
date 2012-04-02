@@ -1,0 +1,17 @@
+
+{% if current_user.site_admin? %}
+  {% menu %}
+    {% submenu Add a Page, #, add_page_link %}
+      <li class="icon_menu_item">{{ site.basic_group_label | link_to_wizard_add_page: 'BasicGroup' }}</li>
+      <li class="icon_menu_item">{{ site.location_group_label | link_to_wizard_add_page: 'LocationGroup' }}</li>
+      {% if current_user.site_admin? %}
+        <li class="icon_menu_item last">{{ site.category_label | link_to_wizard_add_page: 'Category' }}</li>
+      {% endif %}
+    {% endsubmenu %}
+  {% endmenu %}
+{% else %}
+  {{ site.basic_group_label | top_link_to_wizard_add_page: 'BasicGroup' }}
+  {{ site.location_group_label | top_link_to_wizard_add_page: 'LocationGroup' }}
+{% endif %}
+
+

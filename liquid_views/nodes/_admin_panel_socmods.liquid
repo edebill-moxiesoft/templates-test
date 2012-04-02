@@ -1,0 +1,58 @@
+<ol class="popdown_items grouped_follows">
+
+  {% if users and users.size > 0 %}
+  <li class="category_block">
+    <div class="category"><span>People</span></div>
+    <ul>
+    {% for user in users %}
+      <li class="user{% if forloop.last %} last{% endif %}" title="{{ user.display_name }}">
+        <div class="draggable">
+          {{ user.small_avatar_no_hover }}
+          <a href="#" class="popdown_item user_link" data-type="user" data-id="{{ user.id }}">
+            {{ user.display_name }}
+          </a>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  </li>
+  {% endif %}
+  
+  {% if groups and groups.size > 0 %}
+  <li class="category_block">
+    <div class="category"><span>Groups</span></div>
+    <ul>
+    {% for group in groups %}
+      <li class="group{% if forloop.last %} last{% endif %}" title="{{ group.title }}">
+        <div class="draggable">
+          {{ group.small_avatar }}
+          <a href="#" class="popdown_item group_link" data-type="group" data-id="{{ group.id }}">
+            {{ group.title }}
+          </a>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>      
+  </li>
+  {% endif %}
+  
+  {% if projects and projects.size > 0 %}
+  <li class="category_block">
+    <div class="category"><span>Projects</span></div>
+    <ul>
+    {% for project in projects %}
+      <li class="project{% if forloop.last %} last{% endif %}" title="{{ project.title }}">
+        <div class="draggable">
+          {{ project.small_avatar }}
+          <a href="#" class="popdown_item project_link" data-type="project" data-id="{{ project.id }}">
+            {{ project.title }}
+          </a>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>      
+  </li>
+  {% endif %}
+
+  
+</ol>

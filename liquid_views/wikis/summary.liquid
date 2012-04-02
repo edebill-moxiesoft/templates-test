@@ -1,0 +1,13 @@
+<div class='wiki'>
+  {{ wiki.link_to_show }}
+  {% if wiki.type_name == "Wiki" %}
+     ({{ wiki.site_label | downcase | pluralize: wiki.wiki_pages_count }})
+  {% endif %}
+  <p class='updated'>
+    Created {{ wiki.created_at | time_ago_in_words, 'ago'  }}
+    <span class="started_in">in {{ wiki.parent.link_to_show }}</span>
+  </p>
+  <p class="description">
+      {{ wiki.search_result_info.summary }}
+  </p>
+</div>

@@ -1,0 +1,11 @@
+{% form for 'node' multipart: true class: 'formtastic node' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'nodes/form_inputs' form_object: node %}      
+    {% endform_fields %}
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: node%}
+    {% endform_fields %}
+  </div>
+{% endform %}

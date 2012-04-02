@@ -1,0 +1,24 @@
+<div id="feed_section" class="section page">
+  <div class="section">
+    <div class="header">
+      <h1>What are people doing?</h1>
+    </div>
+  </div>
+  <div class="section main js_filtered">
+      <div id="activities_feed" class="js_filter_body">
+        {% for activity in activities %}
+        {% include 'local_activities/activity' activity: activity %}
+        {% endfor %}
+      </div>
+
+      <div id="js_paginate">
+        {% more local_activities %}
+      </div>
+
+  </div>
+</div>
+
+
+<div class="activity_comment_stub">
+  {% include 'local_activities/comment_form' %}
+</div>

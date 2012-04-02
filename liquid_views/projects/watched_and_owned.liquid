@@ -1,0 +1,27 @@
+<div class="header">
+  <h3>My Projects</h3>
+</div>
+<div class="section">
+
+  {% if projects == empty %}
+    <p>
+      <em>no projects available</em>
+    </p>
+  {% else %}
+
+    <ol>
+      {% for project in projects %}
+      <li class="item">
+        <a href="{{ project.show_path }}">{{ project.small_avatar }}</a>
+        {{ project.link_to_show }}
+        <p>{{ 'member' | pluralize: project.members_count }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+    {% if more_projects %}
+      <a href="/projects?order=watched_and_owned" class="more_link">{{ more_projects }} more</a>
+    {% endif %}
+
+  {% endif %}
+
+</div>

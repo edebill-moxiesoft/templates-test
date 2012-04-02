@@ -1,0 +1,33 @@
+<div class="aside timeline_control js_timeline_control">
+  <div class="header">
+    <h3>Archive</h3>
+  </div>
+  <div class="section">
+    <ol class="timeline">
+
+      <li class="reset_timeline {% unless start_date == nil %}enabled{%endunless%}">
+        <a>Reset</a>
+      </li>
+
+      
+      {% list_months start: now end: end_date %}
+      <li class="month {% if show_weeks %}open{% endif %}">
+        <h3>{{ month_name }} {{ year }}</h3>
+        <ol class="weeks">
+          {% list_weeks month: month year: year %}
+          <li class="week">
+            <a data-start-date="{{week_start_date}}" data-end-date="{{week_end_date}}">
+              Week of {{ month_abbr }} {{ week_start_day }} -
+              {% if week_start_month != week_end_month %}
+              {{ week_end_month_abbr }}
+              {% endif %}
+              {{ week_end_day }}
+            </a>
+          </li>
+          {% endlist_weeks %}
+        </ol>
+      </li>
+      {% endlist_months %}
+    </ol>
+  </div>
+</div>

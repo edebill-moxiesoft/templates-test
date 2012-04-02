@@ -1,0 +1,19 @@
+<fieldset class="select">
+  <label for="file_type">Media Type</label>
+  <select id="file_type" name="file_type">
+    <option value="">All Types</option>
+    {% search_file_types %}
+  </select>
+</fieldset>
+<fieldset class="select">
+  <input type="hidden" name="file_size_min">
+  <input type="hidden" name="file_size_max">
+  <label for="file_size">File Size</label>
+  <select id="file_size" name="file_size">
+    <option value="all">All Sizes</option>
+    <option {% if params.file_size == "0_1000000" %}selected='selected'{% endif %} value="0_1000000">< 1MB</option>
+    <option {% if params.file_size == "1000000_10000000" %}selected='selected'{% endif %}value="1000000_10000000">1MB - 10MB</option>
+    <option {% if params.file_size == "10000001_50000000" %}selected='selected'{% endif %}value="10000001_50000000">10MB - 50MB</option>
+    <option {% if params.file_size == "50000001" %}selected='selected'{% endif %}value="50000001" >> 50MB</option>
+  </select>
+</fieldset>

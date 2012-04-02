@@ -1,0 +1,13 @@
+<div class="item search_result idea">
+  <div class="avatar">{{ idea.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ idea.link_to_show_with_container_class }} | {{ idea.site_label }}</h3>
+    <h4>
+      Located in the {{ idea.parent.site_label | downcase }} {{ idea.parent.link_to_show_with_container_class }}
+    </h4>
+    <p>{{ idea.search_excerpt }}</p>
+
+    {% include 'search_results/footer_content' node: idea %}
+  </div>
+  <div class='clear'></div>
+</div>

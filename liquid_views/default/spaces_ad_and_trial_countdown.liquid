@@ -1,0 +1,25 @@
+<div class="section trial_widget">
+  <ol>
+    <li class="item trial_counter">
+      {% if site.days_left_in_trial > 0 %}
+        <div class="trial_clock">{{ site.days_left_in_trial }}</div><div class="trial_text">days remaining on your trial</div>
+      {% elsif site.days_left_in_trial == 0 %}
+        <div class="trial_text">LAST DAY OF YOUR FREE TRIAL</div>
+      {% else %}
+        <div class="trial_text">YOUR TRIAL PERIOD IS OVER</div>
+      {% endif %}
+    </li>
+    <li class="item trial_manager">
+      <b>Meet your Trial Manager</b><br/>
+      <span class="bold_blue">Alison Bartosik</span><br/>
+      <img src="/images/alison.png" /><br/>
+      <span class="bold_blue">Contact me!</span><br/>
+      <span class='trial_label'>Office:</span> (650) 294-4686<br/>
+      <span class='trial_label'>Cell:</span> (650) 526-8091<br/>
+      <a href="mailto:abartosik@moxiesoft.com" class="grey">abartosik@moxiesoft.com</a>
+    </li>
+    <li class="item">
+      <a class='trial_guide' href="/wikis/getting-started-in-spaces">Trial Kick-Off Guide</a>
+    </li>
+  </ol>
+</div>

@@ -1,0 +1,35 @@
+<div class='section unit document_library js_filtered'>
+
+  {{ # No filters on search yet - too hard to get a full result set - reinstate after we sync security to autonomy }}
+  {% if query == null %}
+  <div class='header'>
+    <div class='section filters'>
+      {% show_filters %}
+    </div>
+  </div>
+
+  <div class='section tags'>
+    {% if document_library %}
+    {% tag_filter for 'document_library' resource limit: limit_count %}
+    {% else %}
+    {% tag_filter for 'Document' resource limit: limit_count %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class='section unit_body '>
+    <table class="documents item_list">
+      <tbody>
+      {% if documents == empty %}
+        <p><em>No Documents Yet</em></p>
+      {% else %}
+        {% for document in documents %}
+          {% include 'documents/summary' %}
+        {% endfor %}
+      {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  {% more documents %}
+</div>

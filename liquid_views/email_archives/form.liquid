@@ -1,0 +1,11 @@
+{% form for 'email_archive' multipart: true class: 'formtastic email_archive' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'email_archives/form_inputs' form_object: email_archive %}      
+    {% endform_fields %}
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: email_archive %}
+    {% endform_fields %}
+  </div>
+{% endform %}

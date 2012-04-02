@@ -1,0 +1,35 @@
+<div id="categories_directory">
+  <div class="content_bar_hat">
+    <div class='content_bar'>
+      <div class='section main'></div>
+      <div class='section sidebar'>
+        <div class='menu popdown-menu'>
+          {% include 'menus/group_index_add' %}
+          <div class='clear'></div>
+        </div>
+      </div>
+      <div class='clear'></div>
+    </div>
+  </div>
+
+  <div class='header'>
+    <div class="view_picker">
+      <a class="directory" href="/groups/directory" title="Directory View"><img src="/images/listing_off.png"></a>
+      <a class="tree" href="/categories/directory" title="Tree View"><img src="/images/directory_on.png"></a>
+    </div>
+    <a class="collapse_all js_collapse_all">Collapse All</a>
+    <h1>{{ site.group_label | plural }} Directory</h1>
+  </div>
+
+  <div class='section main fullwidth'>
+    {% include 'categories/children_list' children: categories other:other %}
+  </div>
+
+</div>
+
+
+
+
+
+
+

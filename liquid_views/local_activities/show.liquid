@@ -1,0 +1,80 @@
+<!-- ACTIVITY SHOW PAGE -->
+
+<div class="section item_show activity_show">
+
+
+  <div class='section main activity'>
+    <div class="activity_container">
+      <div class="user_picture">
+        {% if activity.creator.has_avatar? %}
+          {{ activity.creator.color_profile_photo }}
+        {% else %}
+          <img class="profile_photo" src="/images/avatar_missing.png" title="{{ activity.creator.display_name }}">
+        {% endif %}
+      </div>
+
+      <div class="item">
+        <div class="activity_border"></div>
+
+        <div class='header'>
+          <h3>
+            {{ activity.title_without_subject_autolinked }}
+          </h3>
+        </div>
+
+        {% if activity.has_badge? %}
+          <div class="badge_avatar">
+            {{ activity.badge.image }}
+          </div>
+          <h4>{{ activity.badge.title }}</h4>
+      
+          <p>
+            {{ activity.badge.description | html_truncate: 60 }}
+          </p>
+        {% endif %}
+
+        <div class="footer">
+          <span class="user_name">by {{ activity.link_to_owner }},</span>
+          <span class="created_at">{{ activity.created_at | time_ago_in_words, 'ago'  }} </span>
+          {% if activity.has_tags %}
+          , tagged as: <span class="tags">{{ activity.tags_list }}</span>
+          {% endif %}
+          <span> - {{ activity.share_button }}</span>
+          {% if activity.attentions_count > 0 %}
+            <p class="attention">
+            <span class="attn">Attn</span>
+              {{ activity.attention_links }}
+           </p>
+          {% endif %}
+          {% include 'nodes|like_button' node: activity %}
+        </div>
+      </div>
+
+    </div>
+
+    {% include 'nodes/likes_summary_header' node: activity %}
+
+    <div class="section unit comments_block">
+      <div class='header'>
+        <h3 class="comments js_plural_count">{{ 'Comment' | pluralize: activity.comments_count }}</h3>
+      </div>
+      <div class='unit_body'>
+        {% include 'comments/index' %}
+        {% include 'comments/form' %}
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class='section sidebar'>
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: activity %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: activity %}
+      </div>
+    </div>
+  </div>
+</div>

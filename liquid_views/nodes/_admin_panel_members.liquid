@@ -1,0 +1,63 @@
+<fieldset class="inputs">
+    <legend><span>Membership</span></legend>
+    <div class="set ">
+    <div class="label_column">
+      <span class="inputs_set">Members</span>
+    </div>
+    <div class="settings_column">
+      {% if node.is_not_modifiable? != true %}
+        <input type="text" title="Search" name="node[settings][add_member_search]" id="node_settings_add_member_search" class="js_add_member_search hint" />        
+      
+
+        <div id="node_membership_tool_search">
+        	<div class="list_popdown socmod_search" id="attn_popdown">
+        	  <div class="header">
+        	    <input type="text" autocomplete="off" name="popdown_search" class="popdown_search js_node_membership_search_field" id="attn_search" title="Search" data-url='/nodes/social_module_search_only_users' data-type='html'/>
+        	    <div class='spinner'></div>
+        	    <h3>Search Results</h3>
+        	  </div>
+        	  {% include 'nodes/_admin_panel_socmods' %}	
+        	</div>
+        </div>
+      {% endif %}
+
+      <ul class="node_member_list js_node_settings_member_list">
+        {% for user in node.members %}
+        <li data-id="{{ user.id }}">
+          {% if node.is_not_modifiable? == false %}
+            <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+          {% endif %}
+          {{ user.name }}
+          <input type="hidden" name="node[settings][members][]" value="{{ user.id }}" />
+        </li>
+        {% endfor %}
+        {% if node.members == empty %}
+          <input type="hidden" name="node[settings][members][]" value="{{ current_user.id }}">
+        {%endif%}
+      </ul>
+      
+    </div>
+  </div>
+  <div class="set last">
+    <div class="label_column">
+      <span class="inputs_set">Affiliation<br/>
+        <blockquote class="set-hint">How are new members added?</blockquote>
+      </span>
+    </div>
+    <div class="settings_column">
+
+      <div class="node_joinable_radios">
+        <label for="node_settings_joinable_by_anyone">
+          <input type="radio" name="node[settings][joinable]" value="by_anyone" id="node_settings_joinable_by_anyone" {% if node.anyone_can_join? and node.is_not_modifiable? == false %}checked="checked"{% endif %} {% if node.is_not_modifiable? == true %}disabled='disabled'{% endif %} />
+          Anyone can join
+        </label>
+        <label for="node_settings_joinable_admin_control">
+          <input type="radio" name="node[settings][joinable]" value="admin_control" id="node_settings_joinable_admin_control" {% if node.anyone_can_join? == false %}checked="checked"{% endif %} {% if node.is_not_modifiable? == true %}checked='checked' disabled='disabled'{% endif %} />
+          Membership controlled by admin(s)
+        </label>
+      </div>
+
+    </div>
+  </div>
+
+</fieldset>

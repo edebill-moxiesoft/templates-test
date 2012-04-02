@@ -1,0 +1,26 @@
+<div>
+  <ul class="edge"></ul>
+  <ul class="edge"></ul>
+  <ul class="edge"></ul>
+  <ul class="edge"></ul>
+  <ul class="wall">
+    {% for user in users %}
+    <li class="{{user.highlightable}}">
+      {{ user.bw_profile_or_avatar }}
+      <div class="details">
+        <p class="name">{{ user.name }}</p>
+        <p class="status {{ user.status_wall_size }}">{{ user.status }}</p>
+        {{ user.last_status_at | time_ago_in_words }}
+      </div>
+    </li>
+    {% endfor %}
+
+  </ul>
+  <ul class="edge"></ul>
+  <ul class="edge"></ul>
+  <ul class="edge"></ul>
+  <ul class="edge"></ul>
+  <ul class="sl">
+    <li class="spotlight"></li>
+  </ul>
+</div>

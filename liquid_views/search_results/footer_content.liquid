@@ -1,0 +1,11 @@
+<div class="footnote">
+  Posted by {{ node.link_to_owner }}  on {{ node.created_at | date: "%m/%d/%y" }}
+
+  {% if discussion %}
+   | Last Post by {{ discussion.link_to_owner }} on {{ discussion.created_at | date: "%m/%d/%y" }}
+  {% endif %}
+
+  {% if local_activity %}
+   | <a class='view_activity' href='/activities/{{ local_activity.id}}'>View {{ local_activity.site_label }}</a>
+  {% endif %}
+</div>

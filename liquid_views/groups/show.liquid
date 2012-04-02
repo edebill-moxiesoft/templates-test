@@ -1,0 +1,49 @@
+{% if group %}
+
+<div id='show_group'>
+  <div class='section group header'>
+    {% include 'nodes/header' parent: group %}
+  </div>
+
+  <div class='clear'></div>
+
+  <div class='section main group'>
+    {% activities limit 10 %}
+  </div>
+
+  <div class='section sidebar'>
+    {% pages_listing for: group %}
+    
+    {% membership for group %}
+    {% fancy_watchers for group %}
+
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: group %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: group %}
+      </div>
+    </div>
+
+    <div class='aside group recommendations'>
+      {% recommendations for group %}
+    </div>
+
+    {% if group.location_group? %}
+    <div class='aside location'>
+      <div class='header'><h3>{{ site.location_group_label }}</h3></div>
+      <div class='section'>
+        {% include 'groups/location' group: group %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% if group.current_user_can_contribute? and wizard_launch %}
+  <a href="{{ group.show_path }}/new_page" title="Congratulations" class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+  
+{% endif %}

@@ -1,0 +1,61 @@
+<form action="/nodes/{{ node.id }}/share" method="post" class="js_microblogger_status_form" data-remote="true" data-type="html">
+  <div class="avatar">
+    {{ current_user.small_avatar_with_link }}
+  </div>
+  
+  <div class="control">
+    <textarea name="activity[status]" class="hint" class="microblogger_status" title="What&#x27;s happening right now?"></textarea>
+    <div class="clear"></div>
+    <fieldset class="buttons">
+      <input type="submit" name="commit" class="create js_microblogger_submit_button" value="Submit" />
+      <img src="/images/blue_snake_spinner.gif" class="microblogger_spinner" style="display:none" />
+    </fieldset>
+    <div class="attn_details">
+      <a href="#" class="toggle_popdown js_toggle_popdown" id="attn_link">Attn</a>
+      <div class="popdown_list attn_list"></div>
+      <a href="#" class="clear_list">Clear</a>
+    </div>
+  </div>
+</form>
+
+<div class="list_popdown" id="attn_popdown">
+  <div class="header">
+    <input type="text" name="attn_search" id="attn_search" title="Search" />
+    <h3>My Following List</h3>
+  </div>
+  <ol class="grouped_follows">
+
+    {% unless followed_people == empty %}
+    <li class="category_block">
+      <div class="category"><span>People</span></div>
+      <ul>
+      {% for person in followed_people %}
+        <li class="user{% if forloop.last %} last{% endif %}">
+          {{ person.small_avatar }}
+          <a href="#" class="popdown_item user_link" data-type="user" data-id="{{ person.id }}">
+            {{ person.display_name }}
+          </a>
+        </li>
+      {% endfor %}
+      </ul>
+    </li>
+    {% endunless %}
+    
+    {% unless followed_groups == empty %}
+    <li class="category_block">
+      <div class="category"><span>Groups</span></div>
+      <ul>
+      {% for group in followed_groups %}
+        <li class="group{% if forloop.last %} last{% endif %}">
+          {{ group.small_avatar }}
+          <a href="#" class="popdown_item group_link" data-type="group" data-id="{{ group.id }}">
+            {{ group.title }}
+          </a>
+        </li>
+      {% endfor %}
+      </ul>      
+    </li>
+    {% endunless %}
+    
+  </ol>
+</div>

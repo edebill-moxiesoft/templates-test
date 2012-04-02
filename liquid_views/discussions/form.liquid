@@ -1,0 +1,11 @@
+{% form for 'discussion' multipart: true class: 'formtastic discussion' %}
+  <div class='wrapper'>
+    {% error_messages %}
+    {% form_fields for 'inputs' %}
+      {% include 'discussions/form_inputs' form_object: discussion%}      
+    {% endform_fields %}
+    {% form_fields for 'buttons' %}
+      {% include 'forms/buttons' form_object: discussion %}
+    {% endform_fields %}
+  </div>
+{% endform %}

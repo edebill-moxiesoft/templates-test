@@ -1,0 +1,35 @@
+<div id="document_library_unit" class="section unit">
+  {% for wp in work_portfolios %}
+  
+    <div class='header'>
+      <h2 class="work_portfolio">
+        <a href="{{ wp.show_path }}" title="{{ wp.title }}">{{ wp.title }}</a>
+      </h2>
+    </div>
+    
+    <div class="gallery small">
+      {% for item in wp.item_references limit: 5 %}
+        <div class="gallery_small_pic">
+            <a href="{{ item.show_path }}"{% unless item.has_avatar? %} class="no_avatar"{% endunless %}>
+            <!-- this needs to change; we should probably begin storing 87x87 variants for all node avatars -->
+            {% if item.has_avatar? %}
+              <img src="{{ item.large_avatar_url }}" style="width:87px; height:87px;" />
+            {% else %}
+              <div class="no_avatar"><p>{{ item.title }}</p></div>
+            {% endif %}
+            
+            
+            </a>
+        </div>
+      {% endfor %}
+    </div>
+    
+    {% if wp.item_references.size > 5 %}
+      <div class="footer gallery">
+        <a class='more_link' href='{{ wp.show_path }}'>More</a>
+      </div>
+    {% endif %}
+  
+  {% endfor %}
+</div>
+

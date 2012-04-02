@@ -1,0 +1,152 @@
+{% if user %}
+<div id='user_show' class='section'>
+
+  <div class='section main user header'>
+    {% include 'users/user_header' parent: user %}
+  </div>
+
+<div class='clear'></div>
+
+<div class='section three_column'>
+  <div class='section left_sidebar'>
+    <div class='profile_photo{% unless user.enabled %} inactive{% endunless %}'>
+      {% unless user.enabled %}
+      <div class="message">INACTIVE</div>
+      {% endunless %}
+      {{ user.color_profile_photo }}
+    </div>
+    {% unless user.profile_completed? %}
+      <div class='aside user_completion'>
+        <div class='header'>
+          <h3>Profile Completion</h3>
+        </div>
+        <div class='section'>
+          {% if current_user.id == user.id %}
+          <a href="#" title="Launch the user wizard" class="progress_bar_link">
+            {% endif %}
+            {% progress_bar percentage 'user.profile_completion_percentage' %}
+            {% if current_user.id == user.id %}
+          </a>
+          {% endif %}
+
+        </div>
+
+      </div>
+    {% endunless %}
+    <div class='aside user_details'>
+      <div class='header'>
+        <h3>Details</h3>
+      </div>
+      <div class='section'>
+        <dl>
+          <dt class="desk_number">Phone</dt>
+          <dd class="desk_number">{{ user.desk_number }}</dd>
+          <dt class="mobile_number">Mobile</dt>
+          <dd class="mobile_number">{{ user.mobile_number }}</dd>
+
+          <dt class="email">Email</dt>
+          <dd class="email">
+            <a class='person_link' href="mailto:{{ user.email }}">{{ user.email | truncate: 27 }}</a>           
+          </dd>
+
+
+          {% if user.pending_primary_email != empty and current_user.id == user.id %}
+          <dt>Pending Primary Email</dt>
+          <dd>
+            <a class='person_link' href="mailto:{{ user.pending_primary_email }}">{{user.pending_primary_email | truncate: 27 }}</a>
+          </dd>
+          {% endif %}
+
+          {% if site.expertise_or_role? == 'expertise' %}
+          <dt class="roles">Expertise</dt>
+          <dd class="roles">{{ user.expertise_list_with_links }}</dd>
+          {% else %}
+          <dt class="roles">{{ site.role_label }}</dt>
+          <dd class="roles group">{{ user.role }}</dd>
+          {% endif %}
+          
+          <dt class="community">Community</dt>
+          <dd class="community group">{{ user.community }}</dd>
+          <dt class="location">Location</dt>
+          <dd class="location group">{{ user.location }}</dd>
+          <dt class="hire_date">Hire Date</dt>
+          <dd class="hire_date">{{ user.hire_date }}</dd>
+          {%if user.skype_id != empty and user.skype_id != nil%}            
+            <script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+            <dd class="skype_id">
+              <a href="skype:{{user.skype_id}}?chat">
+                <img src="http://mystatus.skype.com/smallclassic/{{user.skype_id}}" style="border: none;" width="114" height="20" alt="My status" />
+              </a>
+            </dd>
+          {%endif%}
+        </dl>
+      </div>
+    </div>
+
+    <div class='aside'>
+      {% activity for 'user' limit 5 %}
+      <div class='section'>
+        <a class='more_link' href='{{user.activities_path}}'>More</a>
+      </div>
+    </div>
+    
+    {% if site.enable_badges? %}
+    <div class='aside'>
+      <div class="header"><h3>Badges</h3></div>
+      <div class='section'>
+        <ul class="badges">
+          {% for badge in user.badges %}
+          <li class="badge" title="{{ badge.description }}">
+            {{ badge.title }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+
+  <div class='section middle'>           
+    {% show_personal_sections for 'user' %}
+    
+    {% if site.clients_section_enabled? %}
+      {% include 'sections/personal_my_work' %}
+    {% endif %}
+    
+    <!-- stupid empty div to hold open the column if the user hides everything on the middle column -->
+    <div>&nbsp;</div>
+  </div>
+
+  <div class='section right_sidebar'>
+    {% pages_listing for: user %}
+
+    <div class='aside groups'>
+      {% user_groups limit 3 for user %}
+    </div>
+
+    <div class='aside users'>
+      <div class="header">
+        <h3>People Working With {{ user.display_name }}</h3>
+      </div>
+      
+      {% include 'users/list_sidebar' users: user.colleagues %}
+    </div>
+      
+    <div class='aside users'>      
+      <div class="header">
+        <h3>People Following {{ user.display_name }}</h3>
+      </div>
+      
+      {% include 'users/list_sidebar' users: user.followers %}
+    </div>
+      
+
+  </div>
+
+</div>
+
+</div>
+
+
+{% endif %}

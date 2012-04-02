@@ -1,0 +1,17 @@
+{% if false %}
+<div id="email_archive_unit" class="section unit">
+  {% for email_archive in email_archives %}
+  <div class='header'>
+    <h2 class="email_archive">
+      <a href="{{ email_archive.show_path }}" title="{{ email_archive.title }}">{{ email_archive.title }}</a>
+    </h2>
+  </div>
+  <div class='unit_body'>
+    {% include 'email_archives/list' email_archives: email_archive %}
+  </div>
+  <div class="footer">
+    <a href="{{ email_archive.show_path }}" class="more_link">More</a>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,15 @@
+{% if discussions != empty %}
+
+<ol class="item_list">
+  {% for discussion in discussions limit:limit_size %}
+    {% include 'discussions/summary' %}
+  {% endfor %}
+</ol>
+
+
+
+
+
+{% else %}
+<p><em>No discussions yet</em></p>
+{% endif %}

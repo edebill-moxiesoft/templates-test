@@ -1,0 +1,35 @@
+<div class="category_listing section js_filtered">
+  
+  <ul class="children_list js_filter_body">
+  {% for child in children %}
+  
+    <li class="child {% if forloop.last %}last{% endif %}">
+      <div class="pad">
+        {{ child.small_avatar }}
+        <a href="{{ child.show_path }}" title="{{ child.title }}">{{ child.title | truncate: 100 }}</a>
+        <div class="clear"></div>
+        <ul class="summary_list">
+          {% for summary_child in child.children %}
+        
+            <li class="summary_child {% if forloop.last %}last{% endif %}">
+              <a href="{{ summary_child.show_path }}" title="Click to view {{ summary_child.title }}">
+                {{ summary_child.title }} ({{ summary_child.friendly_type_name }})
+              </a>
+            </li>
+        
+          {% endfor %}
+          
+        </ul>
+      </div>
+    </li>
+  
+  {% endfor %}
+  </ul>
+  {% if category.children_count > 20 and offset < category.children_count %}
+  <div class='js_paginate'>
+    <a class="more" href="{{ category.show_path }}?" data-offset='{{ offset }}' data-type='html' >More</a>
+    <div class='spinner'></div>
+  </div>
+  {% endif %}
+  
+</div>

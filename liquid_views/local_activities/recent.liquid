@@ -1,0 +1,31 @@
+<div class="header">
+  <h3>Recent Activities</h3>
+</div>
+<div class="section">
+  
+  {% if activities == empty %}
+    <p>
+      <em>no activities recorded</em>
+    </p>
+  {% else %}
+  
+    <ol>
+      {% for activity in activities %}
+      <li class="item recent activity">
+
+        {% if activity.title_id == 'status' %}
+          {{ activity.creator.link_to_profile }}
+        {% endif %}
+        {{ activity.title }}
+        <p class="updated">
+          {{ activity.created_at | time_ago_in_words, 'ago'  }}
+        </p>
+      </li>
+      {% endfor %}
+    </ol>
+  
+  {% endif %}
+  
+</div>
+
+

@@ -1,0 +1,139 @@
+{% if work_portfolio %}
+<div id='item_collection_show' class="section unit_summary ">
+
+  <div class='section group header'>
+    {% include 'nodes/header' parent: work_portfolio %}
+  </div>
+
+  <div class='clear'></div>
+  
+  <div class='section main item_collection work_portfolios js_filtered'>
+    <div id="container_header">
+      {% include 'nodes/page_header' parent: work_portfolio %}
+        <!-- <ul class='order_filters'>
+          <li class="{% if order == 'recent' or order == null %}active{% endif %}">
+            <a href="?view={{view}}&order=recent&tag_filter={{ tag_filter }}" data-order="recent" data-type="html">Recent</a>
+          </li>
+          <li class="{% if order == 'alpha' %}active{% endif %} last">
+            <a href="?view={{view}}&order=alpha&tag_filter={{ tag_filter }}" data-order="recent" data-type="html">Alphabetical</a>
+          </li>
+        </ul> -->
+      <div class="clear"></div>
+    </div>
+
+    <div class='bottom_header'>
+      <div class="toggle_view">
+        <a href="?view=list" class="list_view{% if view == 'list' %} active{% else %} inactive{% endif %}" title="List View" id="work_portfolio_list_view"></a>
+        <a href="?view=gallery" class="grid_view{% if view == 'list' %} inactive{% else %} active{% endif %}" title="Gallery view" id="work_portfolio_grid_view"></a>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    {% if view == 'list' %}
+    <table class="item_references_table work_portfolios">
+      <tr>
+        <th class='avatar'>&nbsp;</th>
+        <th class='title'>Title</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <!-- <th>Description</th> -->
+      </tr>
+      <tbody>
+      {% for item in work_portfolio.item_references %}
+      <tr>
+        <td>
+          <a href="{{ item.show_path }}">
+            {% if item.has_avatar? %}
+            {{ item.small_avatar }}
+            {% else %}
+            <div class="hipster_avatar thumbnail_square"></div>
+            {% endif %}
+          </a>
+        </td>
+        <td class='description'>
+          <a href="{{ item.show_path }}">
+            {{ item.title }}
+          </a>
+          {% if item.description != blank and item.description != '<br>' %}
+          <br/>
+          {{ item.sanitized_body | html_truncate: 50, '' }}
+          {% endif %}
+        </td>
+        <td>{{ item.work_type | capitalize }}</td>
+        <td>{{ item.lead_status | capitalize }}</td>
+        <td>{{ item.start_date | date: "%B %d, %Y" }}</td>
+        <td>{{ item.end_date | date: "%B %d, %Y" }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+
+    <div class="gallery_container">
+      {% for item in work_portfolio.item_references %}
+      <div class="gallery_pic js_gallery_pic">
+        <a href="{{ item.show_path }}" {% unless item.has_avatar? %} class="hipster_avatar large_square" {% endunless %}>
+        {% if item.has_avatar? %}
+        <img class="gallery_image" src="{{ item.large_avatar }}"/>
+        {% endif %}
+        </a>
+      </div>
+      <div class="tool_tip">
+        <div class="tooltip_image_container">
+          {% if item.has_avatar? %}
+          <img class="tooltip_image" src="{{ item.large_avatar }}"/>
+          {% else %}
+          <div class="tooltip_image hipster_avatar large_square"></div>
+          {% endif %}
+        </div>
+        <div class="tooltip_image_details_container">
+          <h2><a href="{{ item.show_path }}">{{ item.title }}</a></h2>
+
+          <div class="collab_stats">
+            {% if item.work_type %}
+            <strong>Type:</strong> {{ item.work_type | capitalize }}<br/>
+            {% endif %}
+            {% if item.lead_status %}
+            <strong>Status:</strong> {{ item.lead_status | capitalize }}<br/>
+            {% endif %}
+            {% if item.start_date %}
+            <strong>Start Date:</strong> {{ item.start_date | date: "%B %d, %Y" }}<br/>
+            {% endif %}
+            {% if item.end_date %}
+            <strong>End Date:</strong> {{ item.end_date | date: "%B %d, %Y" }}
+            {% endif %}
+          </div>
+          <hr/>
+          <p class="description">{{ item.sanitized_body | html_truncate: 300, '' }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  </div>
+
+  <div class='section sidebar'>
+
+    {% pages_listing for: work_portfolio %}
+
+    <div class='aside security'>
+      <div class='header'>
+        {% include 'nodes/security_heading' item: work_portfolio %}
+      </div>
+      <div class='section'>
+        {% include 'nodes/security_summary' item: work_portfolio %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% if wizard_launch %}
+<a href="{{ work_portfolio.show_path_shallow }}/new_content" title="Congratulations" data-width="300" data-height="300"
+   class="wizard_launch wizard_auto_launch">Auto Launch</a>
+{% endif %}
+
+{% endif %}

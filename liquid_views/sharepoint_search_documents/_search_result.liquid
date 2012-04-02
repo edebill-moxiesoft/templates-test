@@ -1,0 +1,10 @@
+<div class="item search_result sharepoint_document">
+  <div class="avatar default_avatar"><img class="node_avatar" src="/images/doc_icons/generic.png" alt="{{ sharepoint_search_document.title }}"></div>
+  <div class="details">
+    <h3><a href='{{ sharepoint_search_document.link_url }}'>{{ sharepoint_search_document.title }}</a> | SharePoint </h3>
+    <h4>
+      Size: {{ sharepoint_search_document.file_size | number_to_filesize }}&nbsp;&nbsp;|&nbsp;&nbsp;Created on {{ sharepoint_search_document.created_at | date: "%m/%d/%y" }}
+    </h4>
+  </div>
+  <div class='clear'></div>
+</div>

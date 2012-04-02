@@ -1,0 +1,38 @@
+<div class="section" id="node_access_section">
+  <h3 class="security_title">
+    Access
+  </h3>
+
+  <div id="access_container">
+    {% if node.has_parent? %}
+    <div id="inherit">
+      <input id="node_security_inherit" name="node_security_inherit" type="checkbox"
+      {% if node.security_updated? == false %}checked="checked"{% endif %}>
+      <label for="node_security_inherit">Inherit setting from parent</label>
+      <img class="indicator" src="/images/ajax-small-transparent.gif">
+    </div>
+
+    {% endif %}
+
+    {% if node.has_parent? == false or node.security_updated? %}
+    <div class="access_search">
+      <div id="search">
+        <input class="security_autocomplete_input" name="access_search" size="50">
+        <img class="indicator" src="/images/ajax-small-transparent.gif">
+
+        <div style="clear:both"></div>
+        <div class="results"></div>
+      </div>
+    </div>
+    <div class="access_by_role">
+      <div id="access">
+
+        {% include 'security/access_block' members: node.accessor_list_admin, label: 'Administrators', permission: 'admin', everyone: false   %}
+        {% include 'security/access_block' members: node.accessor_list_write, label: 'Contributors', permission: 'write', everyone: node.everyone_write? %}
+        {% include 'security/access_block' members: node.accessor_list_read, label: 'Viewers', permission: 'read', everyone: node.everyone_read? %}
+      </div>
+      <div class="clear"></div>
+    </div>
+    {% endif %}
+  </div>
+</div>

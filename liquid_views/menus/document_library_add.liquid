@@ -1,0 +1,18 @@
+{% if document_library.current_user_can_contribute? and document_library.sharepoint_synced? == false %}
+  {% if site.folders_enabled? %}
+  	{% menu %}
+  	  {% submenu Add a Page, #, add_page_link, Add %}
+  	    {% capture documents_label %}{{ site.document_label }}(s){% endcapture %}
+  	    <li class="icon_menu_item">{{ documents_label | link_to_add_page: 'Document', document_library.guid }}</li>
+  			<li class="icon_menu_item last">{{ site.folder_label | link_to_wizard_add_page: 'DocumentLibrary', document_library.guid }}</li>
+  	  {% endsubmenu %}
+  	{% endmenu %}
+  {% else %}
+  	{{ document_library.add_document_link }}
+  {% endif %}
+
+{% endif %}
+
+{% if document_library.current_user_can_admin? %}
+  {{ document_library.edit_link }}
+{% endif %}

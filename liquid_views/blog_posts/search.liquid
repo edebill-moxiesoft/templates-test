@@ -1,0 +1,14 @@
+<div id="blog_posts_index" class="section full">
+  <div class="content_bar_hat"></div>
+
+  <div class="section main fullwidth js_filtered">
+    {% include 'searches/controls' tab: 'blog_posts' label: site.blog_label %}
+
+    {% search_results %}
+    {% if blog_posts_count > 0 %}
+      {% include 'search_results/showing_count' showing_count: blog_posts.size total_count: blog_posts_count %}
+      {% more blog_posts search: true %}
+    {% endif %}
+  </div>
+
+</div>

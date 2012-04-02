@@ -1,0 +1,16 @@
+<div class="item search_result group">
+  <div class="avatar">{{ basic_group.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ basic_group.link_to_show_with_container_class }} | {{ basic_group.site_label }}</h3>
+    <h4>
+      {{ 'Member' | pluralize: basic_group.members_count }}
+      {% if basic_group.distlist %}<span class="email"><a href="mailto:{{ group.distlist }}">{{ basic_group.distlist }}</a></span>{% endif %}
+      {% if basic_group.parent %}&nbsp;|&nbsp;&nbsp;Located in the {{ basic_group.parent.site_label | downcase }} {{ basic_group.parent.link_to_show_with_container_class }} {% endif %}
+    </h4>
+    <p>{{ basic_group.search_excerpt }}</p>
+
+    {% include 'search_results/footer_container' node: basic_group %}
+
+  </div>
+  <div class='clear'></div>
+</div>

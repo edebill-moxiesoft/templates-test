@@ -1,0 +1,14 @@
+<div class="footnote">
+    Created by {{ node.link_to_owner }} on {{ node.created_at | date: "%m/%d/%y" }}
+
+    {% if wiki_page %}
+      {% if wiki_page.link_to_last_editor %}
+      | Last Edited By {{ wiki_page.link_to_last_editor }}
+      {% endif %}
+    {% endif %}
+
+    {% if node.last_activity_at %}
+      | Last Activity on {{ node.last_activity_at | date: "%m/%d/%y" }}
+    {% endif %}
+
+</div>

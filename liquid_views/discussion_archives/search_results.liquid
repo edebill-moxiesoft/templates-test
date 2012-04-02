@@ -1,0 +1,39 @@
+{% include 'search_results/showing_count' showing_count: discussion_archives.size total_count: nodes_count hide: hide_total %}
+<table class="search_results discussion_archives  ">
+  <thead>
+  <tr>
+    <th>Title of {{ site.discussion_archive_label }}</th>
+    <th>Author</th>
+    <th># of {{ site.discussion_label | plural }}</th>
+    <th>Date Created</th>
+  </tr>
+  </thead>
+  {% if discussion_archives == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.discussion_archive_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for discussion_archive in discussion_archives limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ discussion_archive.container_class }}">
+    <td>
+      {% if discussion_archive.display_avatar? %}
+      {{ discussion_archive.avatar }}
+      {% endif %}
+      <div class="title">{{ discussion_archive.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ discussion_archive.link_to_owner }}</td>
+    <td>{{ discussion_archive.children_count }}</td>
+    <td>{{ discussion_archive.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: discussion_archives.size total_count: nodes_count hide: hide_total %}
+  {% more discussion_archives search: true %}
+{% endunless %}

@@ -1,0 +1,28 @@
+
+<li class="item blog_post {% if forloop.last %}last{% endif %}">
+  <h6 class="title">
+    <a href="{{post.show_path}}">{{ post.title }}</a>
+  </h6>
+
+  <a class="comment_link" href='{{post.show_path}}'>{{ 'comment' | pluralize: post.replies_count }}</a>
+  
+  <p class="author">
+              by
+              {% if post.external %}
+                <a href="{{ post.external_channel_url }}" class="external_link" target="_blank">{{ post.external_item_author }}</a>
+                from
+                <a href="{{ post.external_channel_url }}" class="external_link" target="_blank">{{ post.external_channel_title }}</a>
+              {% else %}
+                {{ post.link_to_owner }},
+              {% endif %}
+    in {{ post.parent.link_to_show }}
+  </p>
+
+  {% capture more_link %}<a class="more_link" href='{{post.show_path}}'>more</a>{% endcapture %}
+  <p class="summary">{{ post.search_result_info.summary | html_truncate: 50, more_link }}</p>
+
+  <p class="slug">
+    updated {{ post.updated_at | time_ago_in_words, 'ago'  }} 
+  </p>
+
+</li>

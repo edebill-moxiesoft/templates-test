@@ -1,0 +1,45 @@
+{% if document.locked? and document.not_locked_by_current_user? %}
+    <li class="file " id="document_file_input">
+        <label for="document_file">File<abbr title="required">*</abbr></label>
+        <input type="text" disabled="disabled" value="Document checked out by {{ document.locked_by.display_name }}" />
+    </li>
+{% else %}
+    <li class='file' id='document_file_input'>
+      <div id="document_singleuploader">
+        <label for="document_file">File<abbr title="required">*</abbr></label>
+        <input id='document_file' type='text' name='document_file_display' disabled='disabled'/>
+        <a id='pickfiles' class='button' href="#">Browse</a>
+
+        {{ document.s3_url }}
+        <div id='document_singleuploader_hidden_inputs'>
+          {{ document.s3_hidden_inputs }}
+        </div>
+      </div>
+    </li>
+{% endif %}
+
+{% if form_object.has_document? %}
+  <li class='current_document'>
+    <label>Current File</label>
+    <a href="{{ form_object.path_for_content }}" target="new">{{form_object.file_name}}</a>
+  </li>
+{% endif %}
+
+{% input for 'title' label: 'Name' required: 'true' %}
+
+{% input for 'version' as: 'hidden'%}
+
+{% include 'nodes/_editor_fields' %}
+
+{% tags_input %}
+
+{% unless form_object.parent_id == null %}
+  {% input for 'parent_id' as: 'hidden' %}
+{% endunless %}
+
+<div class='upload_progress_dialog'>
+  <div class='upload_progress_bar'>
+    <div class='upload_progress'></div>
+  </div>
+  <var class='upload_pct'>0%</var>
+</div>

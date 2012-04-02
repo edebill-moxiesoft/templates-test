@@ -1,0 +1,14 @@
+<li class="text last" id="tags_autocomplete_input">
+  <label for='tags'>Tags</label>
+  <input name="tags" id="tags" class="tags tags_autocomplete ac_input" autocomplete="off" value="{{ unsaved_tags }}" />
+  <ul class="tag_list tag_summary">
+    {% for tag in form_object.tag_words_alpha %}
+      <li>
+        {{tag[0]}}
+        <a href="/tags/destroy?node_id={{form_object.id}}&tags={{tag[1]}}" data-type="html" data-remote="true" data-method="delete" class="tag_deleter">
+          <img title="delete this tag" src="/images/icons/delete_small.png" class="tag_delete" alt="delete this tag">
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</li>

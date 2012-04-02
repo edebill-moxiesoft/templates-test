@@ -1,0 +1,35 @@
+<div class="list_controls">
+  <fieldset class="fs_limit">
+    <label># of Results</label>
+    <select name="limit" class="limit">
+      <option value="10"
+      {% if limit == 10 %}selected="selected"{% endif %}>10</option>
+      <option value="20"
+      {% if limit == 20 %}selected="selected"{% endif %}>20</option>
+      <option value="40"
+      {% if limit == 40 %}selected="selected"{% endif %}>40</option>
+      <option value="100"
+      {% if limit == 100 %}selected="selected"{% endif %}>100</option>
+    </select>
+  </fieldset>
+
+  <div class="toggle_view">
+    <input type="hidden" name="view" value="{{ view }}">
+    {% if view == "list" %}
+    <img src="/images/list_view_on.png" alt="List view"/>
+    <a href="#" data-view="gallery"><img  src="/images/grid_view_off.png" alt="Gallery view"/></a>
+    {% else %}
+    <a href="#" data-view="list"><img  src="/images/list_view_off.png" alt="List view"/></a>
+    <img src="/images/grid_view_on.png" alt="Gallery view"/>
+    {% endif %}
+  </div>
+
+
+  <div class="top_pagination">
+    {% generate_pagination total: works_total limit: limit current_offset: offset next: '&raquo;' back: '&laquo;' %}
+    <a href="#" data-offset="{{ page_offset }}" class="{{ current }}">{{ page }}</a>
+    {% endgenerate_pagination %}
+    <img class="inline_ind" src="/images/spaces_icons/follow_button_spinner.gif">
+  </div>
+
+</div>

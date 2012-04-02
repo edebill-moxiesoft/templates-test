@@ -1,0 +1,33 @@
+<div class='section unit calendar_events js_filtered'>
+
+  <div class='section unit_body '>
+    <ol class="calendar_events item_list js_filter_body">
+      {% if calendar_events == empty %}
+      <p><em>no {{ site.calendar_event_label | plural | downcase }} yet</em></p>
+      {% endif %}
+      {% for calendar_event in calendar_events %}
+
+      <li class="item ">
+        <h3 class="title">
+          <a href="{{ calendar_event.show_path }}">{{calendar_event.title }}</a>
+        </h3>
+        <p class="details">
+          Created {{ calendar_event.created_at | time_ago_in_words, 'ago' }}
+          &middot;
+          <span class="started_by">Started by {{ calendar_event.link_to_owner }}</span>
+          <span class="started_in">in {{ calendar_event.parent.link_to_show }}</span>
+        </p>
+
+        <p class="content user_content">
+          {{ calendar_event.limited_body }}
+        </p>
+
+      </li>
+
+
+      {% endfor %}
+    </ol>
+  </div>
+  
+  {% more calendar_events %}
+</div>

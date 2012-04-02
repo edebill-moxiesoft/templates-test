@@ -1,0 +1,74 @@
+<div id='logo_and_nav'>
+  <a href="/"><h1 class="{{ site.site_header_logo }}">Spaces</h1></a>
+
+  <div class="nav">
+    {% cache top_menu, controller, resource_or_action %}
+
+      {% menu %}
+        {% submenu Home, / %}
+        {% endsubmenu %}
+
+        {% submenu People, /people/overview %}
+          {% capture personal_blogs_label %}Personal {{ site.blog_label | plural }}{% endcapture %}
+          {% menu_link personal_blogs_label, /people/blog_posts %}
+          {% menu_link Like Feed, /activities/likes %}
+          {% menu_link Activities, /activities %}
+          {% menu_link Directory, /people %}
+          <li>
+            <a href="/user_invites/emails" class="wizard_launch" title="Invite Users" data-height='400'>Invite Users</a>
+          </li>
+        {% endsubmenu %}
+    
+        {% capture group_label %}{{ site.group_label | plural }}{% endcapture %}
+        {% submenu group_label, /groups/overview %}
+          {% menu_link My Groups, /groups/my_groups %}
+          {% capture ideastorm_label %}{{ site.ideastorm_label | plural }}{% endcapture %}
+          {% menu_link ideastorm_label, /ideastorms/overview %}
+          {% capture ideastorm_leaderboard_label %}{{ site.ideastorm_label | plural }} Leaderboard{% endcapture %}
+          {% menu_link ideastorm_leaderboard_label, /ideastorms/leaderboard %}
+          {% capture blog_label %}{{ site.blog_label | plural }}{% endcapture %}
+          {% menu_link blog_label, /blog_posts/overview %}
+          {% capture discussion_label %}{{ site.discussion_label | plural }}{% endcapture %}
+          {% menu_link discussion_label, /discussion_archives/overview %}
+          {% capture all_documents_label %}All {{ site.document_label | plural }}{% endcapture %}
+          {% menu_link all_documents_label, /documents %}
+        {% endsubmenu %}
+
+        {% capture project_label %}{{ site.project_label | plural }}{% endcapture %}
+        {% submenu project_label, /projects/overview %}
+          {% menu_link Home, /projects/overview %}
+        {% endsubmenu %}
+
+        {% if site.kb_integration_enabled? %}
+          {% capture articles_label %}{{ site.article_label |plural }}{% endcapture %}
+          {% submenu articles_label, /articles/overview %}
+            {% menu_link Home, /articles/overview %}
+          {% endsubmenu %}
+        {% endif %}
+
+        {% if site.clients_section_enabled? %}
+          {% capture client_label %}{{ site.client_label | plural }}{% endcapture %}
+          {% submenu client_label, /works/overview %}
+            {% capture work_label %}{{ site.work_label }} Overview{% endcapture %}
+            {% menu_link work_label, /works/overview %}            
+            {% capture client_label %}{{ site.client_label }} Directory{% endcapture %}
+            {% menu_link client_label, /clients/overview %}
+            {% capture client_lead_label %}{{ site.client_lead_label | plural }}{% endcapture %}
+            {% menu_link client_lead_label, /works/lead %}            
+            {% capture client_active_label %}{{ site.client_active_label }}{% endcapture %}
+            {% menu_link client_active_label, /works/active %}            
+            {% capture client_completed_label %}{{ site.client_completed_label }}{% endcapture %}
+            {% menu_link client_completed_label, /works/complete %}
+          {% endsubmenu %}
+        {% endif %}
+
+      {% endmenu %}
+      
+    {% endcache %}
+  </div>
+
+</div>
+
+<div id="site_search">
+  {% show_search %}
+</div>

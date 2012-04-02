@@ -1,0 +1,34 @@
+<div id="feed_section" class="section page">
+  <div class="section">
+    <div class="header">
+      <h1>What People Like</h1>
+    </div>
+  </div>
+  <div class="section main js_filtered">
+    <div class='section filters'>
+
+      {% show_filters %}
+
+    </div>
+
+    <ol class="like_feed js_filter_body">
+      {% for like in activities %}
+      {% include 'likes/like' like: like %}
+      {% endfor %}
+    </ol>
+
+    {% if show_more %}
+    <div class="footer" id="js_paginate">
+      <div class="js_paginate">
+        <a class="more" href="/activities/likes?1=1" data-offset="{{offset}}" data-type="html">More</a>
+
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    {% endif %}
+
+  </div>
+</div>
+
+

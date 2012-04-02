@@ -1,0 +1,11 @@
+<div class="item search_result wiki">
+  <div class="avatar">{{ wiki.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ wiki.link_to_show_with_container_class }} | {{ wiki.site_label }}</h3>
+    <h4>Located in the {{ wiki.parent.site_label | downcase }} {{ wiki.parent.link_to_show_with_container_class }}</h4>
+    <p>{{ wiki.search_excerpt }}</p>
+
+    {% include 'search_results/footer_container' node: wiki %}
+  </div>
+  <div class='clear'></div>
+</div>

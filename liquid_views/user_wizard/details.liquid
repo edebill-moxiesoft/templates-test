@@ -1,0 +1,67 @@
+{% if current_user.can_edit_password? %}
+  <fieldset class="inputs change_password">
+    <ol>
+      <li id="user_current_password_input" class="password optional">
+        <label for="user_current_password">Current Password</label>
+        <input type="password" size="50" name="user[current_password]" id="user_current_password">
+      </li>
+      <li id="user_password_input" class="password optional">
+        <label for="user_password">New Password</label>
+        <input type="password" size="50" name="user[password]" id="user_password">
+      </li>
+      <li id="user_password_confirmation_input" class="password optional">
+        <label for="user_password_confirmation">Confirm</label>
+        <input type="password" size="50" name="user[password_confirmation]" id="user_password_confirmation">
+      </li>
+    </ol>
+  </fieldset>
+{% endif %}
+
+<fieldset class="inputs">
+  <ol>
+    <li id="user_display_name_input" class="string required">
+      <label for="user_display_name">Display name<abbr title="required">*</abbr></label>
+      <input type="text" value="{{current_user.display_name}}" size="50" name="user[display_name]" id="user_display_name">
+    </li>
+    <li id="user_desk_number_input" class="string optional">
+      <label for="user_desk_number">Desk Phone #</label>
+      <input type="text" value="{{current_user.desk_number}}" size="50" name="user[desk_number]" id="user_desk_number">
+    </li>
+    <li id="user_mobile_number_input" class="string optional">
+      <label for="user_mobile_number">Mobile number</label>
+      <input type="text" value="{{current_user.mobile_number}}" size="50" name="user[mobile_number]" id="user_mobile_number">
+    </li>
+    <li id="user_location_input" class="string optional">
+      <label for="user_location">Location</label>
+      <input type="text" value="{{current_user.location}}" size="50" name="user[location]" id="user_location">
+    </li>
+    
+    {% if site.expertise_or_role? == 'expertise' %}
+    <li id="user_expertise_autocomplete" class="string optional">        
+      <label for='user_expertise'>Expertise</label>
+      <input name="user[expertise_list]" value="{{ current_user.expertise_list }}" id="user_expertise" class="js_user_expertise_ac ac_input" autocomplete="off">
+      <p class="inline-hints">a comma-separated list of expertise tags</p>
+    </li>
+    {% else %}
+    <li id="user_role_input" class="string optional">
+      <label for="user_role">{{ site.role_label }}</label>
+      <select id="user_role" name="user[role]">
+        <option value=""></option>
+        {% for role in site.user_role_values %}
+          <option {% if current_user.role == role %}selected="selected"{% endif %} value="{{role}}">{{role}}</option>
+        {% endfor %}
+      </select>
+
+    </li>
+    {% endif %}    
+    
+    <li id="user_community_input" class="string optional">
+      <label for="user_community">Community</label>
+      <input type="text" value="{{current_user.community}}" size="50" name="user[community]" id="user_community">
+    </li>
+    <li id="user_hire_date_input" class="string optional">
+      <label for="user_hire_date">Hire date</label>
+      <input type="text" value="{{current_user.hire_date}}" size="50" name="user[hire_date]" id="user_hire_date">
+    </li>
+  </ol>
+</fieldset>

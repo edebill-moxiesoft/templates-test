@@ -1,0 +1,30 @@
+<form class="works_item_data">
+  <input type="hidden" class="works_index_url" value="{{index_url}}">
+  <input type="hidden" class="works_limit" value="{{limit}}">
+  <div class="updated_at">Updated {{ works.first.updated_at | time_ago_in_words }}</div>
+
+</form>
+<ol class="works item_list js_filter_body">
+  {% if works == empty %}
+    <li><p><em>No {{ site.work_label | plural | downcase }} yet</em></p></li>
+  {% else %}
+  {% for work in works %}
+  <li class="item work">
+    {% if work.has_avatar? %}
+    <div class="avatar">
+      <a href="{{ work.show_path }}"> <img src="{{ work.small_avatar }}"></a>
+    </div>
+    {% endif %}
+    <a href="{{ work.show_path }}">{{ work.title }}</a>
+
+    <p class="description">{{ work.limited_body }}</p>
+    <!--em>
+      Client: {{work.parent.title }} | Type: {{ work.work_type }} | Lead Status: {{ work.lead_status }} | Start Date: {{ work.start_date }} |
+      End Date: {{ work.end_date }} | Location: {{ work.location }} | Updated: {{ work.updated_at }} | Created: {{ work.created_at }}
+    </em-->
+  </li>
+  {% endfor %}
+  {% endif %}
+
+</ol>
+

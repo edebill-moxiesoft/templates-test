@@ -1,0 +1,40 @@
+{% include 'search_results/showing_count' showing_count: wiki_pages.size total_count: nodes_count hide: hide_total %}
+<table class="search_results wiki_pages  ">
+  <thead>
+  <tr>
+    <th>Title of {{ site.wiki_page_label | titlecase }}</th>
+    <th>Author</th>
+    <th>{{ site.wiki_label }} Name</th>
+    <th>Date Posted</th>
+  </tr>
+  </thead>
+
+  {% if wiki_pages == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.wiki_page_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for wiki in wiki_pages limit: limit  %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ post.container_class }}">
+    <td>
+      {% if wiki.display_avatar? %}
+      <div class="avatar_container">{{ wiki.activity_feed_avatar }}</div>
+      {% endif %}
+      <div class="title">{{ wiki.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ wiki.link_to_owner }}</td>
+    <td>{{ wiki.parent.link_to_show_with_container_class }}</td>
+    <td>{{ wiki.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: wiki_pages.size total_count: nodes_count hide: hide_total %}
+  {% more wiki_pages search: true %}
+{% endunless %}

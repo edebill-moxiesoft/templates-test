@@ -1,0 +1,43 @@
+<div class="section main fullwidth">
+
+  {% include 'searches/controls' tab: 'all' %}
+
+  <div class="section content search_overview">
+    
+    {% include 'search_results/kb_articles', hide_if_none: true, query: search.query %}
+
+    {% incremental_list for local_activities %}
+
+    {% incremental_list for categories %}
+    {% incremental_list for basic_groups %}
+    {% incremental_list for location_groups %}
+    {% if site.clients_section_enabled? %}
+      {% incremental_list for clients %}
+      {% incremental_list for works %}
+    {% endif %}
+    {% incremental_list for projects %}
+
+    {% incremental_list for users %}
+
+    {% incremental_list for blogs %}
+    {% incremental_list for blog_posts %}
+    {% incremental_list for calendars %}
+    {% incremental_list for calendar_events %}
+    {% incremental_list for discussion_archives %}
+    {% incremental_list for discussions %}
+    {% incremental_list for document_libraries %}
+    {% incremental_list for documents %}
+    {% incremental_list for sharepoint_search_documents %}
+    {% incremental_list for email_archives %}
+    {% incremental_list for emails %}
+    {% incremental_list for ideastorms %}
+    {% incremental_list for ideas %}
+    {% incremental_list for wikis %}
+    {% incremental_list for wiki_pages %}
+    {% incremental_list for task_lists %}
+    {% incremental_list for tasks %}
+    {% incremental_list for work_portfolios %}
+
+  </div>
+
+</div>

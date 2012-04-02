@@ -1,0 +1,25 @@
+<ul class="ad-thumb-list">
+    {% for document in documents %}
+    <li>
+        <div style="float:left">
+            {% if document.is_image %}
+            <a href="{{document.preview_path}}" full_image_path="{{document.file_path}}">
+                <img src="{{document.thumbnail_square_path}}" title="{{document.title | escape}}" longdesc="{{document.body | escape}}" />
+            </a>
+            {% else %}
+            <a href="{{document.non_image_thumbnail}}" full_image_path="{{document.file_path}}">
+                <img src="{{document.non_image_thumbnail}}" title="{{document.title | escape}}" longdesc="{{document.body | escape}}" />
+            </a>
+            {% endif %}
+        </div>
+        <div>
+            <label>Title</label>
+            <input type="text" name="title" value="{{document.title}}" />
+            <br/>
+            <label>Caption</label>
+            <textarea name="description"/>
+        </div>
+        <div style="clear:both;"/>
+    </li>
+    {% endfor %}
+</ul>

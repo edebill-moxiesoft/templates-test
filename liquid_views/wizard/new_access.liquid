@@ -1,0 +1,30 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head></head>
+<body>
+<form id="node_{{ node.id}}" class="fancyform admin_panel" method="post" action="{{node.wizard_create_path}}"
+      ><!--data-remote="true" data-type="html"-->
+  <input type="hidden" name="node[_type]" value="{{node._type}}">
+  {% if node._type == 'Category' %}
+    <input type='hidden' id='back_action' value="{{ node.new_wizard_path }} " />
+  {% else %}
+    <input type="hidden" id="back_action" value="{{node.new_members_path}}">
+  {% endif %}
+  <input type="hidden" id="continue_label" value="Create">
+
+  <div class="admin_container">
+    {% include 'nodes/_admin_panel_access' new_access: node.new_access %}
+  </div>
+
+</form>
+
+<a class="close_wizard" href="/reset_node_wizard?type={{ node._type }}" data-remote='true'></a>
+
+<script type="text/javascript" src="/javascripts/wizard_members.js"></script>
+<script type="text/javascript">
+  if (typeof PopdownList !== 'undefined') {
+    PopdownList.setup();
+  }
+</script>
+</body>
+</html>

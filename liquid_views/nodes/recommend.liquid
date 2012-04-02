@@ -1,0 +1,18 @@
+{% if recommendations == empty %}
+  <p>
+    <em>no recommendations available</em>
+  </p>
+{% else %}
+  <ol>
+    {% for item in recommendations %}
+      <li class="item">
+        <a href="{{ item.show_path }}">{{ item.small_avatar }}</a>
+        {{ item.link_to_show }}
+        {% if item.watchable? %}
+           <p>{{ 'follower' | pluralize: item.watchers_count }}</p>   
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+{% endif %}
+

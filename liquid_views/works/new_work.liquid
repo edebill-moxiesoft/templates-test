@@ -1,0 +1,71 @@
+<!--?xml version='1.0' encoding='utf-8' ?-->
+<html>
+<head></head>
+<body>
+{% form for 'form_object' action: 'form_object.new_members_path' class: 'fancyform group' data-remote: true data-type: html override-put: true %}
+  <input type="hidden" id="back_action" value="{{form_object.new_wizard_path}}">
+  <input type="hidden" name="node[_type]" value="{{form_object._type}}">
+
+  {% error_messages %}
+  {% form_fields for 'inputs' name: 'Project Details' %}
+
+    {% if form_object.work_type == 'lead' %}
+			{% capture lead_label %}{{ form_object.work_type_lead_label }} Status{% endcapture %}
+      {% input for 'lead_status' as: 'select' label_from_variable: lead_label required: 'false' include_blank: 'false' collection: [['Cold','cold'],['New','new'],['Hot','hot'],['Hyper-Hot','hothot']] %}
+    {% endif %}
+
+    {% input for 'location_group_id' as: 'location_group_select' class: 'select' label: 'Location' required: 'false' include_blank: 'true' %}
+
+    <li id="work_start_date_input" class="text">
+      <label for="work_start_date">Start Date</label>
+      <input type="text" style="width: 240px" name="work[start_date]" id="work_start_date" class="datepicker"
+             value="{{form_object.start_date}}">
+    </li>
+
+    <li id="work_end_date_input" class="text">
+      <label for="work_end_date">End Date</label>
+      <input type="text" style="width: 240px" name="work[end_date]" id="work_end_date" class="datepicker"
+             value="{{form_object.end_date}}">
+    </li>
+
+    <li id="work_related_work_ids_input" class="text">
+      <label for="work_related_works">Related Projects</label>
+      <input type="text" name="work_related_works" class="hint" title="Type to search for projects (3 chars min)" value=""
+             id="work_related_works" data-ignore="{{ form_object.id }}">
+      <input type="hidden" name="work[set_related_work_ids]" value="{{ form_object.related_work_ids_list }}"
+             id="work_set_related_work_ids">
+      <ul id="work_related_work_selection_list" class="ac_selections">
+        {{ form_object.related_work_list_items }}
+      </ul>
+    </li>
+
+    <li id="work_contact_user_ids_input" class="text contact_user_ids_input">
+      <label for="work_contact_users">Contact Users</label>
+      <input type="text" name="work_contact_users" class="hint contact_users" title="Type to search for users (3 chars min)" value="" id="work_contact_users">
+      <input type="hidden" name="work[set_contact_user_ids]" class="set_contact_user_ids" value="{{ form_object.contact_user_ids_list }}" id="work_set_contact_user_ids">
+      <ul id="work_contact_user_ids_selection_list" class="ac_selections contact_user_ids_selection_list">
+        {{ form_object.contact_users_list_items }}
+      </ul>
+    </li>
+
+    {% input for 'notes' as: 'textarea' required: 'false' label: 'Confidentiality Notes' rows: 5 %}
+
+    {% if form_object.work_type == 'complete' %}
+      {% if user_request.from_mobile_device?  %}
+        {% input for 'market_impact' as: 'textarea' required: 'false' wrapper_class: 'textile_editor' label: 'Market Impact' %}
+        {% input for 'short_summary' as: 'textarea' required: 'false'  wrapper_class: 'textile_editor' label: '100 Word Summary' %}
+      {% else %}
+        {% input for 'market_impact' as: 'textarea' wrapper_class: 'wysiwyg_editor' class: 'wiz_ckeditor ckeditor_custom' label: 'Market Impact' required: 'false' %}
+        {% input for 'short_summary' as: 'textarea' wrapper_class: 'wysiwyg_editor' class: 'wiz_ckeditor ckeditor_custom' label: '100 Word Summary' required: 'false' %}
+      {% endif %}
+    {% endif %}
+
+
+  {% endform_fields %}
+
+{% endform %}
+<a class="close_wizard" href="/reset_node_wizard?type={{ form_object._type }}" data-remote='true'></a>
+<script type="text/javascript" src="/javascripts/group_wizard_load.js?{{ site.site_version }}"></script>
+<script type="text/javascript" src="/javascripts/works.js?{{ site.site_version }}"></script>
+</body>
+</html>

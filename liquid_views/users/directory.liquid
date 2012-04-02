@@ -1,0 +1,110 @@
+<div class='section main fullwidth last js_filtered directory'>
+  <div class="user_search">
+    <form action="{{base_url}}" class="search">
+      <input type="hidden" name="sort" value="{{sort}}">
+      <input type="hidden" name="order" value="{{order}}">
+
+      {% unless hide_search_and_finder == 'true' %}
+        <div class="wrapper">
+          <fieldset>
+{% if search_prompt %}
+  {% assign prompt = search_prompt %}
+{% else %}
+  {% assign prompt = 'Search for people with ANY of...' %}
+{% endif %}
+            <input type="text" name="q" title="{{ prompt }}" value="{{keyword}}" class="hint">
+          </fieldset>
+          <a href="{{base_url}}">reset</a>
+        </div>      
+      
+        {% if site.expertise_or_role? == 'expertise' %}
+        <div class="expertise_finder_tool">
+          <h4>Expertise Finder</h4>
+          <ul id="expertise_finder" style="display:none">
+            {% for term in site.all_expertise_links %}
+              <li><a href="{{base_url}}?keyword={{ term }}">{{ term | unescape }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      {% endunless %}
+      
+    </form>
+
+  </div>
+  <table>
+    <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th
+        class="sortable {% if sort == 'sort_display_name'%}active{%endif%} {% if sort == 'sort_display_name' and order == 'asc'%}desc{%else%}asc{%endif%}">
+        <a
+          href="{{base_url}}?keyword={{keyword}}&sort=sort_display_name&order={% if sort == 'sort_display_name' and order == 'asc'%}desc{%else%}asc{%endif%}">
+          Name</a></th>
+      <th>E-Mail</th>
+      <th
+        class="sortable {% if sort == 'sort_location'%}active{%endif%} {% if sort == 'sort_location' and order == 'asc'%}desc{%else%}asc{%endif%}">
+        <a
+          href="{{base_url}}?keyword={{keyword}}&sort=sort_location&order={% if sort == 'sort_location' and order == 'asc'%}desc{%else%}asc{%endif%}">
+          Location</a></th>
+      
+      {% if site.expertise_or_role? == 'expertise' %}
+      <th>
+        Expertise
+      </th>
+      {% endif %}
+      
+      <th
+        class="sortable {% if sort == 'current_sign_in_at'%}active{%endif%} {% if sort == 'current_sign_in_at' and order == 'desc'%}desc{%else%}asc{%endif%}">
+        <a
+          href="{{base_url}}?keyword={{keyword}}&sort=current_sign_in_at&order={% if sort == 'current_sign_in_at' and order == 'desc'%}asc{%else%}desc{%endif%}">
+          Last Login</a></th>
+      <th>{{ site.blog_label }}</th>
+      <th style="width:80px;">Follow</th>
+    </tr>
+    </thead>
+    <tbody class="js_filter_body">
+    {% for user in users %}
+
+    <tr>
+      <td>{{ user.small_avatar_with_link }}</td>
+      <td>
+        {{ user.link_to_profile }}
+      </td>
+      <td><a href="mailto: {{ user.email }}">{{ user.email }}</a></td>
+      <td>{{ user.location }}</td>
+      
+      {% if site.expertise_or_role? == 'expertise' %}
+        <td>
+        {% for tag in user.expertise_array %}
+          <a href="{{base_url}}?keyword={{tag}}" class="group_link">{{tag}}</a>{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+        </td>
+      {% endif %}
+      
+      <td>{{ user.logged_in_at | time_ago_in_words, 'ago' }}</td>
+      <td>
+        {% if user.personal_blog %}
+        <a href="{{ user.personal_blog.show_path }}" title="Click to read '{{ user.personal_blog.name | replace: '"', '' }}'">
+          <img src="/images/spaces_icons/blog_blue.png" />
+        </a>
+        {% endif %}
+      </td>
+      <td>
+        {{ user.watch_button_small }}
+      </td>
+    </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% if have_more %}
+  <div class="js_paginate">
+    <a class="more" href="{{base_url}}?nolayout=true&limit=100&sort={{sort}}&order={{order}}&keyword={{keyword}}&q={{query}}"
+       data-offset="{{ offset }}" data-type="html">More</a>
+
+    <div class="spinner"></div>
+  </div>
+  {% endif %}
+</div>

@@ -1,0 +1,41 @@
+{% include 'search_results/showing_count' showing_count: wikis.size total_count: nodes_count hide: hide_total %}
+<table class="search_results wikis  ">
+  <thead>
+  <tr>
+    {% capture wiki_header_label %}Title of {{ site.wiki_label }}{% endcapture %}
+    {% include 'searches/_sort_header' title: wiki_header_label sort_by: "name" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Author" sort_by: "created_by" hide_sorting: hide_total %}
+    {% capture parent_header_label %}{{ site.wiki_label }} Name{% endcapture %}
+    {% include 'searches/_sort_header' title: parent_header_label sort_by: "parent_title" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Date Posted" sort_by: "created_at" hide_sorting: hide_total %}
+  </tr>
+  </thead>
+  {% if wikis == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.wiki_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for wiki in wikis limit: limit  %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ post.container_class }}">
+    <td>
+      {% if wiki.display_avatar? %}
+      <div class="avatar_container">{{ wiki.activity_feed_avatar }}</div>
+      {% endif %}
+      <div class="title">{{ wiki.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ wiki.link_to_owner }}</td>
+    <td>{{ wiki.parent.link_to_show_with_container_class }}</td>
+    <td>{{ wiki.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: wikis.size total_count: nodes_count hide: hide_total %}
+  {% more wikis search: true %}
+{% endunless %}

@@ -1,0 +1,41 @@
+{% include 'search_results/showing_count' showing_count: discussions.size total_count: nodes_count hide: hide_total %}
+<table class="search_results discussions  ">
+  <thead>
+  <tr>
+    {% capture discussion_header_label %}Title of {{ site.discussion_label }}{% endcapture %}
+    {% include 'searches/_sort_header' title: discussion_header_label sort_by: "name" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Author" sort_by: "created_by" hide_sorting: hide_total %}
+    {% capture parent_header_label %}{{ site.discussion_archive_label }} Name{% endcapture %}
+    {% include 'searches/_sort_header' title: parent_header_label sort_by: "parent_title" hide_sorting: hide_total %}
+    {% include 'searches/_sort_header' title: "Date Posted" sort_by: "created_at" hide_sorting: hide_total %}
+  </tr>
+  </thead>
+  {% if discussions == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.discussion_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for discussion in discussions limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ discussion.container_class }}">
+    <td>
+      {% if discussion.display_avatar? %}
+      <div class="avatar_container">{{ discussion.activity_feed_avatar }}</div>
+      {% endif %}
+      <div class="title">{{ discussion.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ discussion.link_to_owner }}</td>
+    <td>{{ discussion.parent.link_to_show_with_container_class }}</td>
+    <td>{{ discussion.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: discussions.size total_count: nodes_count hide: hide_total %}
+  {% more discussions search: true  %}
+{% endunless %}

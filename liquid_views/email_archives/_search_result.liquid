@@ -1,0 +1,12 @@
+<div class="item search_result email_archive">
+  <div class="avatar">{{ email_archive.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ email_archive.link_to_show_with_container_class }} | {{ email_archive.site_label }}</h3>
+    <h4>
+      Located in the {{ email_archive.parent.site_label | downcase }} {{ email_archive.parent.link_to_show_with_container_class }}
+    </h4>
+
+    {% include 'search_results/footer_container' node: email_archive %}
+  </div>
+  <div class='clear'></div>
+</div>

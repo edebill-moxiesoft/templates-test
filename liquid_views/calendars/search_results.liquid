@@ -1,0 +1,39 @@
+{% include 'search_results/showing_count' showing_count: calendars.size total_count: nodes_count hide: hide_total %}
+<table class="search_results calendars  ">
+  <thead>
+  <tr>
+    <th>Title of {{ site.calendar_label }}</th>
+    <th>Author</th>
+    <th># of {{ site.calendar_event_label | plural }}</th>
+    <th>Date Created</th>
+  </tr>
+  </thead>
+  {% if calendars == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.calendar_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for calendar in calendars limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ calendar.container_class }}">
+    <td>
+      {% if calendar.display_avatar? %}
+      {{ calendar.avatar }}
+      {% endif %}
+      <div class="title">{{ calendar.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ calendar.link_to_owner }}</td>
+    <td>{{ calendar.children_count }}</td>
+    <td>{{ calendar.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: calendars.size total_count: nodes_count hide: hide_total %}
+  {% more calendars search: true %}
+{% endunless %}

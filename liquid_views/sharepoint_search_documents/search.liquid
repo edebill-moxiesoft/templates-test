@@ -1,0 +1,10 @@
+<div id="sharepoint_search_documents_index" class="section full">
+  <div class="content_bar_hat"></div>
+
+  <div class="section main fullwidth js_filtered">
+    {% include 'searches/controls' tab: 'sharepoint_search_documents' label: "SharePoint Documents" %}
+    {% search_results of sharepoint_search_documents %}
+    {% include 'search_results/showing_count' showing_count: sharepoint_search_documents.size total_count: sharepoint_search_documents_count %}
+    {% more sharepoint_search_documents search: true %}
+  </div>
+</div>

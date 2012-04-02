@@ -1,0 +1,39 @@
+{% include 'search_results/showing_count' showing_count: ideastorms.size total_count: nodes_count hide: hide_total %}
+<table class="search_results ideastorms  ">
+  <thead>
+  <tr>
+    <th>Title of {{ site.ideastorm_label }}</th>
+    <th>Author</th>
+    <th># of {{ site.idea_label | plural }}</th>
+    <th>Date Created</th>
+  </tr>
+  </thead>
+  {% if ideastorms == empty %}
+  <tr>
+    <td colspan="4"><p><em>No {{ site.ideastorm_label | plural | downcase }} available</em></p></td>
+  </tr>
+  {% endif %}
+
+  <tbody class="js_filter_body">
+  {% for ideastorm in ideastorms limit: limit %}
+
+  <tr class="item {% if forloop.last %}last{% endif %} container_{{ ideastorm.container_class }}">
+    <td>
+      {% if ideastorm.display_avatar? %}
+      {{ ideastorm.avatar }}
+      {% endif %}
+      <div class="title">{{ ideastorm.link_to_show_with_container_class }}</div>
+    </td>
+    <td>{{ ideastorm.link_to_owner }}</td>
+    <td>{{ ideastorm.children_count }}</td>
+    <td>{{ ideastorm.created_at | date: "%m/%d/%y"}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% unless hide_more %}
+  {% include 'search_results/showing_count' showing_count: ideastorms.size total_count: nodes_count hide: hide_total %}
+  {% more ideastorms search: true %}
+{% endunless %}

@@ -1,0 +1,85 @@
+<!--form id="video_uploader_form" action="/documents/upload" method="post" enctype="multipart/form-data">
+  <input type="text" value="test" name="test"> 
+  <fieldset class="inputs">
+    <ol>
+      <li class="file" id="upload_video_file_input">
+        <label for="upload_video_file">Select a Video<abbr title="required">*</abbr></label>
+        <input id="upload_video_file" name="upload_video_file" type="file"/>
+      </li>
+      <li class="file" id="upload_thumbnail_file_input">
+        <label for="upload_thumbnail_file">Select a Thumbnail</label>
+        <input id="upload_thumbnail_file" name="upload_thumbnail_file" type="file"/>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset class="buttons">
+    <ol>
+      <li class="commit ">
+        <input id="upload" name="commit" type="submit" value="upload"/>
+      </li>
+    </ol>
+  </fieldset>
+</form-->
+
+
+{% if node %}
+<!-- <h1>Edit {{node.friendly_type_name}}</h1> -->
+
+<div id="node_edit_tabs">
+  <ul>
+    <li><a href="#tabs-1">Details</a></li>
+    {% if node.current_user_can_admin? %}
+    <li><a href="#tabs-2">Admin</a></li>
+    {% endif %}
+    {% if node.friendly_type_name == "Document" and site.enable_document_checkout %}
+    <li><a href="#tabs-3">Lock/Unlock</a></li>
+    {% endif %}
+  </ul>
+  <div id="tabs-1">
+    {% edit_content %}
+  </div>
+  {% if node.current_user_can_admin? %}
+  <div id="tabs-2">
+    {% edit_security %}
+  </div>
+  {% endif %}
+  {% if node.friendly_type_name == "Document" and site.enable_document_checkout %}
+  <div id="tabs-3">
+    <h3>Document Locking</h3>
+
+    <p>
+      Locking a file will prevent other users from uploading a new file while you have it locked.
+    </p>
+    {% if node.locked? %}
+    <form action="/documents/{{node.slug}}/unlock" method="post" class="formtastic">
+      <div class="wrapper">
+        <fieldset class="buttons">
+          <ol>
+            <li class="commit ">
+              <input id="submit" name="commit" type="submit" value="Unlock"
+                     class="ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
+            </li>
+          </ol>
+        </fieldset>
+      </div>
+    </form>
+    {% else %}
+    <form action="/documents/{{node.slug}}/lock" method="post" class="formtastic">
+      <div class="wrapper">
+        <fieldset class="buttons">
+          <ol>
+            <li class="commit ">
+              <input id="submit" name="commit" type="submit" value="Lock"
+                     class="ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
+            </li>
+          </ol>
+        </fieldset>
+      </div>
+    </form>
+    {% endif %}
+  </div>
+  {% endif %}
+
+</div>
+
+{% endif %}
