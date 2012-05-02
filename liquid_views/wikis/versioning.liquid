@@ -1,8 +1,8 @@
 <div class="section unit versions_table">
-  <table class="versions">
+  <table class="table_reset versions">
     <thead>
       <tr>
-        <th>Rev</th>
+        <th class="col_version">Rev</th>
         <th>Size</th>
         <th>Created</th>
         <th>Creator</th>
@@ -18,7 +18,7 @@
         {% else %}
         <tr>
         {% endif %}
-          <td>{{ rev.index }}</td>
+          <td class="col_version">{{ rev.index }}</td>
           <td>{{ rev.characters_count | number_with_delimiter }} chars</td>
           <td>{{ rev.created_at | date: "%B %d, %Y" }}</td>
           <td class="creator">

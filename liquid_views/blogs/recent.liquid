@@ -13,9 +13,9 @@
         <p class='title'>
           {{ blog.link_to_show }}        
         </p>
-        <p class='description'>
+        <div class='user_content description'>
           {{ blog.description }}
-        </p>
+        </div>
         <p class='updated'>
           {{ blog.created_at | time_ago_in_words, 'ago'  }} 
         </p>

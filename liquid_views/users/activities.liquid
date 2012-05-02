@@ -13,6 +13,7 @@
 
   <div class='section sidebar'>
     {% pages_listing for: user %}
+    {% include 'local_activities/timeline_control' end_date: user.created_at  %}
   </div>
 
 </div>

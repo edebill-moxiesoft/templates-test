@@ -9,11 +9,11 @@
     <div class="article">
       <div class="header">
         <div class="collab_stats">
-          <a href="{{ post.show_path }}#likes">
+          <a href="{{ post.show_path }}#likes" title="{{post.likes_count}} likes">
             <var class="likes_count">{{ post.likes_count }}</var>
           </a>
           <a href="{{ post.show_path }}#comments">
-            <var class="replies_count" title="{{ discussion.replies_count }} replies">{{ post.replies_count }}</var>
+            <var class="replies_count" title="{{ post.replies_count }} replies">{{ post.replies_count }}</var>
           </a>
         </div>
         <h3>

@@ -23,13 +23,6 @@
     <dt class="end_date">End date</dt>
     <dd class="end_date work">{{ work.end_date | date: "%B %d, %Y"  }}</dd>
 
-    {% unless work.work_type == 'lead' %}
-    <dt class="fees">Client Fees</dt>
-    <dd class="fees">{{ work.fees }}</dd>
-    <dt class="margin">Margin</dt>
-    <dd class="margin">{{ work.margin }}</dd>
-    {% endunless %}
-
     <dt class="notes">Confidentiality Notes</dt>
     <dd class="notes">{{ work.notes }}</dd>
 

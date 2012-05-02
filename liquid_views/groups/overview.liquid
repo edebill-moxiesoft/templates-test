@@ -1,8 +1,11 @@
 <div id='show_groups_index'>
-  <div class="content_bar_hat">
-    <div class='content_bar'>
-      <div class='section main'></div>
-      <div class='section sidebar'>
+  
+  <div class='section groups header'>
+    <div id="page_header" class="content_bar_hat">
+      <div class='section main'>
+          <h1>{{ site.group_label | plural }}</h1>
+      </div>
+      <div class="section sidebar content_bar">
         <div class='menu popdown-menu'>
           {% include 'menus/group_index_add' %}
           <div class='clear'></div>
@@ -16,7 +19,7 @@
   
     <div class='section unit categories_summary'>
       <div class="header">
-        <h3>{{ site.group_label }} Listings</h3>
+        <h3>{{ site.group_label | plural }} by Category</h3>
       </div>
       {% show_summaries_section_by category %}
       <div class="clear"></div>

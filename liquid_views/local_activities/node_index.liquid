@@ -6,7 +6,7 @@
   <div class='section main newsfeed js_filtered'>
     <div id="container_header">
       <h2 class="container_title">
-        <a href="{{node.newsfeed_path}}" title="{{ site.newsfeed_label }}">{{site.newsfeed_label}}</a>
+        <a href="{{node.newsfeed_path}}" title="{{ site.newsfeed_label }}">{{site.newsfeed_label}} <span class="date_filter"></span></a>
       </h2>
       <div class="clear"></div>
     </div>
@@ -56,23 +56,7 @@
   </div>
   <div class='section sidebar'>
     {% pages_listing for: node %}
-
-    {% if node.has_memberships? %}
-      {% membership for node %}
-    {% endif %}
-
-    {% if node.has_watchers? %}
-      {% fancy_watchers for node %}
-    {% endif %}
-
-    <div class='aside security'>
-      <div class='header'>
-        {% include 'nodes/security_heading' item: node %}
-      </div>
-      <div class='section'>
-        {% include 'nodes/security_summary' item: node %}
-      </div>
-    </div>
+    {% include 'local_activities/timeline_control' end_date: node.created_at  %}
   </div>
 
 </div>

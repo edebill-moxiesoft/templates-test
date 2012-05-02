@@ -10,7 +10,7 @@
     <ol class="item_list">
       {% for location in locations %}
       <!-- TO DO make the style section in the following line load the actual image for this location -->
-      <li class="item location_placard" style="background-image: url({{ location.wide_avatar_url }})" data-link="{{ location.show_path }}">
+      <li class="item location_placard" style="background-image: url({{ location.large_avatar_url }})" data-link="{{ location.show_path }}">
         <p class='title shadowed'>
           {{ location.name | truncate length: 16 }}        
         </p>

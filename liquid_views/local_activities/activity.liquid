@@ -62,7 +62,7 @@
         </li>
       {% endif %}
 
-      <li class="created">{{ activity.content_updated_at | time_ago_in_words, 'ago'  }}</li>
+      <li class="created">{{ activity.content_updated_at | time_ago_in_words, 'ago'  }} {{ activity.application_client_text }}</li>
 
       {% assign first = true %}
       {% if actionable %}

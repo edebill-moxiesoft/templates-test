@@ -7,7 +7,15 @@
       {% if document.parent %}&nbsp;|&nbsp;&nbsp;Located in the {{ document.parent.site_label | downcase }} {{ document.parent.link_to_show_with_container_class }} {% endif %}
     </h4>
     <div class="document_summary">
-      <div class="document_preview">{{ document.activity_feed_avatar }}</div>
+      <div class="document_preview">
+        <a href="{{document.show_path}}" title="{{ document.title }}" class="{{document.container_class}}">
+          {% if activity.parent.has_transcoded_video %}
+            <img class="large_wide" src="{{ document.video_thumbnail_url }}" />
+          {% else %}
+            {{ document.activity_feed_rollup_avatar }}
+          {% endif %}
+        </a>
+      </div>
       <div class="document_details">
         <span class="file_name">{{ document.file_name }}</span>
         {% if document.has_preview? %}

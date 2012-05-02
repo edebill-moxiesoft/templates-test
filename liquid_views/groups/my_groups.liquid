@@ -1,30 +1,28 @@
 <div id='show_groups_my_groups'>
-  <div id="group_header">
-    <h1>
-      My {{ site.group_label | plural }}
-    </h1>
-  </div>
-<!--
-  <div class="content_bar_hat">
-    <div class='content_bar'>
-      <div class='section main'></div>
-      <div class='section sidebar'>
+  
+  <div class='section group header'>
+    <div id="page_header" class="content_bar_hat">
+      <div class='section main'>
+        <h1>My {{ site.group_label | plural }}</h1>
+      </div>
+      <div class="section sidebar content_bar">
         <div class='menu popdown-menu'>
-          {% include 'menus/group_index_add' %}
+          <a href="/groups/new?node[_type]=BasicGroup&amp;clear=true" title="Add a Group" class="basic_group_menu_item wizard_launch add_link" style="float: none; width: auto; ">Add a Group</a>
+          <a href="/groups/new?node[_type]=LocationGroup&amp;clear=true" title="Add a Location" class="add_link location_group_menu_item wizard_launch" style="float: none; width: auto; ">Add a Location</a>
           <div class='clear'></div>
         </div>
       </div>
       <div class='clear'></div>
     </div>
   </div>
--->  
+
   <div class='section' id="categories_overview_search">
     <input class="js_group_autocomplete hint" data-go-link='true' name="group_title" type="text" title="Search for a specific group" />
     <input class='js_group_id' name="group_id" type="hidden" value="any" data-default-value="any">
   </div>
 
   <div class='section main'>
-    {% groups_overview limit: 6 %}
+    {% groups_overview limit: 10 %}
   </div>
   
   <div class='section sidebar'>    
@@ -34,7 +32,7 @@
     </div>
 
     <div class='aside groups'>
-      {% new_groups limit: 5 %}
+      {% new_groups limit: 6 %}
     </div>
 
   </div>

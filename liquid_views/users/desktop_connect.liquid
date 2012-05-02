@@ -1,0 +1,79 @@
+<div class='section'>
+  <div class='section main user header'>
+    {% include 'users/user_header' parent: current_user %}
+  </div>
+</div>
+
+<div class='section'>
+  <div class='section main desktop_connect'>
+    <div id="container_header">
+      <h2 class="container_title"><a href="/users/desktop_connect" title="Desktop Connect">Desktop Connect</a></h2>
+      <div class="clear"></div>
+
+      <p>Next level portland farm-to-table fixie, flexitarian wolf keytar twee odd future pour-over. Fixie hoodie tofu, PBR carles VHS wes anderson. Odd future photo booth occupy echo park pickled. Mcsweeney's banksy brunch selvage carles synth. Before they sold out typewriter twee cliche, occupy vinyl vice pitchfork. Direct trade banksy fap chillwave pop-up, cred semiotics.</p>
+    </div>
+
+    <div class="section filters js_filtered">
+      <div class='header'>
+        <h3>Filters</h3>
+        {% show_filters %}
+      </div>
+
+      <div class="clear"></div>
+
+      {% if document_libraries == blank %}
+        <p><em>You do not have access to any {{ site.document_label | plural | downcase }} that can be synched via Desktop Connect.</em></p>
+      {% else %}
+        <div class='js_filter_body'>
+          <ol class='item_list'>
+            {% for document_library in document_libraries %}
+              <li class='item synchable_library {% if forloop.last %}last{% endif %}'>
+                <div class='avatar'>
+                  {{ document_library.small_avatar_with_link }}
+                </div>
+                <div class='details'>
+                  <h4>{{ document_library.link_to_show_with_parent_class }}</h4>
+                  <p>total size: {{ document_library.aggregate_file_size | number_to_filesize }} | number of files: {{ document_library.documents_and_folders_count }}</p>
+                  <p>located in {{ document_library.breadcrumbs }}</p>
+                </div>
+                {% include 'document_libraries/_desktop_sync_buttons' document_library: document_library %}
+              </li>
+            {% endfor %}
+            <li class='item pagination'>
+              {% paginate document_libraries %}
+            </li>
+          </ol>
+
+        </div>
+      {% endif %}
+    </div>
+    
+  </div>
+
+
+  <div class='section sidebar'>
+    {% pages_listing for: current_user %}
+
+    <div class='aside groups'>
+      {% user_groups limit 3 for current_user %}
+    </div>
+
+    <div class='aside users'>
+      <div class="header">
+        <h3>People Working With {{ current_user.display_name }}</h3>
+      </div>
+      
+      {% include 'users/list_sidebar' users: current_user.colleagues %}
+    </div>
+      
+    <div class='aside users'>      
+      <div class="header">
+        <h3>People Following {{ current_user.display_name }}</h3>
+      </div>
+      
+      {% include 'users/list_sidebar' users: current_user.followers %}
+    </div>
+      
+
+  </div>
+</div>

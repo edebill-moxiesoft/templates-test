@@ -2,8 +2,7 @@
   <a href="/"><h1 class="{{ site.site_header_logo }}">Spaces</h1></a>
 
   <div class="nav">
-    {% cache top_menu, controller, resource_or_action %}
-
+    {% cache top_tab_menu %}
       {% menu %}
         {% submenu Home, / %}
         {% endsubmenu %}
@@ -15,7 +14,7 @@
           {% menu_link Activities, /activities %}
           {% menu_link Directory, /people %}
           <li>
-            <a href="/user_invites/emails" class="wizard_launch" title="Invite Users" data-height='400'>Invite Users</a>
+            <a href="/user_invites/emails" class="wizard_launch" title="Invite People" data-height='400'>Invite People</a>
           </li>
         {% endsubmenu %}
     
@@ -36,7 +35,6 @@
 
         {% capture project_label %}{{ site.project_label | plural }}{% endcapture %}
         {% submenu project_label, /projects/overview %}
-          {% menu_link Home, /projects/overview %}
         {% endsubmenu %}
 
         {% if site.kb_integration_enabled? %}

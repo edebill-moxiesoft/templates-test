@@ -16,9 +16,12 @@
 	 <p><em>No discussions yet</em></p>
 	 {% endif %}
   </div>
+
+  {% if discussion_archive.has_discussions? %}
   <div class="footer">
     <a href="{{ discussion_archive.show_path }}" class="more_link">More</a>
   </div>
+  {% endif %}
 
   {% endfor %}
 </div>

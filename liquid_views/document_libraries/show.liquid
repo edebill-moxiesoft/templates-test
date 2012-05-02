@@ -10,6 +10,10 @@
   <div class='section main item_show'>
   
     <div id="container_header">
+      {% if site.desktop_connect_enabled? and document_library.current_user_can_sync_to_desktop? %}
+        {% include 'document_libraries/_desktop_sync_buttons' document_library: document_library %}
+      {% endif %}
+
       {% capture primary_actions %}
         {% if document_library.current_user_can_contribute? %}
           <ul class="primary_actions">
@@ -117,7 +121,7 @@
                   , updated {{ document.updated_at | date: "%B %d, %Y"}}
                 {% endif %}
 
-                <var class="likes_count">{{ document.likes_count }}</var>
+                <var class="likes_count" title="{{discussion.likes_count}} likes">{{ document.likes_count }}</var>
                 <var class="replies_count" title="{{ discussion.replies_count }} replies">{{ document.replies_count }}</var>
               </div>
               <hr/>

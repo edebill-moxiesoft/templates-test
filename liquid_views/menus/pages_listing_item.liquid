@@ -1,15 +1,10 @@
 {% if pages %}
   {% if pages != empty %}
-      {% if pages.size == 1 %}
-        <li class="menu_item icon_menu_item  {{ node | node_in_pages: pages}}">
-          <a href="{{pages[0].show_path}}" title="{{section_title}}" class="{{pages[0].menu_item_class}}">{{section_title}}</a>
-        </li>
-      {%  else %}
-        <li class="menu_item icon_menu_item has_multiple  {{ node | node_in_pages: pages}}">
-          <a href="#" title="{{section_title}}" class="{{pages[0].menu_item_class}}  section_link">{{section_title}} ({{pages.size}})</a>
-          <ol {{ node | node_in_pages_open_list: pages}} >
+        <li class="menu_item icon_menu_item has_multiple">
+          <a href="#" title="{{section_title}}" class="{{pages[0].menu_item_class}} section_link">{{section_title}} ({{pages.size}})</a>
+          <ol style="display: none">
           {% for page in pages %}
-            <li class="menu_item icon_menu_item {% if forloop.last %}last{% endif %} {{ node | node_or_child_of: page }}">
+            <li class="menu_item icon_menu_item {% if forloop.last %}last{% endif %}" id="page_listing_{{page.id}}">
               <a href="{{ page.show_path }}" title="{{ page.title }}" class="group_subnav_item ">
               {{ page.page_name | truncate: 30}}
               </a>
@@ -17,8 +12,6 @@
           {% endfor %}
           </ol>
         </li>
-      {% endif %}
-      
   {% endif %}
 
 {% endif %}

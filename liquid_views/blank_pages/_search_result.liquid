@@ -1,0 +1,14 @@
+<div class="item search_result blank_page">
+  <div class="avatar">{{ blank_page.closet_container_avatar }}</div>
+  <div class="details">
+    <h3>{{ blank_page.link_to_show_with_container_class }} | {{ blank_page.site_label }}</h3>
+    <h4>
+      {% if blank_page.parent %}Located in the {{ blank_page.parent.site_label | downcase }} {{ blank_page.parent.link_to_show_with_container_class }} {% endif %}
+    </h4>
+    <p>{{ blank_page.search_excerpt }}</p>
+
+    {% include 'search_results/footer_container' node: blank_page %}
+
+  </div>
+  <div class='clear'></div>
+</div>

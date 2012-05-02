@@ -16,9 +16,9 @@
       {{ discussion.watch_button_small }}
       <div class="clear"></div>
                 
-      {% if discussion.current_user_can_admin? or discussion.closed? %}
         <ul class="primary_actions content_show">
           <li class="container_share action_btn">{{ discussion.share_button }}</li>
+        {% if discussion.current_user_can_admin? or discussion.closed? %}
           {% if discussion.current_user_can_admin? %}
           <li class="action_btn">{{ discussion.edit_link }}</li>        
           <li>
@@ -38,9 +38,9 @@
           {% if discussion.closed? %}
           <li><span class='closed_at'>Closed {{ discussion.closed_at }}</span></li>       
           {% endif %}        
+        {% endif %}
         </ul>  
         <div class="clear"></div> 
-      {% endif %}
 
       <span class="owner">Started by {{ discussion.creator.link_to_show }}</span>
       <span class='time_ago'>, {{ discussion.created_at | time_ago_in_words, 'ago' }}</span>      

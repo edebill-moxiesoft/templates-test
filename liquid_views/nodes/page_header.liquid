@@ -10,7 +10,7 @@
   {{ primary_actions }}
   <ul class="secondary_actions">
     <li class="container_share action_btn">{{ parent.share_button }}</li>
-  {% if parent.current_user_can_admin? %}
+  {% if parent.current_user_can_edit? %}
     <li class="container_edit action_btn">{{ parent.edit_link }}</li>
   {% endif %}
   </ul>

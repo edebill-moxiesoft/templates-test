@@ -41,17 +41,11 @@
   
     {% pages_listing for: email %}
   
-    <div class="section unit likes_block">
-      <div class='aside'>
-        {% activity for 'email' %}
-      </div>
-      
-      {% if limit < email.likes_count %}
-      <div class="footer">
-        <a class="all" href="{{ blog_post.likers_path }}" data-remote="true" data-type="html">more</a>
-      </div>
-      {% endif %}
+    <div class='aside'>
+      {% activity for 'email' %}
     </div>
+      
+
     <div class='aside security'>
       <div class='header'>
         {% include 'nodes/security_heading' item: email %}

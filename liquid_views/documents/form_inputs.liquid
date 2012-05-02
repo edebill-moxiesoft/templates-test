@@ -9,12 +9,12 @@
         <label for="document_file">File<abbr title="required">*</abbr></label>
         <input id='document_file' type='text' name='document_file_display' disabled='disabled'/>
         <a id='pickfiles' class='button' href="#">Browse</a>
-
         {{ document.s3_url }}
         <div id='document_singleuploader_hidden_inputs'>
           {{ document.s3_hidden_inputs }}
         </div>
       </div>
+      <p class="inline-hints"></p>
     </li>
 {% endif %}
 
@@ -32,6 +32,8 @@
 {% include 'nodes/_editor_fields' %}
 
 {% tags_input %}
+
+<input id='s3_multipart_id' name='s3_multipart_id' type='hidden' value='{{ document.s3_multipart_id }}'/>
 
 {% unless form_object.parent_id == null %}
   {% input for 'parent_id' as: 'hidden' %}

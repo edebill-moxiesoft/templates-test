@@ -7,6 +7,7 @@
       </h2>
     </div>
     
+    {% if wp.item_references != blank %}
     <div class="gallery small">
       {% for item in wp.item_references limit: 5 %}
         <div class="gallery_small_pic">
@@ -23,6 +24,9 @@
         </div>
       {% endfor %}
     </div>
+    {% else %}
+    <p><em>No portoflio items yet</em></p>
+    {% endif %}
     
     {% if wp.item_references.size > 5 %}
       <div class="footer gallery">

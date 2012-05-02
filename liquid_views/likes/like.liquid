@@ -1,6 +1,6 @@
 <li class="like activity">
   <div class='avatar'>
-    {{ like.small_avatar }}
+    {{ like.small_avatar_with_link }}
   </div>
 
   <div class='contents a'>
@@ -10,7 +10,8 @@
           <var class="likes_count js_likes_count">{{ like.likes_count }}</var>
         </a>
       </div>
-      {{ like.link_to_likeable }}
+      {{ like.link_to_show_with_container_class }}
+
     </div>
 
 

@@ -31,8 +31,8 @@
         </span>
         <span class="date">{{ post.created_at | time_ago_in_words: 'ago'  }} </span>
         <a class='collab' href='{{post.show_path}}'>
-          <var class="likes_count">{{ post.likes_count }}</var>
-          <var class="replies_count" title="{{ discussion.replies_count }} replies">{{ post.replies_count }}</var>
+          <var class="likes_count" title="{{ post.likes_count }} likes">{{ post.likes_count }}</var>
+          <var class="replies_count" title="{{ post.replies_count }} replies">{{ post.replies_count }}</var>
         </a>
       </p>
       {{ post.more_text_link }}

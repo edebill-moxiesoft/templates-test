@@ -1,5 +1,5 @@
 {% include 'search_results/showing_count' showing_count: wiki_pages.size total_count: nodes_count hide: hide_total %}
-<table class="search_results wiki_pages  ">
+<table class="table_reset search_results wiki_pages  ">
   <thead>
   <tr>
     <th>Title of {{ site.wiki_page_label | titlecase }}</th>
@@ -20,9 +20,7 @@
 
   <tr class="item {% if forloop.last %}last{% endif %} container_{{ post.container_class }}">
     <td>
-      {% if wiki.display_avatar? %}
-      <div class="avatar_container">{{ wiki.activity_feed_avatar }}</div>
-      {% endif %}
+      <div class="avatar_container">{{ wiki.closet_container_avatar }}</div>
       <div class="title">{{ wiki.link_to_show_with_container_class }}</div>
     </td>
     <td>{{ wiki.link_to_owner }}</td>

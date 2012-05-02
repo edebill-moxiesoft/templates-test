@@ -15,15 +15,15 @@
 </div>
 
   <div class="section sidebar content_bar">
+  {% unless parent.child_show_page? or hide_details %}  
     {% if container_user.current_user? %}
-      {% unless parent.child_show_page? or hide_details %}  
       <div class="menu popdown-menu">
         {% include 'menus/user_page_add' %}
       </div>
-      {% endunless %}
     {% else  %}
       {{ container_user.watch_button }}
     {% endif %}
+  {% endunless %}
   </div>
 
   <div class="clear"></div>

@@ -32,20 +32,20 @@
     </form>
 
   </div>
-  <table>
+  <table class="table_reset">
     <thead>
     <tr>
       <th>&nbsp;</th>
       <th
         class="sortable {% if sort == 'sort_display_name'%}active{%endif%} {% if sort == 'sort_display_name' and order == 'asc'%}desc{%else%}asc{%endif%}">
         <a
-          href="{{base_url}}?keyword={{keyword}}&sort=sort_display_name&order={% if sort == 'sort_display_name' and order == 'asc'%}desc{%else%}asc{%endif%}">
+          href="{{base_url}}?q={{keyword}}&sort=sort_display_name&order={% if sort == 'sort_display_name' and order == 'asc'%}desc{%else%}asc{%endif%}">
           Name</a></th>
       <th>E-Mail</th>
       <th
         class="sortable {% if sort == 'sort_location'%}active{%endif%} {% if sort == 'sort_location' and order == 'asc'%}desc{%else%}asc{%endif%}">
         <a
-          href="{{base_url}}?keyword={{keyword}}&sort=sort_location&order={% if sort == 'sort_location' and order == 'asc'%}desc{%else%}asc{%endif%}">
+          href="{{base_url}}?q={{keyword}}&sort=sort_location&order={% if sort == 'sort_location' and order == 'asc'%}desc{%else%}asc{%endif%}">
           Location</a></th>
       
       {% if site.expertise_or_role? == 'expertise' %}
@@ -54,11 +54,11 @@
       </th>
       {% endif %}
       
-      <th
-        class="sortable {% if sort == 'current_sign_in_at'%}active{%endif%} {% if sort == 'current_sign_in_at' and order == 'desc'%}desc{%else%}asc{%endif%}">
-        <a
-          href="{{base_url}}?keyword={{keyword}}&sort=current_sign_in_at&order={% if sort == 'current_sign_in_at' and order == 'desc'%}asc{%else%}desc{%endif%}">
-          Last Login</a></th>
+      <th class="sortable {% if sort == 'last_date_active'%}active{%endif%} {% if sort == 'last_date_active' and order == 'desc'%}desc{%else%}asc{%endif%}">
+        <a href="{{base_url}}?q={{keyword}}&sort=last_date_active&order={% if sort == 'last_date_active' and order == 'desc'%}asc{%else%}desc{%endif%}">
+          Last Date Active
+        </a>
+      </th>
       <th>{{ site.blog_label }}</th>
       <th style="width:80px;">Follow</th>
     </tr>
@@ -77,12 +77,12 @@
       {% if site.expertise_or_role? == 'expertise' %}
         <td>
         {% for tag in user.expertise_array %}
-          <a href="{{base_url}}?keyword={{tag}}" class="group_link">{{tag}}</a>{% unless forloop.last %}, {% endunless %}
+          <a href="{{base_url}}?q={{tag}}" class="group_link">{{tag}}</a>{% unless forloop.last %}, {% endunless %}
         {% endfor %}
         </td>
       {% endif %}
       
-      <td>{{ user.logged_in_at | time_ago_in_words, 'ago' }}</td>
+      <td>{{ user.last_date_active_formatted }}</td>
       <td>
         {% if user.personal_blog %}
         <a href="{{ user.personal_blog.show_path }}" title="Click to read '{{ user.personal_blog.name | replace: '"', '' }}'">

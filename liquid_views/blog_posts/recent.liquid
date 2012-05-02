@@ -19,8 +19,10 @@
                 <a href="{{post.external_channel_url}}" class="external_link" target="_blank">{{ post.external_channel_title }}</a>
               {% else %}
                 {{ post.link_to_owner }}
+              {% endif %} 
+              {% if post.closest_container_is_not_creator? %}
+                in {{ post.closest_container.link_to_show_with_container_class }}
               {% endif %}
-              in {{ post.parent.parent.link_to_show_with_container_class }}
 
         </div>
         <div class="user_content post_body">

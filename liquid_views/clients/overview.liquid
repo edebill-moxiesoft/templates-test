@@ -1,8 +1,11 @@
 <div id='show_clients_index'>
-  <div class="content_bar_hat">
-    <div class='content_bar'>
-      <div class='section main'></div>
-      <div class='section sidebar'>
+  
+  <div class='section clients header'>
+    <div id="page_header" class="content_bar_hat">
+      <div class='section main'>
+          <h1>{{ site.client_label | plural }}</h1>
+      </div>
+      <div class="section sidebar content_bar">
         <div class='menu popdown-menu'>
           {% include 'menus/clients_overview_add' %}
           <div class='clear'></div>
@@ -15,7 +18,6 @@
   <div class='section main'>
 
     {% clients_summary %}
-
 
   </div>
 </div>

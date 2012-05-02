@@ -2,7 +2,7 @@
   <div class="avatar">{{ email.closet_container_avatar }}</div>
   <div class="details">
     <h3>{{ email.link_to_show_with_container_class }} | {{ email.site_label }}</h3>
-    <h4>Located in the {{ email.parent.parent.site_label | downcase }} {{ email.parent.parent.link_to_show_with_container_class }}</h4>
+    <h4>Located in the {{ email.parent.site_label | downcase }} {{ email.parent.link_to_show_with_container_class }}</h4>
     <p>{{ email.search_excerpt }}</p>
 
     {% include 'search_results/footer_content' node: email %}

@@ -9,7 +9,7 @@
         {% if activity.creator.has_avatar? %}
           {{ activity.creator.color_profile_photo }}
         {% else %}
-          <img class="profile_photo" src="/images/avatar_missing.png" title="{{ activity.creator.display_name }}">
+          <img class="profile_photo" src="/images/default_avatars/user.png" title="{{ activity.creator.display_name }}">
         {% endif %}
       </div>
 
