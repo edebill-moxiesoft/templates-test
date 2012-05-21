@@ -1,6 +1,6 @@
 <div id="groups_listing">    
 {% if nodes != empty %}
-  <table class="groups">
+  <table class="table_reset groups">
     <thead>
       <tr class="odd">
         <th>Type</th>
@@ -16,12 +16,14 @@
           <td>{{ node.title }}</td>
           <td><code>{{ node.body | h | truncate: 100 }}</code></td>
           <td>
+            {% if node.current_user_can_edit? %}
             <a href="{{ node.edit_path }}">Edit</a>
             <form method="post" action="{{node.show_path}}" style="display:inline;">
               <input type="submit" value="Delete" style="padding:0px"/>
               <input type="hidden" name="id" value="{{ node.id }}"/>
               <input type="hidden" name="_method" value="delete"/>
             </form>
+            {% endif %}
           </td>
         </tr>
         {% assign new_url = node.new_path %}

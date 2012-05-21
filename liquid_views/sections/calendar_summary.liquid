@@ -40,7 +40,9 @@
           <li><p><em>No {{ site.calendar_event_label | plural | downcase }} yet</em></p></li>
         {% endif %}
       </ol>
-      <a href="{{ calendar.show_path }}" class="more_link">More</a>
+      {% if events != empty %}
+        <a href="{{ calendar.show_path }}" class="more_link">More</a>
+      {% endif %}
     </div>
   </div>
 </div>

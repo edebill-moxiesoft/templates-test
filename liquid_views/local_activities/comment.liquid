@@ -4,7 +4,7 @@
     {{ comment.creator.link_to_show }}
   </div>
   <ul class="comment_actions js_comments_action">
-    <li class="created">{{ comment.created_at | time_ago_in_words, 'ago'  }}</li>
+    <li class="created">{{ comment.created_at | time_ago_in_words, 'ago'  }}&nbsp;{{ comment.application_client_text }}</li>
     {% if comment.deletable_by_viewer? and disable_edit != true %}
       <li class="delete">
         <a href='{{comment.delete_path}}.json' title="Delete Comment" data-method='DELETE' data-remote='true'></a>

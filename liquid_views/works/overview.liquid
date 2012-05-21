@@ -1,8 +1,11 @@
 <div id="works_index">
-  <div class="content_bar_hat">
-    <div class='content_bar'>
-      <div class='section main'></div>
-      <div class='section sidebar'>
+  
+  <div class='section works header'>
+    <div id="page_header" class="content_bar_hat">
+      <div class='section main'>
+          <h1>{{ site.work_label | plural }}</h1>
+      </div>
+      <div class="section sidebar content_bar">
         <div class='menu popdown-menu'>
           {% include 'menus/clients_overview_add' %}
           <div class='clear'></div>
@@ -12,16 +15,18 @@
     </div>
   </div>
 
-  <div class='header'>
-    <h1>{{ site.work_label | plural }}</h1>
-  </div>
-
   <div class='section main'>
 
-    <h2>Most Recent {{ site.work_label | plural }}</h2>
-
-    <div class="gallery_container">
-      {% works order: recent limit 10 with template 'works/overview_gallery' %}
+    <div class="section unit works js_works_unit">
+      <div class="header">
+        <div class="updated_at"></div>
+        <h2 class="work">Most Recent {{ site.work_label | plural }}</h2>
+      </div>
+      <div class="unit_body">
+        <div class="gallery_container">
+          {% works order: recent limit 10 with template 'works/overview_gallery' %}
+        </div>
+      </div>
     </div>
     
     <div class="section unit works js_works_unit">

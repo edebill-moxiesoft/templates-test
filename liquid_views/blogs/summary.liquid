@@ -9,6 +9,6 @@
         {{ blog.search_result_info.summary }}
     </p>
     <p class='updated'>
-        {{ blog.created_at | time_ago_in_words, 'ago'  }} 
+        updated {{ blog.latest_blog_post_created_at | time_ago_in_words, 'ago'  }} 
     </p>
 </li>

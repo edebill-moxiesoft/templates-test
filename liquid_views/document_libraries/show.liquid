@@ -117,7 +117,7 @@
                   , updated {{ document.updated_at | date: "%B %d, %Y"}}
                 {% endif %}
 
-                <var class="likes_count">{{ document.likes_count }}</var>
+                <var class="likes_count" title="{{discussion.likes_count}} likes">{{ document.likes_count }}</var>
                 <var class="replies_count" title="{{ discussion.replies_count }} replies">{{ document.replies_count }}</var>
               </div>
               <hr/>

@@ -32,7 +32,7 @@
 
 
   <div class='section main item_collection js_filtered'>
-    <table class="item_references_table">
+    <table class="table_reset item_references_table">
     {% for item in item_collection.item_references %}
       <tr>
         <td{% unless item.has_avatar? %} class="no_avatar"{% endunless %}><a href="{{ item.show_path }}">

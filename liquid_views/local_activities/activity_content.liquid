@@ -26,6 +26,8 @@
         {{ activity.parent.activity_feed_rollup_avatar }}
       {% endif %}
     </a>
+  {% elsif activity.parent.is_document %}
+    <img class="file" src="{{ activity.parent.non_image_thumbnail }}"/>
   {% endif %}
 
   {% if activity.parent.is_document or activity.parent.has_body %}

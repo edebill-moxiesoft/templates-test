@@ -1,9 +1,9 @@
 <div id="upcoming_events" class="section unit calendar_unit js_calendar_unit">
   <div class="header accordion_header">
   {% if current_user.show_aggregate_calendar? == true %}
-    <span id="show_aggregate_calendar" class="expander open" data-url="{{current_user.show_path}}">Hide</span>
+    <span id="show_aggregate_calendar" class="expander open" data-url="{{current_user.show_path}}.json">Hide</span>
   {% else %}
-    <span id="show_aggregate_calendar" class="expander" data-url="{{current_user.show_path}}">Show</span>
+    <span id="show_aggregate_calendar" class="expander" data-url="{{current_user.show_path}}.json">Show</span>
   {% endif %}
     <h2>Upcoming {{ site.calendar_event_label | plural }}</h2>
   </div>

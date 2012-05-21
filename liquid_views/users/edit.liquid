@@ -2,22 +2,18 @@
 
 <form id="profile_upload_form" class="fancyform">
   <fieldset class="inputs profile_pic_edit">
-    <legend><span>Profile Picture</span></legend>
     <ol>
       <li class='current_avatar user_profile last'>
-        <p class="inline-hints photo-hints">
-          A resolution of at least 400 x 400 will ensure your photo looks great 
-          throughout the site and when printed.</p>
-        <div class="clear">&nbsp;</div>
-        <div id="profile_preview">
+        <div id="profile_preview" class="leftside">
+           <legend><span>Profile Photo</span></legend>
           {{ user.color_profile_photo }}
         </div>
-        <a href="#" class="brightbutton update_avatar_toggle js_update_node_avatar">Update picture</a>
-        <br/>
-        <!-- <a href="#" class="remove_avatar js_insert_avatar_clear">Remove</a> -->
-        <div id="js_avatar_upload_field" class="avatar_upload_field">
-          <input type="file" name="image" id="user_profile" />
+        <div id="avatar_preview" class="rightside">
+          <legend><span>Avatar</span></legend>
+          {{ user.large_avatar }}<br />
+          <a href="#" class="brightbutton update_avatar_toggle js_update_user_avatar">Edit Image</a>
         </div>
+        <br/>
       </li>
     </ol>
   </fieldset>
@@ -85,7 +81,7 @@
     <fieldset class="display_on_show_page user">
       <legend>
         <span>
-          Display on the Dashboard<br/>
+          Display on the {{ site.dashboard_label }}<br/>
           <span class="legend-hint">Include the following<br/>modules on the page.</span>
         </span>
       </legend>
@@ -135,8 +131,8 @@
   {% endform_fields %}
 
   {% form_fields for 'inputs' name: 'Home Page Settings'%}
-    {% input for 'user_settings[show_headline_blog]', as: 'select' required: 'false' include blank: 'false' collection: [['Open','true'], ['Closed','false']] label: 'Default Headline Blog state to:' %}
-    {% input for 'user_settings[show_aggregate_calendar]', as: 'select' required: 'false' include blank: 'false' collection: [['Open','true'], ['Closed','false']] label: 'Default Calendar state to:' %}
+    {% input for 'user_settings[show_headline_blog]', as: 'select' required: 'false' include blank: 'false' collection: [['Open','true'], ['Closed','false']] label: 'Default Headline Blog state:' %}
+    {% input for 'user_settings[show_aggregate_calendar]', as: 'select' required: 'false' include blank: 'false' collection: [['Open','true'], ['Closed','false']] label: 'Default Calendar state:' %}
   {% endform_fields %}
 
 	{% if user.current_user? %}
@@ -165,8 +161,3 @@
   {% endform_fields %}
 
 {% endform %}
-
-
-<div id="image_editor" style="display:none">
-  <img src='/images/big_indicator.gif' alt='indicator' />Processing your image and loading the editor...
-</div>

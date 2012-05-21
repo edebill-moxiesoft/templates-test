@@ -1,12 +1,18 @@
 <div id="personal_blog_posts_index">
-  <div class="content_bar_hat"></div>
 
-  <div class='header'>
-    <h1>{{order}} {{ site.blog_post_label | plural }}</h1>
-  </div>
+  <div class='section groups header'>
+    <div id="page_header" class="content_bar_hat">
+      <div class='section main'>
+          <h1>{{order}} {{ site.blog_post_label | plural }}</h1>
+      </div>
+      <div class="section sidebar content_bar">
+        <div class='menu popdown-menu'></div>
+      </div>
+    </div>
+  </div>    
 
   <div class='section main js_filtered'>
-    {% include 'blog_posts/list_block' blog_posts: blog_posts hide_more: true%}
+    {% include 'blog_posts/list_block' blog_posts: blog_posts hide_more: true %}
     {% if more_blog_posts > 0 %}
     <div class='js_paginate'>
       <a class="more" href="/people/blog_posts?nolayout=true&limit=20" data-offset='{{offset}}' data-type='html' >More</a>

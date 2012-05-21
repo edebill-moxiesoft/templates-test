@@ -9,8 +9,10 @@
   	{% load_children ideas from 'ideastorm.ideas' limit 3 %}
     {% include 'ideas/list' ideas: ideas, limit_size: 3 %}
   </div>
+  {% unless ideastorm.ideas == blank %}
   <div class="footer">
     <a href="{{ ideastorm.show_path }}" class="more_link">More</a>
   </div>
+  {% endunless %}
 </div>
 {% endfor %}

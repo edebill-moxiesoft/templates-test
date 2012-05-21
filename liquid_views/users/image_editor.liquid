@@ -1,0 +1,35 @@
+<div id="image_editor" style="display:none">
+
+  <h3>Upload a New Profile Photo</h3>
+  <div id="js_avatar_upload_field" class="avatar_upload_field">
+    <input type="file" name="image" id="user_profile" />
+  </div>
+
+<hr />
+
+  <h3>Crop Avatar</h3>
+<p>
+  Create an avatar from a cropped region of your photo.
+  Avatars are used in place of the full photo in the Newsfeed
+  and in lists of people, such as the Directory.
+</p>
+
+<form action='/temp_images/update' data-remote='data-remote' data-type='json' id='temp_image_crop_form' method='post'>
+  <input id="original_image" name="original_image" type="hidden" value="" />
+  <input id="save_to" name="save_to" type="hidden" value="profile_photo_image" />
+  <input id="image_x" name="image_x" type="hidden" />
+  <input id="image_y" name="image_y" type="hidden" />
+  <input id="image_h" name="image_h" type="hidden" />
+  <input id="image_w" name="image_w" type="hidden" />
+  <fieldset class='tool'>
+    <h3 id='original_header'>Profile Photo</h3>
+    <h3 id='thumb_header'>Avatar</h3>
+    <div id='original'>
+        <img id="crop_target" src="{{ user.original_profile_photo_url }}" />
+    </div>
+    <div id='thumb' style='height:82px; width:82px; overflow:hidden;'>
+        <img id="preview" src="{{ user.large_avatar_url }}" />
+    </div>
+  </fieldset>
+</form>
+</div>

@@ -5,7 +5,7 @@
 <li class="text last" id="item_collection_item_finder">
   <label for="item_collection_item_search">Manually Add Projects</label>
   <input id="item_collection_item_search" name="item_search" type="text" data-types="Work" />
-  <table class="item_references_table" data-collectionref="work_portfolio">
+  <table class="table_reset item_references_table" data-collectionref="work_portfolio">
   <input type="hidden" name="work_portfolio[item_reference_ids][]" value="" id="work_portfolio_item_reference_ids_empty" />
   {% for item in form_object.item_references %}
     <tr data-id="{{ item.id }}">

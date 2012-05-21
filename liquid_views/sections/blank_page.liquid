@@ -31,9 +31,12 @@
 	 <p><em>No pages yet</em></p>
 	 {% endif %}
   </div>
+
+  {% if page.children_count > 0 %}
   <div class="footer">
     <a href="{{ page.show_path }}" class="more_link">More</a>
   </div>
+  {% endif %}
 
   {% endfor %}
 </div>

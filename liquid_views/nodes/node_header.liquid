@@ -8,7 +8,7 @@
 
     {% unless parent.child_show_page? or hide_details %}
 
-      {% if closest_container.description != empty %}<span class="expander">Show details</span>{% endif %}
+      {% if closest_container.description != empty %}<span class="expander open">Hide details</span>{% endif %}
       <div class="clear"></div>
       <ul class="details">
         <li class="action_btn">{{ closest_container.share_button }}</li>

@@ -14,7 +14,7 @@
       <li class="item {% if forloop.last %}last{% endif %}">
         {% if status_update.creator == nil %}
           <a href="#" class="face">
-            <img class='user_avatar' src='/images/avatar_missing.png' alt='missing image' data-user-id="{{status_update.creator.id}}"/>
+            <img class='user_avatar' src='/images/default_avatars/user.png' alt='missing image' data-user-id="{{status_update.creator.id}}"/>
           </a>
         {% else %}
           {{ status_update.creator.small_avatar_with_link }}    

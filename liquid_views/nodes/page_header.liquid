@@ -2,6 +2,11 @@
 <h2 class="container_title"><a href="{{parent.show_path}}" title="{{ parent.title }}">{{ parent.title }}</a></h2>
 {% if node.id == parent.id %}
   <ul class="container_actions">
+    {% if site.desktop_connect_enabled? and document_library.current_user_can_sync_to_desktop? %}
+      <li class='container_desktop_sync'>
+        {% include 'document_libraries/_desktop_sync_buttons' document_library: document_library %}
+      </li>
+    {% endif %}
     {% if node.watchable? %}
     <li class="container_follow">{{ parent.watch_button_small }}</li>
     {% endif %}
@@ -10,7 +15,7 @@
   {{ primary_actions }}
   <ul class="secondary_actions">
     <li class="container_share action_btn">{{ parent.share_button }}</li>
-  {% if parent.current_user_can_admin? %}
+  {% if parent.current_user_can_edit? %}
     <li class="container_edit action_btn">{{ parent.edit_link }}</li>
   {% endif %}
   </ul>

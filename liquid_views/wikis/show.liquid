@@ -18,11 +18,7 @@
       <div class="clear"></div>
     </div>
 
-    <div class="page_description node_details">
-      <div class="wiki_summary">
-        {% include 'sections/wiki_pages_summary' wiki_pages: wiki.wiki_pages %}
-      </div>
-    </div>
+    <div class="page_description node_details"></div>
   
     <div class="item">
 
@@ -60,7 +56,13 @@
           </div>
         </div>
       </div>
+
+      <div class="wiki_summary">
+        {% include 'sections/wiki_pages_summary' wiki_pages: wiki.wiki_pages %}
+      </div>
+
       {% assign viewing_latest = 'true' %}
+
     </div>
   </div>
   

@@ -1,12 +1,12 @@
 {% comment %} From menus/pages_listing.liquid.  Adds the activity page link. {% endcomment %}
 
 <ol>    
-  <li class="menu_item icon_menu_item {% if controller == 'users' and action == 'show' %}selected{% endif %}">
+  <li class="menu_item icon_menu_item" id="page_listing_profile">
     <a href="{{ user.show_path }}" title="Profile" class="profile_menu_item">
       Profile
     </a>
   </li>
-  <li class="menu_item icon_menu_item {% if action == 'activities' %}selected{% endif %}">
+  <li class="menu_item icon_menu_item" id="page_listing_newsfeed">
     <a href="{{ user.activities_path }}" title="{{site.newsfeed_label}}" class="activities_menu_item">
       {{site.newsfeed_label}}
     </a>
@@ -16,14 +16,20 @@
   {% endfor %}
   
   {% if site.clients_section_enabled? %}
-    <li class="menu_item icon_menu_item {% if action == 'works' %}selected{% endif %}">
+    <li class="menu_item icon_menu_item" id="page_listing_works">
       <a href="{{ user.works_url }}" class="work_portfolio_menu_item" title="{{ site.work_label | plural }}">{{ site.work_label | plural }}</a>
     </li>
   {% endif %}
 
   {% if user.current_user? %}
-    <li class="menu_item icon_menu_item {% if controller == 'watchings' %}selected{% endif %}">
+    <li class="menu_item icon_menu_item" id="page_listing_watchings">
       <a href="/watchings" class="watchings_menu_item" title="Following List">Following List</a>
+    </li>
+  {% endif %}
+
+  {% if site.desktop_connect_enabled? and user.current_user? %}
+    <li class="menu_item icon_menu_item {% if action == 'desktop_connect' %}selected{% endif %}">
+      <a href="/users/desktop_connect" class="desktop_connect_menu_item" title="Desktop Connect">Desktop Connect</a>
     </li>
   {% endif %}
 </ol>

@@ -9,7 +9,7 @@
     {{ form_object.wide_avatar }}
     {% endif %}
     <a href="#" class="brightbutton update_avatar_toggle js_update_node_avatar">Update Thumbnail</a>
-    <br/>
+    
     <a href="#" class="remove_avatar js_insert_avatar_clear">Remove</a>
     <div id="js_avatar_upload_field" class="avatar_upload_field">
       <input type="file" name="{{ form_object.class_name_underscore }}[avatar[image]]" id="{{ form_object.class_name_underscore }}_avatar_image" />
@@ -30,7 +30,7 @@
     </label>
     <input id="{{ form_object.class_name_underscore }}_avatar_image" name="{{ form_object.class_name_underscore }}[avatar[image]]" type="file"/>
     <p class="inline-hints">
-      upload a picture that will represent this content (jpg, png, or gif)
+      upload a picture that will represent this content (jpg, png, bmp, or gif)
       <br/>
       (for best results, use a 100w x 75h high-quality photo)
     </p>

@@ -7,6 +7,12 @@
   </div>
 
   <div class="categories_overview js_filter_body">
+    <!-- hiding for now.
+    <div class="global_toggles js_global_toggles">
+      <a href="#" title="Expand All" class="expand">Expand All</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" title="Collapse All" class="collapse">Collapse All</a>
+    </div>
+    <div class="clear"></div> 
+    -->
     <ol class='item_list'>
       {% if groups == empty %}
         <li class='item'>
@@ -15,21 +21,21 @@
       {% else %}
         {% for group in groups %}
           <li class='item category'>
-            {{ group.small_avatar }}
+            <a href="{{ group.show_path }}">{{ group.small_avatar }}</a>
     
             <div class='summary'>
               <div class='box_arrow'></div>
               <div class='title'>
-                <h3><a href="{{ group.show_path }}">{{ group.title }}</a></h3>
                 <div class="toggle_link">
                   <a href="#">Hide</a>
                 </div>
+                <h3><a href="{{ group.show_path }}">{{ group.title }}</h3>
                 <div class="breadcrumbs">{{ group.breadcrumbs }}</div>
               </div>
+              <!-- <div class="description">{{ group.limited_body}}</div> -->
       
               <div class="activities">
                 {% activity for 'group' limit 3 %}
-          
                 <div class="clear"></div>
               </div>
             </div>

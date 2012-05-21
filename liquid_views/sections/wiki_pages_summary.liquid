@@ -1,6 +1,5 @@
 {% if wiki_pages != empty %}
   <div class='wiki_pages_summary index_of_links for_wiki'>
-    <h5> Table of Contents</h5>
     <ul class="categories">
       {% for wiki_page in wiki_pages %}
         {% capture recent_update %}{% if wiki_page.has_recent_activity? %}recent_update{% endif %}{% endcapture %}
@@ -8,7 +7,6 @@
           <div class="menu">        
           <p class="wiki_title {{recent_update}}">{{ wiki_page.link_to_show }}</p>
           
-          {% if wiki_pages.wiki_pages.wiki_pages %}
           <ul>
             {% for child_page in wiki_page.wiki_pages_with_fields %}
               {% capture recent_update %}{% if child_page.has_recent_activity? %}recent_update{% endif %}{% endcapture %}
@@ -17,7 +15,7 @@
               </li>
             {% endfor %}
           </ul>
-          {% endif %}
+
           </div>
         </li>
       {% endfor %}

@@ -1,5 +1,5 @@
 {% include 'search_results/showing_count' showing_count: documents.size total_count: nodes_count hide: hide_total %}
-<table class="search_results documents  ">
+<table class="table_reset search_results documents  ">
   <thead>
   <tr>
     {% include 'searches/_sort_header' title: "Name" sort_by: "name" hide_sorting: hide_total %}
@@ -20,11 +20,13 @@
 
   <tr class="item {% if forloop.last %}last{% endif %} container_{{ document.container_class }}">
     <td>
-      {% if document.is_image %}
-        <a href="{{document.show_path}}"><img src="{{document.thumbnail_path}}" class="file_thumbnail"/></a>
-      {% else %}
-        <a href="{{document.show_path}}"><img src="{{document.non_image_thumbnail}}" class="file_thumbnail"/></a>
-      {% endif %}
+      <a href="{{document.show_path}}">
+        {% if activity.parent.has_transcoded_video %}
+          <img src="{{document.tiny_avatar_url}}" class="file_thumbnail"/>
+        {% else %}
+          {{ document.activity_feed_rollup_avatar }}
+        {% endif %}
+      </a>
       <div class="title">{{ document.link_to_show_with_container_class }}</div>
     </td>
     <td>{{ document.file_size |number_to_filesize}}</td>

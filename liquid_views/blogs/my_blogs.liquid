@@ -16,7 +16,7 @@
         <div class="idea">
           {{ blog.link_to_show_with_container_class }}
           <p class="updated">
-            updated {{ blog.updated_at | time_ago_in_words, 'ago' }} 
+            updated {{ blog.latest_blog_post_created_at | time_ago_in_words, 'ago' }} 
           </p>
         </div>
       </li>

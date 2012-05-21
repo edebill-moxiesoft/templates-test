@@ -28,7 +28,7 @@
     {% form_fields for 'buttons' %}
       {% comment %} Can't use typical submit button as PlUpload apparently breaks it. {% endcomment %}
       <li class="commit"><input id="submit_for_plupload" class="submit" type="submit" value="Save" /></li>
-      <li class='cancel'> <input class='cancel' type='button' value='Cancel' onclick='location.href="{{form_object.cancel_path}}"'/> </li>
+      <li class='cancel'> <input class='cancel' type='button' value='Cancel' onclick='location.href="{{document.cancel_path}}"'/> </li>
 
     {% endform_fields %}
 

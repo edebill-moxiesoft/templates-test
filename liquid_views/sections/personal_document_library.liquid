@@ -9,6 +9,8 @@
             <a href="{{ document.show_path }}" title="{{ document.title }}">
             {% if document.is_image %}
                 <img class="gallery_image_small" src="{{ document.thumbnail_square_path }}"/>
+            {% elsif document.transcoded_video_medium_url %}
+                <img class="gallery_image_small" src="{{ document.transcoded_video_medium_url }}" />
             {% elsif document.is_folder? %}
                 <img class="gallery_image_small" src="/images/spaces_icons/media_folder_blue_gallery.png" />
             {% else %}

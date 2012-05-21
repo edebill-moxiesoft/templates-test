@@ -102,10 +102,10 @@
       <span class="user_name">By {{ document | truncated_link_to_owner }}</span>
       <span class="created_on">on {{ document.created_at | date: "%B %d, %Y" }} </span>
 
-      {% if document.version %}
+      {% if document.version and document.versions_count > 0 %}
       <span>
         &middot; 
-        <a href="#" class="js_toggle_versions_table">{{ 'version' | pluralize: document.versions_count }}</a>
+        <a href="#" class="js_toggle_versions_table toggle_versions_table">{{ 'version' | pluralize: document.versions_count }}</a>
         of this document available
         &middot;
         Viewed by {{ 'person' | pluralize: document.unique_views }}
@@ -115,11 +115,10 @@
       
     </div>
     <br/>
-    <table class="versions">
+    <table class="table_reset versions">
       <thead>
         <tr>
-          <th>Version #</th>
-          <th>Tag</th>
+          <th class="col_version">Version</th>
           <th>Created</th>
           <th>Creator</th>
           <th>&nbsp;</th>
@@ -128,31 +127,22 @@
       <tbody>
         {% for version in document.versions %}
           <tr>
-            <td>{{ version.version }}</td>
-            <td>
-              {% if version.tag == nil %}
-                &ndash;
-              {% else %}
-                {{ version.tag }}
-              {% endif %}
-            </td>
-            <td>{{ version.created_at | date: "%B %d, %Y" }}</td>
+            <td class="col_version">{{ version.version }}</td>
+            <td>{{ version.created_at | date: "%b %d, %Y" }}</td>
             <td class="creator">
               {{ version.creator.small_avatar_with_link }}
               {{ version.creator.link_to_user_profile }}
             </td>
             <td>
-              {% if version.latest? %}
-                <a href="{{ version.download_path }}">Download</a>
-              {% else %}
-                <a href="{{ version.download_path }}">Download</a>
-              {% endif %}
-              {% if document.current_user_can_admin? %}
-							  {% unless version.latest? %}
-                  &middot;
-                  <a href="{{ version.path_to_rollback }}">Restore as Latest</a>
-						    {% endunless %}
-              {% endif %}
+              <a href="{{ version.download_path }}">Download</a>
+              {% unless version.latest? %}
+                {% if document.current_user_can_admin? %}							  
+                  &middot; <a href="{{ version.path_to_rollback }}">Restore as Latest</a>
+						    {% endif %}
+                {% if version.has_preview? %}
+                  &middot; {{ version.preview_link }}
+                {% endif %}
+              {% endunless %}
             </td>
           </tr>
         {% endfor %}

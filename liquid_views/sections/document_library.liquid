@@ -9,8 +9,10 @@
     {% load_children documents from 'document_library.documents_and_folders' limit 3 %}
     {% include 'documents/list' documents: documents %}
   </div>
+  {% if documents != blank %}
   <div class="footer">
     <a href="{{ document_library.show_path }}" class="more_link">More</a>
   </div>
+  {% endif %}
   {% endfor %}
 </div>

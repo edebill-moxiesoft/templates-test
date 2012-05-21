@@ -10,7 +10,7 @@
         <div class="likes_count js_likes_count {% if activity.likes_count > 0 %}enabled{% endif %}">{{activity.likes_count}}</div>
         <div class="comments_count js_comments_count {% if activity.comments_count > 0 %}enabled{% endif %}">{{activity.comments_count}}</div>
 
-        {{ activity.creator.small_avatar }}
+        <div class="avatar">{{ activity.creator.small_avatar_with_link }}</div>
 
         <div class='body'>
           <div class="user_link">
