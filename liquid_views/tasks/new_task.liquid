@@ -4,7 +4,7 @@
 
     <div class="control">
       <input type="hidden" name="task[duration]" class="task_duration"/>
-      <input type="text" name="task[title]" class="hint task_title" title="Enter a {{ parent.task_word }}"/>
+      <input type="text" name="task[title]" class="hint task_title" title="Enter a {{ site.task_label }}"/>
       <div class="clear"></div>
       <fieldset class="buttons">
         <input type="submit" name="commit" class="create task_submit_button task_submit_button" value="Submit"/>
@@ -19,7 +19,7 @@
 
         <fieldset class="due_date">
           <label for="task_due_date">Due</label>
-          <input class="datepicker task_due_date" name="task[due_date]" type="text" />
+          <input id="task_due_date" class="task_datepicker task_due_date" name="task[due_date]" type="text" />
         </fieldset>
 
         <a href="#" class="toggle_popdown who_link js_toggle_popdown">Who</a>

@@ -1,19 +1,23 @@
 <div id="blog_posts_index">
-  <div class="content_bar_hat"></div>
 
-  <div class='header'>
-    <h1>{{order}} {{ site.blog_label | plural }}</h1>
-  </div>
-
-  <div class='section unit main js_filtered'>
-    {% blogs limit 10 %}
-  </div>
-  <div class='section sidebar'>
-
-    <div class='aside my_blogs blogs'>
-      {% my blogs %}
+  <div class='section groups header'>
+    <div id="page_header" class="content_bar_hat">
+      <div class='section main'>
+        <h1>{{order}} {{ site.blog_label | plural }}</h1>
+      </div>
     </div>
+    <div class='section unit main js_filtered'>
+      {% blogs limit 10 %}
+    </div>
+    
 
-  </div>
+    <div class='section sidebar'>
+
+      <div class='aside my_blogs blogs'>
+        {% my blogs %}
+      </div>
+
+    </div>
+  </div> 
 </div>
 

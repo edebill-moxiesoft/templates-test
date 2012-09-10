@@ -29,11 +29,10 @@
                 <div class="toggle_link">
                   <a href="#">Hide</a>
                 </div>
-                <h3><a href="{{ group.show_path }}">{{ group.title }}</h3>
+                <h3><a href="{{ group.show_path }}">{{ group.title }}</a></h3>
                 <div class="breadcrumbs">{{ group.breadcrumbs }}</div>
               </div>
-              <!-- <div class="description">{{ group.limited_body}}</div> -->
-      
+
               <div class="activities">
                 {% activity for 'group' limit 3 %}
                 <div class="clear"></div>

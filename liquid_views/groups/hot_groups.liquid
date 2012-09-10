@@ -5,15 +5,17 @@
   
   {% if groups == empty %}
     <p>
-      <em>no groups available</em>
+      <em>No {{site.group_label | downcase | plural }} available.</em>
     </p>
   {% else %}
   
     <ol>
       {% for group in groups %}
       <li class="item hot">
-        <a href="{{ group.show_path }}">{{ group.small_avatar }}</a>
-        {{ group.link_to_show }}
+          <a href="{{ group.show_path }}">{{ group.small_avatar }}</a>
+        <p class='title'>
+          {{ group.link_to_show }}
+        <p>
         <p class="count">
           <var>{{ 'member' | pluralize: group.members_count }}</var>
         </p>

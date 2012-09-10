@@ -16,20 +16,6 @@
 </div>
 {% endif %}
 
-{% if like_activity != nil %}
-<div id="like">
-  <p>Liked Content</p>
-  <ol>
-    {% for activity in like_activity %}
-      <li>{{ activity.title }} {{ activity.created_text }} <a href="{{ activity.full_show_path }}">View Activity</a></li>
-    {% endfor %}
-  </ol>
-  <p>
-    {% include 'emails/_like_notification_settings' %}
-  </p>
-</div>
-{% endif %}
-
 {% if node_watch_activity != nil %}
 <div id="node_watch">
   <p>Activity on Followed Content</p>

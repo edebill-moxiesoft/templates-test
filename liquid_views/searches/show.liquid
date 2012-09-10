@@ -4,8 +4,6 @@
 
   <div class="section content search_overview">
     
-    {% include 'search_results/kb_articles', hide_if_none: true, query: search.query %}
-
     {% incremental_list for local_activities %}
 
     {% incremental_list for categories %}

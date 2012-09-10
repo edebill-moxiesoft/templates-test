@@ -6,12 +6,12 @@
       {% form for resource class: 'login_form' action: action %}
       {% error_messages %}
       {% form_fields for 'inputs' %}
-      {% input for 'email' label: 'Email Address' required: 'true' %}
-      {% input for 'password' as: 'password' label: 'Password' required: 'true' %}
+      {% input for 'email' label: 'Email Address' required: 'true' tabindex: '1' %}
+      {% input for 'password' as: 'password' label: 'Password' required: 'true' tabindex: '2' %}
       <li class="checkbox">
         <label for="user_remember_me">
-          <input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-          Remember Me
+          <input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1" tabindex="3" >
+          Keep me logged in.
         </label>
       </li>
 
@@ -22,7 +22,7 @@
         No account yet?
         <a href="/users/sign_up" class="sign-up-link">Sign Up</a>
       </li>
-      {% input as: 'submit' value: 'Sign In'%}
+      {% input as: 'submit' value: 'Sign In' tabindex: 4%}
       {% endform_fields %}
       {% endform %}
 

@@ -5,7 +5,7 @@
     <h2 class="container_title">{{site.newsfeed_label}} <span class="date_filter"></span></h2>
   </div>
 
-  {% activity_feed_filters %}
+  {% activity_feed_filters for 'user' %}
 
   <div class="unit_body">
     <ol class="item_list activities js_filter_body" id="activities_feed">

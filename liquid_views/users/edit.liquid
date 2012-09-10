@@ -130,11 +130,6 @@
     {% input for 'user_settings[deliver_node_watch_notifications_on]', as: 'select' required: 'false' wrapper_class: 'last' include blank: 'false' collection: [['Immediately','immediately'], ['Hourly', 'hourly'], ['Daily','daily'], ['Never', 'never']] label: 'Notification emails for items I am following should occur:' %}
   {% endform_fields %}
 
-  {% form_fields for 'inputs' name: 'Home Page Settings'%}
-    {% input for 'user_settings[show_headline_blog]', as: 'select' required: 'false' include blank: 'false' collection: [['Open','true'], ['Closed','false']] label: 'Default Headline Blog state:' %}
-    {% input for 'user_settings[show_aggregate_calendar]', as: 'select' required: 'false' include blank: 'false' collection: [['Open','true'], ['Closed','false']] label: 'Default Calendar state:' %}
-  {% endform_fields %}
-
 	{% if user.current_user? %}
 	<fieldset class="inputs">
 	  <legend>

@@ -2,15 +2,16 @@
   <h3 class="photo">Recent Photos</h3>
 </div>
 <div class="unit_body">
-  <ul class="item_list photo_list">
-    {% if photos == empty %}
-    <p><em>No photos available</em></p>
-    {% else %}
+  {% if photos == empty %}
+    <p><em>No photos available.</em></p>
+  {% else %}
+    <ul class="item_list photo_list">
     {% for photo in photos %}
     <li class="item">
       <a href="{{ photo.show_path }}" title="{{ photo.title }}"><img src="{{ photo.thumbnail_square_path }}" alt="photo" /></a>
     </li>
     {% endfor %}
-    {% endif %}
-  </ul>
+    </ul>
+  {% endif %}
+
 </div>

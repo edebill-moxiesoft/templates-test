@@ -15,6 +15,11 @@
     {% endif %}
     <input type="hidden" id="document_library_sharepoint_key" name="document_library[sharepoint_key]" value=" {{ document_library.sharepoint_key }}" />
 {% endif %}
+
+{% if site.desktop_sync_enabled? and current_user.has_file_sync_installed? and document_library.new_record? and form_object.is_folder? == false %}
+  {% input for 'sync_to_desktop_connect' as: 'checkbox' label: 'Add to File Sync?' required: false %}
+{% endif %}
+
 {% input for 'title' label: 'Title' required: 'true' %}
 
 {% unless form_object.is_folder? %}

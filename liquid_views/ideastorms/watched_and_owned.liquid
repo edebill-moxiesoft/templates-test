@@ -1,18 +1,18 @@
 <div class="header">
-  <h3>My Ideastorms</h3>
+  <h3>My {{site.ideastorm_label | plural }}</h3>
 </div>
 <div class="section">
   
   {% if ideastorms == empty %}
     <p>
-      <em>no ideastorms available</em>
+      <em>No {{site.ideastorm_label | downcase | plural }} available.</em>
     </p>
   {% else %}
   
     <ol>
       {% for ideastorm in ideastorms %}
-      <li class="item">        
-        <div class="idea_count"><var>{{ 'idea' | pluralize: ideastorm.ideas_count, 'ideas' }}</var></div>
+      <li class="item"> 
+        <div class="idea_count"><var>{{ site.idea_label | pluralize: ideastorm.ideas_count, site.idea_label }}</var></div>
         <div class="idea">
           {{ ideastorm.link_to_show }}
           <p class="updated">

@@ -5,32 +5,8 @@
     <div class='message_top'><em>Title, Membership, and Current Location of this group are not modifiable, please contact your administrator for assistance.</em></div>
   {% endif %}
 
-  <div class="set">
-    <div class="label_column">
-      <span class="inputs_set">Current location</span>
-    </div>
-    <div class="settings_column" id="node_management_section">
-      <div class="breadcrumb">{% breadcrumbs %}</div>
-      <div class="mgmt_links">
-        {% unless node.is_deletable? %}
-          <span class='disabled'>Change</span>&nbsp;|&nbsp;<span class='disabled'>Delete</span>
-        {% else %}
-          <a class='node_move' href='#'>Change</a>&nbsp;|&nbsp;<a class="node_delete" href="#" id="node_deletion_link" data-prompt="This will delete this {{ node.site_label }} and all of its children.  Are you sure you want to do this?">Delete</a>
-        {% endunless %}
-      </div>
-    </div>
-    
-      {% if node.is_deletable? %}
-        <div id='node_move_section' data-id='{{ node.id }}'>
-        	<div class='ind'></div>
-        	<h3 class='security_title'>
-        		Change Page Location
-        	</h3>
-        	<p>Drag page to new location</p>
-        	<div class='node_tree'></div>
-        </div>
-      {% endif %}
-  </div>
+  {% include 'nodes/_admin_panel_node_location' %}
+
   <div class="set">
     <div class="label_column">
       <span class="inputs_set">Permalink</span>

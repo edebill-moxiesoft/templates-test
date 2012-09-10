@@ -1,6 +1,6 @@
 <ol class="works gallery_list js_filter_body">
   {% if works == empty %}
-  <li><p><em>No {{ site.work_label | plural | downcase }} yet</em></p></li>
+  <li><p><em>No {{ site.work_label | plural | downcase }} yet.</em></p></li>
   {% else %}
 
 	<div class="hidden js_time_compare">{{ works.first.updated_at | time_in_iso }}</div>

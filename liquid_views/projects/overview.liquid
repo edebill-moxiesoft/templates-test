@@ -22,29 +22,35 @@
         <h3>{{ site.project_label }} Listings</h3>
       </div>
       <div class='section unit_body '>
-        <ol class="js_filter_body">
-          {% for project in projects %}
-          <li>
-            <a href="{{ project.show_path }}" class="avatar_wrapper">{{ project.small_avatar }}</a>
+        {% if projects == empty %}
+          <p>
+            <em>No {{ site.project_label | plural | downcase }} available.</em>
+          </p>
+        {% else %}
+          <ol class="js_filter_body">
+            {% for project in projects %}
+            <li>
+              <a href="{{ project.show_path }}" class="avatar_wrapper">{{ project.small_avatar }}</a>
 
-            <div class="content_wrapper">
-              {{ project.link_to_show_with_container_class }} ({{ 'member' | pluralize: project.members_count }})
-              {% if project.parent %} in <a href="{{ project.parent.show_path }}" class="{{ project.parent.container_class }}_link">{{ project.parent.title }}</a>{% endif %}
-              <div class="owner">Administered By:
-                {% for admin in project.admins %}
-                  {{ admin.link_to_show }}{% unless forloop.last %},{% endunless%}
-                {% endfor %}
+              <div class="content_wrapper">
+                {{ project.link_to_show_with_container_class }} ({{ 'member' | pluralize: project.members_count }})
+                {% if project.parent %} in <a href="{{ project.parent.show_path }}" class="{{ project.parent.container_class }}_link">{{ project.parent.title }}</a>{% endif %}
+                <div class="owner">Administered By:
+                  {% for admin in project.admins %}
+                    {{ admin.link_to_show }}{% unless forloop.last %},{% endunless%}
+                  {% endfor %}
+                </div>
+                <div class="task_completion">
+                  Task Completion: {{ project.number_complete }}/{{ project.number_tasks }}
+                  {% if project.overdue_tasks_count > 0 %}
+                  <span class="overdue">Overdue: {{ project.overdue_tasks_count }}</span>
+                  {% endif %}
+                </div>
               </div>
-              <div class="task_completion">
-                Task Completion: {{ project.number_complete }}/{{ project.number_tasks }}
-                {% if project.overdue_tasks_count > 0 %}
-                <span class="overdue">Overdue: {{ project.overdue_tasks_count }}</span>
-                {% endif %}
-              </div>
-            </div>
-          </li>
-          {% endfor %}
-        </ol>
+            </li>
+            {% endfor %}
+          </ol>
+        {% endif %}
       </div>
       {% if more_projects > 0 %}
       <div class='js_paginate'>

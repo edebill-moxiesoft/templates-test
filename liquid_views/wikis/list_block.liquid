@@ -3,7 +3,7 @@
   <div class='section unit_body '>
     <ol class="wikis item_list js_filter_body">
       {% if wikis == empty %}
-        <p><em>No {{ site.wiki_label | plural }} Yet</em></p>
+        <p><em>No {{ site.wiki_label | plural | downcase }} yet.</em></p>
       {% endif %}
 
       {% for wiki in wikis %}

@@ -8,7 +8,7 @@
     </div>
 
     {% if ideastorm != nil%}
-      <h2 class='js_plural_count'>{{ "Idea" | pluralize: ideastorm.ideas_count }} for this {{ site.ideastorm_label }}</h2>
+      <h2 class='js_plural_count'>{{ site.idea_label | pluralize: ideastorm.ideas_count }} for this {{ site.ideastorm_label }}</h2>
     {% else %}
       <h2>{{ site.idea_label | plural }}</h2>
     {% endif %}
@@ -27,12 +27,11 @@
   <div class='section unit_body js_filter_body '>
 
 
+    {% if ideas == empty %}
+      <p><em>No {{ site.idea_label | plural }} available.</em></p>
+    
+    {% else %}
     <ol class="item_list ">
-      {% if ideas == empty %}
-
-      <p><em>no ideas available</em></p>
-
-      {% endif %}
       {% for idea in ideas %}
       <li class="item {% if forloop.last %}last{% endif %}">
         <div class="creator">
@@ -75,6 +74,7 @@
       </li>
       {% endfor %}
     </ol>
+    {% endif %}
 
 
     <div class='clear'></div>

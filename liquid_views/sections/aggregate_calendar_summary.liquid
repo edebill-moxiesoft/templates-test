@@ -25,16 +25,17 @@
               {% endif %}
               <br/>
               {% if event.limited_body == empty %}
-                <em>no description</em>
+                <em>No description.</em>
               {% else %}
                 {{ event.limited_body }}
               {% endif %}
             </li>
           {% endfor %}
         {% else %}
-          <li><p><em>No {{ site.calendar_event_label | plural | downcase }} yet</em></p></li>
+          <li><p><em>No {{ site.calendar_event_label | plural | downcase }} yet.</em></p></li>
         {% endif %}
       </ol>
     </div>
   </div>
+  <div class="clear"></div>
 </div>

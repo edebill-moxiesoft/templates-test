@@ -1,0 +1,58 @@
+<div class='section'>
+  <div class='section main user header'>
+    {% include 'users/user_header' parent: current_user hide_details: true %}
+  </div>
+</div>
+
+<div class='section'>
+  <div class='section main file_sync' id='js_file_sync'>
+    <div id="container_header">
+      <h2 class="container_title"><a href="/users/file_sync" title="File Sync">File Sync</a></h2>
+
+      <div class='clear'></div>
+
+      <p>Select the {{ site.document_library_label | plural }} that you want to synchronize with File Sync. {{ site.document_label | plural }} added or updated in Collaboration Spaces are automatically downloaded to File Sync. {{ site.document_label | plural }} added or updated in File Sync are automatically uploaded to Collaboration Spaces.</p>
+    </div>
+
+    <div class="section filters js_filtered">
+      <div class='header'>
+        <h3>Filters</h3>
+        {% show_filters %}
+      </div>
+
+      <div class="clear"></div>
+
+      {% if document_libraries == blank %}
+        <p><em>You do not have access to any {{ site.document_library_label | plural | downcase }} that can be synched via File Sync.</em></p>
+      {% else %}
+        <div class='js_filter_body'>
+          <ol class='item_list'>
+            {% for document_library in document_libraries %}
+              <li class='item synchable_library {% if forloop.last %}last{% endif %}'>
+                <div class='avatar'>
+                  {{ document_library.small_avatar_with_link }}
+                </div>
+                <div class='details'>
+                  <h4>{{ document_library.link_to_show_with_parent_class }}</h4>
+                  <p>total size: {{ document_library.aggregate_file_size | number_to_filesize }} | number of files: {{ document_library.documents_and_folders_count }}</p>
+                  <p>located in {{ document_library.breadcrumbs }}</p>
+                </div>
+                {% include 'document_libraries/_desktop_sync_buttons' document_library: document_library %}
+              </li>
+            {% endfor %}
+            <li class='item pagination'>
+              {% paginate document_libraries %}
+            </li>
+          </ol>
+
+        </div>
+      {% endif %}
+    </div>
+    
+  </div>
+
+
+  <div class='section sidebar'>
+    {% pages_listing for: current_user %}
+  </div>
+</div>

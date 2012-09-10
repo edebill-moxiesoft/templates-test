@@ -39,12 +39,7 @@
               </div>
           {% elsif document.has_embedded_document? %}
               <div class='section main embeddable_document' >
-                <div class="loading_document">
-                  <img src="/images/ajax-loader-transparent.gif"><br>
-                  Document is loading...
-                </div>
-                {% include 'documents/preview_toolbar' %}
-                <div id='DocViewer_{{document.id}}' class="doc_viewer" data-doc_js='{{document.direct_docviewer_doc_js_url}}' data-load-on-ready="true"></div>
+                <iframe class="doc_viewer" src='{{document.embedded_document_url}}'></iframe>
               </div>
           {% elsif document.is_video %}
             {% if document.is_playable_video %}   
@@ -81,20 +76,22 @@
             {% endif %}
           {% endif %}
         {% else %}
-          <a href="{{ document.download_path }}" target="_blank">
-            <img src="{{ document.avatar_url }}" class='doc_avatar' />
-          </a>
-        {% endif %}       
+          <a href="{{ document.download_path }}" target="_blank"><img src="{{ document.avatar_url }}" class='doc_avatar' /></a>
+          {% if document.file_size > 104857600 && document.embeddable_document_extension? %}
+            <div class='info file_info' align=center>Files larger than 100 Megabytes do not have a file preview.</div>
+          {% elsif document.file_size <= 104857600  && !document.has_embedded_document? %}
+            <div class='info file_info' align=center>A preview for this file could not be created.</div>
+          {% endif %}
+        {% endif %}
       </div>
       <div class='clear'></div>
-    </div> 
-    
+    </div>     
     <!-- Metadata Details About This Document/File -->
     <div class="section description fulltext user_content">
       {% if document.description != empty %}
         {{ document.description }}
       {% else %}
-        <em>No description provided</em>
+        <em>No description provided.</em>
       {% endif %}
     </div>
   
@@ -215,7 +212,7 @@
         <h3>Document Locked</h3>
       </div>
       <div class='section'>
-          <p>This document was locked by <a href="{{ document.locked_by.show_path }}">{{ document.locked_by.display_name }}</a> {{ document.locked_at | time_ago_in_words, 'ago' }}.</p>
+          <p>This document was locked by {{ document.locked_by.link_to_profile }} {{ document.locked_at | time_ago_in_words, 'ago' }}.</p>
       </div>
     </div>
     {% endif %}

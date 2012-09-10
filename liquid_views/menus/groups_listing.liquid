@@ -1,6 +1,7 @@
 {% comment %} Markup changes here should also update users/pages_listing.liquid {% endcomment %}
 <ol>
-  {% include 'menus/groups_listing_item' parent: parent, section: 'BasicGroup', section_title: 'Subgroup' %}
-  {% include 'menus/groups_listing_item' parent: parent, section: 'BlankPage', section_title: 'Blank Page' %}
-  {% include 'menus/groups_listing_item' parent: parent, section: 'Project', section_title: 'Project' %} 
+  {%capture sub_groups_label %}Sub{{ site.basic_group_label | downcase }}{%endcapture%}
+  {% include 'menus/groups_listing_item' parent: parent, section: 'BasicGroup', section_title: sub_groups_label %}
+  {% include 'menus/groups_listing_item' parent: parent, section: 'BlankPage', section_title: site.blank_page_label %}
+  {% include 'menus/groups_listing_item' parent: parent, section: 'Project', section_title: site.project_label %}
 </ol>

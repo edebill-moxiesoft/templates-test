@@ -5,7 +5,7 @@
 
   {% if ideastorms == empty %}
     <p>
-      <em>no items available</em>
+      <em>No items available.</em>
     </p>
   {% else %}
 
@@ -15,7 +15,7 @@
       {% assign top_idea = ideastorm.top_idea %}
 
       <li class="item">
-        {{ top_idea.creator.small_avatar }}
+        <a href="{{ top_idea.creator.show_path }}">{{ top_idea.creator.small_avatar }}</a>
         {{ top_idea.creator.link_to_profile }}
         has the winning idea for
         {{ ideastorm.link_to_show_with_container_class }}

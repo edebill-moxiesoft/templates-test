@@ -9,7 +9,7 @@
     <div class="document_summary">
       <div class="document_preview">
         <a href="{{document.show_path}}" title="{{ document.title }}" class="{{document.container_class}}">
-          {% if activity.parent.has_transcoded_video %}
+          {% if document.has_transcoded_video %}
             <img class="large_wide video_thumbnail" src="{{ document.video_thumbnail_url }}" />
           {% else %}
             {{ document.activity_feed_rollup_avatar }}

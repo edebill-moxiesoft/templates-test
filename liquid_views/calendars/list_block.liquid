@@ -3,7 +3,7 @@
   <div class='section unit_body '>
     <ol class="calendars item_list js_filter_body">
       {% if calendars == empty %}
-        <p><em>no calendars yet</em></p>
+        <p><em>No calendars yet.</em></p>
       {% else %}
         {% for calendar in calendars %}
           <li class="item calendar {% if forloop.last %}last{% endif %}">

@@ -11,7 +11,7 @@
   </div>
 
   
-  <div class="section main js_filtered">
+  <div class="section main js_filtered js_activity_feed">
     <div class='section filters'>
 
       {% show_filters %}
@@ -25,7 +25,7 @@
     </ol>
 
     {% if show_more %}
-    <div class="footer" id="js_paginate">
+    <div class="footer">
       <div class="js_paginate">
         <a class="more" href="/activities/likes?1=1" data-offset="{{offset}}" data-type="html">More</a>
 

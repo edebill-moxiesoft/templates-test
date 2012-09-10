@@ -64,6 +64,9 @@
     </tr>
     </thead>
     <tbody class="js_filter_body">
+    {% if error %}
+      <p>We're sorry - the search service is currently unavailable. Please try again or contact your administrator.</p>
+    {% endif %}
     {% for user in users %}
 
     <tr>

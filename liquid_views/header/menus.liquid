@@ -19,8 +19,9 @@
         {% endsubmenu %}
     
         {% capture group_label %}{{ site.group_label | plural }}{% endcapture %}
+        {% capture my_group_label %}My {{ site.group_label | plural }}{% endcapture %}
         {% submenu group_label, /groups/overview %}
-          {% menu_link My Groups, /groups/my_groups %}
+          {% menu_link my_group_label, /groups/my_groups %}
           {% capture ideastorm_label %}{{ site.ideastorm_label | plural }}{% endcapture %}
           {% menu_link ideastorm_label, /ideastorms/overview %}
           {% capture ideastorm_leaderboard_label %}{{ site.ideastorm_label | plural }} Leaderboard{% endcapture %}

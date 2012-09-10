@@ -14,10 +14,10 @@
   If the above approve or reject links do not work for you due to email client settings, you can copy and paste the appropriate URL below into your browser:
 </p>
 <p>
-  APPROVE: {{url_start}}{{group.approve_invitation_path}}&invite={{invite.id}}&approve=1
+  APPROVE: <a href="{{url_start}}{{group.approve_invitation_path}}&invite={{invite.id}}&approve=1">{{url_start}}{{group.approve_invitation_path}}&invite={{invite.id}}&approve=1</a>
 </p>
 <p>
-  REJECT:  {{url_start}}{{group.approve_invitation_path}}&invite={{invite.id}}&reject=1
+  REJECT:  <a href="{{url_start}}{{group.approve_invitation_path}}&invite={{invite.id}}&reject=1">{{url_start}}{{group.approve_invitation_path}}&invite={{invite.id}}&reject=1</a>
 </p>
 
 {% include 'emails/_sent_from_footer' %}

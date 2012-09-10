@@ -3,7 +3,7 @@
   <div class='section unit_body '>
     <ol class="calendar_events item_list js_filter_body">
       {% if calendar_events == empty %}
-      <p><em>no {{ site.calendar_event_label | plural | downcase }} yet</em></p>
+      <p><em>No {{ site.calendar_event_label | plural | downcase }} yet.</em></p>
       {% endif %}
       {% for calendar_event in calendar_events %}
 

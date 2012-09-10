@@ -11,19 +11,24 @@
 
 
 <li class="text  last">
-  <label>Add external feeds to this blog</label>
+  <label>Add external feeds to this {{ site.blog_label | downcase }}</label>
 
   <p class="inline-hints">(optional) External feeds give you the ability to import your external feeds (flickr, twitter,
     personal blogs, etc) into your spaces blog. The imported blog posts will not appear immediately. There is a slight
     delay while we process them.</p>
   <ol id="external_channels_container">
     {% for external_channel in blog.external_channels %}
-    <li>
+    <li class={{external_channel.error_class}}>
       <input name="external_channels[][url]" value="{{external_channel.url}}" type="text">
       <input name="external_channels[][_id]" value="{{external_channel.id}}" type="hidden" class="external_channel_id">
       <a class="js_delete_external_feed" href="#">
         <img alt="Delete" src="/images/icons/delete.png"/>
       </a>
+    {% if external_channel.has_channel_error? %}
+    <div class="errorExplanation">
+        <ul><li>{{external_channel.channel_error}}</li></ul>
+    </div>
+    {% endif %}
     </li>
     {% endfor %}
     <li>

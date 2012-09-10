@@ -19,7 +19,7 @@
         {% endif %}
         <dt class="status">Status:</dt>
         <dd class="status js_parent_status">{{ task_list.status }}</dd>
-        <dt class="complete {% if task_list.tasks == empty %}disabled{% endif %}">Task Completion:</dt>
+        <dt class="complete {% if task_list.tasks == empty %}disabled{% endif %}">{{ site.task_label }} Completion:</dt>
         <dd class="complete js_parent_complete  {% if task_list.tasks == empty %}disabled{% endif %}">
           {% progress_bar percentage 'task_list.percent_completion' display 'task_list.tasks_complete_string' %}
         </dd>

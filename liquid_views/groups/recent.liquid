@@ -4,7 +4,7 @@
 <div class="section">
   
   {% if groups == empty %}
-    <p><em>no {{ site.group_label | plural | downcase}} available</em></p>
+    <p><em>No {{ site.group_label | plural | downcase}} available.</em></p>
   {% else %}
   
     <ol>
@@ -13,8 +13,8 @@
         <a href="{{ group.show_path }}">{{ group.small_avatar }}</a>
         <p class='title'>
           {{ group.link_to_show }}
+          {% join group %}
         </p>
-        {% join group %}
       </li>
       {% endfor %}
     </ol>

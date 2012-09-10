@@ -7,9 +7,29 @@
   <ol class='file_list'>
     {% for file in activity.last_3_rolled_up_added_nodes %}
       <li>
-        <a href="{{file.show_path}}" title="{{ file.title }}" class="{{file.container_class}}">
-          {{ file.activity_feed_rollup_avatar }}
-        </a>
+        {% if file.is_image %}
+          <a href="{{file.show_path}}" title="{{ file.title }}" class="{{file.container_class}}">
+            {{ file.activity_feed_rollup_avatar }}
+          </a>
+        {% elsif file.has_embedded_document_thumbnail? %}
+          <a href="{{file.show_path}}">
+            <img class="file" src="{{file.embedded_document_thumbnail_path}}">
+          </a>
+        {% elsif file.has_image? %}
+          {{ file.activity_feed_first_image }}
+        {% elsif file.is_video? %}
+          <a href="{{file.show_path}}" title="{{ file.title }}" class="{{file.container_class}}">
+            {% if file.has_transcoded_video %}
+              <img class="large_wide" src="{{ file.video_thumbnail_url }}" />
+            {% else %}
+              {{ file.activity_feed_rollup_avatar }}
+            {% endif %}
+          </a>
+        {% else %}
+          <a href="{{file.show_path}}" title="{{ file.title }}" class="{{file.container_class}}">
+            {{ file.activity_feed_rollup_avatar }}
+          </a>
+        {% endif %}
       </li>
     {% endfor %}
   </ol>

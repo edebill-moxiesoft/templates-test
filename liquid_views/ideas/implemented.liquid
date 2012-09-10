@@ -1,17 +1,17 @@
 <div class="header">
-  <h3>Recently Implemented Ideas</h3>
+  <h3>Recently Implemented {{site.idea_label | plural }}</h3>
 </div>
 <div class="section">
 
   {% if ideas == empty %}
     <p>
-      <em>No items available</em>
+      <em>No items available.</em>
     </p>
   {% else %}
     <ol>
       {% for idea in ideas %}
         <li class="item">
-          {{ idea.creator.small_avatar }}
+          <a href="{{ idea.creator.show_path }}">{{ idea.creator.small_avatar }}</a>
           {{ idea.creator.link_to_profile }}
           provided an implemented idea:
           {{ idea.link_to_show_with_container_class }}

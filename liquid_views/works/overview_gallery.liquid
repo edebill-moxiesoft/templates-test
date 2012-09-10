@@ -1,21 +1,24 @@
 <ol class="works gallery_list js_filter_body">
-  {% for work in works %}
-  <li class="item work">
-    <div class="hipster_avatar js_gallery_pic">
-      <a href="{{ work.show_path }}" style="background-image:url({{ work.hipster_large_avatar_path }})" title="{{ work.title }}"></a>
-    </div>
-
-    <div class="tool_tip">
-      <div class="tooltip_image_container">
-        <img class="tooltip_image" src="{{ work.hipster_large_avatar_path }}"/>
+  {% if works == empty %}
+    <li><p><em>No projects yet.</em></p></li>
+  {% else %}
+    {% for work in works %}
+    <li class="item work">
+      <div class="hipster_avatar js_gallery_pic">
+        <a href="{{ work.show_path }}" style="background-image:url({{ work.hipster_large_avatar_path }})" title="{{ work.title }}"></a>
       </div>
-      <div class="tooltip_image_details_container">
-        <h2><a href="{{ work.show_path }}">{{ work.title }}</a></h2>
-        <hr/>
-        <p class="description">{{ work.excerpted_body }}</p>
-      </div>
-    </div>
-  </li>
-  {% endfor %}
 
+      <div class="tool_tip">
+        <div class="tooltip_image_container">
+          <img class="tooltip_image" src="{{ work.hipster_large_avatar_path }}"/>
+        </div>
+        <div class="tooltip_image_details_container">
+          <h2><a href="{{ work.show_path }}">{{ work.title }}</a></h2>
+          <hr/>
+          <p class="description">{{ work.excerpted_body }}</p>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  {% endif %}
 </ol>

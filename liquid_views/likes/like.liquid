@@ -18,7 +18,7 @@
     <ol class="activity_actions">
       <li class="created">{{ like.last_liked_at | time_ago_in_words, 'ago'  }}</li>
       {% if like.likable? %}
-      <li class="like likes_link {% if first %}first{%endif%}">
+      <li class="like {% if first %}first{%endif%}">
         {{ like.likes_link }}
         <div class="icon"></div>
       </li>

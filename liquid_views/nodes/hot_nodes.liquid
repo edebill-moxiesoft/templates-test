@@ -1,11 +1,11 @@
 <div class="header">
   <h3>Hot Items</h3>
 </div>
-<div class="section">
+<div class="section" id="sidebar_hot_nodes">
   
   {% if nodes == empty %}
     <p>
-      <em>no items available</em>
+      <em>No items available.</em>
     </p>
   {% else %}
   
@@ -13,7 +13,9 @@
       {% for item in nodes %}
       <li class="item hot">
         <a href="{{ item.show_path }}">{{ item.small_avatar }}</a>
-        {{ item.link_to_show_with_container_class }}
+        <p class="title">
+          {{ item.link_to_show_with_container_class }}
+        </p>
       </li>
       {% endfor %}
     </ol>
@@ -24,4 +26,3 @@
   {% endif %}
   
 </div>
-

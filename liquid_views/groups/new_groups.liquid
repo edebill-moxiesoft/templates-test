@@ -5,7 +5,7 @@
   
   {% if groups == empty %}
     <p>
-      <em>no new {{ site.group_label | plural | downcase }} available</em>
+      <em>No new {{ site.group_label | plural | downcase }} available.</em>
     </p>
   {% else %}
   
@@ -13,8 +13,10 @@
       {% for group in groups %}
       <li class="item">
         <a href="{{ group.show_path }}">{{ group.small_avatar }}</a>
-        {{ group.link_to_show }}
-        <p>{{ 'member' | pluralize: group.members_count }}</p>   
+         <p class='title'>
+           {{ group.link_to_show }}<br/>
+           {{ 'member' | pluralize: group.members_count }}
+         </p>
       </li>
       {% endfor %}
     </ol>

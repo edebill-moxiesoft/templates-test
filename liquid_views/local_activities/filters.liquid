@@ -1,8 +1,10 @@
 <div class='section filters'>
-  <form class="activity_filters js_activity_filters" data-method='get' data-remote='true'
+  <form class="activity_filters js_activity_filters" data-method='get' data-remote='true' id='activity_filter_controls'
         data-type="html" action="{% if node %}{{node.show_path}}/newsfeed{% elsif user_id %}/users/{{user_id}}/activities{% else %}/activities{% endif %}">
-    <input type='hidden' name="limit" value='10'>
-    <input type='hidden' name="offset" value='0'>
+    <input type='hidden' name="first_page_size" value='5'>
+    <input type='hidden' name="page" value='1'>
+    <!--input type='hidden' name="limit" value='10'>
+    <input type='hidden' name="offset" value='0'-->
 
     <ul class="spinner_block">
       {% if filter_by == 'watched' %}

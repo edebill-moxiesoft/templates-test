@@ -11,7 +11,7 @@
 
     {% if user.email %}
   	<li class="radio_label">
-  		<input type="radio" name="user[primary_email]" value="{{user.email}}" class="primary_email" checked="checked" />
+  		<input type="radio" name="user[email]" value="{{user.email}}" class="primary_email" checked="checked" />
   		<input type="hidden" name="user[all_emails][]" value="{{user.email}}" />
   		<label for="primary_email">{{user.email}} (Primary)</label>
   	</li>
@@ -19,7 +19,7 @@
 
   	{% for email_address in user.non_primary_emails %}
   	<li class="radio_label">
-  		<input type="radio" name="user[primary_email]" value="{{email_address}}" id="email_address_{{forloop.index}}" />
+  		<input type="radio" name="user[email]" value="{{email_address}}" id="email_address_{{forloop.index}}" />
   		<input type="hidden" name="user[all_emails][]" value="{{email_address}}" />
   		<label for="email_address_{{forloop.index}}">
         {{ email_address }}
@@ -43,7 +43,7 @@
 
   	{% comment %}This hidden one is a template used when inserting new email addresses{% endcomment %}
   	<li class="radio_label_template radio_label">
-  		<input type="radio" name="user[primary_email]" value="" id="" disabled="true" />
+  		<input type="radio" name="user[email]" value="" id="" disabled="true" />
   		<input type="hidden" name="user[all_emails][]" value="" disabled="true" />
   		<label for=""></label>
   		<a class="email_remove_button">Remove</a>

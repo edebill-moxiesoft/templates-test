@@ -1,14 +1,16 @@
-{% assign display_limit = 5 %}
+{% assign display_limit = 6 %}
+{% if categories != empty or orphans != empty %}
 <ul class="categories">
   {% for category in categories %}
     <li class="category_block {% cycle 'cat': 'col1', 'col2' %}">
       <div class="menu">
-        <p class="category_title">{{ category.link_to_show }}</p>
+        <p class="category_title 
+        {% if forloop.index < 3 %}firstrow{% endif %}">{{ category.link_to_show }}</p>
         <ul>
         	{% if children_type == 'Project' %}
 
             {% if category.projects == empty %}
-              <em>No projects in this category</em>
+              <em>No projects in this category.</em>
             {% endif %}
 
             {% for project in category.projects limit: display_limit %}
@@ -21,7 +23,7 @@
   				{% else %}
 
             {% if category.groups == empty %}
-              <em>No groups in this category</em>
+              <em>No groups in this category.</em>
             {% endif %}
   	        {% for group in category.groups limit: display_limit %}          
   	          {% capture recent_update %}{% if group.has_recent_activity? %}recent_update{% endif %}{% endcapture %}
@@ -64,15 +66,14 @@
           {% endfor %}
         </ul>        
       </div>
-      <a href="#" class="more_link js_others_more_expander">More</a>
+      {% if orphans.size > display_limit %}
+        <a href="#" class="more_link js_others_more_expander">More</a>
+      {% endif %}
     </li>
-  {% else %}
-     {% if categories == empty %}
-       <li>
-        <p>
-          <em>No categories have been created</em>
-        </p>
-      </li>
-    {% endif %}
   {% endif %}
 </ul>
+{% else %}
+<p>
+  <em>No categories have been created.</em>
+</p>
+{% endif %}

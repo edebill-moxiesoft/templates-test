@@ -89,15 +89,24 @@
   </form>
 </div>
 <div class="search_summary">
-  <span class="search_results_count">
-    {% if view != 'per-type' %}{% if nodes_count > 1000 %}
-         more than 1,000
-      {% else %}
-        {{ nodes_count | number_with_commas }}
-      {% endif %}
-    {% endif %}
-     search results for "<b>{{ search.query | escape }}</b>" in "<b>{% if tab == 'all' %}Everything{% else %}{{ label | plural }}{% endif %}</b>"
-  </span>
-  {% if tab == 'all' %}{% include 'searches/_view_toggle' view: view %}{% endif %}
-  <div class='clear'></div>
+
+  {% if valid_search_string %}
+    <span class="search_results_count">
+        {% if error %}
+          <p>The search service is currently unavailable. Please try again or contact your administrator.</p>
+        {% else %}
+          {% if view != 'per-type' %}
+              {{ nodes_count | number_with_commas }}
+          {% endif %}
+           search results for "<b>{{ search.query | escape }}</b>" in "<b>{% if tab == 'all' %}Everything{% else %}{{ label | plural }}{% endif %}</b>"
+        {% endif %}
+    </span>
+    {% if tab == 'all' %}{% include 'searches/_view_toggle' view: view %}{% endif %}
+      <div class='clear'></div>
+  {% else %}
+    <div class='info invalid_search_string'>
+      <p>Searches require at least one letter or number.</p>
+    </div>
+  {% endif %}
+  
 </div>

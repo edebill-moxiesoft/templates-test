@@ -6,7 +6,7 @@
 </form>
 <ol class="works item_list js_filter_body">
   {% if works == empty %}
-    <li><p><em>No {{ site.work_label | plural | downcase }} yet</em></p></li>
+    <li><p><em>No {{ site.work_label | plural | downcase }} yet.</em></p></li>
   {% else %}
   {% for work in works %}
   <li class="item work">

@@ -50,7 +50,7 @@
           </dd>
 
 
-          {% if user.pending_primary_email != empty and current_user.id == user.id %}
+          {% if user.pending_primary_email and current_user.id == user.id %}
           <dt>Pending Primary Email</dt>
           <dd>
             <a class='person_link' href="mailto:{{ user.pending_primary_email }}">{{user.pending_primary_email | truncate: 27 }}</a>
@@ -85,9 +85,11 @@
 
     <div class='aside'>
       {% activity for 'user' limit 5 %}
-      <div class='section'>
-        <a class='more_link' href='{{user.activities_path}}'>More</a>
-      </div>
+      {% if user.has_activities? %}
+        <div class='section'>
+          <a class='more_link' href='{{user.activities_path}}'>More</a>
+        </div>
+      {% endif %}
     </div>
     
     {% if site.enable_badges? %}

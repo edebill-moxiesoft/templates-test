@@ -1,11 +1,11 @@
 <div class="header">
   <h3>My {{ site.ideastorm_label | plural }}</h3>
 </div>
-<div class="section">
+<div class="section" id="sidebar_my_ideastorms">
   
   {% if ideastorms == empty %}
     <p>
-      <em>no {{ site.ideastorm_label | plural | downcase }} available</em>
+      <em>No {{ site.ideastorm_label | plural | downcase }} available.</em>
     </p>
   {% else %}
   
@@ -23,7 +23,7 @@
       {% endfor %}
     </ol>
     {% if more_ideastorms > 0%}
-      <a class="more_link" href="/ideastorms?order=my">{{ more_ideastorms }} more active</a>
+      <a class="more_link" href="/ideastorms?order=my">{{ more_ideastorms }} more</a>
     {% endif %}
   
   {% endif %}

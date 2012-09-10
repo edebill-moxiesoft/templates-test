@@ -1,7 +1,7 @@
 <div class='desktop_sync_buttons'>
-  {% if document_library.current_user_has_synced_to_desktop? %}
-    <a href="/user_node_settings/{{ document_library.user_node_setting_id_for_current_user }}" data-remote='true' data-type='json' data-method='delete' class='desktop_unsync' title="Unsync from Desktop Connect"></a>
+  {% if document_library.current_user_has_file_synced? %}
+    <a href="/user_node_settings/{{ document_library.user_node_setting_id_for_current_user }}" data-remote='true' data-type='json' data-method='delete' class='desktop_unsync' title="Remove from File Sync"></a>
   {% else %}
-    <a href="/user_node_settings/create_for_desktop_connect?user_node_setting[node_id]={{ document_library.id }}&user_node_setting[is_synched_library]=1&user_node_setting[user_id]={{ current_user.id }}" data-remote='true' data-type='json' data-method='post' class='desktop_sync' title="Sync with Desktop Connect"></a>
+    <a href="/user_node_settings/create_for_file_sync?user_node_setting[node_id]={{ document_library.id }}&user_node_setting[is_synched_library]=1&user_node_setting[user_id]={{ current_user.id }}" data-remote='true' data-type='json' data-method='post' class='desktop_sync' title="Add to File Sync"></a>
   {% endif %}
 </div>

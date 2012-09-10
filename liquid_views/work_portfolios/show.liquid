@@ -44,13 +44,7 @@
       {% for item in work_portfolio.item_references %}
       <tr>
         <td>
-          <a href="{{ item.show_path }}">
-            {% if item.has_avatar? %}
-            {{ item.small_avatar }}
-            {% else %}
-            <div class="hipster_avatar thumbnail_square"></div>
-            {% endif %}
-          </a>
+          {{ item.small_avatar_with_link }}
         </td>
         <td class='description'>
           <a href="{{ item.show_path }}">

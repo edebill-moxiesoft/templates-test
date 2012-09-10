@@ -12,8 +12,8 @@
     </div>
 
     <div class="node_details">
+      <div class="discussion_watch_link">{{ discussion.watch_button_small }}</div>
       <h2 class="page_title">{{ discussion.title }}</h2>
-      {{ discussion.watch_button_small }}
       <div class="clear"></div>
                 
         <ul class="primary_actions content_show">
@@ -59,7 +59,7 @@
               {{ discussion.creator.small_avatar_with_link }}
               <div class="comment user_content">
                 <div class="comment_border"></div>
-                <p class="comment_body ">{{ discussion.body }}</p>
+                <div class="comment_body ">{{ discussion.body }}</div>
 
                 <div class="footer">
                   <span class="owner">{{ discussion.creator.link_to_show }}</span>

@@ -103,7 +103,7 @@
   </div>
   <div class="unit_body">
     {% if complete_works == empty %}
-    <p><em>No {{ site.client_completed_label | downcase }} {{ site.work_label | plural | downcase }} yet</em></p>
+    <p><em>No {{ site.client_completed_label | downcase }} {{ site.work_label | plural | downcase }} yet.</em></p>
     {% else %}
     <ol class="works completes item_list">
       {% for work in complete_works %}

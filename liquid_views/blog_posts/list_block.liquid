@@ -1,6 +1,6 @@
 <ol class="blog_posts article_list js_filter_body">
   {% if blog_posts == empty %}
-  <li><p><em>No {{ site.blog_post_label | plural | downcase }} available</em></p></li>
+  <li><p><em>No {{ site.blog_post_label | plural | downcase }} available.</em></p></li>
   {% endif %}
 
   {% for post in blog_posts %}

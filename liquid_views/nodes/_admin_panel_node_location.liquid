@@ -1,0 +1,100 @@
+<div class="set">
+  <div class="label_column">
+    <span class="inputs_set">Current location</span>
+  </div>
+  <div class="settings_column" id="node_management_section">
+    <div class="breadcrumb">{% breadcrumbs omit_self %}</div>
+    {% if node.is_deletable? %}
+    <div class="mgmt_links">
+      <a class='node_move'>Move</a>
+      &nbsp;|&nbsp;
+      <a class="node_delete" id="node_deletion_link"
+         data-prompt="This will delete this {{ node.site_label }} and all of its children.  Are you sure you want to do this?">
+        Delete
+      </a>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if node.is_deletable? %}
+  <div id='node_move_section' data-id='{{ node.id }}' data-title="{{node.title}}">
+    <div class="label_column">
+      <span class="inputs_set">New location</span>
+      <blockquote class="set-hint">
+        Use the search bar or browse using the finder window to select a new location for this {{ node.site_label }}
+      </blockquote>
+    </div>
+    <div class="settings_column">
+      <div id="node_move_search" class="js_recipient_wrapper ">
+        <div class="recipient_list">
+          <input type="text" title="Search" name="node_move_search_input" id="node_move_search_input"
+                 class="js_add_member_search hint"/>
+
+          <div class="node_search_modal js_node_search_modal">
+            <div class="header">
+              <span class="close_btn">Close</span>
+              <input class="node_search_modal_input js_node_search_modal_input" type="text" autocomplete="off"
+                     name="node_search" title="Search" data-type="html"/>
+
+              <div class="spinner"></div>
+              <h3>Search Results</h3>
+            </div>
+            {% include 'local_activities/microblogger_attn_list' show_breadcrumbs: true %}
+          </div>
+        </div>
+
+      </div>
+
+
+      <div id="node_tree_wrapper">
+        <div id="node_move_indicator"></div>
+        <div id="node_tree">
+          <ol>
+            <li id='personal'>
+              <div class="row odd personal" data-id='personal' data-level="-1">
+                <span class="expander closed"></span><a>People</a>
+              </div>
+            </li>
+            <li id='group'>
+              <div class="row even group" data-id='group' data-level="-1">
+                <span class="expander closed"></span><a>{{site.group_label | plural}}</a>
+              </div>
+            </li>
+            <li id='project'>
+              <div class="row odd project" data-id='project' data-level="-1">
+                <span class="expander closed"></span><a>{{site.project_label | plural}}</a>
+              </div>
+            </li>
+            {% if site.clients_section_enabled? %}
+            <li id='client'>
+              <div class="row even client" data-id='client' data-level="-1">
+                <span class="expander closed"></span><a>{{site.client_label | plural}}</a>
+              </div>
+            </li>
+            {% endif %}
+          </ol>
+        </div>
+        <div id="node_tree_hover">Yo, I'm a hover, bitch!</div>
+      </div>
+
+      <div id="node_move_new_breadcrumb" class="breadcrumb">
+        <span class="label">New Location</span>
+        <span class="new_breadcrumb"></span>
+      </div>
+
+      <fieldset class="buttons">
+        <ol>
+          <li class="commit ">
+            <input id="submit_node_move" name="commit" title="Move" type="submit" value="Move"/>
+          </li>
+          <li class="cancel">
+            <input id="cancel_node_move" title="Cancel" type="button" value="Cancel" class="cancel"/>
+          </li>
+        </ol>
+      </fieldset>
+
+
+    </div>
+  </div>
+  {% endif %}
+</div>

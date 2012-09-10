@@ -13,15 +13,16 @@
     </ul>
   </li>
   {% endunless %}
-  
+
   {% unless groups == empty %}
   <li class="category_block">
-    <div class="category"><span>{{ site.group_label | plural }}</span></div>
+    <div class="category"><span>{{ site.group_label | plural | truncate length: 10 }}</span></div>
     <ul>
     {% for group in groups %}
       <li class="group result js_result">
         {{ group.small_avatar }}
         <a href="#" class="node_link js_result_link" data-type="group" data-id="{{ group.id }}">{{ group.title_for_attn }}</a>
+        {% if show_breadcrumbs %}{{ group | microblogger_breadcrumbs  }}{% endif %}
       </li>
     {% endfor %}
     </ul>      
@@ -30,12 +31,13 @@
   
   {% unless projects == empty %}
   <li class="category_block">
-    <div class="category"><span>{{ site.project_label | plural }}</span></div>
+    <div class="category"><span>{{ site.project_label | plural | truncate length: 10 }}</span></div>
     <ul>
     {% for project in projects %}
       <li class="project result js_result">
         {{ project.small_avatar }}
         <a href="#" class="node_link js_result_link" data-type="project" data-id="{{ project.id }}">{{ project.title_for_attn }}</a>
+        {% if show_breadcrumbs %}{{ project | microblogger_breadcrumbs }}{% endif %}
       </li>
     {% endfor %}
     </ul>      
@@ -44,12 +46,13 @@
 
   {% unless clients == empty %}
   <li class="category_block">
-    <div class="category"><span>{{ site.client_label | plural }}</span></div>
+    <div class="category"><span>{{ site.client_label | plural | truncate length: 10 }}</span></div>
     <ul>
     {% for client in clients %}
       <li class="client result js_result">
         {{ client.small_avatar }}
         <a href="#" class="node_link js_result_link" data-type="client" data-id="{{ client.id }}">{{ client.title_for_attn }}</a>
+        {% if show_breadcrumbs %}{{ client | microblogger_breadcrumbs }}{% endif %}
       </li>
     {% endfor %}
     </ul>
@@ -58,16 +61,34 @@
 
   {% unless tasks == empty %}
   <li class="category_block">
-    <div class="category"><span>{{ site.task_label | plural }}</span></div>
+    <div class="category"><span>{{ site.task_label | plural | truncate length: 10 }}</span></div>
     <ul>
     {% for task in tasks %}
       <li class="task result js_result">
         {{ task.small_avatar }}
         <a href="#" class="node_link js_result_link" data-type="task" data-id="{{ task.id }}">{{ task.title_for_attn }}</a>
+        {% if show_breadcrumbs %}{{ task | microblogger_breadcrumbs  }}{% endif %}
       </li>
     {% endfor %}
     </ul>      
   </li>
   {% endunless %}
-  
+
+  {% unless node_groups == empty %}
+    {% for nodes in node_groups %}
+    <li class="category_block">
+      <div class="category"><span>{{ nodes.first.site_label | plural }}</span></div>
+      <ul>
+      {% for node in nodes %}
+        <li class="{{node.container_class}} result js_result">
+          {{ node.small_avatar }}
+          <a href="#" class="node_link js_result_link" data-type="{{node.type}}" data-id="{{ node.id }}">{{ node.title_for_attn }}</a>
+          {% if show_breadcrumbs %}{{ node | microblogger_breadcrumbs  }}{% endif %}
+        </li>
+      {% endfor %}
+      </ul>
+    </li>
+    {% endfor %}
+
+  {% endunless %}
 </ol>

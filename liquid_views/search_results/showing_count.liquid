@@ -1,9 +1,5 @@
 {% unless hide %}
   <span class="search_results_count">
-    showing <span class="showing_count">{{ showing_count }}</span> of {% if total_count > 1000 %}
-    1000
-{% else %}
-  {{ total_count }}
-{% endif %} results
+    showing <span class="showing_count">{{ showing_count }}</span> of {{ total_count }} results
   </span>
 {% endunless %}

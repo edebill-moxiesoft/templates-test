@@ -1,11 +1,11 @@
 <div class="header">
   <h3>My {{ site.project_label | plural }}</h3>
 </div>
-<div class="section">
+<div class="section" id="sidebar_my_projects">
 
   {% if projects == empty %}
     <p>
-      <em>no {{ site.project_label | plural | downcase }} available</em>
+      <em>No {{ site.project_label | plural | downcase }} available.</em>
     </p>
   {% else %}
 

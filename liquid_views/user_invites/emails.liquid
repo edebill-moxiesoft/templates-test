@@ -32,11 +32,11 @@
      {% endform %}
     {% else %}
         {% form for 'user_invites_wizard_presenter' action: 'user_invites_wizard_presenter.save_emails_path' class: 'fancyform group' data-remote: true data-type: html  %}
-          {% error_messages %}
-          {% input for 'emails' as: 'textarea' rows: 5 required: 'true' wrapper_class: 'location_attribute' label_hint: "(use commas to separate emails)"%}
+          {% flash_messages %}
+          {% input for 'emails' as: 'textarea' required: 'true' wrapper_class: 'location_attribute' label_hint: "(use commas to separate emails)"%}
           <br/>
           <br/>
-          {% input for 'message' as: 'textarea' rows: 8 required: 'false' wrapper_class: 'location_attribute' %}
+          {% input for 'message' as: 'textarea'  required: 'false' wrapper_class: 'location_attribute' %}
         {% endform %}
     {% endif %}
   </div>

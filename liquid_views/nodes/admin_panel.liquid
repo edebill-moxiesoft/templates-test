@@ -1,9 +1,9 @@
 {% form for 'node' anchor: 'admin' multipart: true class: 'fancyform admin_panel node' %}
   <div class="admin_container" id="node_admin_system">
   {% error_messages %}
-  
+
   {% include 'nodes/_admin_panel_pagemgmt' %}
-  
+
   {% if node.acts_like_group? == true %}
     {% include 'nodes/_admin_panel_members' %}
   {% endif %}

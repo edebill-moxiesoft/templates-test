@@ -12,7 +12,7 @@
     </tr>
     {% if works == empty %}
     <tr>
-      <td><p><em>No {{ site.work_label | plural | downcase }} yet</em></p></li></td>
+      <td><p><em>No {{ site.work_label | plural | downcase }} yet.</em></p></li></td>
     </tr>
     {% else %}
     {% for work in works %}
@@ -44,7 +44,7 @@
 
   <ol class="works gallery_list">
     {% if works == empty %}
-    <li><p><em>No {{ site.work_label | plural | downcase }} yet</em></p></li>
+    <li><p><em>No {{ site.work_label | plural | downcase }} yet.</em></p></li>
     {% else %}
     {% for work in works %}
     <li class="item work">

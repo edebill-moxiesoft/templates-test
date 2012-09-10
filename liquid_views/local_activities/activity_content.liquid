@@ -30,7 +30,7 @@
     <img class="file" src="{{ activity.parent.non_image_thumbnail }}"/>
   {% endif %}
 
-  {% if activity.parent.is_document or activity.parent.has_body %}
+  {% if activity.parent.is_document or (activity.parent.has_body and activity.parent.limited_body.has_body) %}
   <div class="description">
     {% if activity.parent.is_document %}
       <div class="file_name">{{ activity.parent.file_name }}

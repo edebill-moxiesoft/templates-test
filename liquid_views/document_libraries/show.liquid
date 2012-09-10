@@ -5,7 +5,6 @@
 </div> 
 
 <div id='show_document_library_gallery' class="section js_filtered ">
-  <div class='js_filter_body'>
 
   <div class='section main item_show'>
   
@@ -14,7 +13,10 @@
         {% if document_library.current_user_can_contribute? %}
           <ul class="primary_actions">
             <li class="node_actions">{{ document_library.add_document_link }}</li>
-            <li class="node_actions">{{ "Add Folder" | link_to_wizard_add_page: 'DocumentLibrary', document_library.guid }}</li>
+            {% if site.folders_enabled? %}
+            {% capture folder_label %}Add {{ site.folder_label }}{% endcapture %}
+              <li class="node_actions">{{ folder_label | link_to_wizard_add_page: 'DocumentLibrary', document_library.guid }}</li>
+            {% endif %}
           </ul>
         {% endif %}
       {% endcapture %}
@@ -61,8 +63,11 @@
 
     {% if view == 'gallery' %}
     <div class="main">
+
+
       {% include 'documents/_tag_filtering' %}
       <div class="gallery_container">
+        <div class='js_filter_body'>
         {% if all_documents and all_documents != empty %}
         {% for document in all_documents %}
         
@@ -134,15 +139,17 @@
           
         {% endfor %}
         {% endif %}
-        <div class="clear"></div> 
+        <div class="clear"></div>
+        </div>
       </div>
       {% if all_documents and all_documents != empty %}
       {% paginate all_documents %}
       {% endif %}
+
     </div>
     {% endif %}
   
-  
+
     <div class='clear'></div>
   
   
@@ -187,7 +194,7 @@
     </div>
     
   </div>
-  </div>
+
 </div>
 
 {% if wizard_launch %}

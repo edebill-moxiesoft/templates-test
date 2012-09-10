@@ -27,9 +27,9 @@
     </li>
   {% endif %}
 
-  {% if site.desktop_connect_enabled? and user.current_user? %}
-    <li class="menu_item icon_menu_item {% if action == 'desktop_connect' %}selected{% endif %}">
-      <a href="/users/desktop_connect" class="desktop_connect_menu_item" title="Desktop Connect">Desktop Connect</a>
+  {% if site.desktop_sync_enabled? and user.current_user? and user.has_file_sync_installed? %}
+    <li class="menu_item icon_menu_item {% if action == 'file_sync' %}selected{% endif %}">
+      <a href="/users/file_sync" class="file_sync_menu_item" title="File Sync">File Sync</a>
     </li>
   {% endif %}
 </ol>

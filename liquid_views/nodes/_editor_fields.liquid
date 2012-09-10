@@ -13,8 +13,8 @@
 {% elsif form_object.editor_type == 'wysiwyg' %}
 
   {% input for 'created_with' label: 'Editor' as: 'select' include blank: 'false' wrapper_class: 'created_with_switch' class: 'form_editor_switch' collection: [['WYSIWYG','wysiwyg'], ['Textile','textile']] %}      
-  {% input for 'body_textile' as: 'textarea' required: 'false' wrapper_class: 'textile_editor' wrapper_style: 'display:none' label_from_variable: textile_body_label hint: "Textile is a simpler, quicker way to create richly-formatted content.<br/><a href='http://redcloth.org/textile' target='new'>Click here</a> to learn more." %}
-  {% input for 'body' as: 'textarea' required: 'false' wrapper_class: 'wysiwyg_editor' wrapper_style: 'display:visible' label_from_variable: body_label class: 'ckeditor ckeditor_custom' %}
+  {% input for 'body_textile' as: 'textarea' required: 'form_for.require_body?' wrapper_class: 'textile_editor' wrapper_style: 'display:none' label_from_variable: textile_body_label hint: "Textile is a simpler, quicker way to create richly-formatted content.<br/><a href='http://redcloth.org/textile' target='new'>Click here</a> to learn more." %}
+  {% input for 'body' as: 'textarea' required: 'form_for.require_body?' wrapper_class: 'wysiwyg_editor' wrapper_style: 'display:visible' label_from_variable: body_label class: 'ckeditor ckeditor_custom' %}
 
 {% else %}
 

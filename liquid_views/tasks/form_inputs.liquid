@@ -24,7 +24,7 @@
 
 <li class='string optional' id='task_due_date_input'>
   <label for='task_due_date'>Due Date</label>
-  <input class='datepicker task_due_date' id='task_due_date' name='task[due_date]' size='70' style='width: 10%' value="{{form_object.due_date}}" />
+  <input id='task_due_date' class='task_datepicker task_due_date' id='task_due_date' name='task[due_date]' size='70' style='width: 10%' value="{{form_object.due_date}}" />
 </li>
 
 {%input for 'milestone' label: 'Milestone?' as: 'checkbox' required: 'false' class: 'task_milestone'%}

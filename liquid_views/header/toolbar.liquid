@@ -46,17 +46,6 @@
           </abbr>
         </a>
       </li>
-      {% assign counter_class = "no_content" %}
-      {% if current_user.watch_updates_count > 0 %}
-      {% assign counter_class = "has_content" %}
-      {% endif %}
-      <li class="{{ counter_class }}">
-        <a id="js_watching-hover" class="notifiers watching" data-url="{{ current_user.show_path }}/watchings">
-          <abbr title="{{ current_user.watch_updates_count }} watched items" class="disabled">
-            <var class="watchings_count">{{ current_user.watch_updates_count }}</var>
-          </abbr>
-        </a>
-      </li>
     </ol>
     {% endif %}
   </div>

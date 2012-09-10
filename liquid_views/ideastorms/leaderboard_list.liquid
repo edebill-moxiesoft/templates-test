@@ -9,7 +9,7 @@
   <div class='section unit_body js_filter_body'>
     {% if ideastorms == empty %}
       <p>
-        <em>no {{ site.ideastorm_label | plural | downcase }} available</em>
+        <em>No {{ site.ideastorm_label | plural | downcase }} available.</em>
       </p>
     {% else %}
       <ol class='item_list'>
@@ -85,12 +85,13 @@
                 <h2>
                   {{ ideastorm.link_to_show }}
                   <p class='updated'>
-                    Accepting ideas through {{ ideastorm.close_at | date: "%x" }}
+                    Accepting {{site.idea_label | plural }} through {{ ideastorm.close_at | date: "%x" }}
                   </p>
                 </h2>
-                
+
+                {% if ideastorm.ideas_count > 0 %}
                 <div class="ideas_block open_ideastorm">
-                <h3 class="idea_toggler {% if forloop.first %}open{% else %}closed{% endif %}">Top Ideas</h3>
+                <h3 class="idea_toggler {% if forloop.first %}open{% else %}closed{% endif %}">Top {{site.idea_label | plural }}</h3>
                   <ol class="item_list {% unless forloop.first %}hidden{% endunless %}">
                     {% for idea in ideastorm.top_3_ideas %}
 
@@ -127,6 +128,7 @@
                     {% endfor %}
                   </ol>
                 </div>
+                {% endif %}
               {% endif %}
           </li>
         {% endfor %}

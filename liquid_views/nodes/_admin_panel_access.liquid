@@ -3,7 +3,7 @@
   <div class="set last">
     <div class="label_column access">
       <blockquote class="set-hint">
-        Use the search box to find users and groups. You can then provide administrative, contribution, or view rights by dragging the item to its corresponding section on the right.
+        Use the search box to find users and {{site.group_label | downcase | plural }}. You can then provide administrative, contribution, or view rights by dragging the item to its corresponding section on the right.
       </blockquote>
     </div>
     <div class="settings_column access">
@@ -34,7 +34,7 @@
               {% if node.accessor_list_admin.size > 0 %}
                 {% for member in node.accessor_list_admin %}
                 <li data-fullid="{{ member.security_id }}" class="draggable popdown_item {{ member.container_class }}_link">
-                  <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+                  <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png"/></a>
                   <span>{{ member.name }}</span>
                   <input type="hidden" class="js_node_settings_admin_array" name="node[settings][admin][]" value="{{ member.security_id }}">
                 </li>
@@ -52,7 +52,7 @@
               {% if node.accessor_list_write.size > 0 %}
                 {% for member in node.accessor_list_write %}
                 <li data-fullid="{{ member.security_id }}" class="draggable popdown_item {{ member.container_class }}_link">
-                  <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+                  <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" /></a>
                   <span>{{ member.name }}</span>
                   <input type="hidden" class="js_node_settings_write_array" name="node[settings][write][]" value="{{ member.security_id }}">
                 </li>
@@ -70,7 +70,7 @@
               {% if node.accessor_list_read.size > 0 %}
                 {% for member in node.accessor_list_read %}
                 <li data-fullid="{{ member.security_id }}" class="draggable popdown_item {{ member.container_class }}_link">
-                  <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png" width="9" height="10" /></a>
+                  <a href="#" class="js_remove_from_list"><img src="/images/red_delete_tiny.png"  /></a>
                   <span>{{ member.name }}</span>
                   <input type="hidden" class="js_node_settings_read_array" name="node[settings][read][]" value="{{ member.security_id }}">
                 </li>
